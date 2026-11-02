@@ -1,7 +1,7 @@
-<title>PMP Readiness Map</title>
+<title>PMP/ACP Guide</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
 /* Layout: a briefing board. Dark command band (readiness gauge + domain bars), then the plan, the task heat map, and the progress log. */
 :root{
@@ -315,26 +315,153 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
 .replybox{display:flex;gap:6px}.replybox input{min-width:0;flex:1;font:14px var(--f-body);padding:6px 8px;border-radius:4px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 .qform select,.qform input{min-height:38px}
 @media (max-width:640px){.hero-card{grid-template-columns:1fr}.calc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* ===== v7: premium redesign (PMP/ACP Guide) ===== */
+:root{
+  --bg:#f5f5f7; --surface:#ffffff; --ink:#1d1d1f; --muted:#6e6e73; --line:#e3e3e8;
+  --band:#000000; --band-ink:#f5f5f7; --band-muted:#a1a1a6; --band-line:#2c2c2e;
+  --accent:#0071e3; --accent-ink:#ffffff; --brass:#e3a33b;
+  --f-display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --f-data:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --c-mindset:#0a7cff; --c-leadership:#a34bd8; --c-product:#e08600; --c-delivery:#1fa64a;
+  --c-scrum:#0a7cff; --c-team:#e0335a; --c-value:#c98a00;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 14px 34px -18px rgba(0,0,0,.18);
+  --glass:rgba(251,251,253,.8);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#000000; --surface:#161618; --ink:#f5f5f7; --muted:#98989d; --line:#2f2f33; --accent:#2997ff; --accent-ink:#ffffff;
+  --c-mindset:#409cff; --c-leadership:#c77dff; --c-product:#ffab33; --c-delivery:#4cd964; --c-scrum:#409cff; --c-team:#ff6482; --c-value:#ffd426;
+  --shadow:0 0 0 1px rgba(255,255,255,.06); --glass:rgba(22,22,23,.8);}}
+:root[data-theme="dark"]{
+  --bg:#000000; --surface:#161618; --ink:#f5f5f7; --muted:#98989d; --line:#2f2f33; --accent:#2997ff; --accent-ink:#ffffff;
+  --c-mindset:#409cff; --c-leadership:#c77dff; --c-product:#ffab33; --c-delivery:#4cd964; --c-scrum:#409cff; --c-team:#ff6482; --c-value:#ffd426;
+  --shadow:0 0 0 1px rgba(255,255,255,.06); --glass:rgba(22,22,23,.8);}
+body{font:17px/1.47 var(--f-body);letter-spacing:-.011em;-webkit-font-smoothing:antialiased;margin:0}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.inner{max-width:1180px}
+/* global nav */
+.gnav{position:sticky;top:0;z-index:40;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid color-mix(in srgb,var(--ink) 8%,transparent)}
+.gnav-in{display:flex;align-items:center;gap:8px 20px;min-height:54px;justify-content:space-between;flex-wrap:wrap;padding-block:6px}
+.gnav .brand{gap:10px}
+.logo{width:30px;height:30px;flex:none;display:block}
+.gnav h1{font:700 18px/1 var(--f-display);letter-spacing:-.02em;text-transform:none;color:var(--ink);margin:0}
+.gnav .tag{font:500 11px var(--f-body);color:var(--muted);letter-spacing:0;margin-top:3px}
+.gnav nav{background:none;padding:0;gap:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0;max-width:100%;border-radius:0}
+.gnav nav::-webkit-scrollbar{display:none}
+@media (max-width:820px){.gnav nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:24px}}
+.gnav nav button{font:400 13px var(--f-body);letter-spacing:0;text-transform:none;color:var(--ink);opacity:.78;padding:8px 11px;border-radius:999px;white-space:nowrap;background:none}
+.gnav nav button:hover{opacity:1;color:var(--ink)}
+.gnav nav button[aria-current="true"]{background:none;color:var(--accent);opacity:1;font-weight:600}
+/* hero band */
+.top{background:radial-gradient(900px 380px at 50% -20%,rgba(41,151,255,.28),transparent 65%),radial-gradient(600px 300px at 100% 110%,rgba(191,90,242,.18),transparent 60%),#000;color:#f5f5f7;padding-block:30px 44px}
+.top::after{display:none}
+.top .inner{gap:26px}
+.trackbar{justify-self:center;display:inline-flex;background:rgba(255,255,255,.1);border-radius:999px;padding:4px;gap:2px;max-width:100%}
+.trackbar button{font:600 14px var(--f-body);color:#f5f5f7;background:none;border:0;padding:9px clamp(12px,3vw,22px);border-radius:999px;cursor:pointer;white-space:nowrap}
+.trackbar button[aria-pressed="true"]{background:#f5f5f7;color:#000}
+.hero-t{text-align:center;display:grid;gap:8px;justify-items:center;margin-bottom:6px}
+.hero-t .eyebrow{color:#ffb340}
+.hero-t h2{font:700 clamp(34px,6.4vw,64px)/1.04 var(--f-display);letter-spacing:-.035em;margin:0;text-transform:none;background:linear-gradient(92deg,#ffffff 30%,#9fc6ff 70%,#d9a8ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
+.hero-t p{color:#a1a1a6;margin:0;font-size:clamp(15px,2vw,19px)}
+.cmd{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:clamp(16px,3vw,30px)}
+.bar .nm{font:600 16px/1.15 var(--f-display);font-stretch:100%;text-transform:none;letter-spacing:-.01em}
+.bar .nm small{font:400 12px var(--f-body);color:#a1a1a6}
+.kpis{background:transparent;border:0;gap:10px;border-radius:0}
+.kpi{background:rgba(255,255,255,.06);border-radius:16px;padding:12px 16px}
+.kpi .v{font:700 26px var(--f-display);letter-spacing:-.02em}
+.top .label{color:#a1a1a6}
+.gauge .big{font:700 58px/1 var(--f-display);letter-spacing:-.04em}
+/* type + surfaces */
+main{padding-block:40px 80px}
+main .inner{gap:32px}
+.label{font:500 13px var(--f-body);letter-spacing:0;text-transform:none;color:var(--muted)}
+.eyebrow{font:600 14px var(--f-body);letter-spacing:0;text-transform:none;color:var(--accent)}
+h2{font:700 26px/1.12 var(--f-display);font-stretch:100%;text-transform:none;letter-spacing:-.025em}
+h3{letter-spacing:-.02em}
+.card{border:0;border-radius:24px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow);gap:14px}
+.hero-card{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface) 60%)}
+.hero-card h2{font:700 clamp(26px,4vw,40px)/1.08 var(--f-display);letter-spacing:-.03em}
+.btn{border-radius:999px;border:1px solid var(--line);font:500 15px var(--f-body);padding:10px 20px;transition:transform .15s,background .15s;text-decoration:none;color:var(--ink);background:var(--surface)}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:transparent}
+.mode{border:1px solid var(--line);border-radius:18px;padding:14px 18px}
+.mode.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.mode:hover:not([aria-disabled="true"]){border-color:var(--accent);transform:translateY(-2px)}
+.tile{border-radius:16px}
+.dchip{font:600 12px var(--f-body);letter-spacing:0;text-transform:none}
+.pill{font:600 12px var(--f-body);letter-spacing:0;text-transform:none}
+table th{font-weight:600}
+footer{border-top:1px solid var(--line);padding-top:18px;font-size:12px}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,label.btn:focus-within{outline:3px solid color-mix(in srgb,var(--accent) 60%,transparent);outline-offset:2px}
+/* Aron */
+.aron-av,.aron-big{font-size:0!important;background:none!important;overflow:hidden;border-radius:50%;display:inline-block;padding:0}
+.aron-av svg,.aron-big svg{width:100%;height:100%;display:block}
+.aron-av{width:30px;height:30px;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+.aron-big{width:46px;height:46px;box-shadow:0 6px 16px -6px rgba(30,64,175,.6)}
+.fab{background:rgba(29,29,31,.88);color:#fff;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:8px 18px 8px 8px;font:600 15px var(--f-body);box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
+/* fields + tracks */
+.fields-sec{display:grid;gap:24px}
+.sec-head{text-align:center;max-width:780px;margin:0 auto;display:grid;gap:8px;justify-items:center}
+.sec-head h2{font:700 clamp(28px,4.6vw,48px)/1.06 var(--f-display);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.sec-head p{color:var(--muted);margin:0;font-size:clamp(16px,2vw,20px)}
+.fieldrow{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,290px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.field{margin:0;border-radius:24px;overflow:hidden;background:linear-gradient(155deg,var(--g1),var(--g2));color:#fff;scroll-snap-align:start;display:grid;grid-template-rows:auto 1fr;min-height:290px;transition:transform .25s}
+.field:hover{transform:scale(1.015)}
+.field svg,.field img{width:100%;aspect-ratio:17/10;display:block;object-fit:cover}
+.field figcaption{padding:6px 20px 20px;display:grid;gap:3px;align-content:end}
+.field b{font:700 22px/1.1 var(--f-display);letter-spacing:-.02em}
+.field span{opacity:.86;font-size:15px}
+.field small,.field small a{color:#fff;opacity:.75;font-size:11px}
+.trackcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.tcard{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:2px solid transparent;border-radius:24px;padding:24px;display:grid;gap:6px;align-content:start;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.tcard:hover{transform:translateY(-3px)}
+.tcard.on{border-color:var(--accent)}
+.tcard:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 60%,transparent)}
+.tcard b{font:700 34px/1 var(--f-display);letter-spacing:-.035em}
+.tcard em{font-style:normal;color:var(--muted);font-size:15px}
+.tcard small{color:var(--muted);font-size:13px}
+/* study */
+.topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:16px}
+.topic{background:var(--surface);border-radius:24px;padding:22px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;box-shadow:var(--shadow)}
+.tnum{font:700 26px/1 var(--f-display);color:var(--accent);letter-spacing:-.03em}
+.topic h3{margin:0 0 4px;font:700 20px/1.2 var(--f-display)}
+.topic p{margin:0 0 8px;color:var(--muted);font-size:15px}
+.topic ul{margin:0 0 12px;padding-left:18px;font-size:15px;display:grid;gap:3px}
+.tchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.btn.yt{display:inline-flex;align-items:center;gap:8px}
+.topic .btn{padding:7px 14px;font-size:14px}
+.dhead b{text-transform:none;letter-spacing:-.01em;font-family:var(--f-display);font-stretch:100%}
+.liblist{list-style:none;margin:0;padding:0;display:grid}
+.liblist li{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+.liblist a{color:var(--accent);font-weight:600;text-decoration:none}
+.liblist a:hover{text-decoration:underline}
+.libup{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.libup label:not(.btn){display:grid;gap:4px;font-size:13px;color:var(--muted);flex:1 1 220px}
+.libup input:not([type=file]){font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.fig-svg{width:100%;height:auto;display:block}
+.tbtab td,.tbtab th{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.soon{display:grid;gap:10px;justify-items:center;text-align:center;padding:40px 20px}
+@media (max-width:640px){.gnav-in{justify-content:center}.gnav .brand{width:100%;justify-content:center}.trackbar button{padding:8px 12px;font-size:13px}}
+
 </style>
 
-<div class="top gut">
-  <div class="inner">
-    <header>
-      <div class="brand">
-        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#e07a6a"/><rect x="12" y="1" width="9" height="9" fill="#ecc56a"/><rect x="23" y="1" width="9" height="9" fill="#79c3a2"/><rect x="1" y="12" width="9" height="9" fill="#ecc56a"/><rect x="12" y="12" width="9" height="9" fill="#79c3a2"/><rect x="23" y="12" width="9" height="9" fill="#79c3a2"/><rect x="1" y="23" width="9" height="9" fill="#79c3a2"/><rect x="12" y="23" width="9" height="9" fill="#e07a6a"/><rect x="23" y="23" width="9" height="9" fill="#ecc56a"/></svg>
-        <div><h1>PMP Readiness Map</h1><div class="tag">PMP exam outline · July 2026 · <span id="sync">prototype</span></div></div>
-      </div>
-      <nav aria-label="Views">
+<div class="gnav gut"><div class="inner gnav-in">
+  <div class="brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2997ff"/><stop offset="1" stop-color="#7a5cff"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#lg1)"/><path d="M8 21l5-5 4 3 7-8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.2" fill="#fff"/></svg><div><h1>PMP/ACP Guide</h1><div class="tag"><span id="track-name">PMP</span> track · <span id="sync">prototype</span></div></div></div>
+  <nav aria-label="Views">
         <button id="nav-map" data-view="map" aria-current="true">Dashboard</button>
         <button id="nav-quizzes" data-view="quizzes">Quizzes</button>
         <button id="nav-quiz" data-view="quiz">Practice</button>
         <button id="nav-cases" data-view="cases">Case studies</button>
-        <button id="nav-hub" data-view="hub">Study hub</button>
+        <button id="nav-hub" data-view="hub">Study</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
         <button id="nav-help" data-view="help">Help</button>
         <button id="nav-class" data-view="class" hidden>Class</button>
       </nav>
-    </header>
+</div></div>
+<div class="top gut">
+  <div class="inner">
+    <div class="trackbar" role="group" aria-label="Exam track"><button data-track="pmp" aria-pressed="true">PMP</button><button data-track="acp" aria-pressed="false">PMI-ACP</button><button data-track="psm" aria-pressed="false">PSM I</button></div>
     <section id="band" aria-label="Readiness summary"></section>
   </div>
 </div>
@@ -350,23 +477,23 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
     <div id="view-help" hidden></div>
     <div id="view-quizzes" hidden></div>
     <footer>
-      Prototype. Domains and weights follow the PMP exam content outline used from July 2026 (People 33%, Process 41%, Business Environment 26%); task names are paraphrased. Sample questions are original practice items, not real exam questions. Mastery scores weight recent answers more heavily. The study plan uses rules; Aron (the AI coach) uses Claude on the viewer’s own Claude account and appear when the page is opened in Claude. Readiness ratings use this prototype's own thresholds, not PMI's. When opened in Claude, progress saves to each student's account and instructors with edit access manage the shared question bank and see the class view; elsewhere, progress stays in this browser.
+      PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
     </footer>
   </div>
 </main>
 
 <button class="fab ai-only" id="fab" aria-controls="drawer" aria-expanded="false"><span class="aron-av" aria-hidden="true">A</span>Ask Aron</button>
 <aside class="drawer" id="drawer" aria-label="Aron, AI coach" hidden>
-  <div class="dr-head"><div class="who"><span class="aron-big" aria-hidden="true">A</span><div><h2>Aron</h2><small>Your AI PMP coach · knows your heat map</small></div></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
+  <div class="dr-head"><div class="who"><span class="aron-big" aria-hidden="true">A</span><div><h2>Aron</h2><small>Your AI exam coach · knows your heat map</small></div></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
   <div class="chips" id="chips"></div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="composer" id="composer"><textarea id="chat-in" rows="2" placeholder="Ask Aron about a PMP concept, a question you missed, or how to study" aria-label="Message Aron"></textarea><button class="btn primary" id="chat-send" type="submit">Send</button></form>
+  <form class="composer" id="composer"><textarea id="chat-in" rows="2" placeholder="Ask Aron about any concept, a question you missed, or how to study" aria-label="Message Aron"></textarea><button class="btn primary" id="chat-send" type="submit">Send</button></form>
 </aside>
 
 <script>
 (function(){
 "use strict";
-const DOMAINS=[
+let DOMAINS=[
  {id:"people",name:"People",weight:.33,tasks:[
   ["P1","Shared project vision"],["P2","Conflict & collaboration"],["P3","Lead & empower the team"],
   ["P4","Stakeholder engagement"],["P5","Communication & transparency"],["P6","Knowledge transfer"]]},
@@ -417,19 +544,138 @@ const SAMPLE=[
 ["B5","A new system will change how operations staff work, and they are anxious. What should the project manager do?",["Deploy and let them adapt","Plan organizational change management: involve them, train them, and communicate the benefits","Delay the deployment indefinitely","Ask their manager to require adoption"],1,"Benefits depend on adoption. Organizational change management addresses the people side of change."],
 ["B6","New tariffs will raise a key vendor's costs by 15%. What should the project manager do?",["Absorb the cost silently","Assess the impact on budget and business case, update the risk register, and inform the sponsor","Cancel the contract","Wait for the vendor to raise prices"],1,"External factors must be assessed for impact on the business case and communicated through governance."]
 ];
-const EXAM_PACE=80; // seconds per question: 240 min / 180 questions
-const TARGET=.65;
+let EXAM_PACE=80; // seconds per question: 240 min / 180 questions
+let TARGET=.65;
 const TASKS={};DOMAINS.forEach(d=>d.tasks.forEach(([id,name])=>TASKS[id]={id,name,domain:d.id}));
 const domOf=id=>DOMAINS.find(d=>d.id===TASKS[id].domain);
 const KEY="pmp-readiness-v2";
 let state={bank:[],attempts:[],sessions:[],demo:true,custom:[]};
 let quiz=null,timerId=null;
+/* ---------- Tracks: PMP, PMI-ACP and PSM I are separate programs ---------- */
+const PMP_DOMAINS=DOMAINS;
+const TRACKS={
+ pmp:{id:"pmp",short:"PMP",name:"PMP",full:"Project Management Professional",body:"PMI",domains:PMP_DOMAINS,pace:80,target:.65,
+   exam:"180 questions · 230 minutes",outline:"PMI exam content outline, July 2026",
+   blurb:"Lead projects of any kind across people, process and the business environment."},
+ acp:{id:"acp",short:"ACP",name:"PMI-ACP",full:"PMI Agile Certified Practitioner",body:"PMI",pace:90,target:.65,
+   exam:"120 questions · 180 minutes",outline:"PMI-ACP exam content outline, 2024",
+   blurb:"Agile mindset, servant leadership, product value and flow-based delivery.",
+   domains:[
+    {id:"mindset",name:"Mindset",weight:.28,tasks:[["AM1","Agile values & principles"],["AM2","Empiricism & learning"],["AM3","Team autonomy & feedback"]]},
+    {id:"leadership",name:"Leadership",weight:.25,tasks:[["AL1","Servant leadership"],["AL2","Psychological safety & conflict"],["AL3","Stakeholder alignment"],["AL4","Impediments & facilitation"]]},
+    {id:"product",name:"Product",weight:.19,tasks:[["AP1","Value & prioritization"],["AP2","Backlog & discovery"],["AP3","Roadmaps & release planning"]]},
+    {id:"delivery",name:"Delivery",weight:.28,tasks:[["AD1","Flow & WIP limits"],["AD2","Cadence & estimation"],["AD3","Built-in quality"],["AD4","Metrics & risk visibility"]]}]},
+ psm:{id:"psm",short:"PSM I",name:"PSM I",full:"Professional Scrum Master I",body:"Scrum.org",pace:45,target:.85,
+   exam:"80 questions · 60 minutes · 85% to pass",outline:"Scrum Guide 2020 and Scrum.org focus areas",
+   blurb:"The Scrum framework exactly as the 2020 Scrum Guide describes it.",
+   domains:[
+    {id:"scrum",name:"Scrum framework",weight:.4,tasks:[["SF1","Empiricism & Scrum values"],["SF2","Accountabilities"],["SF3","Events & time-boxes"],["SF4","Artifacts & commitments"]]},
+    {id:"team",name:"People & teams",weight:.3,tasks:[["ST1","Self-managing teams"],["ST2","Facilitation & coaching"]]},
+    {id:"value",name:"Product agility",weight:.3,tasks:[["SP1","Product value & ownership"],["SP2","Product Backlog management"],["SP3","Forecasting & releases"],["SP4","Stakeholders & customers"]]}]}
+};
+const ALLTASKS={};
+Object.values(TRACKS).forEach(T=>T.domains.forEach(d=>d.tasks.forEach(([id,name])=>ALLTASKS[id]={id,name,domain:d.id,track:T.id})));
+let TRACK="pmp";
+const trackOfTask=id=>ALLTASKS[id]?ALLTASKS[id].track:null;
+const trackOfQ=q=>q.track||trackOfTask(q.task)||"pmp";
+const trackOfA=a=>a.track||trackOfTask(a.task)||"pmp";
+let ALLA=[],ALLS=[];
+function setTrack(t,quiet){
+  if(!TRACKS[t])t="pmp";TRACK=t;const T=TRACKS[t];
+  DOMAINS=T.domains;EXAM_PACE=T.pace;TARGET=T.target;
+  Object.keys(TASKS).forEach(k=>delete TASKS[k]);
+  DOMAINS.forEach(d=>d.tasks.forEach(([id,name])=>TASKS[id]={id,name,domain:d.id}));
+  state.attempts=ALLA.filter(a=>trackOfA(a)===t);state.sessions=ALLS.filter(s=>(s.track||"pmp")===t);
+  makeBank();aiPlan=null;
+  document.documentElement.dataset.track=t;
+  document.querySelectorAll("[data-track]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.track===t));
+  const tn=document.getElementById("track-name");if(tn)tn.textContent=T.name;
+  try{localStorage.setItem(KEY+"-track",t);}catch(e){}
+  if(quiz&&!quiz.done){stopTimer();quiz=null;}
+  if(!quiet){const v=currentView();if(v==="hub")renderHub();else if(v==="quiz"){renderBand();renderQuiz();}else if(v==="help")renderBand();else rerender();}
+}
+
+/* PMI-ACP questions: [task, question, options, answer index, explanation, difficulty] */
+const ACP_QS=[
+["AM1","A manager asks the team to write a complete requirements document before any development starts, \"to be safe\". Which Agile Manifesto value is most at stake?",["Individuals and interactions over processes and tools","Working software over comprehensive documentation","Customer collaboration over contract negotiation","Responding to change over following a plan"],1,"Front-loading documentation delays the first working increment. Agile values working product as the main measure of progress.",1],
+["AM1","Which statement best matches the agile principle on delivery frequency?",["Deliver once every feature is complete","Deliver working product frequently, preferring the shorter timescale","Deliver on the date in the contract","Deliver whenever the sponsor asks"],1,"The principle is to deliver working product frequently, from weeks to months, with a preference for shorter cycles.",1],
+["AM2","A team tried pair programming for one iteration. Quality didn't improve and delivery slowed. What is the most agile response?",["Inspect the results in the retrospective and adapt the experiment","Keep pairing for the rest of the quarter as planned","Find out who caused the slowdown","Stop running experiments"],0,"Empiricism means running small experiments, inspecting the results and adapting. A failed experiment is useful learning.",1],
+["AM2","What are the three pillars of empirical process control?",["Plan, do, check","Transparency, inspection, adaptation","Scope, time, cost","Commitment, focus, courage"],1,"Transparency makes the work visible, inspection checks it, and adaptation changes course.",1],
+["AM3","A developer asks the agile practitioner which task to pick next. What is the best response?",["Assign the highest-priority task","Ask the product owner to assign it","Encourage the team to decide together based on the iteration goal","Tell them to pick the hardest task"],2,"Self-organizing teams decide how to do the work. The practitioner coaches rather than assigns.",1],
+["AM3","Which practice gives the team the fastest feedback on code quality?",["Automated tests that run on every commit","The iteration review","The quarterly release","User acceptance testing at the end"],0,"Continuous integration with automated tests gives feedback in minutes, not weeks.",2],
+["AL1","What is the primary focus of a servant leader on an agile team?",["Directing daily tasks","Removing obstacles and helping the team succeed","Writing status reports","Approving each completed item"],1,"Servant leaders serve the team first: they shield, remove impediments, coach and enable.",1],
+["AL1","A functional manager keeps pulling a developer onto other work mid-iteration. What should the agile leader do first?",["Accept it as normal","Talk with the manager about the impact and agree how requests reach the team","Tell the developer to refuse","Escalate to HR"],1,"Start with a direct, collaborative conversation that makes the cost visible and routes work through the backlog.",2],
+["AL2","Junior team members rarely speak in retrospectives. What should the facilitator do?",["Call on them in front of everyone","Use techniques like silent writing and round-robin, and agree working agreements","Skip the retrospective","Let senior members lead"],1,"Psychological safety grows with structures that give every voice a safe way in.",1],
+["AL2","Two developers disagree about an architecture choice, and it is getting personal. What should the agile coach do first?",["Decide for them","Refocus them on the shared goal and facilitate an objective comparison, such as a spike","Escalate to their managers","Move one of them to another team"],1,"Refocus on goals and evidence. A short spike or agreed criteria turns opinion into data.",2],
+["AL3","Stakeholders say they don't know what the team is working on. What is the best agile response?",["Send a 30-page weekly report","Make work visible on information radiators and invite them to reviews","Limit their access to the team","Tell them to trust the team"],1,"Transparency through radiators and regular reviews builds trust better than heavy reports.",1],
+["AL3","A key stakeholder misses every review and later rejects finished features. What should be done?",["Freeze scope","Work with the stakeholder, through the product owner, to get their feedback early in a format that suits them","Ignore the stakeholder","Require signed requirements documents"],1,"Engage stakeholders early and often. Late feedback is the costliest feedback.",2],
+["AL4","At the daily stand-up, a developer says the test environment has been down for two days. What should the agile practitioner do?",["Extend the stand-up to solve it","Take ownership of removing the impediment right after the stand-up","Note it in the weekly report","Tell the developer to wait"],1,"Impediments are removed quickly, outside the stand-up, which stays short.",1],
+["AL4","What is the main purpose of the daily stand-up?",["A status report to the manager","The team synchronizes on progress toward the goal and surfaces impediments","Detailed problem solving","Assigning tasks"],1,"It is a short team planning and synchronization meeting, not a status report.",1],
+["AP1","Using WSJF: feature A has cost of delay 20 and job size 5; B has 30 and 10; C has 12 and 2. Which goes first?",["A","B","C","They are equal"],2,"WSJF = cost of delay ÷ job size. A = 4, B = 3, C = 6. C has the highest score.",2],
+["AP1","In MoSCoW prioritization, what does \"W\" mean?",["Want to have","Won't have this time","Wish list","Will have later, guaranteed"],1,"W means won't have this time. It sets expectations and protects focus.",1],
+["AP1","Which is the best measure of the value an agile team delivers?",["Story points completed","Hours worked","Business outcomes such as adoption or revenue","Number of features shipped"],2,"Output is not outcome. Value is measured by the results for customers and the business.",2],
+["AP2","The product owner is unsure customers want a new feature. What is the most agile approach?",["Build the full feature, then ask","Test the idea with a minimum viable product or experiment","Ask only internal staff","Defer it indefinitely"],1,"Validate assumptions cheaply before investing heavily.",1],
+["AP2","A user story can't be tested. Which INVEST attribute does it fail?",["Independent","Negotiable","Testable","Small"],2,"INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable.",1],
+["AP2","What is the purpose of backlog refinement?",["Approve change requests","Add detail, estimates and order so items are ready","Assign tasks to people","Report velocity"],1,"Refinement keeps the top of the backlog ready for upcoming iterations.",1],
+["AP3","Velocity is a stable 30 points per iteration. The release backlog has 210 points left. How many iterations remain?",["6","7","8","10"],1,"210 ÷ 30 = 7 iterations, assuming velocity and scope stay stable.",2],
+["AP3","Why do agile teams prefer an adaptive product roadmap?",["It locks in commitments early","It changes as learning and market feedback emerge","It avoids stakeholder input","It replaces the backlog"],1,"Adaptive roadmaps show direction and outcomes while staying open to learning.",1],
+["AD1","On the Kanban board, the testing column keeps growing while developers start new work. What should the team do?",["Add more columns","Set or lower WIP limits and swarm on testing","Start more development work","Ignore it until the review"],1,"Stop starting, start finishing. WIP limits expose the bottleneck and swarming clears it.",1],
+["AD1","Average WIP is 24 items and throughput is 6 items per week. What is the average cycle time?",["0.25 weeks","4 weeks","18 weeks","144 weeks"],1,"Little's Law: cycle time = WIP ÷ throughput = 24 ÷ 6 = 4 weeks.",2],
+["AD2","In planning poker, estimates for a story range from 2 to 13. What should happen next?",["Take the average","The highest and lowest estimators explain their thinking, then the team re-estimates","The product owner decides","Go with the majority"],1,"The spread shows different understanding. Discussion surfaces assumptions before re-voting.",1],
+["AD2","What is a timebox?",["A fixed maximum duration for an activity","A schedule buffer","A list of tasks","A type of backlog"],0,"Timeboxes cap effort and force decisions and focus.",1],
+["AD3","Which practices build quality in rather than inspecting it at the end?",["A final QA phase","Test-driven development and continuous integration","Manager sign-off","Longer iterations"],1,"Quality is built in through practices that catch defects as the work is done.",1],
+["AD3","A story is coded but not tested. The Definition of Done includes testing. What is its status?",["Done","Not done","Half credit toward velocity","Done if the product owner agrees"],1,"Done is binary. Work that doesn't meet the Definition of Done is not done.",1],
+["AD4","On a burnup chart, the scope line keeps rising while the completed line rises steadily. What does this show?",["The team is slowing down","Scope growth is pushing the finish date out","Everything is ideal","A quality problem"],1,"Burnups separate scope change from progress, which burndowns can hide.",2],
+["AD4","How should an agile team make risks visible?",["Keep a private risk register","Add risk-response work to the backlog and show risks on the board","Mention risks only at release","Ignore low risks"],1,"Risk-adjusted backlogs and visible boards keep risk part of everyday planning.",2]];
+
+/* PSM I questions, based on the 2020 Scrum Guide */
+const PSM_QS=[
+["SF1","Scrum is founded on empiricism and lean thinking. Empiricism says knowledge comes from…",["Detailed upfront planning","Experience, and making decisions based on what is observed","Expert opinion","Industry best practices"],1,"Empiricism: knowledge comes from experience and decisions based on what is observed. (Scrum Guide 2020)",1],
+["SF1","Which are the five Scrum values?",["Transparency, inspection, adaptation, respect, courage","Commitment, focus, openness, respect, courage","Commitment, honesty, openness, speed, quality","Focus, velocity, respect, courage, trust"],1,"The values are commitment, focus, openness, respect and courage. Transparency, inspection and adaptation are the pillars.",1],
+["SF2","Who is accountable for ordering the Product Backlog?",["The Scrum Master","The Product Owner","The Developers","The stakeholders"],1,"The Product Owner is accountable for effective Product Backlog management, including ordering.",1],
+["SF2","Who creates the plan for the Sprint, the Sprint Backlog?",["The Scrum Master","The Product Owner","The Developers","The project manager"],2,"The Sprint Backlog is a plan by and for the Developers.",1],
+["SF2","Who is accountable for the Scrum Team's effectiveness?",["The Product Owner","The Scrum Master","The Developers","Management"],1,"The Scrum Master is accountable for the Scrum Team's effectiveness.",1],
+["SF2","Which statement about the Product Owner is true?",["The Product Owner is a committee of stakeholders","The Product Owner is one person, who may represent the needs of many stakeholders","Each Developer is a Product Owner","The Scrum Master can act as Product Owner by default"],1,"The Product Owner is one person, not a committee.",1],
+["SF3","What is the maximum length of a Sprint?",["Two weeks","One month","Six weeks","There is no maximum"],1,"Sprints are fixed length events of one month or less.",1],
+["SF3","Who is the Daily Scrum for?",["The whole Scrum Team plus stakeholders","The Developers","The Scrum Master and Product Owner","Managers"],1,"The Daily Scrum is a 15-minute event for the Developers. The PO or SM take part as Developers only if they are working on Sprint Backlog items.",2],
+["SF3","What is the time-box for Sprint Planning in a one-month Sprint?",["2 hours","4 hours","8 hours at most","2 days"],2,"Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint.",1],
+["SF3","Who has the authority to cancel a Sprint?",["The Scrum Master","The Developers","The Product Owner","Senior management"],2,"Only the Product Owner can cancel a Sprint, when the Sprint Goal becomes obsolete.",1],
+["SF3","When is a Sprint over?",["When all Sprint Backlog items are done","When the time-box expires","When the Product Owner says so","When the Scrum Master decides"],1,"A Sprint ends when its time-box expires. A new Sprint starts right after.",2],
+["SF3","What is the purpose of the Sprint Review?",["An approval gate for management","Inspect the outcome of the Sprint and decide future adaptations","A demo for executives only","Planning the next Sprint's tasks"],1,"The Sprint Review is a working session, not a presentation, where the team and stakeholders inspect the outcome and adapt.",2],
+["SF3","What does the Scrum Team inspect in the Sprint Retrospective?",["Only the Increment","How the last Sprint went for individuals, interactions, processes, tools and the Definition of Done","Each Developer's performance rating","The product roadmap"],1,"The Retrospective plans ways to increase quality and effectiveness.",1],
+["SF4","Which commitment belongs to the Product Backlog?",["Sprint Goal","Product Goal","Definition of Done","Velocity"],1,"Product Backlog → Product Goal. Sprint Backlog → Sprint Goal. Increment → Definition of Done.",1],
+["SF4","Which commitment belongs to the Increment?",["The Product Goal","The Sprint Goal","The Definition of Done","The release plan"],2,"The Definition of Done is the Increment's commitment.",1],
+["SF4","Can more than one Increment be created in a Sprint?",["No, only one per Sprint","Yes, and they may be delivered to stakeholders before the Sprint ends","Only if the Scrum Master approves","Only in the last Sprint before release"],1,"Multiple Increments may be created within a Sprint. The Sprint Review should never be a gate to releasing value.",2],
+["SF4","A Product Backlog item doesn't meet the Definition of Done at the end of the Sprint. What happens to it?",["It is released anyway","It is shown as done at the Sprint Review","It returns to the Product Backlog for future consideration","The Sprint is extended"],2,"Work that doesn't meet the Definition of Done can't be released or presented as done.",2],
+["SF4","The organization has a Definition of Done standard. What must the Scrum Team do?",["Ignore it if it slows them down","Follow it as a minimum","Replace it with their own","Ask stakeholders to vote on it"],1,"If the organization has a standard, all Scrum Teams must follow it as a minimum.",2],
+["ST1","How big is a Scrum Team, according to the Scrum Guide?",["Exactly 3 to 9 Developers","Typically 10 or fewer people","At least 12 people","Any size the organization wants"],1,"The Scrum Team is typically 10 or fewer people, small enough to stay nimble.",2],
+["ST1","Mid-Sprint, the Developers realize they took on too much. What should happen?",["Extend the Sprint","Work overtime","Collaborate with the Product Owner to adjust scope without endangering the Sprint Goal","Cancel the Sprint"],2,"Scope may be clarified and renegotiated with the Product Owner as more is learned.",2],
+["ST1","What does cross-functional mean for a Scrum Team?",["Everyone can do every task","Members have all the skills needed to create value each Sprint","The team reports to several managers","It includes a tester and a manager"],1,"The team as a whole has every skill needed to create a valuable, useful Increment.",1],
+["ST1","Who decides how to turn Product Backlog items into an Increment?",["The Product Owner","The Scrum Master","The Developers","The architect"],2,"No one tells the Developers how to turn Product Backlog items into Increments of value.",1],
+["ST2","Which is a service the Scrum Master provides to the organization?",["Assigning work to Developers","Leading, training and coaching the organization in its Scrum adoption","Approving the Product Backlog","Writing status reports"],1,"The Scrum Master serves the organization by leading, training and coaching its Scrum adoption.",1],
+["ST2","The Developers ask the Scrum Master to run the Daily Scrum by asking everyone three questions. What is the best response?",["Run it as asked","Coach them to own the Daily Scrum, using any structure that keeps it focused on the Sprint Goal","Cancel the Daily Scrum","Ask the Product Owner to run it"],1,"The Developers can choose any structure. The Scrum Master teaches them to keep it effective and time-boxed.",2],
+["ST2","A conflict between Developers is affecting the Sprint. What should the Scrum Master do first?",["Remove one person from the team","Let the team try to resolve it, and coach and facilitate as needed","Report it to their manager","Ask the Product Owner to decide"],1,"Self-managing teams resolve their own conflicts first. The Scrum Master coaches and steps in if needed.",2],
+["SP1","Someone wants to change the order of the Product Backlog. Who must they convince?",["The Scrum Master","The Developers","The Product Owner","The CEO"],2,"Those wanting to change the Product Backlog can do so by trying to convince the Product Owner.",1],
+["SP2","Which is true about Product Backlog refinement?",["It is a formal Scrum event with a time-box","It is an ongoing activity to add detail, size and order to items","Only the Product Owner may do it","It happens once per release"],1,"Refinement is an ongoing activity, not an event. The Scrum Team decides how and when it happens.",2],
+["SP2","Several Scrum Teams work on the same product. What should they share?",["Nothing; each team has its own backlog","One Product Backlog and one Product Owner","One Scrum Master","One Sprint Backlog"],1,"One product has one Product Backlog and one Product Owner.",2],
+["SP3","Which is true about burn-downs, burn-ups and cumulative flows?",["They guarantee the release date","They are useful, but don't replace empiricism; only what has happened can inform forward-looking decisions","Scrum requires them","Only the Scrum Master may use them"],1,"Forecasting practices are useful, but in complex work only past events can guide decisions.",3],
+["SP4","Which Scrum event do stakeholders take part in as invited participants?",["Daily Scrum","Sprint Planning only","Sprint Review","Sprint Retrospective"],2,"The Scrum Team presents results to key stakeholders at the Sprint Review and they discuss progress together.",1]];
+
+function trackQuestions(){
+  const out=[];
+  ACP_QS.forEach((h,i)=>out.push({id:"acp"+i,track:"acp",task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],src:"Sample"}));
+  PSM_QS.forEach((h,i)=>out.push({id:"psm"+i,track:"psm",task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],src:"Sample"}));
+  return out;
+}
+
 
 function makeBank(){
+  let all;
   if(sharedQs&&sharedQs.length){
-    sharedQs.forEach(q=>{if(!TASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain);});
-    state.bank=sharedQs.filter(q=>TASKS[q.task]&&Array.isArray(q.opts)).slice().sort((a,b)=>(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));
-  } else state.bank=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],diff:1,src:"Sample"})).concat(extraQuestions(),state.custom);
+    sharedQs.forEach(q=>{if(!ALLTASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain,q.track);});
+    all=sharedQs.filter(q=>ALLTASKS[q.task]&&Array.isArray(q.opts)).slice().sort((a,b)=>(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));
+  } else all=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],diff:1,src:"Sample"})).concat(extraQuestions(),trackQuestions(),state.custom);
+  state.bank=all.filter(q=>trackOfQ(q)===TRACK&&TASKS[q.task]);
 }
 function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};}
 function buildDemo(){
@@ -442,17 +688,18 @@ function buildDemo(){
     picked.forEach((q,k)=>{const ok=r()<Math.min(.97,base[q.task]+s*.04);const t=Math.round(55+r()*60);c+=ok;secs+=t;att.push({qid:q.id,task:q.task,ok,ts:ts+k*9e4,secs:t,sid});});
     ses.push({id:sid,mode:s===3?"Exam simulation":s%2?"Weak-area practice":"Mixed practice",ts,n:picked.length,c,secs});
   }
-  state.attempts=att;state.sessions=ses;
+  ALLA=att;ALLS=ses;state.attempts=ALLA.filter(a=>trackOfA(a)===TRACK);state.sessions=ALLS.filter(x=>(x.track||"pmp")===TRACK);
 }
 function load(){
-  try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){state.attempts=s.attempts||[];state.sessions=s.sessions||[];state.demo=!!s.demo;state.custom=s.custom||[];}}catch(e){}
-  state.custom.forEach(q=>{if(!TASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain)});
-  makeBank();
-  if(state.demo&&!state.attempts.length)buildDemo();
+  try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){ALLA=s.attempts||[];ALLS=s.sessions||[];state.demo=!!s.demo;state.custom=s.custom||[];}}catch(e){}
+  state.custom.forEach(q=>{if(!ALLTASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain,q.track)});
+  let t="pmp";try{t=localStorage.getItem(KEY+"-track")||"pmp";}catch(e){}
+  setTrack(t,true);
+  if(state.demo&&!ALLA.length)buildDemo();
 }
-function save(){cloudSave();try{localStorage.setItem(KEY,JSON.stringify({attempts:state.attempts,sessions:state.sessions,demo:state.demo,custom:state.custom}))}catch(e){}}
-function addTask(id,name,domain){const d=DOMAINS.find(x=>x.id===domain)||DOMAINS[1];d.tasks.push([id,name]);TASKS[id]={id,name,domain:d.id};}
-function clearDemo(){if(state.demo){state.attempts=[];state.sessions=[];state.demo=false;}}
+function save(){cloudSave();try{localStorage.setItem(KEY,JSON.stringify({attempts:ALLA,sessions:ALLS,demo:state.demo,custom:state.custom}))}catch(e){}}
+function addTask(id,name,domain,track){const T=TRACKS[track]||TRACKS[TRACK];const d=T.domains.find(x=>x.id===domain)||T.domains[Math.min(1,T.domains.length-1)];d.tasks.push([id,name]);ALLTASKS[id]={id,name,domain:d.id,track:T.id};if(T.id===TRACK)TASKS[id]={id,name,domain:d.id};}
+function clearDemo(){if(state.demo){const nd=x=>!String(x.sid||x.id).startsWith("demo");ALLA=ALLA.filter(nd);ALLS=ALLS.filter(nd);state.attempts=state.attempts.filter(nd);state.sessions=state.sessions.filter(nd);state.demo=false;}}
 
 /* mastery: recency-weighted Beta estimate. Newest answer weight 1, each older one x0.85 */
 function stats(atts){atts=atts||state.attempts;
@@ -514,7 +761,7 @@ function gaugeSVG(v){
 function renderBand(){
   const st=stats(),[rc,rl]=rating(st.overall),rq=reviewQueue().length;
   const n=state.attempts.length,avg=n?state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n:null;
-  let h=`<div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
+  const T=TRACKS[TRACK];let h=`<div class="hero-t"><span class="eyebrow">${esc(T.full)} · ${esc(T.body)}</span><h2>Your <span style="white-space:nowrap">${esc(T.name)}</span> readiness.</h2><p>${esc(T.exam)} · ${esc(T.outline)}</p></div><div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
   DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm"><i class="ddot" style="background:var(--c-${D.id})"></i>${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
   h+=`<div class="kpis">
     <div class="kpi"><span class="label">Answered</span><span class="v">${n}</span><span class="s">${state.bank.length} in bank</span></div>
@@ -550,7 +797,7 @@ function renderMap(){
   renderBand();
   const st=stats(),el=document.getElementById("view-map"),weak=weakTasks(st,3),gaps=untested(st),rq=reviewQueue();
   let h="";
-  if(state.demo)h+=`<div class="banner"><span>Showing example results from a made-up student so you can see how the map works. Your first answer replaces them.</span><button class="linkbtn" id="clear-demo">Clear example results</button></div>`;
+  if(state.demo&&TRACK==="pmp")h+=`<div class="banner"><span>Showing example results from a made-up student so you can see how the map works. Your first answer replaces them.</span><button class="linkbtn" id="clear-demo">Clear example results</button></div>`;
   // plan
   let steps="";
   if(!state.attempts.length)steps=`<li>Take a mixed practice set to draw your first map.</li><li>Then switch to weak-area practice; the map updates after every answer.</li>`;
@@ -569,8 +816,8 @@ function renderMap(){
     <button class="mode primary" id="go-weak" ${state.attempts.length?"":'aria-disabled="true"'}><b>Weak-area practice</b><span>Favors the tasks and questions you miss most</span><em>10 Q</em></button>
     <button class="mode" id="go-review" ${rq.length?"":'aria-disabled="true"'}><b>Review mistakes</b><span>Re-answer questions you got wrong last time</span><em>${rq.length} Q</em></button>
     <button class="mode" id="go-exam"><b>Exam simulation</b><span>Timed at exam pace, weighted by domain, no hints until the end</span><em>${examN} Q · ${Math.round(examN*EXAM_PACE/60)} min</em></button>
-    <button class="mode" id="go-hard"><b>Advanced practice</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>
-    <button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>
+    ${state.bank.some(q=>(q.diff||1)>=2)?`<button class="mode" id="go-hard"><b>Advanced practice</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>`:""}
+    ${TRACK==="pmp"?`<button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>`:""}
     <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
    </div></div></section>`;
   // heat map
@@ -588,10 +835,11 @@ function renderMap(){
   const ss=state.sessions.slice().sort((a,b)=>b.ts-a.ts).slice(0,6);
   h+=`<section class="prog"><div class="card chart"><h2>Score by session</h2>${trendSVG()}</div>
     <div class="card"><h2>Recent sessions</h2>${ss.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Mode</th><th>Score</th><th>Pace</th></tr></thead><tbody>${ss.map(s=>`<tr><td class="num">${fmtD(s.ts)}</td><td>${esc(s.mode)}</td><td class="num">${s.c}/${s.n}</td><td class="num ${s.n&&s.secs/s.n>EXAM_PACE?"r1":""}">${s.n?Math.round(s.secs/s.n)+"s":"–"}</td></tr>`).join("")}</tbody></table></div>`:`<p style="margin:0;color:var(--muted)">No sessions yet.</p>`}</div></section>`;
+  h+=renderFields()+`<section class="fields-sec"><div class="sec-head"><span class="eyebrow">Three tracks</span><h2>Choose your exam.</h2><p>PMP, PMI-ACP and PSM I are separate programs here, each with its own questions, heat map and progress.</p></div>${renderTrackCards()}</section>`;
   el.innerHTML=h;
   const cd=document.getElementById("clear-demo");if(cd)cd.onclick=()=>{clearDemo();save();renderMap();};
   const on=(id,fn)=>{const b=document.getElementById(id);b.onclick=()=>{if(b.getAttribute("aria-disabled")!=="true")fn();};};
-  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));on("go-hard",()=>startQuiz("hard"));on("go-cases",()=>show("cases"));
+  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));if(document.getElementById("go-hard"))on("go-hard",()=>startQuiz("hard"));if(document.getElementById("go-cases"))on("go-cases",()=>show("cases"));
   el.querySelectorAll(".tile[data-task]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.task));
 }
 
@@ -641,14 +889,14 @@ function choose(k){
 function record(i){
   clearDemo();
   const q=quiz.qs[i];if(!quiz.sid){quiz.sid="s"+Date.now();}
-  state.attempts.push({qid:q.id,task:q.task,ok:quiz.picked[i]===q.ans,ts:Date.now(),secs:Math.round(quiz.secs[i]),sid:quiz.sid,pick:quiz.picked[i],diff:q.diff||null,quiz:quiz.quizName||q.quiz||null});
+  {const at={track:TRACK,qid:q.id,task:q.task,ok:quiz.picked[i]===q.ans,ts:Date.now(),secs:Math.round(quiz.secs[i]),sid:quiz.sid,pick:quiz.picked[i],diff:q.diff||null,quiz:quiz.quizName||q.quiz||null};state.attempts.push(at);ALLA.push(at);}
   save();
 }
 function finish(){
   if(!quiz||quiz.done)return;accrue();stopTimer();
   if(quiz.exam)quiz.qs.forEach((q,i)=>{if(quiz.picked[i]!==null)record(i);});
   const ans=quiz.qs.map((q,i)=>({q,i,p:quiz.picked[i]})).filter(x=>x.p!==null);
-  if(ans.length){clearDemo();state.sessions.push({id:quiz.sid||("s"+Date.now()),mode:quiz.title,quiz:quiz.quizName||null,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))});save();}
+  if(ans.length){clearDemo();const se={track:TRACK,id:quiz.sid||("s"+Date.now()),mode:quiz.title,quiz:quiz.quizName||null,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))};state.sessions.push(se);ALLS.push(se);save();}
   quiz.done=true;quiz.review=null;renderQuiz();
 }
 /* ---------- Hard questions, case studies and exhibits ---------- */
@@ -884,7 +1132,7 @@ async function inlineAsk(kind){
   const box=document.getElementById("inline-ai"),out=document.getElementById("inline-ai-out");
   box.hidden=false;out.innerHTML=THINK;
   if(inlineCtl)inlineCtl.abort();inlineCtl=new AbortController();const ctl=inlineCtl;
-  try{const r=await AI(`${TUTOR_RULES}${studentContext()}\n\n${ctx}${know}\n\nTask: ${ask}`,{signal:ctl.signal,onText:({text})=>{if(quiz&&quiz.i===i){const o=document.getElementById("inline-ai-out");if(o)o.innerHTML=md(text);}}});
+  try{const r=await AI(`${tutorRules()}${studentContext()}\n\n${ctx}${know}\n\nTask: ${ask}`,{signal:ctl.signal,onText:({text})=>{if(quiz&&quiz.i===i){const o=document.getElementById("inline-ai-out");if(o)o.innerHTML=md(text);}}});
     quiz.ai[i]=r.text;}
   catch(e){if(e&&e.code!=="cancelled"){const o=document.getElementById("inline-ai-out");if(o)o.innerHTML=(e.text?md(e.text):"")+`<p class="bad">${esc(aiErr(e))}</p>`;}}
 }
@@ -893,6 +1141,7 @@ async function inlineAsk(kind){
 function caseScore(c){const ids=c.qs.map((_,k)=>c.id+"q"+k),last={};state.attempts.forEach(a=>{if(ids.includes(a.qid))last[a.qid]=a.ok;});const n=Object.keys(last).length;return n?{n,c:Object.values(last).filter(Boolean).length,t:ids.length}:null;}
 function renderCases(){
   const el=document.getElementById("view-cases");renderBand();
+  if(TRACK!=="pmp"){el.innerHTML=`<section class="card soon"><span class="eyebrow">${esc(TRACKS[TRACK].name)} case studies</span><h2>Coming soon.</h2><p style="margin:0;color:var(--muted);max-width:60ch">Case studies are written for the PMP track first. Have a real ${esc(TRACKS[TRACK].name)} scenario? Send it through Help and it can be added.</p><div class="actions"><button class="btn primary" id="case-help">Send a case study</button></div></section>`;document.getElementById("case-help").onclick=()=>{helpPrefill={type:"Content suggestion",subject:"New "+TRACKS[TRACK].name+" case study"};show("help");};return;}
   el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Case studies</span><h2>Think like the exam: read the situation, study the exhibits, then decide.</h2><p style="margin:0;color:var(--muted);max-width:70ch">Each case is a realistic project with data exhibits such as cumulative flow diagrams, earned value curves, risk matrices and schedule networks. Expect calculation and judgment questions. Ask Aron about any exhibit after you answer.</p></div></section>
   <div class="casegrid">${CASES.map(c=>{const s=caseScore(c),D=DOMAINS.find(d=>d.id===c.domain);return `<article class="casecard"><div class="thumb">${renderFig(c.exhibits[0])}</div><div class="cbody"><div class="qhead"><span class="dchip" style="--dc:var(--c-${D.id})">${D.name}</span><span class="diff d${c.diff}">${DIFF_NAME[c.diff]}</span></div><h3>${esc(c.title)}</h3><p>${esc(c.brief.split(". ")[0])}.</p><div class="actions" style="justify-content:space-between"><span class="label">${c.qs.length} questions · ${esc(c.tag)}${s?` · last score ${s.c}/${s.t}`:""}</span><button class="btn primary" data-case="${c.id}">${s?"Retake":"Start case"}</button></div></div></article>`;}).join("")}</div>
   <section class="card"><div class="mapbar"><h2>Have a real case study to add?</h2></div><p style="margin:0">Instructors can add case material through the Help center. Send the scenario, exhibits and answers, and it can be added as a new case.</p><div class="actions"><button class="btn" id="case-help">Send a case study</button></div></section>`;
@@ -916,18 +1165,22 @@ const DIAGRAMS=[
  {f:CASES[1].exhibits[0],h:"Earned value S-curve",pts:["PV is the plan, EV is the value earned, AC is the money spent.","EV below PV: behind schedule. AC above EV: over budget.","The gap at the status date gives SV and CV.","Project the curves forward to estimate EAC."]},
  {f:CTRL1,h:"Control chart",pts:["Points between the control limits are common-cause variation.","A point outside the limits is out of control.","Seven or more points in a row on one side of the mean signals a shift.","Control limits come from the process; specification limits come from the customer."]}];
 function renderHub(){
-  const el=document.getElementById("view-hub");renderBand();
-  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Study hub</span><h2>Formulas, diagrams and the PMI mindset in one place.</h2></div></section>
-  <section class="grid2"><div class="card"><h2>Earned value calculator</h2><p style="margin:0;color:var(--muted)">Type your numbers to see every index and what it means.</p>
+  const el=document.getElementById("view-hub");renderBand();subLibrary();const TT=TRACKS[TRACK];
+  const diag=TRACK==="pmp"?DIAGRAMS:TRACK==="acp"?DIAGRAMS.slice(0,2):[];
+  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Study · ${esc(TT.name)}</span><h2>Learn it, watch it, then prove it.</h2><p style="margin:0;color:var(--muted);max-width:68ch">Ten core topics for the ${esc(TT.full)}, each with a short video search, the key points, and a practice set that feeds your heat map.</p></div></section>
+  ${renderStudyTopics()}${renderLibrary()}
+  ${TRACK==="psm"?`<section class="grid2"><div class="card"><h2>The Scrum framework</h2>${SCRUM_SVG}<p class="ainote" style="margin:0">Drawn from the 2020 Scrum Guide.</p></div><div class="card"><h2>Time-boxes</h2><div class="tablewrap"><table class="tbtab"><tbody>${TIMEBOX.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td style="color:var(--muted)">${r[2]}</td></tr>`).join("")}</tbody></table></div><p class="ainote" style="margin:0">Maximums for a one-month Sprint. Shorter Sprints usually use shorter events.</p></div></section>`:""}
+  ${TRACK==="pmp"?`<section class="grid2"><div class="card"><h2>Earned value calculator</h2><p style="margin:0;color:var(--muted)">Type your numbers to see every index and what it means.</p>
    <div class="calc">${["BAC","PV","EV","AC"].map((k,n)=>`<label>${k}<input id="ev-${k}" type="number" inputmode="decimal" value="${[500000,300000,240000,290000][n]}"></label>`).join("")}</div><div id="ev-out"></div></div>
-   <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions ai-only"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>
-  <section class="card"><h2>Formula sheet</h2><div class="fgrid">${FORMULAS.map(f=>`<div class="fcard"><span class="label">${esc(f[0])}</span><code>${esc(f[1])}</code><span>${esc(f[2])}</span></div>`).join("")}</div></section>
-  <section class="card"><h2>How to read the exam's diagrams</h2><div class="dgrid">${DIAGRAMS.map(d=>`<div class="dcard">${renderFig(d.f)}<h3>${esc(d.h)}</h3><ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><button class="btn ghost ai-only" data-hubask="${esc(`Teach me how to read a ${d.h} for the PMP exam in under 150 words, then ask me one question about this example data: ${figToText(d.f)}`)}">Ask Aron to teach this</button></div>`).join("")}</div></section>`;
+   <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions ai-only"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>`:""}
+  ${TRACK!=="psm"?`<section class="card"><h2>Formula sheet</h2><div class="fgrid">${FORMULAS.filter(f=>TRACK==="pmp"||/Little|PERT|Communication|Expected/.test(f[0])).concat(TRACK==="acp"?[["Weighted shortest job first","WSJF = cost of delay ÷ job size","Highest score goes first."],["Iterations remaining","Remaining points ÷ velocity","Assumes stable velocity and scope."]]:[]).map(f=>`<div class="fcard"><span class="label">${esc(f[0])}</span><code>${esc(f[1])}</code><span>${esc(f[2])}</span></div>`).join("")}</div></section>`:""}
+  ${diag.length?`<section class="card"><h2>How to read the exam's diagrams</h2><div class="dgrid">${diag.map(d=>`<div class="dcard">${renderFig(d.f)}<h3>${esc(d.h)}</h3><ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><button class="btn ghost ai-only" data-hubask="${esc(`Teach me how to read a ${d.h} for the ${TT.name} exam in under 150 words, then ask me one question about this example data: ${figToText(d.f)}`)}">Ask Aron to teach this</button></div>`).join("")}</div></section>`:""}`;
   const calc=()=>{const g=k=>parseFloat(document.getElementById("ev-"+k).value)||0,BAC=g("BAC"),PV=g("PV"),EV=g("EV"),AC=g("AC");
     const cpi=AC?EV/AC:0,spi=PV?EV/PV:0,eac=cpi?BAC/cpi:0,tc=BAC-AC?(BAC-EV)/(BAC-AC):0,m=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString(),r=v=>v.toFixed(2);
     const rows=[["CV",m(EV-AC),EV-AC>=0?"ok":"bad",EV-AC>=0?"Under or on budget":"Over budget"],["SV",m(EV-PV),EV-PV>=0?"ok":"bad",EV-PV>=0?"On or ahead of schedule":"Behind schedule"],["CPI",r(cpi),cpi>=1?"ok":"bad",`Earning $${r(cpi)} per $1 spent`],["SPI",r(spi),spi>=1?"ok":"bad",`Progressing at ${Math.round(spi*100)}% of plan`],["EAC",m(eac),eac<=BAC?"ok":"bad","If cost performance continues"],["ETC",m(eac-AC),"","Still to spend"],["VAC",m(BAC-eac),BAC-eac>=0?"ok":"bad","Forecast variance at completion"],["TCPI",r(tc),tc<=1.05?"ok":"bad",tc>1.1?"Hard to achieve: re-baseline or get approval":"Achievable efficiency"]];
     document.getElementById("ev-out").innerHTML=`<table class="evtab"><tbody>${rows.map(x=>`<tr><th>${x[0]}</th><td class="num ${x[2]}">${x[1]}</td><td>${x[3]}</td></tr>`).join("")}</tbody></table>`;};
-  ["BAC","PV","EV","AC"].forEach(k=>document.getElementById("ev-"+k).oninput=calc);calc();
+  if(TRACK==="pmp"){["BAC","PV","EV","AC"].forEach(k=>document.getElementById("ev-"+k).oninput=calc);calc();}
+  wireLibrary(el);el.querySelectorAll("[data-studyq]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.studyq));
   el.querySelectorAll("[data-hubask]").forEach(b=>b.onclick=()=>send(b.dataset.hubask,b.textContent));
 }
 
@@ -1039,18 +1292,20 @@ function parseCSV(text){
   if(f||row.length){row.push(f);rows.push(row);}
   return rows.filter(r=>r.some(x=>x.trim()));
 }
-function normDomain(s){s=(s||"").toLowerCase();return s.startsWith("peo")?"people":s.startsWith("bus")?"business":s.startsWith("pro")?"process":null;}
+function normDomain(s,track){s=String(s||"").trim().toLowerCase();if(!s)return null;const T=TRACKS[track||TRACK]||TRACKS.pmp;const d=T.domains.find(D=>D.id===s||D.name.toLowerCase()===s||(s.length>=3&&D.name.toLowerCase().startsWith(s.slice(0,3))));return d?d.id:null;}
+function normTrack(s){s=String(s||"").trim().toLowerCase();if(!s)return null;if(/acp|agile certified/.test(s))return "acp";if(/psm|scrum master/.test(s))return "psm";if(/pmp|project management professional/.test(s))return "pmp";return null;}
 function importRows(objs){
   const added=[],errors=[];
   objs.forEach((r,i)=>{
-    const dom=normDomain(r.domain),opts=[r.a,r.b,r.c,r.d].filter(x=>x&&String(x).trim());
+    const tname=String(r.task||r.eco||r.eco_task||"General").trim(),byCode=Object.keys(ALLTASKS).find(id=>id.toLowerCase()===tname.toLowerCase());
+    const trk=normTrack(r.track||r.exam||r.certification)||(byCode?ALLTASKS[byCode].track:TRACK);
+    const dom=normDomain(r.domain,trk)||(byCode&&ALLTASKS[byCode].track===trk?ALLTASKS[byCode].domain:null),opts=[r.a,r.b,r.c,r.d].filter(x=>x&&String(x).trim());
     let ans=String(r.answer||"").trim().toUpperCase();ans=/^[A-D]$/.test(ans)?"ABCD".indexOf(ans):/^[1-4]$/.test(ans)?+ans-1:-1;
     if(!dom||!r.question||opts.length<2||ans<0||ans>=opts.length){errors.push(i+1);return;}
-    const tname=String(r.task||r.eco||r.eco_task||"General").trim();
-    let tid=Object.keys(TASKS).find(id=>TASKS[id].name.toLowerCase()===tname.toLowerCase()||id.toLowerCase()===tname.toLowerCase());
-    if(!tid){tid="U"+Object.keys(TASKS).length;addTask(tid,tname,dom);}
+    let tid=byCode&&ALLTASKS[byCode].track===trk?byCode:Object.keys(ALLTASKS).find(id=>ALLTASKS[id].track===trk&&ALLTASKS[id].name.toLowerCase()===tname.toLowerCase());
+    if(!tid){tid="U"+Object.keys(ALLTASKS).length;addTask(tid,tname,dom,trk);}
     const qz=normQuiz(r.quiz),dv=parseDiff(r.difficulty??r.level),qn=parseInt(r.number??r["#"]??r.question_number,10);
-    const nq={id:"u"+Date.now().toString(36)+i,task:tid,taskName:TASKS[tid].name,domain:dom,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded",diff:dv};if(qz)nq.quiz=qz;if(qn>0)nq.qn=qn;added.push(nq);
+    const nq={id:"u"+Date.now().toString(36)+i,track:trk,task:tid,taskName:ALLTASKS[tid].name,domain:ALLTASKS[tid].domain,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded",diff:dv};if(qz)nq.quiz=qz;if(qn>0)nq.qn=qn;added.push(nq);
   });
   if(cloudAdmin()){added.forEach((q,k)=>{q.id="q"+Date.now().toString(36)+k;q.src="Instructor";});cloudPutMany(added);}
   else{state.custom=state.custom.concat(added);makeBank();save();}
@@ -1126,7 +1381,10 @@ function studentContext(){
   if(state.demo)lines.push("Note: this is example data from a made-up student, used for a demo.");
   return lines.join("\n");
 }
-const TUTOR_RULES=`Your name is Aron. You are the friendly, sharp AI PMP coach inside a PMP exam prep app for military veterans transitioning into project management (Vets2PM students). The exam follows PMI's July 2026 exam content outline with three domains: People 33%, Process 41%, Business Environment 26%. Questions mix predictive, agile and hybrid approaches.
+function tutorRules(){const T=TRACKS[TRACK];
+  const intro=`Your name is Aron. You are the friendly, sharp AI exam coach inside "PMP/ACP Guide", an exam prep app for military veterans moving into project management (Vets2PM students). The student is studying for the ${T.full} (${T.name}) from ${T.body}. Domains: ${T.domains.map(d=>d.name+" "+Math.round(d.weight*100)+"%").join(", ")}${TRACK==="psm"?" (Scrum.org publishes no weights; these are the app's own)":""}. ${TRACK==="psm"?"Answer strictly in the 2020 Scrum Guide's terms (Developers, accountabilities, commitments, Product Goal). Do not bring in project management or other agile methods.":TRACK==="acp"?"Answer from agile practice: the Agile Manifesto, Scrum, Kanban, Lean and XP.":"The exam follows PMI's July 2026 exam content outline and mixes predictive, agile and hybrid approaches."}`;
+  return TUTOR_BASE.replace(/^[^\n]*\n/,intro+"\n").replace("why the best answer fits PMI's mindset","why the best answer fits the exam's mindset");}
+const TUTOR_BASE=`Your name is Aron. You are the friendly, sharp AI PMP coach inside a PMP exam prep app for military veterans transitioning into project management (Vets2PM students). The exam follows PMI's July 2026 exam content outline with three domains: People 33%, Process 41%, Business Environment 26%. Questions mix predictive, agile and hybrid approaches.
 How to answer:
 - Plain, direct language. Keep replies under 170 words unless asked for more. Use short bullet lists.
 - Tie advice to the student's own data below; name the domain and task.
@@ -1168,7 +1426,7 @@ async function send(text,show){
   openDrawer();
   if(examLocked()){renderLog();return;}
   chatTurns.push({role:"user",content:text,show});
-  const turns=[{role:"user",content:TUTOR_RULES+studentContext()},...chatTurns.filter(t=>!t.err).slice(-12).map(t=>({role:t.role,content:t.content}))];
+  const turns=[{role:"user",content:tutorRules()+studentContext()},...chatTurns.filter(t=>!t.err).slice(-12).map(t=>({role:t.role,content:t.content}))];
   if(turns[turns.length-1].role!=="user")return;
   chatCtl=new AbortController();renderLog("");
   try{
@@ -1191,7 +1449,7 @@ async function debrief(){
   const n=quiz.qs.length,c=quiz.qs.filter((q,i)=>quiz.picked[i]===q.ans).length,secs=Math.round(quiz.secs.reduce((a,b)=>a+b,0)/n);
   const missed=quiz.qs.map((q,i)=>({q,p:quiz.picked[i]})).filter(x=>x.p!==x.q.ans).slice(0,15)
     .map(x=>`- [${x.q.task} ${TASKS[x.q.task].name}] ${x.q.q}\n  Chose: ${x.p===null?"no answer":x.q.opts[x.p]} | Correct: ${x.q.opts[x.q.ans]}`).join("\n");
-  const prompt=`${TUTOR_RULES}${studentContext()}\n\nThe student just finished a "${quiz.title}" session: ${c}/${n} correct, average ${secs}s per question.\nMissed questions:\n${missed||"none"}\n\nWrite a debrief in under 200 words with these headings:\n### What went well\n### The pattern in your mistakes\n(look for a shared mindset error, e.g. escalating too early, acting before assessing, skipping the process)\n### Do next\n(3 concrete actions; name tasks from the student's data)`;
+  const prompt=`${tutorRules()}${studentContext()}\n\nThe student just finished a "${quiz.title}" session: ${c}/${n} correct, average ${secs}s per question.\nMissed questions:\n${missed||"none"}\n\nWrite a debrief in under 200 words with these headings:\n### What went well\n### The pattern in your mistakes\n(look for a shared mindset error, e.g. escalating too early, acting before assessing, skipping the process)\n### Do next\n(3 concrete actions; name tasks from the student's data)`;
   btn.disabled=true;out.innerHTML=THINK;
   try{const r=await AI(prompt,{onText:({text})=>{out.innerHTML=md(text);}});quiz.debrief=r.text;}
   catch(e){out.innerHTML=(e&&e.text?md(e.text):"")+(e&&e.code==="cancelled"?"":`<p class="bad">${esc(aiErr(e))}</p>`);}
@@ -1215,7 +1473,7 @@ function wireSession(){
 async function buildSession(){
   if(!AI)return;
   aiPlan={loading:true};document.getElementById("sess-out").innerHTML=renderSession();document.getElementById("sess-go").disabled=true;
-  const prompt=`${TUTOR_RULES}${studentContext()}\n\nPlan a focused ${sessMin}-minute study session for this student right now. Spend most time on high-weight domains where mastery is lowest, include reviewing missed questions if any exist, and cover untried task areas when useful. Each block must be 5-30 minutes and the blocks must add up to ${sessMin} minutes.\nReply with only JSON in this shape:\n{"title": string, "blocks": [{"minutes": number, "mode": "drill"|"review"|"weak"|"exam"|"mixed"|"read", "task": string|null, "activity": string, "why": string}]}\n- "drill" needs "task" set to a task id from the data, like "B4". Each drill block is 5 questions (about 7 minutes).\n- "read" is concept study away from the app; say exactly what to read or practice in "activity" (e.g. a PMBOK or Agile Practice Guide topic).\n- Keep "activity" under 12 words and "why" under 20 words.`;
+  const prompt=`${tutorRules()}${studentContext()}\n\nPlan a focused ${sessMin}-minute study session for this student right now. Spend most time on high-weight domains where mastery is lowest, include reviewing missed questions if any exist, and cover untried task areas when useful. Each block must be 5-30 minutes and the blocks must add up to ${sessMin} minutes.\nReply with only JSON in this shape:\n{"title": string, "blocks": [{"minutes": number, "mode": "drill"|"review"|"weak"|"exam"|"mixed"|"read", "task": string|null, "activity": string, "why": string}]}\n- "drill" needs "task" set to a task id from the data, like "B4". Each drill block is 5 questions (about 7 minutes).\n- "read" is concept study away from the app; say exactly what to read or practice in "activity" (e.g. a PMBOK or Agile Practice Guide topic).\n- Keep "activity" under 12 words and "why" under 20 words.`;
   try{
     const j=await AI.json(prompt);
     const blocks=(j&&Array.isArray(j.blocks)?j.blocks:[]).map(b=>({minutes:Math.max(1,Math.round(+b.minutes||0)),mode:String(b.mode||"read"),task:b.task?String(b.task).toUpperCase():null,activity:String(b.activity||""),why:String(b.why||"")})).filter(b=>b.activity);
@@ -1251,7 +1509,7 @@ function cloudSave(){
 async function flushSave(){
   if(saving){saveAgain=true;return;}
   saving=true;
-  try{await DB.doc("progress/"+UID).set({attempts:state.attempts.slice(-600),sessions:state.sessions.slice(-60),updated:Date.now()});}
+  try{await DB.doc("progress/"+UID).set({attempts:ALLA.slice(-1500),sessions:ALLS.slice(-150),updated:Date.now()});}
   catch(e){if(e&&e.code==="invalid_argument"){cloudRO=true;setSync();}}
   saving=false;if(saveAgain){saveAgain=false;flushSave();}
 }
@@ -1282,7 +1540,7 @@ function wireQForm(){
     if(!g("qf-q")||opts.length<2||ans>=opts.length){msg.className="msg bad";msg.textContent="Add the question, at least two options, and pick an answer that has text.";return;}
     const prev=editId?state.bank.find(q=>q.id===editId):null;
     const id=editId||("q"+Date.now().toString(36));
-    const body={task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),diff:+g("qf-diff")||1,src:prev?prev.src:"Instructor",updated:Date.now()};if(prev&&prev.fig)body.fig=prev.fig;if(prev&&prev.case)body.case=prev.case;
+    const body={track:TRACK,task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),diff:+g("qf-diff")||1,src:prev?prev.src:"Instructor",updated:Date.now()};if(prev&&prev.fig)body.fig=prev.fig;if(prev&&prev.case)body.case=prev.case;
     if(prev&&prev.order!==undefined)body.order=prev.order;{const qz=normQuiz(g("qf-quiz")),qn=parseInt(g("qf-qn"),10);if(qz)body.quiz=qz;if(qn>0)body.qn=qn;}
     msg.className="msg";msg.textContent="Saving…";
     try{await DB.doc("questions/"+id).set(body);editId=null;lastMsg={t:prev?"Question updated.":"Question added. Students see it right away.",ok:true};renderBank(true);}
@@ -1319,7 +1577,7 @@ const DIFF_SHORT={1:"E",2:"M",3:"A"};
 function suggestDiff(p){return p>=.75?1:p>=.45?2:3;}
 // pool = [{who, attempts, sessions}]
 function myPool(){return [{who:UID||"me",attempts:state.attempts,sessions:state.sessions}];}
-function classPool(){return (classDocs||[]).filter(d=>Array.isArray(d.attempts)).map(d=>({who:d.id,attempts:d.attempts,sessions:d.sessions||[]}));}
+function classPool(){return (classDocs||[]).filter(d=>Array.isArray(d.attempts)).map(d=>({who:d.id,attempts:d.attempts.filter(a=>trackOfA(a)===TRACK),sessions:(d.sessions||[]).filter(x=>(x.track||"pmp")===TRACK)}));}
 function latestQuizSession(p,name){return (p.sessions||[]).filter(s=>s.quiz===name).sort((a,b)=>b.ts-a.ts)[0]||null;}
 function domainSplit(atts){const out={};DOMAINS.forEach(D=>out[D.id]={n:0,c:0});atts.forEach(a=>{const t=TASKS[a.task];if(!t)return;out[t.domain].n++;if(a.ok)out[t.domain].c++;});return out;}
 function improvement(pool){
@@ -1421,11 +1679,137 @@ async function offerCSV(filename,text,msg){
   catch(e){set("Your browser blocked the download.",false);}
 }
 
+/* ---------- Aron, fields gallery, Study tab ---------- */
+const ARON_SVG=`<svg viewBox="0 0 64 64" class="aron-svg" aria-hidden="true"><defs><linearGradient id="arbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa8ff"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="arclip"><circle cx="32" cy="32" r="32"/></clipPath></defs><g clip-path="url(#arclip)"><rect width="64" height="64" fill="url(#arbg)"/><rect x="27.5" y="35" width="9" height="11" rx="3" fill="#d99c7c"/><path d="M4 66C6 51 17 45.5 32 44.5C47 45.5 58 51 60 66Z" fill="#1c2433"/><path d="M25.5 45L32 58L38.5 45Z" fill="#f4f6fa"/><path d="M30.6 46.2h2.8l1 3L32 58.5l-2.4-9.3Z" fill="#a61b2b"/><path d="M25.5 45L32 58.5L27.5 61L19.5 47.5Z" fill="#111827"/><path d="M38.5 45L32 58.5L36.5 61L44.5 47.5Z" fill="#111827"/><circle cx="41" cy="54" r="1.6" fill="#e5e7eb" opacity=".8"/><ellipse cx="21.6" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="42.4" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="32" cy="26.5" rx="10.4" ry="12.6" fill="#f0bd9b"/><path d="M21.4 25.5C20.6 15.5 26.5 11.8 33 12.2C40.4 12.6 44 16.6 42.7 25.5C41.6 20.3 38 18.4 32.4 18.6C26.6 18.9 23.6 21 21.4 25.5Z" fill="#2a1c13"/><path d="M26.2 23.6q2-1 3.8 0M34 23.6q2-1 3.8 0" stroke="#2a1c13" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="28.1" cy="27.4" r="1.15" fill="#1f160f"/><circle cx="35.9" cy="27.4" r="1.15" fill="#1f160f"/><path d="M28.4 32.9q3.6 2.6 7.2 0" stroke="#9b5a44" stroke-width="1.3" fill="none" stroke-linecap="round"/></g></svg>`;
+function paintAron(){document.querySelectorAll(".aron-av,.aron-big").forEach(e=>{if(!e.querySelector("svg"))e.innerHTML=ARON_SVG;});}
+
+const FIELDS=[
+ {id:"construction",name:"Construction",eg:"Hospitals, bases, housing, roads",g:["#f59e0b","#b45309"]},
+ {id:"datacenter",name:"Data centers",eg:"Server halls, cooling, cutovers",g:["#3b82f6","#1e3a8a"]},
+ {id:"software",name:"Software & IT",eg:"Apps, cloud migrations, ERP",g:["#8b5cf6","#4c1d95"]},
+ {id:"health",name:"Healthcare",eg:"Clinics, EHR rollouts, trials",g:["#14b8a6","#115e59"]},
+ {id:"defense",name:"Defense & logistics",eg:"Supply chains, fielding, readiness",g:["#64748b","#1e293b"]},
+ {id:"energy",name:"Energy",eg:"Wind, solar, grid upgrades",g:["#22c55e","#14532d"]},
+ {id:"manufacturing",name:"Manufacturing",eg:"New lines, plant moves, quality",g:["#ef4444","#7f1d1d"]},
+ {id:"aerospace",name:"Aerospace",eg:"Aircraft, satellites, launch",g:["#0ea5e9","#0c4a6e"]},
+ {id:"infrastructure",name:"Infrastructure",eg:"Bridges, rail, water systems",g:["#a3a3a3","#404040"]},
+ {id:"government",name:"Government",eg:"Public services, policy programs",g:["#6366f1","#312e81"]}];
+const FIELD_PHOTOS={}; // filled with {src, credit, license, href} once licensed photos are added
+function fieldArt(id){
+  const W="rgba(255,255,255,.92)",F="rgba(255,255,255,.18)",st=`stroke="${W}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
+  const a={
+   construction:`<path d="M60 170V40h8v130M64 44h150M200 44v22M64 44l26 26M196 66h10v14h-10z" ${st}/><path d="M30 170h300" ${st}/><rect x="150" y="100" width="120" height="70" fill="${F}" ${st}/><path d="M150 123h120M150 146h120M190 100v70M230 100v70" ${st}/>`,
+   datacenter:[0,1,2,3].map(i=>`<rect x="${40+i*72}" y="40" width="56" height="128" rx="4" fill="${F}" ${st}/>`+[0,1,2,3,4,5].map(k=>`<path d="M${48+i*72} ${56+k*18}h28" ${st}/><circle cx="${86+i*72}" cy="${56+k*18}" r="2.6" fill="${k%2?"#86efac":"#93c5fd"}"/>`).join("")).join(""),
+   software:`<rect x="70" y="40" width="200" height="120" rx="8" fill="${F}" ${st}/><path d="M50 172h240" ${st}/><path d="M100 76l-16 16 16 16M140 76l16 16-16 16M122 116l10-48" ${st}/><rect x="180" y="62" width="70" height="14" rx="3" fill="${W}"/><rect x="180" y="86" width="50" height="14" rx="3" fill="rgba(255,255,255,.55)"/><rect x="180" y="110" width="62" height="14" rx="3" fill="rgba(255,255,255,.35)"/>`,
+   health:`<rect x="90" y="60" width="160" height="110" fill="${F}" ${st}/><path d="M60 170h220" ${st}/><rect x="150" y="26" width="40" height="40" rx="4" fill="${W}"/><path d="M170 34v24M158 46h24" stroke="#0f766e" stroke-width="7"/><path d="M110 90h24M110 120h24M206 90h24M206 120h24M158 140h24v30h-24z" ${st}/>`,
+   defense:`<path d="M60 150h170v-50h-60l-20-24H120v74" ${st}/><rect x="230" y="110" width="60" height="40" fill="${F}" ${st}/><circle cx="100" cy="158" r="14" fill="${F}" ${st}/><circle cx="200" cy="158" r="14" fill="${F}" ${st}/><circle cx="268" cy="158" r="14" fill="${F}" ${st}/><path d="M140 112h26M60 60l20-12 20 12M60 74l20-12 20 12" ${st}/>`,
+   energy:`<path d="M110 170V70M240 170V88" ${st}/><circle cx="110" cy="70" r="5" fill="${W}"/><path d="M110 70l-6-46M110 70l42 18M110 70l-38 26" ${st}/><circle cx="240" cy="88" r="4" fill="${W}"/><path d="M240 88l-5-36M240 88l32 14M240 88l-30 20" ${st}/><path d="M150 170l14-36h62l14 36z" fill="${F}" ${st}/><path d="M178 134l-6 36M206 134l6 36M157 152h76" ${st}/><circle cx="300" cy="44" r="16" fill="rgba(255,255,255,.35)"/>`,
+   manufacturing:`<path d="M40 170V100l50-28v28l50-28v28l50-28v98z" fill="${F}" ${st}/><path d="M210 170V50h26v120M30 170h290" ${st}/><circle cx="270" cy="128" r="22" ${st}/><circle cx="270" cy="128" r="8" fill="${W}"/><path d="M270 98v8M270 150v8M240 128h8M292 128h8" ${st}/><path d="M60 130h20M110 130h20M160 130h20" ${st}/>`,
+   aerospace:`<path d="M170 26c22 18 30 48 26 86h-52c-4-38 4-68 26-86z" fill="${F}" ${st}/><circle cx="170" cy="74" r="10" ${st}/><path d="M144 112l-22 26 26-4M196 112l22 26-26-4M156 134l14 30 14-30" ${st}/><circle cx="60" cy="50" r="2" fill="${W}"/><circle cx="90" cy="120" r="2" fill="${W}"/><circle cx="280" cy="70" r="2" fill="${W}"/><circle cx="300" cy="140" r="2" fill="${W}"/>`,
+   infrastructure:`<path d="M20 120h300M20 132h300" ${st}/><path d="M60 120c40-70 180-70 220 0" ${st}/><path d="M100 120V88M140 120V72M170 120V68M200 120V72M240 120V88" ${st}/><path d="M80 132v40M260 132v40M20 172h300" ${st}/><path d="M30 160q20-8 40 0t40 0 40 0 40 0 40 0 40 0 40 0" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none"/>`,
+   government:`<path d="M170 30l110 40H60z" fill="${F}" ${st}/><path d="M70 80h200M60 170h220M70 160h200" ${st}/><path d="M92 86v68M132 86v68M172 86v68M212 86v68M252 86v68" ${st}/>`};
+  return a[id]||"";
+}
+function fieldCard(f){
+  const ph=FIELD_PHOTOS[f.id];
+  const art=ph?`<img src="${esc(ph.src)}" alt="${esc(f.name)} project" loading="lazy">`:`<svg viewBox="0 0 340 200" aria-hidden="true">${fieldArt(f.id)}</svg>`;
+  return `<figure class="field" style="--g1:${f.g[0]};--g2:${f.g[1]}">${art}<figcaption><b>${esc(f.name)}</b><span>${esc(f.eg)}</span>${ph&&ph.credit?`<small><a href="${esc(ph.href||"#")}" target="_blank" rel="noopener">${esc(ph.credit)}</a>${ph.license?" · "+esc(ph.license):""}</small>`:""}</figcaption></figure>`;
+}
+function renderFields(){
+  return `<section class="fields-sec"><div class="sec-head"><span class="eyebrow">Every kind of project</span><h2>The same skills run a bridge, a data center and a sprint.</h2><p>Project management is one discipline across every field. Pick a track below and study for the exam that fits your next role.</p></div><div class="fieldrow" tabindex="0" aria-label="Project fields">${FIELDS.map(fieldCard).join("")}</div></section>`;
+}
+function renderTrackCards(){
+  return `<section class="trackcards">${Object.values(TRACKS).map(T=>`<button class="tcard ${T.id===TRACK?"on":""}" data-track="${T.id}" aria-pressed="${T.id===TRACK}"><span class="eyebrow">${esc(T.body)}</span><b>${esc(T.name)}</b><span>${esc(T.full)}</span><small>${esc(T.exam)}</small><em>${esc(T.blurb)}</em></button>`).join("")}</section>`;
+}
+
+/* Study topics per track: [title, task ids, summary, key points, YouTube search] */
+const STUDY={
+ pmp:[
+  ["Earned value management",["R4","R6"],"Measure cost and schedule performance with one set of numbers.",["CPI = EV ÷ AC and SPI = EV ÷ PV; below 1.0 is bad.","EAC = BAC ÷ CPI when current performance continues.","TCPI above 1.1 usually means re-baseline."],"PMP earned value management explained"],
+  ["Critical path and schedule compression",["R6"],"Find the longest path, the float, and how to recover time.",["Zero total float means the activity is critical.","Crashing adds resources and cost.","Fast tracking overlaps work and adds risk."],"PMP critical path method float crashing fast tracking"],
+  ["Risk management",["B4"],"Identify, analyze and respond to threats and opportunities.",["Threats: avoid, transfer, mitigate, accept, escalate.","EMV = probability × impact.","When a risk occurs, execute the planned response."],"PMP risk management response strategies"],
+  ["Stakeholders and communication",["P4","P5"],"Engage the right people the right way.",["Power/interest grid: manage closely, keep satisfied, keep informed, monitor.","Channels = n(n−1) ÷ 2.","Talk directly before escalating."],"PMP stakeholder engagement communication"],
+  ["Conflict and team leadership",["P2","P3"],"Lead as a servant leader and resolve conflict at the root.",["Collaborate/problem-solve is usually the best answer.","Tuckman: forming, storming, norming, performing, adjourning.","Coach and empower rather than command."],"PMP conflict resolution techniques servant leadership"],
+  ["Procurement and contracts",["R4"],"Choose contract types and manage sellers.",["Fixed price puts cost risk on the seller.","Cost-reimbursable puts cost risk on the buyer.","Follow the contract's terms when something goes wrong."],"PMP procurement contract types"],
+  ["Quality and control charts",["R5"],"Plan quality in and read process data.",["Prevention costs less than inspection or failure.","Outside the control limits = out of control.","Rule of seven: seven points on one side of the mean."],"PMP quality management control chart rule of seven"],
+  ["Change control and integration",["B3","R1"],"Route changes through one process and keep plans aligned.",["Assess impact first, then submit a change request.","The change control board approves or rejects.","Update the baselines and tell stakeholders."],"PMP integrated change control process"],
+  ["Agile and hybrid on the PMP",["R3","P1"],"About half of the PMP tests agile and hybrid approaches.",["Value-driven delivery and frequent feedback.","Tailor the approach to the project.","Servant leadership and self-organizing teams."],"PMP agile hybrid exam questions"],
+  ["Business environment",["B1","B2","B5","B6"],"Governance, compliance, benefits and change.",["Escalate through the governance framework.","Compliance is never traded for schedule.","Benefits depend on adoption: plan organizational change."],"PMP business environment domain"]],
+ acp:[
+  ["Agile Manifesto and 12 principles",["AM1"],"The four values and twelve principles behind every agile method.",["Individuals and interactions, working product, customer collaboration, responding to change.","Deliver frequently; welcome changing requirements.","Sustainable pace and technical excellence."],"Agile Manifesto 12 principles explained"],
+  ["Scrum essentials",["AM2","AD2"],"Roles, events and artifacts in one lightweight framework.",["Transparency, inspection, adaptation.","Sprint, planning, daily scrum, review, retrospective.","Product backlog, sprint backlog, increment."],"Scrum framework explained in 10 minutes"],
+  ["Kanban, flow and Little's Law",["AD1"],"Visualize work, limit WIP and manage flow.",["Cycle time = WIP ÷ throughput.","WIP limits expose bottlenecks.","Stop starting, start finishing."],"Kanban WIP limits Little's Law explained"],
+  ["Lean thinking and waste",["AM2"],"Deliver value by removing waste.",["Seven wastes: partially done work, extra features, relearning, handoffs, delays, task switching, defects.","Value stream mapping finds delays.","Decide as late as responsible; deliver as fast as possible."],"Lean software development seven wastes"],
+  ["XP practices",["AD3"],"Technical practices that build quality in.",["Test-driven development and continuous integration.","Pair programming and collective code ownership.","Small releases and refactoring."],"Extreme Programming practices TDD pair programming"],
+  ["User stories and refinement",["AP2"],"Write small, valuable, testable backlog items.",["As a … I want … so that …","INVEST: independent, negotiable, valuable, estimable, small, testable.","Refine continuously; keep the top of the backlog ready."],"user stories INVEST acceptance criteria"],
+  ["Estimation and velocity",["AD2","AP3"],"Relative sizing and forecasting.",["Planning poker with story points.","Velocity forecasts; it is not a performance target.","Remaining points ÷ velocity = iterations left."],"planning poker story points velocity"],
+  ["Prioritization",["AP1"],"Order the backlog by value.",["MoSCoW: must, should, could, won't this time.","WSJF = cost of delay ÷ job size.","Kano: basic, performance, delighters."],"MoSCoW WSJF Kano prioritization agile"],
+  ["Servant leadership and teams",["AL1","AL2","AL4"],"Lead by serving and keep the team safe to speak.",["Remove impediments; shield the team.","Psychological safety drives learning.","Facilitate; don't decide for the team."],"servant leadership agile psychological safety"],
+  ["Agile metrics",["AD4","AL3"],"Burndowns, burnups and cumulative flow.",["Burnup separates scope growth from progress.","CFD: widening band = bottleneck.","Information radiators keep stakeholders informed."],"burndown burnup cumulative flow diagram explained"]],
+ psm:[
+  ["Empiricism, pillars and values",["SF1"],"Why Scrum works: decisions based on what is observed.",["Pillars: transparency, inspection, adaptation.","Values: commitment, focus, openness, respect, courage.","Lean thinking reduces waste and focuses on essentials."],"Scrum Guide 2020 empiricism Scrum values"],
+  ["The three accountabilities",["SF2"],"Product Owner, Scrum Master and Developers.",["The Product Owner is one person, accountable for the Product Backlog.","The Scrum Master is accountable for the team's effectiveness.","Developers own the Sprint Backlog and the Definition of Done quality."],"Scrum accountabilities Product Owner Scrum Master Developers"],
+  ["Events and time-boxes",["SF3"],"Five events, all inside the Sprint.",["Sprint: one month or less.","Daily Scrum: 15 minutes, for the Developers.","Planning 8h, Review 4h, Retro 3h at most for a one-month Sprint."],"Scrum events time boxes explained"],
+  ["Artifacts and commitments",["SF4"],"Each artifact has a commitment that makes progress transparent.",["Product Backlog → Product Goal.","Sprint Backlog → Sprint Goal.","Increment → Definition of Done."],"Scrum artifacts commitments Product Goal Sprint Goal Definition of Done"],
+  ["Definition of Done",["SF4"],"The shared quality bar for every Increment.",["Work that misses it returns to the Product Backlog.","An organizational standard is the minimum.","Several teams on one product share one Definition of Done."],"Definition of Done Scrum explained"],
+  ["Self-managing, cross-functional teams",["ST1"],"The team decides who does what, when and how.",["Typically 10 or fewer people.","No sub-teams or hierarchies.","Has all the skills to create value each Sprint."],"self-managing teams Scrum cross-functional"],
+  ["The Scrum Master as coach",["ST2"],"A true leader who serves the team and the organization.",["Coaches self-management and cross-functionality.","Causes impediments to be removed.","Leads, trains and coaches the organization's Scrum adoption."],"Scrum Master stances coach facilitator"],
+  ["Product Backlog management",["SP1","SP2"],"Order, refine and make the backlog transparent.",["Refinement is ongoing, not an event.","Only the Product Owner orders the backlog.","Developers size the items."],"Product Backlog refinement Product Owner"],
+  ["Forecasting and stakeholders",["SP3","SP4"],"Use empiricism to plan releases and engage stakeholders.",["Burn-downs and burn-ups help but don't replace empiricism.","Stakeholders join the Sprint Review.","Release whenever an Increment meets the Definition of Done."],"Scrum release planning forecasting stakeholders Sprint Review"],
+  ["Scaling: many teams, one product",["SP2"],"Keep one Product Backlog and one Product Owner.",["Teams share the Product Goal and Product Backlog.","Teams share one Definition of Done.","Integrate into one Increment each Sprint."],"scaling Scrum multiple teams one Product Backlog Nexus"]]};
+const OFFICIAL={
+ pmp:[["PMP certification and exam content outline","https://www.pmi.org/certifications/project-management-pmp"]],
+ acp:[["PMI-ACP certification and exam content outline","https://www.pmi.org/certifications/agile-acp"],["Manifesto for Agile Software Development","https://agilemanifesto.org/"]],
+ psm:[["The 2020 Scrum Guide (free)","https://scrumguides.org/scrum-guide.html"],["PSM I assessment at Scrum.org","https://www.scrum.org/assessments/professional-scrum-master-i-certification"]]};
+const TIMEBOX=[["Sprint","One month or less","Container for all other events"],["Sprint Planning","8 hours at most","Shorter for shorter Sprints"],["Daily Scrum","15 minutes","Same time and place every working day"],["Sprint Review","4 hours at most","A working session with stakeholders"],["Sprint Retrospective","3 hours at most","Ends the Sprint"],["Product Backlog refinement","No time-box","An ongoing activity, not an event"]];
+const SCRUM_SVG=`<svg viewBox="0 0 640 230" class="fig-svg" role="img" aria-label="Scrum framework: Product Backlog, Sprint Planning, Sprint Backlog, the Sprint with Daily Scrum, Increment, Sprint Review and Sprint Retrospective"><defs><marker id="sar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+<g font-size="12" fill="var(--ink)" text-anchor="middle">
+<rect x="10" y="80" width="100" height="70" rx="12" fill="color-mix(in srgb,var(--f1) 16%,transparent)" stroke="var(--f1)"/><text x="60" y="112" font-weight="700">Product</text><text x="60" y="128" font-weight="700">Backlog</text><text x="60" y="168" font-size="10" fill="var(--muted)">Product Goal</text>
+<path d="M112 115h34" stroke="var(--muted)" stroke-width="2" marker-end="url(#sar)"/><text x="130" y="104" font-size="10" fill="var(--muted)">Planning</text>
+<rect x="150" y="80" width="100" height="70" rx="12" fill="color-mix(in srgb,var(--f2) 16%,transparent)" stroke="var(--f2)"/><text x="200" y="112" font-weight="700">Sprint</text><text x="200" y="128" font-weight="700">Backlog</text><text x="200" y="168" font-size="10" fill="var(--muted)">Sprint Goal</text>
+<path d="M252 115h34" stroke="var(--muted)" stroke-width="2" marker-end="url(#sar)"/>
+<circle cx="345" cy="115" r="56" fill="none" stroke="var(--f3)" stroke-width="3" stroke-dasharray="6 5"/><text x="345" y="108" font-weight="700">Sprint</text><text x="345" y="124" font-size="10" fill="var(--muted)">≤ 1 month</text>
+<circle cx="345" cy="45" r="22" fill="var(--surface)" stroke="var(--f3)" stroke-width="2"/><text x="345" y="42" font-size="9" font-weight="700">Daily</text><text x="345" y="53" font-size="9" font-weight="700">Scrum</text>
+<path d="M403 115h34" stroke="var(--muted)" stroke-width="2" marker-end="url(#sar)"/>
+<rect x="440" y="80" width="90" height="70" rx="12" fill="color-mix(in srgb,var(--f5) 16%,transparent)" stroke="var(--f5)"/><text x="485" y="120" font-weight="700">Increment</text><text x="485" y="168" font-size="10" fill="var(--muted)">Definition of Done</text>
+<path d="M532 115h20" stroke="var(--muted)" stroke-width="2" marker-end="url(#sar)"/>
+<rect x="556" y="56" width="76" height="44" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="594" y="75" font-size="10" font-weight="700">Sprint</text><text x="594" y="88" font-size="10" font-weight="700">Review</text>
+<rect x="556" y="130" width="76" height="44" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="594" y="149" font-size="10" font-weight="700">Sprint</text><text x="594" y="162" font-size="10" font-weight="700">Retro</text>
+<path d="M594 176v36H60v-60" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#sar)"/><text x="330" y="226" font-size="10" fill="var(--muted)">Inspect and adapt, then the next Sprint starts right away</text></g></svg>`;
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+let libDocs=null,libSub=false;
+function subLibrary(){if(libSub||!DB)return;libSub=true;try{DB.collection("library").onSnapshot(s=>{libDocs=s.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="hub")renderHub();},()=>{libDocs=libDocs||[];});}catch(e){libDocs=[];}}
+function renderLibrary(){
+  const T=TRACKS[TRACK],docs=(libDocs||[]).filter(d=>(d.track||"pmp")===TRACK).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  const off=(OFFICIAL[TRACK]||[]).map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a><span class="label">Official site</span></li>`).join("");
+  const up=cloudAdmin()?`<div class="libup"><label>Title<input id="lib-title" placeholder="e.g. ${esc(T.name)} exam content outline"></label><label class="btn">Choose PDF<input id="lib-file" type="file" accept="application/pdf,.pdf" style="position:absolute;opacity:0;width:1px;height:1px"></label><span class="msg" id="lib-msg" role="status"></span></div><p class="ainote" style="margin:0">Upload only files you have the right to share with your students.</p>`:"";
+  return `<section class="card"><div class="mapbar"><h2>Library</h2><span class="label">${esc(T.name)} reference files</span></div>
+   <ul class="liblist">${off}${docs.map(d=>`<li><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title||"PDF")}</a><span class="label">PDF · added ${fmtD(d.ts||Date.now())}</span>${cloudAdmin()?`<button class="linkbtn" data-libdel="${esc(d.id)}">Remove</button>`:""}</li>`).join("")}</ul>
+   ${docs.length?"":`<p style="margin:0;color:var(--muted)">${DB?"No PDFs yet. Your instructor will add official PMI and Scrum.org files here.":"PDFs your instructor uploads appear here when the page is opened in Claude."}</p>`}${up}</section>`;
+}
+function wireLibrary(el){
+  const f=el.querySelector("#lib-file");
+  if(f)f.onchange=async e=>{const file=e.target.files[0],msg=el.querySelector("#lib-msg");if(!file)return;
+    msg.className="msg";msg.textContent="Uploading…";
+    try{const assets=await window.claude.use("assets");if(!assets)throw {code:"unavailable"};
+      const r=await assets.upload(file);const title=(el.querySelector("#lib-title").value.trim()||file.name.replace(/\.pdf$/i,""));
+      await DB.doc("library/l"+Date.now().toString(36)).set({title,url:r.url,assetId:r.id,track:TRACK,ts:Date.now()});
+      msg.className="msg ok";msg.textContent="Added "+title+".";}
+    catch(err){msg.className="msg bad";msg.textContent=err&&err.code==="too_large"?"That file is too large (20 MB max).":"Couldn't upload. Only editors of this page can add files.";}};
+  el.querySelectorAll("[data-libdel]").forEach(b=>b.onclick=async()=>{if(b.textContent!=="Confirm remove"){b.textContent="Confirm remove";return;}try{await DB.doc("library/"+b.dataset.libdel).delete();}catch(e){b.textContent="Couldn't remove";}});
+}
+function renderStudyTopics(){
+  return `<section class="topics">${(STUDY[TRACK]||[]).map((t,i)=>{const tasks=t[1].filter(id=>TASKS[id]);const st=stats();const m=tasks.map(id=>st.t[id]).filter(x=>x&&x.n);const mm=m.length?m.reduce((s,x)=>s+x.m,0)/m.length:null;
+    return `<article class="topic"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+      <div class="tchips">${tasks.map(id=>`<span class="dchip" style="--dc:var(--c-${TASKS[id].domain})">${esc(id)} · ${esc(TASKS[id].name)}</span>`).join("")}${mm!==null?`<span class="pill ${rating(mm)[0]}">Your mastery ${pct(mm)}</span>`:""}</div>
+      <div class="actions"><a class="btn yt" href="${yt(t[4])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>Watch on YouTube</a>${tasks.some(id=>state.bank.some(q=>q.task===id))?`<button class="btn" data-studyq="${tasks.find(id=>state.bank.some(q=>q.task===id))}">Practice this</button>`:""}<button class="btn ghost ai-only" data-hubask="${esc(`Teach me "${t[0]}" for the ${TRACKS[TRACK].name} exam in under 160 words with one example, then ask me one exam-style question on it.`)}">Ask Aron</button></div></div></article>`;}).join("")}</section>`;
+}
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
   if(classDocs===null){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">${THINK} Loading students…</p></section>`;return;}
-  const students=classDocs.filter(d=>Array.isArray(d.attempts)&&d.attempts.length);
+  const students=classDocs.map(d=>({...d,attempts:(d.attempts||[]).filter(a=>trackOfA(a)===TRACK),sessions:(d.sessions||[]).filter(x=>(x.track||"pmp")===TRACK)})).filter(d=>d.attempts.length);
   const all=[].concat(...students.map(d=>d.attempts));
   const per=students.map(d=>({id:d.id,st:stats(d.attempts),n:d.attempts.length,last:Math.max(...d.attempts.map(a=>a.ts||0)),sessions:(d.sessions||[]).length}));
   // cohort mastery per task = average of each student's mastery where they have data
@@ -1468,16 +1852,17 @@ async function initCloud(){
       try{
         const d=await DB.doc("progress/"+UID).get();
         const body=d.exists?d.data():null;
-        if(body&&Array.isArray(body.attempts)&&body.attempts.length){state.attempts=body.attempts.slice();state.sessions=(body.sessions||[]).slice();state.demo=false;try{localStorage.setItem(KEY,JSON.stringify({attempts:state.attempts,sessions:state.sessions,demo:false,custom:state.custom}))}catch(e){}}
-        else if(!state.demo&&state.attempts.length)cloudSave();
+        if(body&&Array.isArray(body.attempts)&&body.attempts.length){ALLA=body.attempts.slice();ALLS=(body.sessions||[]).slice();state.demo=false;setTrack(TRACK,true);try{localStorage.setItem(KEY,JSON.stringify({attempts:ALLA,sessions:ALLS,demo:false,custom:state.custom}))}catch(e){}}
+        else if(!state.demo&&ALLA.length)cloudSave();
       }catch(e){}
     }
     if(IS_ADMIN)DB.collection("progress").onSnapshot(snap=>{classDocs=snap.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="class")renderClass();if(currentView()==="quizzes")renderQuizzes();},()=>{classDocs=classDocs||[];});
     if(currentView()!=="quiz")rerender();
   }catch(e){}
 }
+document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");if(b&&TRACKS[b.dataset.track]&&b.dataset.track!==TRACK){setTrack(b.dataset.track);if(b.classList.contains("tcard"))window.scrollTo({top:0,behavior:"smooth"});}});
 initCloud();
 initAI();
-load();show("map");
+load();paintAron();show("map");
 })();
 </script>

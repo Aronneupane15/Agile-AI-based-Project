@@ -1,4 +1,6 @@
-# Vets2PM PMP Readiness Map
+# PMP/ACP Guide
+
+*(formerly the Vets2PM PMP Readiness Map)*
 
 An AI-driven adaptive learning tool for future Vets2PM students preparing for the PMP exam.
 
@@ -14,6 +16,18 @@ An AI-driven adaptive learning tool for future Vets2PM students preparing for th
 | `prototype/sample-questions.csv` | 38 original PMP-style practice questions in the upload format. The hard questions and case studies are built into the page. |
 
 The prototype also runs as a hosted Claude artifact: <https://claude.ai/artifact/QmagGE6pTW7sxmnL6ai3ZQ>
+
+## Three separate tracks
+
+| Track | Body | Outline used | Domains |
+| --- | --- | --- | --- |
+| PMP | PMI | Exam content outline, July 2026 | People 33%, Process 41%, Business Environment 26% |
+| PMI-ACP | PMI | Exam content outline, 2024 | Mindset 28%, Leadership 25%, Product 19%, Delivery 28% |
+| PSM I | Scrum.org | 2020 Scrum Guide + focus areas | Scrum framework, People & teams, Product agility (no official weights) |
+
+Each track has its own questions, heat map, progress and Study topics. Uploads take an optional `track` column (PMP, ACP, PSM), or infer it from the task code (P1–B6, AM1–AD4, SF1–SP4).
+
+**Study tab:** 10 topics per track with key points, a YouTube search link, a practice set, and a Library of official links and instructor-uploaded PDFs.
 
 ## Prototype features
 
