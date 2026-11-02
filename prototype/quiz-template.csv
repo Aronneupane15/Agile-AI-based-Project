@@ -1,0 +1,4 @@
+quiz,number,difficulty,domain,task,question,a,b,c,d,answer,explanation
+Quiz 1,1,Easy,People,P2,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.
+Quiz 1,2,Moderate,Process,R6,"A project has SPI 0.85 and CPI 1.05. What is its status?",Ahead and over budget,Behind and under budget,Behind and over budget,Ahead and under budget,B,SPI below 1 is behind; CPI above 1 is under budget.
+Quiz 4,1,Advanced,Business Environment,B4,"A high-probability, high-impact risk can be removed by changing the technical approach. Which response is this?",Mitigate,Transfer,Avoid,Accept,C,Changing the plan to remove the threat entirely is avoidance.

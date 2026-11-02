@@ -31,6 +31,18 @@ The prototype also runs as a hosted Claude artifact: <https://claude.ai/artifact
 
 Opened directly in a browser, the page works offline. Progress is saved in that browser, and the AI and admin features are hidden.
 
+### Sprint quizzes (MBI)
+
+The **Quizzes** tab supports the current sprint:
+
+- **Quiz 1–3** are the baseline quizzes. **Quiz 4** is the advanced validation quiz that shows improvement.
+- Every question is tagged with a **difficulty** (Easy, Moderate, Advanced) and an **exam outline task** (P1–P6, R1–R7, B1–B6).
+- **Difficulty check:** compares each question's tagged level with how students actually scored (Easy ≥ 75% correct, Moderate 45–74%, Advanced < 45%). Admins can apply the suggested level once a question has 5 or more answers.
+- **Exam outline coverage:** questions per task area per quiz, with gaps highlighted.
+- **Test data:** download every answer as CSV (student, quiz, question number, domain, task code, difficulty, answer, correct, seconds, time). Admins can download the whole class. The tagged question bank also downloads as CSV.
+
+Use `prototype/quiz-template.csv` as the upload format.
+
 ### Run it locally
 
 Open `prototype/index.html` in any modern browser. No build step is needed.
@@ -38,9 +50,12 @@ Open `prototype/index.html` in any modern browser. No build step is needed.
 ### Question format (CSV)
 
 ```csv
-domain,task,question,a,b,c,d,answer,explanation
-People,Conflict & collaboration,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.
+quiz,number,difficulty,domain,task,question,a,b,c,d,answer,explanation
+Quiz 1,1,Easy,People,P2,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.
 ```
+
+- `quiz` is Quiz 1 to Quiz 4 (or just 1–4). `number` is the question's position in the quiz. `difficulty` is Easy, Moderate or Advanced. All three are optional.
+- `task` takes the exam outline code (P1–P6, R1–R7, B1–B6) or the task name.
 
 - `domain` starts with People, Process, or Business.
 - `answer` is A–D or 1–4.

@@ -222,7 +222,24 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
 .who{display:flex;align-items:center;gap:8px}.who img{width:24px;height:24px;border-radius:50%}
 
 /* v5: professional polish */
-#view-cases,#view-hub,#view-help{display:grid;gap:24px}
+#view-cases,#view-hub,#view-help,#view-quizzes{display:grid;gap:24px}
+.diff.d1{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+.quizgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:6px}
+.quizcard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.quizcard.val{border-top-color:var(--bad)}
+.quizcard h3{font:700 24px/1 var(--f-display);font-stretch:85%;margin:0}
+.mixbar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--line)}
+.mixbar i,.mixkey i{display:block}
+.mixkey{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.mixkey span{display:inline-flex;align-items:center;gap:5px}.mixkey i{width:9px;height:9px;border-radius:2px}
+.m1{background:var(--ok)}.m2{background:var(--warn)}.m3{background:var(--bad)}.m0{background:var(--muted)}
+.stat{font:700 11px var(--f-data);letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:3px;white-space:nowrap}
+.stat.good{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}.stat.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}.stat.bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,transparent)}.stat.muted{color:var(--muted);background:color-mix(in srgb,var(--muted) 12%,transparent)}
+.btn.sm{font-size:13px;padding:5px 10px;white-space:nowrap}
+.covtab td.cov{text-align:center}.covtab td.zero{color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:600 13px var(--f-body);padding:7px 12px;border:0;background:var(--surface);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .card{box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -16px rgba(16,24,40,.18)}
 .ddot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:1px}
 .dhead{border-top-color:var(--dc,var(--ink))!important}
@@ -309,6 +326,7 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
       </div>
       <nav aria-label="Views">
         <button id="nav-map" data-view="map" aria-current="true">Dashboard</button>
+        <button id="nav-quizzes" data-view="quizzes">Quizzes</button>
         <button id="nav-quiz" data-view="quiz">Practice</button>
         <button id="nav-cases" data-view="cases">Case studies</button>
         <button id="nav-hub" data-view="hub">Study hub</button>
@@ -330,6 +348,7 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
     <div id="view-cases" hidden></div>
     <div id="view-hub" hidden></div>
     <div id="view-help" hidden></div>
+    <div id="view-quizzes" hidden></div>
     <footer>
       Prototype. Domains and weights follow the PMP exam content outline used from July 2026 (People 33%, Process 41%, Business Environment 26%); task names are paraphrased. Sample questions are original practice items, not real exam questions. Mastery scores weight recent answers more heavily. The study plan uses rules; Aron (the AI coach) uses Claude on the viewer’s own Claude account and appear when the page is opened in Claude. Readiness ratings use this prototype's own thresholds, not PMI's. When opened in Claude, progress saves to each student's account and instructors with edit access manage the shared question bank and see the class view; elsewhere, progress stays in this browser.
     </footer>
@@ -550,7 +569,7 @@ function renderMap(){
     <button class="mode primary" id="go-weak" ${state.attempts.length?"":'aria-disabled="true"'}><b>Weak-area practice</b><span>Favors the tasks and questions you miss most</span><em>10 Q</em></button>
     <button class="mode" id="go-review" ${rq.length?"":'aria-disabled="true"'}><b>Review mistakes</b><span>Re-answer questions you got wrong last time</span><em>${rq.length} Q</em></button>
     <button class="mode" id="go-exam"><b>Exam simulation</b><span>Timed at exam pace, weighted by domain, no hints until the end</span><em>${examN} Q · ${Math.round(examN*EXAM_PACE/60)} min</em></button>
-    <button class="mode" id="go-hard"><b>Hard mode</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>
+    <button class="mode" id="go-hard"><b>Advanced practice</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>
     <button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>
     <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
    </div></div></section>`;
@@ -588,6 +607,7 @@ function pick(mode,task){
   if(mode==="mixed")return weightedPick(state.bank,10,()=>1);
   if(mode==="hard")return weightedPick(state.bank.filter(q=>(q.diff||1)>=2),10,q=>q.diff===3?2:1);
   if(mode==="case")return state.bank.filter(q=>q.case===task);
+  if(mode==="quiz")return quizQs(task);
   if(mode==="weak")return weightedPick(state.bank,10,q=>{const x=st.t[q.task];const m=x&&x.m!==null?x.m:.5;return (1-m)*3+(missedSet.has(q.id)?1.5:0)+(seen[q.id]?0:.6)+.05;});
   // exam: proportional to domain weights
   const N=Math.min(30,state.bank.length),out=[];
@@ -595,11 +615,11 @@ function pick(mode,task){
   const rest=state.bank.filter(q=>!out.includes(q));out.push(...weightedPick(rest,N-out.length,()=>1));
   return weightedPick(out.slice(0,N),N,()=>1);
 }
-const MODE_NAME={hard:"Hard mode",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
+const MODE_NAME={hard:"Advanced practice",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
 function startQuiz(mode,task){
   const qs=pick(mode,task);if(!qs.length)return;
   stopTimer();
-  quiz={mode,exam:mode==="exam",title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
+  quiz={mode,exam:mode==="exam"||mode==="quiz",quizName:mode==="quiz"?task:null,title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:mode==="quiz"?task+(isValidation(task)?" · validation":""):MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
   if(quiz.exam)timerId=setInterval(tick,1000);
   show("quiz");
 }
@@ -621,14 +641,14 @@ function choose(k){
 function record(i){
   clearDemo();
   const q=quiz.qs[i];if(!quiz.sid){quiz.sid="s"+Date.now();}
-  state.attempts.push({qid:q.id,task:q.task,ok:quiz.picked[i]===q.ans,ts:Date.now(),secs:Math.round(quiz.secs[i]),sid:quiz.sid});
+  state.attempts.push({qid:q.id,task:q.task,ok:quiz.picked[i]===q.ans,ts:Date.now(),secs:Math.round(quiz.secs[i]),sid:quiz.sid,pick:quiz.picked[i],diff:q.diff||null,quiz:quiz.quizName||q.quiz||null});
   save();
 }
 function finish(){
   if(!quiz||quiz.done)return;accrue();stopTimer();
   if(quiz.exam)quiz.qs.forEach((q,i)=>{if(quiz.picked[i]!==null)record(i);});
   const ans=quiz.qs.map((q,i)=>({q,i,p:quiz.picked[i]})).filter(x=>x.p!==null);
-  if(ans.length){clearDemo();state.sessions.push({id:quiz.sid||("s"+Date.now()),mode:quiz.title,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))});save();}
+  if(ans.length){clearDemo();state.sessions.push({id:quiz.sid||("s"+Date.now()),mode:quiz.title,quiz:quiz.quizName||null,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))});save();}
   quiz.done=true;quiz.review=null;renderQuiz();
 }
 /* ---------- Hard questions, case studies and exhibits ---------- */
@@ -701,7 +721,7 @@ function extraQuestions(){
   CASES.forEach(c=>c.qs.forEach((h,k)=>out.push({id:c.id+"q"+k,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],case:c.id,src:"Sample"})));
   return out;
 }
-const DIFF_NAME={1:"Standard",2:"Hard",3:"Very hard"};
+const DIFF_NAME={1:"Easy",2:"Moderate",3:"Advanced"};
 
 /* ---------- Figure renderer (theme-aware SVG) ---------- */
 const FIGC=["var(--f1)","var(--f2)","var(--f3)","var(--f4)","var(--f5)"];
@@ -784,8 +804,8 @@ function renderCasePanel(c,open){
 
 function renderQuiz(){
   const el=document.getElementById("view-quiz");renderBand();
-  if(!quiz){el.innerHTML=`<div class="card" style="max-width:720px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-mixed">Mixed practice</button><button class="btn" id="q-hard">Hard mode</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-cases">Case studies</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
-    document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");document.getElementById("q-hard").onclick=()=>startQuiz("hard");document.getElementById("q-cases").onclick=()=>show("cases");return;}
+  if(!quiz){el.innerHTML=`<div class="card" style="max-width:720px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-quizzes">Sprint quizzes</button><button class="btn" id="q-mixed">Mixed practice</button><button class="btn" id="q-hard">Advanced practice</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-cases">Case studies</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
+    document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");document.getElementById("q-hard").onclick=()=>startQuiz("hard");document.getElementById("q-cases").onclick=()=>show("cases");document.getElementById("q-quizzes").onclick=()=>show("quizzes");return;}
   if(quiz.done&&quiz.review===null)return renderResults(el);
   const i=quiz.i,q=quiz.qs[i],t=TASKS[q.task],D=domOf(q.task),p=quiz.picked[i];
   const reveal=quiz.done||(!quiz.exam&&quiz.locked[i]);
@@ -807,9 +827,9 @@ function renderQuiz(){
   const nav=quiz.exam?`<aside class="side card"><div class="qmeta"><span class="label">Time left</span><span class="timer num" id="timer">${quiz.done?"done":fmtT(quiz.limit-(Date.now()-quiz.start)/1000)}</span></div>
      <span class="label">${answered}/${quiz.qs.length} answered · ${quiz.flag.filter(Boolean).length} flagged</span>
      <div class="navgrid">${quiz.qs.map((qq,k)=>{let c=k===i?"cur ":"";if(quiz.done)c+=quiz.picked[k]===qq.ans?"right":"wrong";else{if(quiz.picked[k]!==null)c+="done ";if(quiz.flag[k])c+="flag";}return `<button class="${c}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`;}).join("")}</div>
-     ${quiz.done?"":`<button class="btn primary" id="q-submit">Submit exam</button><p class="keys" style="margin:0"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>←</kbd><kbd>→</kbd> move · <kbd>F</kbd> flag</p><p id="confirm" class="keys" hidden style="margin:0"></p>`}</aside>`:"";
+     ${quiz.done?"":`<button class="btn primary" id="q-submit">${quiz.mode==="quiz"?"Submit quiz":"Submit exam"}</button><p class="keys" style="margin:0"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>←</kbd><kbd>→</kbd> move · <kbd>F</kbd> flag</p><p id="confirm" class="keys" hidden style="margin:0"></p>`}</aside>`:"";
   const c=q.case?CASE_BY[q.case]:null;
-  const diff=q.diff>1?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:"";
+  const diff=q.diff?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:"";
   el.innerHTML=`<div class="qwrap" style="${quiz.exam?"":"grid-template-columns:minmax(0,820px)"}"><div class="qcard"><div class="qmeta"><span class="label">${esc(quiz.title)}${quiz.done?" · review":""}</span><span class="label num">Question ${i+1} of ${quiz.qs.length}</span></div>
    <div class="progress"><i style="width:${(quiz.exam?answered:i+(reveal?1:0))/quiz.qs.length*100}%"></i></div>
    ${c?renderCasePanel(c,quiz.caseOpen!==false):""}
@@ -846,7 +866,7 @@ function wireReportForm(q,i){
 }
 function qContext(q,p){
   const c=q.case?CASE_BY[q.case]:null;
-  return `${c?caseText(c)+"\n\n":""}${q.fig?"Figure: "+figToText(q.fig)+"\n\n":""}Question (${domOf(q.task).name} · ${TASKS[q.task].name}, ${DIFF_NAME[q.diff||1]}): ${q.q}\n${q.opts.map((o,k)=>"ABCD"[k]+". "+o).join("\n")}`;
+  return `${c?caseText(c)+"\n\n":""}${q.fig?"Figure: "+figToText(q.fig)+"\n\n":""}Question (${domOf(q.task).name} · ${TASKS[q.task].name}, ${q.diff?DIFF_NAME[q.diff]:"difficulty not tagged"}${q.quiz?", "+q.quiz:""}): ${q.q}\n${q.opts.map((o,k)=>"ABCD"[k]+". "+o).join("\n")}`;
 }
 let inlineCtl=null;
 async function inlineAsk(kind){
@@ -1006,8 +1026,9 @@ document.addEventListener("keydown",e=>{
   else if(k==="f"&&quiz.exam&&!quiz.done){quiz.flag[quiz.i]=!quiz.flag[quiz.i];renderQuiz();}
 });
 
-const TEMPLATE=`domain,task,question,a,b,c,d,answer,explanation
-People,Conflict & collaboration,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.`;
+const TEMPLATE=`quiz,number,difficulty,domain,task,question,a,b,c,d,answer,explanation
+Quiz 1,1,Easy,People,P2,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.
+Quiz 1,2,Moderate,Process,R6,"A project has SPI 0.85 and CPI 1.05. What is its status?",Ahead and over budget,Behind and under budget,Behind and over budget,Ahead and under budget,B,SPI below 1 is behind; CPI above 1 is under budget.`;
 function parseCSV(text){
   const rows=[];let row=[],f="",q=false;
   for(let i=0;i<text.length;i++){const c=text[i];
@@ -1025,10 +1046,11 @@ function importRows(objs){
     const dom=normDomain(r.domain),opts=[r.a,r.b,r.c,r.d].filter(x=>x&&String(x).trim());
     let ans=String(r.answer||"").trim().toUpperCase();ans=/^[A-D]$/.test(ans)?"ABCD".indexOf(ans):/^[1-4]$/.test(ans)?+ans-1:-1;
     if(!dom||!r.question||opts.length<2||ans<0||ans>=opts.length){errors.push(i+1);return;}
-    const tname=String(r.task||"General").trim();
+    const tname=String(r.task||r.eco||r.eco_task||"General").trim();
     let tid=Object.keys(TASKS).find(id=>TASKS[id].name.toLowerCase()===tname.toLowerCase()||id.toLowerCase()===tname.toLowerCase());
     if(!tid){tid="U"+Object.keys(TASKS).length;addTask(tid,tname,dom);}
-    added.push({id:"u"+Date.now().toString(36)+i,task:tid,taskName:tname,domain:dom,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded"});
+    const qz=normQuiz(r.quiz),dv=parseDiff(r.difficulty??r.level),qn=parseInt(r.number??r["#"]??r.question_number,10);
+    const nq={id:"u"+Date.now().toString(36)+i,task:tid,taskName:TASKS[tid].name,domain:dom,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded",diff:dv};if(qz)nq.quiz=qz;if(qn>0)nq.qn=qn;added.push(nq);
   });
   if(cloudAdmin()){added.forEach((q,k)=>{q.id="q"+Date.now().toString(36)+k;q.src="Instructor";});cloudPutMany(added);}
   else{state.custom=state.custom.concat(added);makeBank();save();}
@@ -1050,18 +1072,18 @@ function renderBank(keepMsg){
   if(DB&&!cloudAdmin())return renderBankReadOnly();
   const el=document.getElementById("view-bank"),counts={};
   state.bank.forEach(q=>{const d=TASKS[q.task].domain;counts[d]=(counts[d]||0)+1;});
-  const rows=state.bank.map(q=>{const t=TASKS[q.task];return `<tr><td>${domOf(q.task).name}</td><td>${esc(t.name)}</td><td>${esc(q.q)}</td><td>${cloudAdmin()?`<div class="rowact"><button data-edit="${esc(q.id)}">Edit</button><button class="danger" data-del="${esc(q.id)}">${pendingDel===q.id?"Confirm delete":"Delete"}</button></div>`:q.src}</td></tr>`;}).join("");
+  const rows=state.bank.map(q=>{const t=TASKS[q.task];return `<tr><td>${esc(q.quiz||"–")}${q.qn?" #"+q.qn:""}</td><td>${q.diff?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:"–"}</td><td>${domOf(q.task).name}</td><td><span class="num">${esc(q.task)}</span> ${esc(t.name)}</td><td>${esc(q.q)}</td><td>${cloudAdmin()?`<div class="rowact"><button data-edit="${esc(q.id)}">Edit</button><button class="danger" data-del="${esc(q.id)}">${pendingDel===q.id?"Confirm delete":"Delete"}</button></div>`:q.src}</td></tr>`;}).join("");
   el.innerHTML=`<div class="grid2">
-   ${cloudAdmin()?renderQForm():""}<section class="card"><h2>${cloudAdmin()?"Bulk upload to the shared bank":"Upload your quizzes"}</h2><p style="margin:0">Add a CSV or JSON file. Each question needs a domain, a task area, the question, up to four options, and the correct letter. A new task name gets its own tile on the heat map.</p>
+   ${cloudAdmin()?renderQForm():""}<section class="card"><h2>${cloudAdmin()?"Bulk upload to the shared bank":"Upload your quizzes"}</h2><p style="margin:0">Add a CSV or JSON file, or an Excel sheet saved as CSV. Each question needs a domain, a task area, the question, up to four options and the correct letter. Add the quiz, question number and difficulty so the Quizzes tab can track them. A new task name gets its own tile on the heat map.</p>
     <label class="btn" style="justify-self:start">Choose file<input id="file" type="file" accept=".csv,.json,text/csv,application/json" style="position:absolute;opacity:0;width:1px;height:1px"></label>
     <h3>Or paste questions</h3><textarea id="paste" aria-label="Paste CSV or JSON questions" placeholder="Paste CSV with the header row shown, or JSON"></textarea>
     <div class="actions"><button class="btn primary" id="paste-go">Add pasted questions</button>${!cloudAdmin()&&state.custom.length?`<button class="btn" id="clear-custom">Remove uploaded questions</button>`:""}</div>
     ${lastMsg?`<p class="msg ${lastMsg.ok?"ok":"bad"}" role="status">${esc(lastMsg.t)}</p>`:""}</section>
    <section class="card"><h2>CSV format</h2><pre id="tpl">${esc(TEMPLATE)}</pre><div class="actions"><button class="btn" id="copy-tpl">Copy template</button></div>
-    <p style="margin:0;font-size:13px;color:var(--muted)">Domain must start with People, Process, or Business. Answer can be A–D or 1–4.</p>
+    <p style="margin:0;font-size:13px;color:var(--muted)">Domain must start with People, Process, or Business. Task can be the exam outline code (P1–P6, R1–R7, B1–B6, listed on the Quizzes tab) or the task name. Difficulty is Easy, Moderate or Advanced. Quiz is “Quiz 1” to “Quiz 4” (Quiz 4 is the advanced validation quiz). Answer can be A–D or 1–4. Quiz, number and difficulty are optional.</p>
     <div class="counts">${DOMAINS.map(D=>`<div><span class="label">${D.name}</span><b>${counts[D.id]||0}</b></div>`).join("")}</div></section>
   </div>
-  <section class="card"><h2>${state.bank.length} questions${cloudAdmin()?` <span class="label" style="vertical-align:middle">shared with every student</span>`:""}</h2><div class="tablewrap"><table><thead><tr><th>Domain</th><th>Task</th><th>Question</th><th>${cloudAdmin()?"Edit":"Source"}</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  <section class="card"><h2>${state.bank.length} questions${cloudAdmin()?` <span class="label" style="vertical-align:middle">shared with every student</span>`:""}</h2><div class="tablewrap"><table><thead><tr><th>Quiz</th><th>Level</th><th>Domain</th><th>Task</th><th>Question</th><th>${cloudAdmin()?"Edit":"Source"}</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
   wireQForm();
   document.getElementById("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>handleText(r.result,f.name);r.readAsText(f);};
   document.getElementById("paste-go").onclick=()=>{const v=document.getElementById("paste").value;if(v.trim())handleText(v,"pasted text");};
@@ -1070,8 +1092,8 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quiz","cases","hub","bank","help","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();
+  ["map","quizzes","quiz","cases","hub","bank","help","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();
   window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -1216,8 +1238,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quiz","cases","hub","bank","help","class"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -1246,7 +1268,7 @@ function renderQForm(){
   const taskOpts=DOMAINS.map(D=>`<optgroup label="${D.name}">${D.tasks.map(([id,n])=>`<option value="${id}" ${id===v.task?"selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("");
   return `<section class="card" id="qform-card" style="grid-column:1/-1"><h2>${e?"Edit question":"Add a question"}</h2>
    <form class="qform" id="qform">
-    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Difficulty<select id="qf-diff">${[1,2,3].map(d=>`<option value="${d}" ${d===((e&&e.diff)||1)?"selected":""}>${DIFF_NAME[d]}</option>`).join("")}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
+    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Quiz<input id="qf-quiz" list="qf-quizzes" value="${esc((e&&e.quiz)||"")}" placeholder="Quiz 1"><datalist id="qf-quizzes">${QUIZ_SLOTS.map(s=>`<option value="${s.name}">`).join("")}</datalist></label><label>Number<input id="qf-qn" type="number" min="1" value="${(e&&e.qn)||""}"></label><label>Difficulty<select id="qf-diff">${[1,2,3].map(d=>`<option value="${d}" ${d===((e&&e.diff)||1)?"selected":""}>${DIFF_NAME[d]}</option>`).join("")}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
     <label>Question<textarea id="qf-q" required>${esc(v.q)}</textarea></label>
     <div class="row">${["a","b","c","d"].map(k=>`<label>Option ${k.toUpperCase()}<input id="qf-${k}" value="${esc(v[k])}" ${k<"c"?"required":""}></label>`).join("")}</div>
     <label>Explanation shown after answering<textarea id="qf-exp">${esc(v.exp)}</textarea></label>
@@ -1261,7 +1283,7 @@ function wireQForm(){
     const prev=editId?state.bank.find(q=>q.id===editId):null;
     const id=editId||("q"+Date.now().toString(36));
     const body={task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),diff:+g("qf-diff")||1,src:prev?prev.src:"Instructor",updated:Date.now()};if(prev&&prev.fig)body.fig=prev.fig;if(prev&&prev.case)body.case=prev.case;
-    if(prev&&prev.order!==undefined)body.order=prev.order;
+    if(prev&&prev.order!==undefined)body.order=prev.order;{const qz=normQuiz(g("qf-quiz")),qn=parseInt(g("qf-qn"),10);if(qz)body.quiz=qz;if(qn>0)body.qn=qn;}
     msg.className="msg";msg.textContent="Saving…";
     try{await DB.doc("questions/"+id).set(body);editId=null;lastMsg={t:prev?"Question updated.":"Question added. Students see it right away.",ok:true};renderBank(true);}
     catch(e){msg.className="msg bad";msg.textContent="Couldn't save. Check that you have edit access to this page.";}
@@ -1283,6 +1305,122 @@ function renderBankReadOnly(){
    <div class="counts">${DOMAINS.map(D=>`<div><span class="label">${D.name}</span><b>${counts[D.id]||0}</b></div>`).join("")}</div>
    <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Task</th><th>Question</th></tr></thead><tbody>${state.bank.map(q=>`<tr><td>${domOf(q.task).name}</td><td>${esc(TASKS[q.task].name)}</td><td>${esc(q.q)}</td></tr>`).join("")}</tbody></table></div></section>`;
 }
+/* ---------- Sprint quizzes: ECO tagging, difficulty check, test data ---------- */
+const QUIZ_SLOTS=[
+ {name:"Quiz 1",role:"Baseline quiz"},{name:"Quiz 2",role:"Baseline quiz"},{name:"Quiz 3",role:"Baseline quiz"},
+ {name:"Quiz 4",role:"Validation quiz · advanced",validation:true}];
+function parseDiff(s){s=String(s??"").trim().toLowerCase();if(!s)return null;
+  if(/^(1|e|basic|low|beginner)/.test(s))return 1;if(/^(2|m|intermediate)/.test(s))return 2;if(/^(3|a|hard|difficult|high|v)/.test(s))return 3;return null;}
+function normQuiz(s){s=String(s??"").trim();if(!s)return "";const m=s.match(/^(?:quiz)?\s*#?\s*(\d+)$/i);return m?"Quiz "+m[1]:s;}
+function quizNames(){const set=new Set(QUIZ_SLOTS.map(s=>s.name));state.bank.forEach(q=>{if(q.quiz)set.add(q.quiz);});return [...set];}
+function quizQs(name){return state.bank.filter(q=>q.quiz===name).sort((a,b)=>(a.qn??1e9)-(b.qn??1e9)||(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));}
+const isValidation=name=>!!(QUIZ_SLOTS.find(s=>s.name===name)||{}).validation;
+const DIFF_SHORT={1:"E",2:"M",3:"A"};
+function suggestDiff(p){return p>=.75?1:p>=.45?2:3;}
+// pool = [{who, attempts, sessions}]
+function myPool(){return [{who:UID||"me",attempts:state.attempts,sessions:state.sessions}];}
+function classPool(){return (classDocs||[]).filter(d=>Array.isArray(d.attempts)).map(d=>({who:d.id,attempts:d.attempts,sessions:d.sessions||[]}));}
+function latestQuizSession(p,name){return (p.sessions||[]).filter(s=>s.quiz===name).sort((a,b)=>b.ts-a.ts)[0]||null;}
+function domainSplit(atts){const out={};DOMAINS.forEach(D=>out[D.id]={n:0,c:0});atts.forEach(a=>{const t=TASKS[a.task];if(!t)return;out[t.domain].n++;if(a.ok)out[t.domain].c++;});return out;}
+function improvement(pool){
+  const base=[],val=[];
+  pool.forEach(p=>{
+    QUIZ_SLOTS.forEach(s=>{const ls=latestQuizSession(p,s.name);if(!ls)return;const atts=p.attempts.filter(a=>a.sid===ls.id);(s.validation?val:base).push(...atts);});
+  });
+  return {base,val};
+}
+const rate=list=>list.length?list.filter(a=>a.ok).length/list.length:null;
+let quizScope="me";
+function renderQuizzes(){
+  const el=document.getElementById("view-quizzes");renderBand();
+  const admin=cloudAdmin(),scope=admin&&quizScope==="class"?"class":"me";
+  const pool=scope==="class"?classPool():myPool();
+  const allAtt=[].concat(...pool.map(p=>p.attempts));
+  const names=quizNames();
+  const tagged=state.bank.filter(q=>q.quiz).length;
+  // quiz cards
+  const cards=names.map(name=>{
+    const qs=quizQs(name),slot=QUIZ_SLOTS.find(s=>s.name===name),val=isValidation(name);
+    const mix={1:0,2:0,3:0,0:0};qs.forEach(q=>mix[q.diff||0]++);
+    const doms={};qs.forEach(q=>{const d=TASKS[q.task].domain;doms[d]=(doms[d]||0)+1;});
+    const ls=latestQuizSession(myPool()[0],name);
+    const bar=qs.length?`<div class="mixbar" aria-label="Difficulty mix">${[1,2,3,0].map(d=>mix[d]?`<i class="m${d}" style="flex:${mix[d]}" title="${d?DIFF_NAME[d]:"Untagged"}: ${mix[d]}"></i>`:"").join("")}</div>
+      <div class="mixkey">${[1,2,3].map(d=>`<span><i class="m${d}"></i>${DIFF_NAME[d]} ${mix[d]}</span>`).join("")}${mix[0]?`<span><i class="m0"></i>Untagged ${mix[0]}</span>`:""}</div>
+      <div class="mixkey">${DOMAINS.map(D=>`<span><i style="background:var(--c-${D.id})"></i>${D.name} ${doms[D.id]||0}</span>`).join("")}</div>`
+      :`<p class="ainote" style="margin:0">No questions yet. ${admin||!DB?`Upload them in <a href="#" data-goto="bank">Question bank</a> with the quiz column set to “${esc(name)}”.`:"Your instructor hasn't added them yet."}</p>`;
+    return `<article class="quizcard${val?" val":""}"><div class="qhead"><span class="label">${esc(slot?slot.role:"Quiz")}</span>${val?`<span class="diff d3">Advanced</span>`:""}</div>
+      <h3>${esc(name)}</h3><span class="label num">${qs.length} question${qs.length===1?"":"s"}${ls?` · your last score ${ls.c}/${ls.n} (${pct(ls.c/ls.n)})`:""}</span>
+      ${bar}
+      <div class="actions"><button class="btn ${qs.length?"primary":"ghost"}" data-takequiz="${esc(name)}" ${qs.length?"":"disabled"}>${ls?"Retake":"Take quiz"}</button></div></article>`;
+  }).join("");
+  // improvement
+  const imp=improvement(pool),b=rate(imp.base),v=rate(imp.val),bd=domainSplit(imp.base),vd=domainSplit(imp.val);
+  const impCard=`<section class="card"><div class="mapbar"><h2>Quizzes 1–3 vs Quiz 4</h2><span class="label">${scope==="class"?"Whole class, latest attempt per student":"Your latest attempt at each quiz"}</span></div>
+    ${b===null&&v===null?`<p style="margin:0">Take the quizzes to see this. Quizzes 1–3 set the baseline. Quiz 4 is the advanced validation quiz that checks whether study has paid off.</p>`:
+    `<div class="tablewrap"><table><thead><tr><th>Domain</th><th>Quizzes 1–3</th><th>Quiz 4</th><th>Change</th></tr></thead><tbody>
+     ${[...DOMAINS.map(D=>[D.name,bd[D.id],vd[D.id]]),["All domains",{n:imp.base.length,c:imp.base.filter(a=>a.ok).length},{n:imp.val.length,c:imp.val.filter(a=>a.ok).length}]].map(([nm,x,y])=>{const px=x.n?x.c/x.n:null,py=y.n?y.c/y.n:null,dl=px!==null&&py!==null?Math.round((py-px)*100):null;
+       return `<tr><td>${esc(nm)}</td><td class="num">${pct(px)} <span style="color:var(--muted)">(${x.n})</span></td><td class="num">${pct(py)} <span style="color:var(--muted)">(${y.n})</span></td><td class="num" style="color:${dl===null?"var(--muted)":dl>=0?"var(--ok)":"var(--bad)"}">${dl===null?"–":(dl>0?"+":"")+dl+" pts"}</td></tr>`;}).join("")}
+    </tbody></table></div><p class="ainote" style="margin:0">Quiz 4 is harder by design, so holding steady on it already shows improvement.</p>`}</section>`;
+  // difficulty check
+  const useQs=tagged?state.bank.filter(q=>q.quiz):state.bank;
+  const minN=scope==="class"?5:1;
+  const byQ={};allAtt.forEach(a=>{byQ[a.qid]=byQ[a.qid]||{n:0,c:0};byQ[a.qid].n++;if(a.ok)byQ[a.qid].c++;});
+  const dRows=useQs.map(q=>{const r=byQ[q.id]||{n:0,c:0},p=r.n?r.c/r.n:null,s=r.n>=minN?suggestDiff(p):null;
+    let st,cls;if(!q.diff){st="Not tagged";cls="warn";}else if(s===null){st="Needs more answers";cls="muted";}else if(s===q.diff){st="Matches";cls="good";}else if(s<q.diff){st="Easier than tagged";cls="warn";}else{st="Harder than tagged";cls="bad";}
+    return {q,r,p,s,st,cls,rank:{bad:0,warn:1,good:2,muted:3}[cls]};}).filter(x=>x.r.n||!x.q.diff||tagged).sort((a,b)=>a.rank-b.rank||(a.p??2)-(b.p??2));
+  const counts={};dRows.forEach(x=>counts[x.st]=(counts[x.st]||0)+1);
+  const canFix=q=>admin||(!DB&&q.src==="Uploaded");
+  const dCard=`<section class="card"><div class="mapbar"><h2>Difficulty check</h2><span class="label">${scope==="class"?`Class answers · at least ${minN} per question`:"Your answers"} · Easy ≥ 75% correct · Moderate 45–74% · Advanced &lt; 45%</span></div>
+    <div class="statrow">${["Matches","Easier than tagged","Harder than tagged","Not tagged","Needs more answers"].map(k=>`<div><span class="label">${k}</span><b>${counts[k]||0}</b></div>`).join("")}</div>
+    ${dRows.length?`<div class="tablewrap"><table><thead><tr><th>Quiz</th><th>Question</th><th>Tagged</th><th>Correct</th><th>Real level</th><th>Status</th>${dRows.some(x=>canFix(x.q))?"<th></th>":""}</tr></thead><tbody>${dRows.slice(0,60).map(x=>`<tr><td class="num">${esc(x.q.quiz||"–")}${x.q.qn?` #${x.q.qn}`:""}</td><td>${esc(x.q.q.length>90?x.q.q.slice(0,90)+"…":x.q.q)}<br><span class="label" style="letter-spacing:.04em">${esc(x.q.task)} · ${esc(TASKS[x.q.task].name)}</span></td><td>${x.q.diff?`<span class="diff d${x.q.diff}">${DIFF_NAME[x.q.diff]}</span>`:"–"}</td><td class="num">${pct(x.p)} <span style="color:var(--muted)">(${x.r.n})</span></td><td>${x.s?`<span class="diff d${x.s}">${DIFF_NAME[x.s]}</span>`:"–"}</td><td><span class="stat ${x.cls}">${x.st}</span></td>${dRows.some(y=>canFix(y.q))?`<td>${canFix(x.q)&&x.s&&x.s!==x.q.diff&&x.r.n>=5?`<button class="btn ghost sm" data-setdiff="${esc(x.q.id)}" data-d="${x.s}">Use ${DIFF_NAME[x.s]}</button>`:""}</td>`:""}</tr>`).join("")}</tbody></table></div>${dRows.length>60?`<p class="ainote" style="margin:0">Showing the 60 that most need a look. The CSV export has all of them.</p>`:""}`:`<p style="margin:0">No answers yet. Once students take the quizzes, each question's real difficulty shows here next to its tag.</p>`}
+    <div class="actions"><button class="btn" id="dl-diff">Download difficulty report (CSV)</button></div></section>`;
+  // ECO coverage
+  const qn=names.filter(n=>quizQs(n).length);
+  const cov=DOMAINS.map(D=>D.tasks.map(([id,nm])=>{const per=qn.map(n=>quizQs(n).filter(q=>q.task===id).length),tot=per.reduce((s,x)=>s+x,0);
+    return `<tr><td class="num">${esc(id)}</td><td>${esc(nm)}<br><span class="label" style="letter-spacing:.04em">${D.name}</span></td>${per.map(x=>`<td class="num cov${x?"":" zero"}">${x||"·"}</td>`).join("")}<td class="num cov${tot?"":" zero"}"><b>${tot}</b></td></tr>`;}).join("")).join("");
+  const covCard=`<section class="card"><div class="mapbar"><h2>Exam outline coverage</h2><span class="label">Questions per task area, per quiz. Use the code in the task column when you upload.</span></div>
+    ${qn.length?"":`<p class="ainote" style="margin:0">No quiz questions uploaded yet, so every cell is empty. The codes below are what the task column takes.</p>`}
+    <div class="tablewrap"><table class="covtab"><thead><tr><th>Code</th><th>Task area</th>${qn.map(n=>`<th class="num">${esc(n)}</th>`).join("")}<th class="num">Total</th></tr></thead><tbody>${cov}</tbody></table></div></section>`;
+  // test data
+  const dataCard=`<section class="card"><h2>Test data</h2><p style="margin:0">Every answer is saved with the quiz, question number, exam domain, task code, tagged difficulty, the answer picked, whether it was right, and the time taken. Download it as a spreadsheet for the sprint review or the next cohort.</p>
+    <div class="statrow"><div><span class="label">Answers</span><b>${allAtt.length}</b></div><div><span class="label">Quiz attempts</span><b>${[].concat(...pool.map(p=>(p.sessions||[]).filter(s=>s.quiz))).length}</b></div><div><span class="label">Students</span><b>${pool.filter(p=>p.attempts.length).length}</b></div><div><span class="label">Tagged questions</span><b>${state.bank.filter(q=>q.quiz&&q.diff&&TASKS[q.task]&&!/^U/.test(q.task)).length}</b></div></div>
+    <div class="actions"><button class="btn primary" id="dl-results">Download ${scope==="class"?"class":"my"} results (CSV)</button><button class="btn" id="dl-bank">Download tagged question bank (CSV)</button></div>
+    <p class="msg" id="dl-msg" role="status"></p></section>`;
+  el.innerHTML=`<section class="card hero-q"><div class="mapbar"><div><h2>Sprint quizzes</h2><p style="margin:4px 0 0">Quizzes 1–3 are the baseline. Quiz 4 is the harder validation quiz that shows improvement. Each question carries a difficulty (Easy, Moderate or Advanced) and an exam outline task.</p></div>
+    ${admin?`<div class="seg" role="group" aria-label="Whose data"><button data-scope="me" aria-pressed="${scope==="me"}">My results</button><button data-scope="class" aria-pressed="${scope==="class"}">Whole class</button></div>`:""}</div>
+    <div class="quizgrid">${cards}</div></section>
+   ${impCard}${dCard}${covCard}${dataCard}`;
+  el.querySelectorAll("[data-takequiz]").forEach(b=>b.onclick=()=>startQuiz("quiz",b.dataset.takequiz));
+  el.querySelectorAll("[data-goto]").forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.goto);});
+  el.querySelectorAll("[data-scope]").forEach(b=>b.onclick=()=>{quizScope=b.dataset.scope;renderQuizzes();});
+  el.querySelectorAll("[data-setdiff]").forEach(b=>b.onclick=async()=>{const q=state.bank.find(x=>x.id===b.dataset.setdiff),d=+b.dataset.d;if(!q)return;
+    if(admin){b.disabled=true;b.textContent="Saving…";try{const {id,...body}=q;await DB.doc("questions/"+id).set({...body,diff:d,updated:Date.now()});}catch(e){b.textContent="Couldn't save";return;}}
+    else{const c=state.custom.find(x=>x.id===q.id);if(c)c.diff=d;makeBank();save();}
+    renderQuizzes();});
+  const dm=document.getElementById("dl-msg");
+  document.getElementById("dl-results").onclick=async()=>offerCSV(`vets2pm-${scope==="class"?"class":"my"}-results-${new Date().toISOString().slice(0,10)}.csv`,await resultsCSV(pool,scope==="class"),dm);
+  document.getElementById("dl-bank").onclick=()=>offerCSV(`vets2pm-question-bank-${new Date().toISOString().slice(0,10)}.csv`,bankCSV(),dm);
+  document.getElementById("dl-diff").onclick=()=>offerCSV(`vets2pm-difficulty-check-${new Date().toISOString().slice(0,10)}.csv`,toCSV([["quiz","number","question_id","eco_task","task_name","domain","tagged_difficulty","answers","percent_correct","real_difficulty","status","question"],...dRows.map(x=>[x.q.quiz||"",x.q.qn||"",x.q.id,x.q.task,TASKS[x.q.task].name,domOf(x.q.task).name,x.q.diff?DIFF_NAME[x.q.diff]:"",x.r.n,x.p===null?"":Math.round(x.p*100),x.s?DIFF_NAME[x.s]:"",x.st,x.q.q])]),dm);
+}
+function toCSV(rows){return rows.map(r=>r.map(v=>{v=v===null||v===undefined?"":String(v);return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(",")).join("\r\n")+"\r\n";}
+async function resultsCSV(pool,named){
+  let names={};if(named&&USER){try{const ps=await USER.profiles(pool.map(p=>p.who));pool.forEach(p=>names[p.who]=(ps[p.who]&&ps[p.who].name)||"");}catch(e){}}
+  const byId={};state.bank.forEach(q=>byId[q.id]=q);
+  const rows=[["student","student_id","session_id","session","quiz","question_number","question_id","domain","eco_task","task_name","tagged_difficulty","answer_given","correct_answer","correct","seconds","answered_at"]];
+  pool.forEach((p,k)=>{const ses={};(p.sessions||[]).forEach(s=>ses[s.id]=s);
+    p.attempts.forEach(a=>{const q=byId[a.qid],t=TASKS[a.task],s=ses[a.sid];const d=a.diff||(q&&q.diff);
+      rows.push([named?(names[p.who]||"Student "+(k+1)):"Me",p.who,a.sid||"",s?s.mode:"",a.quiz||(s&&s.quiz)||"",q&&q.qn||"",a.qid,t?domOf(a.task).name:"",a.task,t?t.name:"",d?DIFF_NAME[d]:"",a.pick!=null?"ABCD"[a.pick]:"",q?"ABCD"[q.ans]:"",a.ok?1:0,a.secs??"",new Date(a.ts).toISOString()]);});});
+  return toCSV(rows);
+}
+function bankCSV(){return toCSV([["quiz","number","difficulty","domain","task","question","a","b","c","d","answer","explanation"],...state.bank.map(q=>[q.quiz||"",q.qn||"",q.diff?DIFF_NAME[q.diff]:"",domOf(q.task).name,q.task,q.q,q.opts[0]||"",q.opts[1]||"",q.opts[2]||"",q.opts[3]||"","ABCD"[q.ans],q.exp||""])]);}
+async function offerCSV(filename,text,msg){
+  const set=(t,ok)=>{if(msg){msg.className="msg "+(ok?"ok":"bad");msg.textContent=t;}};
+  let dl=null;try{dl=window.claude&&typeof window.claude.use==="function"?await window.claude.use("downloads"):null;}catch(e){}
+  if(dl){try{await dl.save({filename,data:new Blob([text],{type:"text/csv"})});set("Saved "+filename+".",true);}catch(e){set(e&&e.code==="declined"?"Download cancelled.":"This view can't save files. Open the page in Claude or a browser and try again.",false);}return;}
+  try{const u=URL.createObjectURL(new Blob([text],{type:"text/csv"})),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);set("Downloaded "+filename+".",true);}
+  catch(e){set("Your browser blocked the download.",false);}
+}
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
@@ -1334,7 +1472,7 @@ async function initCloud(){
         else if(!state.demo&&state.attempts.length)cloudSave();
       }catch(e){}
     }
-    if(IS_ADMIN)DB.collection("progress").onSnapshot(snap=>{classDocs=snap.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="class")renderClass();},()=>{classDocs=classDocs||[];});
+    if(IS_ADMIN)DB.collection("progress").onSnapshot(snap=>{classDocs=snap.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="class")renderClass();if(currentView()==="quizzes")renderQuizzes();},()=>{classDocs=classDocs||[];});
     if(currentView()!=="quiz")rerender();
   }catch(e){}
 }
