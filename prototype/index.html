@@ -1,0 +1,943 @@
+<title>PMP Readiness Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a briefing board. Dark command band (readiness gauge + domain bars), then the plan, the task heat map, and the progress log. */
+:root{
+  --bg:#eef0ec; --surface:#ffffff; --ink:#18201d; --muted:#5a6661; --line:#d5dbd6;
+  --band:#15202b; --band-ink:#e9eef2; --band-muted:#93a4b3; --band-line:#2a3a49;
+  --accent:#2f5a8a; --accent-ink:#ffffff; --brass:#c9a24a;
+  --weak:#e07a6a; --mid:#ecc56a; --strong:#79c3a2; --none:#e3e7e3; --tile-ink:#18201d;
+  --ok:#2b7a5a; --warn:#a8641c; --bad:#b23a2c;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-data:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111614; --surface:#1a211e; --ink:#e6ebe8; --muted:#98a59f; --line:#2f3934;
+  --band:#0c141c; --band-line:#22313f; --accent:#8db4e0; --accent-ink:#0d1825; --none:#232b28;
+  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111614; --surface:#1a211e; --ink:#e6ebe8; --muted:#98a59f; --line:#2f3934;
+  --band:#0c141c; --band-line:#22313f; --accent:#8db4e0; --accent-ink:#0d1825; --none:#232b28;
+  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.inner{max-width:1120px;margin:0 auto}
+.top{background:var(--band);color:var(--band-ink);padding-block:18px 26px}
+.top .inner{display:grid;gap:20px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{flex:none}
+h1{font:800 clamp(24px,4vw,34px)/1 var(--f-display);font-stretch:72%;letter-spacing:.03em;margin:0;text-transform:uppercase}
+.tag{font:500 12px var(--f-data);color:var(--band-muted);letter-spacing:.04em}
+nav{display:flex;gap:2px;background:color-mix(in srgb,var(--band-ink) 8%,transparent);padding:3px;border-radius:6px;flex-wrap:wrap}
+nav button{font:600 13px var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:none;border:0;color:var(--band-muted);padding:8px 14px;border-radius:4px;cursor:pointer}
+nav button:hover{color:var(--band-ink)}
+nav button[aria-current="true"]{background:var(--band-ink);color:var(--band)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,label.btn:focus-within{outline:3px solid var(--brass);outline-offset:2px}
+.label{font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.top .label{color:var(--band-muted)}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+main{padding-block:24px 48px}
+main .inner{display:grid;gap:24px}
+/* command band */
+.cmd{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:center}
+.gauge{position:relative;max-width:300px;width:100%;aspect-ratio:1.55}
+.gauge svg{width:100%;height:100%;display:block}
+.gauge .read{position:absolute;inset:auto 0 4% 0;text-align:center;display:grid;gap:2px;justify-items:center}
+.gauge .big{font:800 54px/1 var(--f-display);font-stretch:80%}
+.pill{display:inline-block;font:700 11px var(--f-body);letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid currentColor}
+.r0{color:var(--bad)}.r1{color:var(--warn)}.r2{color:var(--ok)}.r3{color:var(--ok)}.rn{color:var(--muted)}
+.top .r0{color:#f39a8c}.top .r1{color:#f0b56c}.top .r2,.top .r3{color:#86d8ae}.top .rn{color:var(--band-muted)}
+.bars{display:grid;gap:14px;min-width:0}
+.bar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 56px;gap:12px;align-items:center}
+.bar .nm{font:700 16px/1.1 var(--f-display);font-stretch:85%;text-transform:uppercase}
+.bar .nm small{display:block;font:500 11px var(--f-data);color:var(--band-muted);text-transform:none;margin-top:3px}
+.track{position:relative;height:14px;background:var(--band-line);border-radius:2px}
+.track i{position:absolute;inset:0 auto 0 0;border-radius:2px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.track b{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--brass)}
+.bar .v{font:700 18px var(--f-data);text-align:right}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--band-line);border:1px solid var(--band-line);border-radius:4px;overflow:hidden}
+.kpi{background:var(--band);padding:10px 14px;display:grid;gap:2px}
+.kpi .v{font:700 22px var(--f-data)}
+.kpi .s{font-size:12px;color:var(--band-muted)}
+.banner{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;border:1px dashed var(--muted);padding:10px 14px;border-radius:4px;font-size:14px;color:var(--muted)}
+.linkbtn{background:none;border:none;color:var(--accent);font:600 14px var(--f-body);cursor:pointer;padding:0;text-decoration:underline}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;gap:12px;align-content:start;min-width:0}
+h2{font:700 22px/1.1 var(--f-display);font-stretch:82%;text-transform:uppercase;margin:0;letter-spacing:.02em}
+h3{font:700 16px var(--f-body);margin:0}
+.plan{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;counter-increment:s}
+.steps li::before{content:counter(s);font:700 13px/26px var(--f-data);text-align:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--surface)}
+.modes{display:grid;gap:8px}
+.mode{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;transition:border-color .15s,transform .15s}
+.mode:hover:not([aria-disabled="true"]){border-color:var(--ink);transform:translateX(2px)}
+.mode:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.mode b{font-weight:700}
+.mode span{grid-column:1;font-size:13px;color:var(--muted)}
+.mode em{grid-row:1/3;grid-column:2;align-self:center;font:700 12px var(--f-data);font-style:normal;color:var(--muted)}
+.mode.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mode.primary span,.mode.primary em{color:var(--accent-ink);opacity:.85}
+.mode[aria-disabled="true"]{opacity:.45;cursor:default}
+/* heat map */
+.mapbar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;color:var(--muted)}
+.ramp{width:140px;height:10px;border-radius:2px;background:linear-gradient(90deg,var(--weak),var(--mid),var(--strong))}
+.swatch{width:16px;height:10px;border:1px solid var(--line);background:repeating-linear-gradient(135deg,var(--none) 0 3px,transparent 3px 6px)}
+.drow{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px}
+.dhead{display:grid;align-content:start;gap:4px;border-top:3px solid var(--ink);padding-top:8px}
+.dhead b{font:700 19px/1.05 var(--f-display);font-stretch:82%;text-transform:uppercase}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:6px}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;border-radius:4px;padding:10px 11px;min-height:96px;display:grid;grid-template-rows:1fr auto;gap:6px;color:var(--tile-ink);background:var(--none);border:1px solid transparent;transition:transform .15s,box-shadow .15s;animation:pop .45s both}
+.tile:hover{transform:translateY(-2px);box-shadow:0 6px 16px -8px rgba(0,0,0,.45)}
+.tile:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.tile.untested{color:var(--muted);background:repeating-linear-gradient(135deg,var(--none) 0 6px,transparent 6px 12px);border-color:var(--line)}
+.tile .tname{font-size:14px;line-height:1.25;font-weight:600}
+.tile .tval{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px}
+.tile .pc{font:700 19px var(--f-data)}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:6px;height:6px;border-radius:50%;border:1px solid currentColor}
+.dots i.on{background:currentColor}
+.trend{font:700 13px var(--f-data)}
+@keyframes pop{from{opacity:.001;transform:scale(.96)}to{opacity:1;transform:none}}
+/* progress */
+.prog{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:11px var(--f-data)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.num{white-space:nowrap}
+/* quiz */
+.qwrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:20px;align-items:start}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px;display:grid;gap:16px}
+.qmeta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.timer{font:700 20px var(--f-data);padding:4px 10px;border-radius:4px;background:var(--band);color:var(--band-ink)}
+.timer.low{background:var(--bad);color:#fff}
+.progress{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qtext{font-size:19px;line-height:1.45;margin:0;max-width:65ch}
+.opts{display:grid;gap:8px}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:30px 1fr;gap:8px;line-height:1.4;transition:border-color .12s,background .12s}
+.opt:hover:not([aria-disabled="true"]){border-color:var(--ink)}
+.opt:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.opt .k{font:700 13px/22px var(--f-data);width:22px;height:22px;text-align:center;border:1px solid var(--line);border-radius:4px;color:var(--muted)}
+.opt.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.opt.sel .k{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.opt[aria-disabled="true"]{cursor:default}
+.explain{border-top:1px solid var(--line);padding-top:12px;max-width:65ch}
+.ok{color:var(--ok)} .bad{color:var(--bad)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:600 15px var(--f-body);padding:10px 16px;border-radius:5px;border:1px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.side{display:grid;gap:12px}
+.navgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.navgrid button{font:600 12px var(--f-data);padding:6px 0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:3px;cursor:pointer;position:relative}
+.navgrid button.done{background:color-mix(in srgb,var(--accent) 18%,var(--surface))}
+.navgrid button.cur{outline:2px solid var(--ink)}
+.navgrid button.flag::after{content:"";position:absolute;top:2px;right:2px;border:4px solid var(--brass);border-left-color:transparent;border-bottom-color:transparent}
+.navgrid button.right{background:color-mix(in srgb,var(--ok) 25%,var(--surface))}
+.navgrid button.wrong{background:color-mix(in srgb,var(--bad) 25%,var(--surface))}
+.keys{font-size:12px;color:var(--muted)}
+kbd{font:600 11px var(--f-data);border:1px solid var(--line);border-bottom-width:2px;border-radius:3px;padding:0 4px}
+.result-hero{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+/* bank */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+pre{margin:0;overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px;font:12px/1.5 var(--f-data)}
+textarea{width:100%;min-height:120px;font:13px/1.5 var(--f-data);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px}
+.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.counts div{border:1px solid var(--line);border-radius:4px;padding:8px 10px;display:grid}
+.counts b{font:700 24px var(--f-data)}
+.msg{font-size:14px;margin:0}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;max-width:85ch}
+@media (max-width:820px){.cmd,.plan,.prog,.qwrap{grid-template-columns:1fr}.gauge{margin:0 auto}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.drow{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.bar{grid-template-columns:minmax(0,1fr) 56px}.bar .track{grid-column:1/3;grid-row:2}.result-hero{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* AI tutor */
+body:not(.ai) .ai-only{display:none!important}
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:8px;font:700 15px var(--f-body);padding:12px 18px;border-radius:99px;border:0;background:var(--band);color:var(--band-ink);box-shadow:0 10px 30px -10px rgba(0,0,0,.6);cursor:pointer}
+.fab:hover{transform:translateY(-1px)}
+.fab .spark{width:10px;height:10px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 4px color-mix(in srgb,var(--brass) 30%,transparent)}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:40;width:min(440px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-20px 0 50px -20px rgba(0,0,0,.45);display:grid;grid-template-rows:auto auto 1fr auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.dr-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;background:var(--band);color:var(--band-ink)}
+.dr-head h2{font-size:20px}
+.dr-head small{display:block;font:500 11px var(--f-data);color:var(--band-muted)}
+.iconbtn{background:none;border:1px solid var(--band-line);color:var(--band-ink);border-radius:4px;padding:6px 10px;cursor:pointer;font:600 13px var(--f-body)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.chip{font:600 13px var(--f-body);padding:6px 10px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--ink)}
+.log{overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start}
+.msgb{max-width:92%;padding:10px 13px;border-radius:10px;line-height:1.5;font-size:15px;overflow-wrap:anywhere}
+.msgb.me{justify-self:end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:2px}
+.msgb.ai{justify-self:start;background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:2px}
+.msgb.note{justify-self:center;background:none;color:var(--muted);font-size:13px;text-align:center}
+.md p{margin:0 0 8px}.md p:last-child{margin:0}.md ul,.md ol{margin:4px 0 8px;padding-left:20px}.md h4{margin:6px 0 4px;font:700 14px var(--f-body)}
+.md code{font:12px var(--f-data);background:color-mix(in srgb,var(--ink) 8%,transparent);padding:0 3px;border-radius:3px}
+.thinking{display:inline-flex;gap:4px;align-items:center;color:var(--muted)}
+.thinking i{width:6px;height:6px;border-radius:50%;background:currentColor;animation:blink 1s infinite}
+.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+.composer{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
+.composer textarea{min-height:44px;max-height:140px;resize:vertical;font:15px/1.4 var(--f-body)}
+.aibox{border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;gap:10px;background:color-mix(in srgb,var(--accent) 5%,var(--surface))}
+.aibox .hd{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+.ailabel{font:700 11px var(--f-data);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:inline-flex;gap:6px;align-items:center}
+.ailabel::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brass)}
+.sess{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.sess li{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.sess .mins{font:700 15px var(--f-data);color:var(--accent)}
+.sess .why{font-size:13px;color:var(--muted)}
+select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.ainote{font-size:13px;color:var(--muted)}
+@media (max-width:560px){.sess li{grid-template-columns:52px minmax(0,1fr)}.sess li .btn{grid-column:1/3}}
+
+.role{font:700 11px var(--f-data);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;background:var(--brass);color:#1b1503;margin-left:8px;vertical-align:middle}
+.qform{display:grid;gap:10px}
+.qform .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.qform label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.qform input,.qform textarea,.qform select{font:15px var(--f-body);padding:8px 10px;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;min-height:0}
+.qform textarea{min-height:64px}
+.rowact{display:flex;gap:6px;flex-wrap:wrap}
+.rowact button{font:600 12px var(--f-body);padding:4px 8px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.rowact button.danger{color:var(--bad);border-color:currentColor}
+.ctiles .tile{cursor:default}.ctiles .tile:hover{transform:none;box-shadow:none}
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.statrow div{border:1px solid var(--line);border-radius:6px;padding:10px 14px;display:grid;gap:2px;background:var(--surface)}
+.statrow b{font:700 26px var(--f-data)}
+.who{display:flex;align-items:center;gap:8px}.who img{width:24px;height:24px;border-radius:50%}
+</style>
+
+<div class="top gut">
+  <div class="inner">
+    <header>
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#e07a6a"/><rect x="12" y="1" width="9" height="9" fill="#ecc56a"/><rect x="23" y="1" width="9" height="9" fill="#79c3a2"/><rect x="1" y="12" width="9" height="9" fill="#ecc56a"/><rect x="12" y="12" width="9" height="9" fill="#79c3a2"/><rect x="23" y="12" width="9" height="9" fill="#79c3a2"/><rect x="1" y="23" width="9" height="9" fill="#79c3a2"/><rect x="12" y="23" width="9" height="9" fill="#e07a6a"/><rect x="23" y="23" width="9" height="9" fill="#ecc56a"/></svg>
+        <div><h1>PMP Readiness Map</h1><div class="tag">PMP exam outline · July 2026 · <span id="sync">prototype</span></div></div>
+      </div>
+      <nav aria-label="Views">
+        <button id="nav-map" data-view="map" aria-current="true">Dashboard</button>
+        <button id="nav-quiz" data-view="quiz">Practice</button>
+        <button id="nav-bank" data-view="bank">Question bank</button>
+        <button id="nav-class" data-view="class" hidden>Class</button>
+      </nav>
+    </header>
+    <section id="band" aria-label="Readiness summary"></section>
+  </div>
+</div>
+
+<main class="gut">
+  <div class="inner">
+    <div id="view-map" style="display:grid;gap:24px"></div>
+    <div id="view-quiz" hidden></div>
+    <div id="view-bank" hidden></div>
+    <div id="view-class" hidden></div>
+    <footer>
+      Prototype. Domains and weights follow the PMP exam content outline used from July 2026 (People 33%, Process 41%, Business Environment 26%); task names are paraphrased. Sample questions are original practice items, not real exam questions. Mastery scores weight recent answers more heavily. The study plan uses rules; the AI tutor, debrief and study session use Claude on the viewer’s own Claude account and appear when the page is opened in Claude. Readiness ratings use this prototype's own thresholds, not PMI's. When opened in Claude, progress saves to each student's account and instructors with edit access manage the shared question bank and see the class view; elsewhere, progress stays in this browser.
+    </footer>
+  </div>
+</main>
+
+<button class="fab ai-only" id="fab" aria-controls="drawer" aria-expanded="false"><span class="spark" aria-hidden="true"></span>Ask the AI tutor</button>
+<aside class="drawer" id="drawer" aria-label="AI tutor" hidden>
+  <div class="dr-head"><div><h2>AI tutor</h2><small>Knows your heat map and recent mistakes</small></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
+  <div class="chips" id="chips"></div>
+  <div class="log" id="log" aria-live="polite"></div>
+  <form class="composer" id="composer"><textarea id="chat-in" rows="2" placeholder="Ask about a PMP concept, a question you missed, or how to study" aria-label="Message the AI tutor"></textarea><button class="btn primary" id="chat-send" type="submit">Send</button></form>
+</aside>
+
+<script>
+(function(){
+"use strict";
+const DOMAINS=[
+ {id:"people",name:"People",weight:.33,tasks:[
+  ["P1","Shared project vision"],["P2","Conflict & collaboration"],["P3","Lead & empower the team"],
+  ["P4","Stakeholder engagement"],["P5","Communication & transparency"],["P6","Knowledge transfer"]]},
+ {id:"process",name:"Process",weight:.41,tasks:[
+  ["R1","Integrated planning"],["R2","Scope"],["R3","Value-based delivery"],["R4","Resources, procurement & finance"],
+  ["R5","Quality & compliance"],["R6","Schedule & performance data"],["R7","Closing & lessons learned"]]},
+ {id:"business",name:"Business Environment",weight:.26,tasks:[
+  ["B1","Governance & success metrics"],["B2","Regulatory, safety & sustainability"],["B3","Change control & issues"],
+  ["B4","Risk"],["B5","Continuous improvement & org change"],["B6","External factors"]]}
+];
+const SAMPLE=[
+["P1","A new hybrid team is unclear why the project matters to the organization, and sprint goals keep drifting. What should the project manager do first?",["Issue a detailed scope statement to the team","Facilitate a session to build a shared project vision tied to the business objectives","Escalate the drift to the sponsor","Have the product owner set sprint goals without team input"],1,"A shared vision gives the team a common reason for the work and anchors sprint goals. Documents and escalation do not create understanding."],
+["P1","Midway through, the sponsor announces a strategy shift that changes the expected outcome, and the team is demotivated. What is the best action?",["Continue the current plan until a formal change arrives","Revisit the vision with the sponsor and team, then update the roadmap","Ask HR to run a morale survey","Shorten the sprint length"],1,"When the outcome changes, the vision must be refreshed with the people doing the work so they can see the new purpose."],
+["P2","Two senior engineers argue about the architecture during a stand-up. What should the project manager do?",["Make the decision yourself to end the argument","Meet with both to understand their positions and facilitate a collaborative solution","Escalate to their functional manager","Ignore it because the team is self-organizing"],1,"Collaborate/problem-solve is the preferred conflict technique: it addresses the root cause and keeps ownership with the team."],
+["P2","A team member says a colleague keeps missing handoffs. The conflict is still low intensity. What should the project manager do first?",["Encourage the two to talk directly and offer help if needed","Note it in the colleague's performance review","Remove the colleague from the team","Raise it by name at the retrospective"],0,"Low-level conflict is best handled first by the people involved. The PM supports, but does not take over."],
+["P3","An agile team keeps waiting for the project manager to assign tasks. What should the project manager do?",["Create a detailed assignment matrix","Coach the team on self-organization and let members pull work from the backlog","Ask the product owner to assign tasks","Extend the sprint to give more time"],1,"Servant leadership means building the team's ability to self-organize instead of directing every task."],
+["P3","A capable junior team member asks for more responsibility. What should the project manager do?",["Tell them to wait for the next project","Delegate a meaningful work package with support and regular check-ins","Give them administrative tasks first","Require a certification before any new work"],1,"Empowering people through delegation, with support, grows capability and engagement."],
+["P4","A stakeholder who was missed during identification objects to the deliverables at a demo. What should the project manager do first?",["Proceed, because the sponsor already signed off","Meet with the stakeholder to understand concerns and update the stakeholder register and engagement plan","Escalate to the sponsor","Change the deliverable immediately"],1,"Missed stakeholders must be added and analyzed. Understanding their concerns comes before any change."],
+["P4","The engagement assessment shows the operations director is resistant but needs to be supportive. What is the best approach?",["Limit what the director is told","Plan actions such as involving the director in reviews to address their concerns","Ask the sponsor to order the director's support","Remove the director from the register"],1,"Close the gap between current and desired engagement with targeted involvement, not avoidance or pressure."],
+["P5","Stakeholders say status reports are too long and they miss key issues. What should the project manager do?",["Send reports more often","Review communication needs with stakeholders and tailor format and content","Stop sending reports","Add more detail in appendices"],1,"Communication should be tailored to each audience's needs. The communications plan is updated accordingly."],
+["P5","A team spread across four time zones keeps missing important decisions. What is the best action?",["Require everyone to attend at one fixed time","Keep a shared decision log and visible information radiators, and rotate meeting times","Move all communication to email","Request that the team be colocated"],1,"Transparent, asynchronous artifacts plus fair meeting times keep a distributed team informed."],
+["P6","The only developer who knows a legacy system will leave in a month. What should the project manager do?",["Ask them to write documentation in their final week","Start knowledge transfer now through pairing and documentation with a backfill","Hire a contractor after they leave","Accept the risk"],1,"Knowledge transfer takes time and works best through hands-on pairing, started early."],
+["P6","The team is about to repeat mistakes from a similar past project. What should the project manager have done?",["Reviewed lessons learned from past projects during planning","Waited for the retrospective to discover them","Asked the sponsor to warn the team","Added more contingency budget"],0,"Organizational process assets such as lessons learned should be reviewed early and shared with the team."],
+["R1","The sponsor wants one document showing how scope, schedule, cost, and risk will be managed on a predictive project. What is it?",["Project charter","Business case","Project management plan","Work breakdown structure"],2,"The project management plan integrates all subsidiary plans and baselines."],
+["R1","On a hybrid project, hardware follows a predictive plan and software is built in sprints. How should the project manager plan?",["Make everything agile","Create an integrated plan that aligns agile releases with predictive milestones","Run two separate plans with no link","Make everything predictive"],1,"Hybrid planning ties the cadences together with shared milestones and dependencies."],
+["R2","During execution a developer adds a small feature the customer mentioned in passing. What should the project manager do?",["Accept it because the customer will be pleased","Remind the team that additions go through change control and assess the feature","Add it to the scope baseline directly","Charge the customer for it"],1,"This is gold plating. Unapproved additions add risk and cost, even when well-intended."],
+["R2","In an agile project, who is responsible for ordering the product backlog?",["The project manager","The development team","The product owner","The sponsor"],2,"The product owner orders the backlog to maximize value."],
+["R3","Midway through, the team finds a planned feature will deliver little business value. What should happen?",["Build it because it is in the plan","Work with the product owner to reprioritize toward higher-value items","Cancel the project","Ask the team to build it faster"],1,"Value-based delivery means continuously reprioritizing work by value."],
+["R3","What is the best way to confirm value early on an agile project?",["Write a complete requirements document","Release a minimum viable product and gather user feedback","Wait until the full product is done","Do a cost-benefit study at closing"],1,"An MVP tests assumptions about value with real users early and cheaply."],
+["R4","A seller misses a contractual milestone on a fixed-price contract. What should the project manager do first?",["Withhold all payment and terminate","Review the contract terms and follow its defined process, notifying the seller formally","Ignore it if the final date can still be met","Negotiate a new price"],1,"The contract governs the response. Follow its terms before considering termination or renegotiation."],
+["R4","Earned value is $400,000 and actual cost is $500,000. What is the CPI, and what does it mean?",["1.25, under budget","0.80, under budget","0.80, over budget","1.25, over budget"],2,"CPI = EV / AC = 400 / 500 = 0.80. Below 1.0 means more is being spent than the work earned."],
+["R4","Two projects need the same specialist at the same time. What should the project manager do?",["Take the specialist because your project started first","Negotiate with the other project and functional manager using organizational priorities","Hire a second specialist without approval","Delay your project without telling anyone"],1,"Resource conflicts are resolved by negotiation based on priorities, possibly with resource leveling."],
+["R5","Inspections are finding many defects late in the project. How should the project manager reduce the cost of quality?",["Add more final inspections","Invest in prevention such as earlier reviews and process improvement","Accept the defects","Change vendors"],1,"Prevention is cheaper than appraisal or failure costs. Quality is planned in, not inspected in."],
+["R5","What does a Definition of Done provide an agile team?",["A list of all features","Shared quality criteria every increment must meet","The release date","The sprint budget"],1,"The Definition of Done is a shared quality standard for each increment."],
+["R6","A project has SPI 0.85 and CPI 1.05. What is its status?",["Ahead of schedule and over budget","Behind schedule and under budget","Behind schedule and over budget","Ahead of schedule and under budget"],1,"SPI below 1.0 means behind schedule. CPI above 1.0 means under budget."],
+["R6","The sprint burndown chart is flat for the first half of the sprint. What should the project manager do?",["Explore with the team what is blocking progress","Extend the sprint","Add more people to the team","Wait until the sprint review"],0,"A flat burndown signals impediments. Address them now, with the team."],
+["R6","A critical-path activity is late. The project manager decides to overlap activities that were planned in sequence. Which technique is this?",["Crashing","Fast tracking","Resource leveling","Rolling wave planning"],1,"Fast tracking overlaps sequential activities, which adds risk. Crashing adds resources, which adds cost."],
+["R7","The customer has accepted all deliverables. What should the project manager do next?",["Release the team right away","Obtain formal closure, finalize lessons learned, release resources, and archive records","Start the next project","Send the final invoice only"],1,"Closing includes formal acceptance, lessons learned, releasing resources, and archiving."],
+["B1","A decision is needed that exceeds the project manager's authority. What should the project manager do?",["Make the decision anyway to avoid delay","Escalate through the path defined in the governance framework","Ask the team to vote","Wait until the issue resolves itself"],1,"Governance defines decision rights and escalation paths. Use them."],
+["B1","The sponsor asks how success will be measured beyond on time and on budget. What should the project manager do?",["Say on time and on budget is enough","Define success metrics tied to business benefits, such as adoption, with stakeholders","Let the team decide at closing","Use the number of features delivered"],1,"Success should be measured by the benefits and value the project was meant to deliver."],
+["B2","A new regulation affecting the product is announced mid-project. What should the project manager do first?",["Ignore it until it is enforced","Assess the impact with compliance experts and raise a change request if needed","Stop the project","Let legal handle it without involving the team"],1,"Assess impact first, then use change control. Compliance is not optional."],
+["B2","To meet a deadline, the team suggests skipping a required safety check. What should the project manager do?",["Allow it this once","Decline and look for other ways to recover the schedule","Ask the sponsor to decide","Skip it and document the decision"],1,"Safety and regulatory requirements cannot be traded for schedule."],
+["B3","The customer requests a change on a predictive project. What should the project manager do first?",["Implement it to keep the customer happy","Evaluate the impact and submit it to change control","Refuse the change","Ask the team whether they have time"],1,"Assess impact on scope, schedule, cost, and risk, then route through integrated change control."],
+["B3","A problem occurs that was never identified as a risk. What should the project manager do?",["Record it in the issue log, assign an owner, and apply a workaround","Update the risk register only","Wait for the next status meeting","Escalate to the sponsor immediately"],0,"An unplanned event is an issue. Log it, assign it, and respond with a workaround."],
+["B4","A high-probability, high-impact risk can be eliminated by changing the technical approach. Which response strategy is this?",["Mitigate","Transfer","Avoid","Accept"],2,"Changing the plan to remove the threat entirely is avoidance."],
+["B4","A risk identified during planning has now occurred. What should the project manager do?",["Implement the planned risk response","Start a new risk analysis","Call a meeting to decide what to do","Ask for more contingency"],0,"The response was planned for exactly this moment. Execute it, then monitor."],
+["B5","Retrospectives keep surfacing the same problem. What should the team do?",["Stop holding retrospectives","Agree on one concrete improvement action with an owner and check it at the next retrospective","List more problems","Ask management to fix it"],1,"Continuous improvement needs actionable, owned experiments that are followed up."],
+["B5","A new system will change how operations staff work, and they are anxious. What should the project manager do?",["Deploy and let them adapt","Plan organizational change management: involve them, train them, and communicate the benefits","Delay the deployment indefinitely","Ask their manager to require adoption"],1,"Benefits depend on adoption. Organizational change management addresses the people side of change."],
+["B6","New tariffs will raise a key vendor's costs by 15%. What should the project manager do?",["Absorb the cost silently","Assess the impact on budget and business case, update the risk register, and inform the sponsor","Cancel the contract","Wait for the vendor to raise prices"],1,"External factors must be assessed for impact on the business case and communicated through governance."]
+];
+const EXAM_PACE=80; // seconds per question: 240 min / 180 questions
+const TARGET=.65;
+const TASKS={};DOMAINS.forEach(d=>d.tasks.forEach(([id,name])=>TASKS[id]={id,name,domain:d.id}));
+const domOf=id=>DOMAINS.find(d=>d.id===TASKS[id].domain);
+const KEY="pmp-readiness-v2";
+let state={bank:[],attempts:[],sessions:[],demo:true,custom:[]};
+let quiz=null,timerId=null;
+
+function makeBank(){
+  if(sharedQs&&sharedQs.length){
+    sharedQs.forEach(q=>{if(!TASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain);});
+    state.bank=sharedQs.filter(q=>TASKS[q.task]&&Array.isArray(q.opts)).slice().sort((a,b)=>(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));
+  } else state.bank=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],src:"Sample"})).concat(state.custom);
+}
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};}
+function buildDemo(){
+  // Example history: 6 sessions over 12 days, improving. People strong, Business Environment weak.
+  const base={P1:.9,P2:.75,P3:.9,P4:.55,P5:.9,P6:.65,R1:.75,R2:.55,R3:.8,R4:.35,R5:.65,R6:.4,R7:.7,B1:.55,B3:.3,B4:.2,B5:.45};
+  const r=rng(42),att=[],ses=[],day=864e5,now=Date.now();
+  const sample=state.bank.filter(q=>q.src==="Sample"&&q.task in base);
+  for(let s=0;s<6;s++){
+    const ts=now-day*(12-s*2),sid="demo"+s,picked=sample.filter(()=>r()<.45);let c=0,secs=0;
+    picked.forEach((q,k)=>{const ok=r()<Math.min(.97,base[q.task]+s*.04);const t=Math.round(55+r()*60);c+=ok;secs+=t;att.push({qid:q.id,task:q.task,ok,ts:ts+k*9e4,secs:t,sid});});
+    ses.push({id:sid,mode:s===3?"Exam simulation":s%2?"Weak-area practice":"Mixed practice",ts,n:picked.length,c,secs});
+  }
+  state.attempts=att;state.sessions=ses;
+}
+function load(){
+  try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){state.attempts=s.attempts||[];state.sessions=s.sessions||[];state.demo=!!s.demo;state.custom=s.custom||[];}}catch(e){}
+  state.custom.forEach(q=>{if(!TASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain)});
+  makeBank();
+  if(state.demo&&!state.attempts.length)buildDemo();
+}
+function save(){cloudSave();try{localStorage.setItem(KEY,JSON.stringify({attempts:state.attempts,sessions:state.sessions,demo:state.demo,custom:state.custom}))}catch(e){}}
+function addTask(id,name,domain){const d=DOMAINS.find(x=>x.id===domain)||DOMAINS[1];d.tasks.push([id,name]);TASKS[id]={id,name,domain:d.id};}
+function clearDemo(){if(state.demo){state.attempts=[];state.sessions=[];state.demo=false;}}
+
+/* mastery: recency-weighted Beta estimate. Newest answer weight 1, each older one x0.85 */
+function stats(atts){atts=atts||state.attempts;
+  const by={};Object.keys(TASKS).forEach(id=>by[id]=[]);
+  atts.forEach(a=>{if(by[a.task])by[a.task].push(a)});
+  const t={};
+  Object.keys(by).forEach(id=>{
+    const list=by[id].slice().sort((a,b)=>b.ts-a.ts);let w=0,s=0;
+    list.forEach((a,i)=>{const k=Math.pow(.85,i);w+=k;s+=k*(a.ok?1:0);});
+    const n=list.length,c=list.filter(a=>a.ok).length;
+    const m=n?(s+.5)/(w+1):null;
+    let trend=0;if(n>=4){const h=Math.min(3,Math.floor(n/2));const rec=list.slice(0,h).filter(a=>a.ok).length/h,old=list.slice(h,h*2).filter(a=>a.ok).length/h;trend=rec-old>.2?1:old-rec>.2?-1:0;}
+    t[id]={n,c,m,w,trend,conf:n>=7?3:n>=4?2:n>=1?1:0};
+  });
+  const d={};
+  DOMAINS.forEach(D=>{let n=0,c=0,ws=0,ms=0;D.tasks.forEach(([id])=>{const x=t[id];n+=x.n;c+=x.c;if(x.m!==null){ws+=x.w;ms+=x.w*x.m;}});d[D.id]={n,c,m:ws?ms/ws:null};});
+  let w=0,s=0;DOMAINS.forEach(D=>{if(d[D.id].m!==null){w+=D.weight;s+=D.weight*d[D.id].m}});
+  const tested=Object.values(t).filter(x=>x.n).length;
+  return {t,d,overall:w?s/w:null,coverage:w,tested};
+}
+function rating(m){
+  if(m===null)return ["rn","No data"];
+  if(m>=.8)return ["r3","Above target"];if(m>=TARGET)return ["r2","Target"];if(m>=.5)return ["r1","Below target"];return ["r0","Needs improvement"];
+}
+function heat(m){
+  if(m<=.5){const p=Math.round(Math.max(0,(m-.25)/.25)*100);return `color-mix(in srgb, var(--mid) ${p}%, var(--weak))`;}
+  const p=Math.round(Math.min(1,(m-.5)/.35)*100);return `color-mix(in srgb, var(--strong) ${p}%, var(--mid))`;
+}
+const pct=x=>x===null||x===undefined?"–":Math.round(x*100)+"%";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtT=s=>{s=Math.max(0,Math.round(s));const m=Math.floor(s/60);return m+":"+String(s%60).padStart(2,"0");};
+const fmtD=ts=>new Date(ts).toLocaleDateString(undefined,{month:"short",day:"numeric"});
+function reviewQueue(){
+  const last={};state.attempts.slice().sort((a,b)=>a.ts-b.ts).forEach(a=>last[a.qid]=a.ok);
+  return state.bank.filter(q=>last[q.id]===false);
+}
+function streak(){
+  const days=new Set(state.attempts.map(a=>new Date(a.ts).toDateString()));let n=0,d=new Date();
+  if(!days.has(d.toDateString()))d.setDate(d.getDate()-1);
+  while(days.has(d.toDateString())){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+
+function gaugeSVG(v){
+  // semicircle 180deg; target tick at TARGET
+  const R=80,cx=100,cy=96,a=x=>Math.PI*(1-x),pt=(x,r)=>[cx+r*Math.cos(a(x)),cy-r*Math.sin(a(x))];
+  const arc=(x0,x1,r)=>{const[p,q]=[pt(x0,r),pt(x1,r)];return `M${p[0].toFixed(1)} ${p[1].toFixed(1)} A${r} ${r} 0 0 1 ${q[0].toFixed(1)} ${q[1].toFixed(1)}`;};
+  const bands=[[0,.5,"var(--weak)"],[.5,TARGET,"var(--mid)"],[TARGET,1,"var(--strong)"]];
+  let s=`<svg viewBox="0 0 200 124" role="img" aria-label="Weighted readiness ${pct(v)}">`;
+  bands.forEach(([x0,x1,c])=>s+=`<path d="${arc(x0+.004,x1-.004,R)}" stroke="${c}" stroke-opacity=".28" stroke-width="16" fill="none"/>`);
+  if(v!==null){s+=`<path d="${arc(0,Math.max(.01,v),R)}" stroke="${heat(v)}" stroke-width="16" fill="none" stroke-linecap="butt"/>`;
+    const [nx,ny]=pt(v,R+12);s+=`<circle cx="${nx.toFixed(1)}" cy="${ny.toFixed(1)}" r="3.5" fill="var(--band-ink)"/>`;}
+  const [t1x,t1y]=pt(TARGET,R-12),[t2x,t2y]=pt(TARGET,R+12);
+  s+=`<line x1="${t1x.toFixed(1)}" y1="${t1y.toFixed(1)}" x2="${t2x.toFixed(1)}" y2="${t2y.toFixed(1)}" stroke="var(--brass)" stroke-width="2.5"/>`;
+  const [lx,ly]=pt(TARGET,R+22);s+=`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" fill="var(--brass)" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="start">TARGET</text>`;
+  s+=`<text x="${cx-R}" y="${cy+18}" fill="var(--band-muted)" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="middle">0</text><text x="${cx+R}" y="${cy+18}" fill="var(--band-muted)" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="middle">100</text>`;
+  return s+"</svg>";
+}
+function renderBand(){
+  const st=stats(),[rc,rl]=rating(st.overall),rq=reviewQueue().length;
+  const n=state.attempts.length,avg=n?state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n:null;
+  let h=`<div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
+  DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm">${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
+  h+=`<div class="kpis">
+    <div class="kpi"><span class="label">Answered</span><span class="v">${n}</span><span class="s">${state.bank.length} in bank</span></div>
+    <div class="kpi"><span class="label">Coverage</span><span class="v">${st.tested}/${Object.keys(TASKS).length}</span><span class="s">task areas tried</span></div>
+    <div class="kpi"><span class="label">Avg pace</span><span class="v ${avg&&avg>EXAM_PACE?"r1":""}">${avg?Math.round(avg)+"s":"–"}</span><span class="s">exam pace ${EXAM_PACE}s</span></div>
+    <div class="kpi"><span class="label">To review</span><span class="v">${rq}</span><span class="s">missed questions</span></div>
+  </div></div></div>`;
+  document.getElementById("band").innerHTML=h;
+}
+
+function weakTasks(st,limit){
+  return Object.keys(TASKS).filter(id=>st.t[id].n>0&&state.bank.some(q=>q.task===id))
+    .map(id=>({id,...st.t[id]})).filter(x=>x.m<.7).sort((a,b)=>a.m-b.m||b.n-a.n).slice(0,limit);
+}
+function untested(st){return Object.keys(TASKS).filter(id=>st.t[id].n===0&&state.bank.some(q=>q.task===id));}
+
+function trendSVG(){
+  const ss=state.sessions.slice().sort((a,b)=>a.ts-b.ts).slice(-12);
+  if(ss.length<2)return `<p class="label" style="text-transform:none;letter-spacing:0">Finish two sessions to see your trend.</p>`;
+  const W=520,H=190,L=34,Rr=10,T=12,B=28,x=i=>L+(W-L-Rr)*(ss.length===1?.5:i/(ss.length-1)),y=v=>T+(H-T-B)*(1-v);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Score by session">`;
+  [0,.25,.5,.75,1].forEach(v=>s+=`<line x1="${L}" x2="${W-Rr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${v*100}</text>`);
+  s+=`<line x1="${L}" x2="${W-Rr}" y1="${y(TARGET)}" y2="${y(TARGET)}" stroke="var(--brass)" stroke-dasharray="4 4" stroke-width="1.5"/><text x="${L+6}" y="${y(TARGET)-5}" text-anchor="start" style="fill:var(--brass)">target ${TARGET*100}</text>`;
+  const pts=ss.map((q,i)=>[x(i),y(q.n?q.c/q.n:0)]);
+  s+=`<path d="M${pts[0][0]} ${y(0)} L${pts.map(p=>p.join(" ")).join(" L")} L${pts[pts.length-1][0]} ${y(0)} Z" fill="var(--accent)" fill-opacity=".12"/>`;
+  s+=`<path d="M${pts.map(p=>p.join(" ")).join(" L")}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  pts.forEach((p,i)=>{const last=i===pts.length-1;s+=`<circle cx="${p[0]}" cy="${p[1]}" r="${last?5:3.5}" fill="${last?"var(--accent)":"var(--surface)"}" stroke="var(--accent)" stroke-width="2"><title>${fmtD(ss[i].ts)}: ${ss[i].c}/${ss[i].n}</title></circle>`;});
+  ss.forEach((q,i)=>{if(ss.length<=7||i%2===0||i===ss.length-1)s+=`<text x="${x(i)}" y="${H-8}" text-anchor="${i===0?"start":i===ss.length-1?"end":"middle"}">${fmtD(q.ts)}</text>`;});
+  return s+"</svg>";
+}
+
+function renderMap(){
+  renderBand();
+  const st=stats(),el=document.getElementById("view-map"),weak=weakTasks(st,3),gaps=untested(st),rq=reviewQueue();
+  let h="";
+  if(state.demo)h+=`<div class="banner"><span>Showing example results from a made-up student so you can see how the map works. Your first answer replaces them.</span><button class="linkbtn" id="clear-demo">Clear example results</button></div>`;
+  // plan
+  let steps="";
+  if(!state.attempts.length)steps=`<li>Take a mixed practice set to draw your first map.</li><li>Then switch to weak-area practice; the map updates after every answer.</li>`;
+  else{
+    weak.forEach(w=>steps+=`<li><span><b>${esc(TASKS[w.id].name)}</b> <span class="label" style="letter-spacing:.04em">${domOf(w.id).name}</span><br>Mastery ${pct(w.m)} from ${w.n} answers${w.trend<0?", and slipping":w.trend>0?", improving":""}. Drill it next.</span></li>`);
+    const lowD=DOMAINS.filter(D=>st.d[D.id].m!==null).sort((a,b)=>(st.d[a.id].m-TARGET)*b.weight-(st.d[b.id].m-TARGET)*a.weight)[0];
+    if(lowD&&st.d[lowD.id].m<TARGET)steps+=`<li><span>${lowD.name} is ${Math.round(lowD.weight*100)}% of the exam and ${pct(TARGET-st.d[lowD.id].m)} below target. Give it most of this week's study time.</span></li>`;
+    if(rq.length)steps+=`<li><span>You have ${rq.length} missed question${rq.length>1?"s":""} waiting. Re-answer them before they fade.</span></li>`;
+    if(gaps.length)steps+=`<li><span>${gaps.length} task area${gaps.length>1?"s have":" has"} no answers yet (hatched tiles). Cover them so the map is complete.</span></li>`;
+    if(!steps)steps=`<li><span>Every tested area is at or above target. Run an exam simulation to check it holds under time pressure.</span></li>`;
+  }
+  const examN=Math.min(30,state.bank.length);
+  h+=`<section class="plan"><div class="card"><h2>Study plan</h2><ol class="steps">${steps}</ol>
+   <div class="aibox ai-only"><div class="hd"><span class="ailabel">AI study session</span><div class="actions"><label class="label" for="sess-min">Time</label><select id="sess-min">${[30,45,60,90].map(m=>`<option value="${m}" ${m===sessMin?"selected":""}>${m} min</option>`).join("")}</select><button class="btn primary" id="sess-go">${aiPlan?"Rebuild":"Build my session"}</button></div></div><div id="sess-out">${renderSession()}</div></div></div>
+   <div class="card"><h2>Practice</h2><div class="modes">
+    <button class="mode primary" id="go-weak" ${state.attempts.length?"":'aria-disabled="true"'}><b>Weak-area practice</b><span>Favors the tasks and questions you miss most</span><em>10 Q</em></button>
+    <button class="mode" id="go-review" ${rq.length?"":'aria-disabled="true"'}><b>Review mistakes</b><span>Re-answer questions you got wrong last time</span><em>${rq.length} Q</em></button>
+    <button class="mode" id="go-exam"><b>Exam simulation</b><span>Timed at exam pace, weighted by domain, no hints until the end</span><em>${examN} Q · ${Math.round(examN*EXAM_PACE/60)} min</em></button>
+    <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
+   </div></div></section>`;
+  // heat map
+  h+=`<section class="card" aria-label="Heat map by domain and task"><div class="mapbar"><h2>Task heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span class="swatch" aria-hidden="true"></span><span>No answers</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span>Confidence</span><span class="trend">▲▼</span><span>Recent trend</span></div></div>`;
+  DOMAINS.forEach((D,di)=>{
+    const x=st.d[D.id];
+    h+=`<div class="drow"><div class="dhead"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span><span class="pill ${rating(x.m)[0]}" style="justify-self:start">${pct(x.m)}</span></div><div class="tiles">`;
+    D.tasks.forEach(([id,name],ti)=>{const t=st.t[id],count=state.bank.filter(q=>q.task===id).length,delay=`animation-delay:${(di*7+ti)*25}ms`;
+      if(t.n){const dots=[1,2,3].map(k=>`<i class="${t.conf>=k?"on":""}"></i>`).join("");
+        h+=`<button class="tile" data-task="${id}" style="background:${heat(t.m)};${delay}" aria-label="${esc(name)}: mastery ${pct(t.m)} from ${t.n} answers. Drill this task."><span class="tname">${esc(name)}</span><span class="tval"><span class="pc">${pct(t.m)}</span>${t.trend?`<span class="trend">${t.trend>0?"▲":"▼"}</span>`:""}<span class="dots" title="${t.n} answers">${dots}</span></span></button>`;}
+      else h+=`<button class="tile untested" data-task="${id}" style="${delay}" ${count?"":"disabled"} aria-label="${esc(name)}: no answers yet"><span class="tname">${esc(name)}</span><span class="tval"><span>${count?"Not tried":"No questions"}</span><span class="num">${count} Q</span></span></button>`;});
+    h+=`</div></div>`;});
+  h+=`</section>`;
+  // progress
+  const ss=state.sessions.slice().sort((a,b)=>b.ts-a.ts).slice(0,6);
+  h+=`<section class="prog"><div class="card chart"><h2>Score by session</h2>${trendSVG()}</div>
+    <div class="card"><h2>Recent sessions</h2>${ss.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Mode</th><th>Score</th><th>Pace</th></tr></thead><tbody>${ss.map(s=>`<tr><td class="num">${fmtD(s.ts)}</td><td>${esc(s.mode)}</td><td class="num">${s.c}/${s.n}</td><td class="num ${s.n&&s.secs/s.n>EXAM_PACE?"r1":""}">${s.n?Math.round(s.secs/s.n)+"s":"–"}</td></tr>`).join("")}</tbody></table></div>`:`<p style="margin:0;color:var(--muted)">No sessions yet.</p>`}</div></section>`;
+  el.innerHTML=h;
+  const cd=document.getElementById("clear-demo");if(cd)cd.onclick=()=>{clearDemo();save();renderMap();};
+  const on=(id,fn)=>{const b=document.getElementById(id);b.onclick=()=>{if(b.getAttribute("aria-disabled")!=="true")fn();};};
+  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));
+  el.querySelectorAll(".tile[data-task]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.task));
+}
+
+function weightedPick(pool,size,wf){
+  const out=[];pool=pool.map(q=>({q,w:wf(q)}));
+  while(out.length<size&&pool.length){const tot=pool.reduce((s,x)=>s+x.w,0);let r=Math.random()*tot,i=0;while(i<pool.length-1&&(r-=pool[i].w)>0)i++;out.push(pool[i].q);pool.splice(i,1);}
+  return out;
+}
+function pick(mode,task){
+  const st=stats(),seen={},missedSet=new Set(reviewQueue().map(q=>q.id));state.attempts.forEach(a=>seen[a.qid]=1);
+  if(mode==="task")return weightedPick(state.bank.filter(q=>q.task===task),5,q=>missedSet.has(q.id)?2:1);
+  if(mode==="review")return weightedPick(reviewQueue(),10,()=>1);
+  if(mode==="mixed")return weightedPick(state.bank,10,()=>1);
+  if(mode==="weak")return weightedPick(state.bank,10,q=>{const x=st.t[q.task];const m=x&&x.m!==null?x.m:.5;return (1-m)*3+(missedSet.has(q.id)?1.5:0)+(seen[q.id]?0:.6)+.05;});
+  // exam: proportional to domain weights
+  const N=Math.min(30,state.bank.length),out=[];
+  DOMAINS.forEach(D=>{const pool=state.bank.filter(q=>TASKS[q.task].domain===D.id);out.push(...weightedPick(pool,Math.round(N*D.weight),()=>1));});
+  const rest=state.bank.filter(q=>!out.includes(q));out.push(...weightedPick(rest,N-out.length,()=>1));
+  return weightedPick(out.slice(0,N),N,()=>1);
+}
+const MODE_NAME={weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
+function startQuiz(mode,task){
+  const qs=pick(mode,task);if(!qs.length)return;
+  stopTimer();
+  quiz={mode,exam:mode==="exam",title:mode==="task"?TASKS[task].name:MODE_NAME[mode],qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
+  if(quiz.exam)timerId=setInterval(tick,1000);
+  show("quiz");
+}
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
+function tick(){
+  if(!quiz||quiz.done)return stopTimer();
+  const left=quiz.limit-(Date.now()-quiz.start)/1000,el=document.getElementById("timer");
+  if(el){el.textContent=fmtT(left);el.classList.toggle("low",left<60);}
+  if(left<=0)finish();
+}
+function accrue(){if(!quiz)return;const now=Date.now();quiz.secs[quiz.i]+=(now-quiz.shownAt)/1000;quiz.shownAt=now;}
+function go(i){accrue();quiz.i=Math.max(0,Math.min(quiz.qs.length-1,i));renderQuiz();}
+function choose(k){
+  if(quiz.done||quiz.locked[quiz.i])return;
+  quiz.picked[quiz.i]=k;
+  if(!quiz.exam){accrue();quiz.locked[quiz.i]=true;record(quiz.i);}
+  renderQuiz();
+}
+function record(i){
+  clearDemo();
+  const q=quiz.qs[i];if(!quiz.sid){quiz.sid="s"+Date.now();}
+  state.attempts.push({qid:q.id,task:q.task,ok:quiz.picked[i]===q.ans,ts:Date.now(),secs:Math.round(quiz.secs[i]),sid:quiz.sid});
+  save();
+}
+function finish(){
+  if(!quiz||quiz.done)return;accrue();stopTimer();
+  if(quiz.exam)quiz.qs.forEach((q,i)=>{if(quiz.picked[i]!==null)record(i);});
+  const ans=quiz.qs.map((q,i)=>({q,i,p:quiz.picked[i]})).filter(x=>x.p!==null);
+  if(ans.length){clearDemo();state.sessions.push({id:quiz.sid||("s"+Date.now()),mode:quiz.title,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))});save();}
+  quiz.done=true;quiz.review=null;renderQuiz();
+}
+function renderQuiz(){
+  const el=document.getElementById("view-quiz");renderBand();
+  if(!quiz){el.innerHTML=`<div class="card" style="max-width:640px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-mixed">Mixed practice</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
+    document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");return;}
+  if(quiz.done&&quiz.review===null)return renderResults(el);
+  const i=quiz.i,q=quiz.qs[i],t=TASKS[q.task],D=domOf(q.task),p=quiz.picked[i];
+  const reveal=quiz.done||(!quiz.exam&&quiz.locked[i]);
+  let o="";q.opts.forEach((txt,k)=>{let cls="";if(reveal){if(k===q.ans)cls="right";else if(k===p)cls="wrong";}else if(k===p)cls="sel";
+    o+=`<button class="opt ${cls}" data-k="${k}" ${reveal?'aria-disabled="true"':""}><span class="k">${"ABCD"[k]}</span><span>${esc(txt)}</span></button>`;});
+  const answered=quiz.picked.filter(x=>x!==null).length;
+  let foot="";
+  if(reveal&&!quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===q.ans?"Correct.":"Not quite. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div><div class="actions"><button class="btn primary" id="q-next">${i+1<quiz.qs.length?"Next question":"See results"}</button><button class="btn ghost ai-only" id="q-ask">Ask the tutor about this</button><span class="keys"><kbd>Enter</kbd> to continue</span></div>`;
+  else if(quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===null?"Not answered.":p===q.ans?"Correct.":"You chose "+"ABCD"[p]+". The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div><div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ghost" id="q-nx" ${i+1<quiz.qs.length?"":"disabled"}>Next</button><button class="btn primary" id="q-back">Back to results</button><button class="btn ghost ai-only" id="q-ask">Ask the tutor about this</button></div>`;
+  else if(quiz.exam)foot=`<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ${p===null?"ghost":"primary"}" id="q-nx">${i+1<quiz.qs.length?"Next":"Review and submit"}</button><button class="btn ghost" id="q-flag">${quiz.flag[i]?"Unflag":"Flag for review"}</button></div>`;
+  else foot=`<p class="keys" style="margin:0">Press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer.</p>`;
+  const nav=quiz.exam?`<aside class="side card"><div class="qmeta"><span class="label">Time left</span><span class="timer num" id="timer">${quiz.done?"done":fmtT(quiz.limit-(Date.now()-quiz.start)/1000)}</span></div>
+     <span class="label">${answered}/${quiz.qs.length} answered · ${quiz.flag.filter(Boolean).length} flagged</span>
+     <div class="navgrid">${quiz.qs.map((qq,k)=>{let c=k===i?"cur ":"";if(quiz.done)c+=quiz.picked[k]===qq.ans?"right":"wrong";else{if(quiz.picked[k]!==null)c+="done ";if(quiz.flag[k])c+="flag";}return `<button class="${c}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`;}).join("")}</div>
+     ${quiz.done?"":`<button class="btn primary" id="q-submit">Submit exam</button><p class="keys" style="margin:0"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>←</kbd><kbd>→</kbd> move · <kbd>F</kbd> flag</p><p id="confirm" class="keys" hidden style="margin:0"></p>`}</aside>`:"";
+  el.innerHTML=`<div class="qwrap" style="${quiz.exam?"":"grid-template-columns:minmax(0,760px)"}"><div class="qcard"><div class="qmeta"><span class="label">${esc(quiz.title)}${quiz.done?" · review":""}</span><span class="label num">Question ${i+1} of ${quiz.qs.length}</span></div>
+   <div class="progress"><i style="width:${(quiz.exam?answered:i+(reveal?1:0))/quiz.qs.length*100}%"></i></div>
+   <span class="label">${D.name} · ${esc(t.name)}</span><p class="qtext">${esc(q.q)}</p><div class="opts">${o}</div>${foot}</div>${nav}</div>`;
+  el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
+  el.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  const $=id=>document.getElementById(id);
+  if($("q-next")){$("q-next").onclick=()=>{if(i+1<quiz.qs.length)go(i+1);else finish();};$("q-next").focus();}
+  if($("q-prev"))$("q-prev").onclick=()=>go(i-1);
+  if($("q-nx"))$("q-nx").onclick=()=>{if(i+1<quiz.qs.length)go(i+1);else if(!quiz.done)askSubmit();};
+  if($("q-flag"))$("q-flag").onclick=()=>{quiz.flag[i]=!quiz.flag[i];renderQuiz();};
+  if($("q-submit"))$("q-submit").onclick=askSubmit;
+  if($("q-ask"))$("q-ask").onclick=()=>askAbout(q,p);
+  if($("q-back"))$("q-back").onclick=()=>{quiz.review=null;renderQuiz();};
+}
+function askSubmit(){
+  const un=quiz.picked.filter(x=>x===null).length,fl=quiz.flag.filter(Boolean).length,c=document.getElementById("confirm");
+  if(!c||(!un&&!fl))return finish();
+  c.hidden=false;c.innerHTML=`${un?un+" unanswered":""}${un&&fl?", ":""}${fl?fl+" flagged":""}. <button class="linkbtn" id="really">Submit anyway</button>`;
+  document.getElementById("really").onclick=finish;
+}
+function renderResults(el){
+  const by={},n=quiz.qs.length;let c=0;
+  quiz.qs.forEach((q,i)=>{const d=TASKS[q.task].domain;by[d]=by[d]||{n:0,c:0};by[d].n++;if(quiz.picked[i]===q.ans){by[d].c++;c++;}});
+  const secs=quiz.secs.reduce((a,b)=>a+b,0),[rc,rl]=rating(c/n);
+  const tbt={};quiz.qs.forEach((q,i)=>{tbt[q.task]=tbt[q.task]||{n:0,c:0};tbt[q.task].n++;if(quiz.picked[i]===q.ans)tbt[q.task].c++;});
+  const missed=Object.keys(tbt).filter(k=>tbt[k].c<tbt[k].n).map(k=>TASKS[k].name);
+  el.innerHTML=`<div class="card" style="max-width:860px;gap:18px"><span class="label">${esc(quiz.title)} · complete</span>
+   <div class="result-hero"><div style="display:grid;gap:4px"><span class="num" style="font:800 64px/1 var(--f-display);font-stretch:80%">${pct(c/n)}</span><span class="pill ${rc}" style="justify-self:start">${rl}</span></div>
+   <div style="display:grid;gap:4px"><h2 class="num">${c} of ${n} correct</h2><span style="color:var(--muted)">Average pace <b class="num ${secs/n>EXAM_PACE?"r1":"ok"}">${Math.round(secs/n)}s</b> per question (exam pace is ${EXAM_PACE}s).</span>${missed.length?`<span style="color:var(--muted)">Missed in: ${missed.map(esc).join(", ")}.</span>`:""}</div></div>
+   <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Score</th><th>Result</th></tr></thead><tbody>${DOMAINS.filter(D=>by[D.id]).map(D=>{const x=by[D.id],[r,l]=rating(x.c/x.n);return `<tr><td>${D.name}</td><td class="num">${x.c}/${x.n}</td><td><span class="pill ${r}">${l}</span></td></tr>`;}).join("")}</tbody></table></div>
+   <div class="actions"><button class="btn primary" id="r-map">See updated dashboard</button><button class="btn" id="r-review">Review answers</button><button class="btn" id="r-weak">Practice weak areas</button></div>
+   <div class="aibox ai-only" id="debrief"><div class="hd"><span class="ailabel">AI debrief</span><button class="btn primary" id="r-ai">${quiz.debrief?"Redo debrief":"Get my AI debrief"}</button></div><div class="md" id="debrief-out">${quiz.debrief?md(quiz.debrief):`<span class="ainote">Claude looks at what you missed, finds the pattern, and tells you what to study next.</span>`}</div></div></div>`;
+  document.getElementById("r-ai").onclick=debrief;
+  document.getElementById("r-map").onclick=()=>{quiz=null;show("map");};
+  document.getElementById("r-review").onclick=()=>{quiz.review=true;quiz.i=0;renderQuiz();};
+  document.getElementById("r-weak").onclick=()=>startQuiz("weak");
+}
+document.addEventListener("keydown",e=>{
+  if(document.getElementById("view-quiz").hidden||!quiz||e.target.tagName==="TEXTAREA"||e.target.tagName==="SELECT"||!document.getElementById("drawer").hidden||e.metaKey||e.ctrlKey||e.altKey)return;
+  const k=e.key.toLowerCase(),map={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+  if(quiz.done&&quiz.review===null)return;
+  if(k in map&&map[k]<quiz.qs[quiz.i].opts.length){choose(map[k]);e.preventDefault();}
+  else if(k==="arrowright"&&(quiz.exam||quiz.done))go(quiz.i+1);
+  else if(k==="arrowleft"&&(quiz.exam||quiz.done))go(quiz.i-1);
+  else if(k==="f"&&quiz.exam&&!quiz.done){quiz.flag[quiz.i]=!quiz.flag[quiz.i];renderQuiz();}
+});
+
+const TEMPLATE=`domain,task,question,a,b,c,d,answer,explanation
+People,Conflict & collaboration,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.`;
+function parseCSV(text){
+  const rows=[];let row=[],f="",q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
+    else if(c==='"')q=true;else if(c===","){row.push(f);f="";}
+    else if(c==="\n"||c==="\r"){if(c==="\r"&&text[i+1]==="\n")i++;row.push(f);rows.push(row);row=[];f="";}
+    else f+=c;}
+  if(f||row.length){row.push(f);rows.push(row);}
+  return rows.filter(r=>r.some(x=>x.trim()));
+}
+function normDomain(s){s=(s||"").toLowerCase();return s.startsWith("peo")?"people":s.startsWith("bus")?"business":s.startsWith("pro")?"process":null;}
+function importRows(objs){
+  const added=[],errors=[];
+  objs.forEach((r,i)=>{
+    const dom=normDomain(r.domain),opts=[r.a,r.b,r.c,r.d].filter(x=>x&&String(x).trim());
+    let ans=String(r.answer||"").trim().toUpperCase();ans=/^[A-D]$/.test(ans)?"ABCD".indexOf(ans):/^[1-4]$/.test(ans)?+ans-1:-1;
+    if(!dom||!r.question||opts.length<2||ans<0||ans>=opts.length){errors.push(i+1);return;}
+    const tname=String(r.task||"General").trim();
+    let tid=Object.keys(TASKS).find(id=>TASKS[id].name.toLowerCase()===tname.toLowerCase()||id.toLowerCase()===tname.toLowerCase());
+    if(!tid){tid="U"+Object.keys(TASKS).length;addTask(tid,tname,dom);}
+    added.push({id:"u"+Date.now().toString(36)+i,task:tid,taskName:tname,domain:dom,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded"});
+  });
+  if(cloudAdmin()){added.forEach((q,k)=>{q.id="q"+Date.now().toString(36)+k;q.src="Instructor";});cloudPutMany(added);}
+  else{state.custom=state.custom.concat(added);makeBank();save();}
+  return {added:added.length,errors};
+}
+let lastMsg=null;
+function handleText(text,name){
+  let objs=[];
+  try{
+    if(/^\s*[\[{]/.test(text)){const j=JSON.parse(text);objs=(Array.isArray(j)?j:j.questions||[]);}
+    else{const rows=parseCSV(text),hdr=rows.shift().map(h=>h.trim().toLowerCase());objs=rows.map(r=>Object.fromEntries(hdr.map((h,i)=>[h,(r[i]||"").trim()])));}
+  }catch(e){lastMsg={t:`Could not read ${name}. Check that it is CSV with the header row shown, or JSON.`,ok:false};return renderBank(true);}
+  const r=importRows(objs);
+  lastMsg={t:`Added ${r.added} question${r.added===1?"":"s"} from ${name}.`+(r.errors.length?` Skipped row${r.errors.length>1?"s":""} ${r.errors.slice(0,8).join(", ")}: each needs a domain (People, Process or Business Environment), a question, at least two options, and an answer letter.`:""),ok:r.added>0};
+  renderBank(true);renderBand();
+}
+function renderBank(keepMsg){
+  if(!keepMsg)lastMsg=null;
+  if(DB&&!cloudAdmin())return renderBankReadOnly();
+  const el=document.getElementById("view-bank"),counts={};
+  state.bank.forEach(q=>{const d=TASKS[q.task].domain;counts[d]=(counts[d]||0)+1;});
+  const rows=state.bank.map(q=>{const t=TASKS[q.task];return `<tr><td>${domOf(q.task).name}</td><td>${esc(t.name)}</td><td>${esc(q.q)}</td><td>${cloudAdmin()?`<div class="rowact"><button data-edit="${esc(q.id)}">Edit</button><button class="danger" data-del="${esc(q.id)}">${pendingDel===q.id?"Confirm delete":"Delete"}</button></div>`:q.src}</td></tr>`;}).join("");
+  el.innerHTML=`<div class="grid2">
+   ${cloudAdmin()?renderQForm():""}<section class="card"><h2>${cloudAdmin()?"Bulk upload to the shared bank":"Upload your quizzes"}</h2><p style="margin:0">Add a CSV or JSON file. Each question needs a domain, a task area, the question, up to four options, and the correct letter. A new task name gets its own tile on the heat map.</p>
+    <label class="btn" style="justify-self:start">Choose file<input id="file" type="file" accept=".csv,.json,text/csv,application/json" style="position:absolute;opacity:0;width:1px;height:1px"></label>
+    <h3>Or paste questions</h3><textarea id="paste" aria-label="Paste CSV or JSON questions" placeholder="Paste CSV with the header row shown, or JSON"></textarea>
+    <div class="actions"><button class="btn primary" id="paste-go">Add pasted questions</button>${!cloudAdmin()&&state.custom.length?`<button class="btn" id="clear-custom">Remove uploaded questions</button>`:""}</div>
+    ${lastMsg?`<p class="msg ${lastMsg.ok?"ok":"bad"}" role="status">${esc(lastMsg.t)}</p>`:""}</section>
+   <section class="card"><h2>CSV format</h2><pre id="tpl">${esc(TEMPLATE)}</pre><div class="actions"><button class="btn" id="copy-tpl">Copy template</button></div>
+    <p style="margin:0;font-size:13px;color:var(--muted)">Domain must start with People, Process, or Business. Answer can be A–D or 1–4.</p>
+    <div class="counts">${DOMAINS.map(D=>`<div><span class="label">${D.name}</span><b>${counts[D.id]||0}</b></div>`).join("")}</div></section>
+  </div>
+  <section class="card"><h2>${state.bank.length} questions${cloudAdmin()?` <span class="label" style="vertical-align:middle">shared with every student</span>`:""}</h2><div class="tablewrap"><table><thead><tr><th>Domain</th><th>Task</th><th>Question</th><th>${cloudAdmin()?"Edit":"Source"}</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  wireQForm();
+  document.getElementById("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>handleText(r.result,f.name);r.readAsText(f);};
+  document.getElementById("paste-go").onclick=()=>{const v=document.getElementById("paste").value;if(v.trim())handleText(v,"pasted text");};
+  const cc=document.getElementById("clear-custom");if(cc)cc.onclick=()=>{state.custom=[];save();location.reload();};
+  document.getElementById("copy-tpl").onclick=e=>{const b=e.currentTarget;const sel=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("tpl"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected, press Ctrl+C";};try{navigator.clipboard.writeText(TEMPLATE).then(()=>b.textContent="Copied",sel);}catch(err){sel();}};
+}
+
+function show(v){
+  ["map","quiz","bank","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
+
+/* ---------- AI (Claude via the viewer's account) ---------- */
+let AI=null,chatTurns=[],chatCtl=null,aiPlan=null,sessMin=45,sessCtl=null;
+const AI_ERR={not_granted:"Claude wasn't allowed for this page, so the AI features are hidden for now.",sampling_disabled:"Claude isn't available on this account.",rate_limited:"Too many requests right now. Wait a minute and try again.",session_expired:"Your Claude sign-in expired. Sign in again and retry.",refused:"Claude couldn't help with that. Try rephrasing.",empty_completion:"Claude returned nothing. Try asking a shorter question.",invalid_json:"The plan came back in an unexpected format. Try again.",prompt_too_large:"That was too much to send at once.",upstream_error:"The connection dropped. Try again."};
+const HIDE=["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"];
+function aiErr(e){if(HIDE.includes(e&&e.code)){AI=null;document.body.classList.remove("ai");closeDrawer();}return AI_ERR[e&&e.code]||AI_ERR.upstream_error;}
+function md(t){
+  const lines=esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").split("\n");
+  let h="",list=null;const close=()=>{if(list){h+=`</${list}>`;list=null;}};
+  lines.forEach(l=>{let m;
+    if(m=l.match(/^\s*[-*•]\s+(.*)/)){if(list!=="ul"){close();h+="<ul>";list="ul";}h+=`<li>${m[1]}</li>`;}
+    else if(m=l.match(/^\s*\d+[.)]\s+(.*)/)){if(list!=="ol"){close();h+="<ol>";list="ol";}h+=`<li>${m[1]}</li>`;}
+    else if(m=l.match(/^#{1,4}\s+(.*)/)){close();h+=`<h4>${m[1]}</h4>`;}
+    else if(l.trim()){close();h+=`<p>${l}</p>`;}else close();});
+  close();return h;
+}
+const THINK=`<span class="thinking" aria-label="Thinking"><i></i><i></i><i></i></span>`;
+function studentContext(){
+  const st=stats(),lines=[];
+  lines.push(`Weighted readiness: ${pct(st.overall)} (prototype target ${TARGET*100}%).`);
+  DOMAINS.forEach(D=>{const x=st.d[D.id];lines.push(`${D.name} (${Math.round(D.weight*100)}% of exam): mastery ${pct(x.m)}, ${x.c}/${x.n} correct.`);
+    D.tasks.forEach(([id,name])=>{const t=st.t[id];lines.push(`  - [${id}] ${name}: ${t.n?`mastery ${pct(t.m)} from ${t.n} answers${t.trend>0?", improving":t.trend<0?", slipping":""}`:"not tried yet"}`);});});
+  const n=state.attempts.length,avg=n?Math.round(state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n):null;
+  lines.push(`Answers so far: ${n}. Average pace: ${avg?avg+"s":"n/a"} per question (exam pace ${EXAM_PACE}s).`);
+  const rq=reviewQueue().slice(0,8);
+  if(rq.length){lines.push("Questions most recently answered wrong:");rq.forEach(q=>lines.push(`  - [${q.task}] ${q.q} Correct answer: ${q.opts[q.ans]}`));}
+  if(state.demo)lines.push("Note: this is example data from a made-up student, used for a demo.");
+  return lines.join("\n");
+}
+const TUTOR_RULES=`You are an AI study tutor inside a PMP exam prep app for military veterans transitioning into project management (Vets2PM students). The exam follows PMI's July 2026 exam content outline with three domains: People 33%, Process 41%, Business Environment 26%. Questions mix predictive, agile and hybrid approaches.
+How to answer:
+- Plain, direct language. Keep replies under 170 words unless asked for more. Use short bullet lists.
+- Tie advice to the student's own data below; name the domain and task.
+- When explaining a question, say why the best answer fits PMI's mindset (servant leadership, assess before acting, follow the process, value delivery) and why the tempting wrong option fails. End with a one-line memory hook.
+- Military experience can be a useful bridge (e.g. mission command and servant leadership), but don't overdo it.
+- If asked to quiz the student, ask ONE scenario question with options A-D and wait for their answer before revealing it.
+- If unsure about an exact PMI rule or number, say so instead of guessing. Never claim to know real exam questions.
+Student data:
+`;
+function openDrawer(){
+  const d=document.getElementById("drawer");if(!d.hidden)return;
+  d.hidden=false;document.getElementById("fab").setAttribute("aria-expanded","true");
+  renderChips();if(!chatTurns.length)renderLog();
+  setTimeout(()=>document.getElementById("chat-in").focus(),30);
+}
+function closeDrawer(){const d=document.getElementById("drawer");d.hidden=true;document.getElementById("fab").setAttribute("aria-expanded","false");}
+function examLocked(){return quiz&&quiz.exam&&!quiz.done&&!document.getElementById("view-quiz").hidden;}
+function renderChips(){
+  const st=stats(),w=weakTasks(st,1)[0],wn=w?TASKS[w.id].name:"my weakest area";
+  const chips=[`Why am I weak in ${wn}?`,`Teach me ${wn} in 5 minutes`,"Quiz me on my weakest area","Explain agile vs predictive vs hybrid","How should I use my military experience on the exam?"];
+  document.getElementById("chips").innerHTML=chips.map(c=>`<button class="chip" type="button">${esc(c)}</button>`).join("");
+  document.querySelectorAll("#chips .chip").forEach(b=>b.onclick=()=>send(b.textContent));
+}
+function renderLog(streaming){
+  const log=document.getElementById("log");
+  let h=chatTurns.length?"":`<div class="msgb note">Ask anything about PMP concepts, a question you missed, or how to study. I can see your heat map.</div>`;
+  if(examLocked())h+=`<div class="msgb note">The tutor is paused while an exam simulation is running. It comes back when you submit.</div>`;
+  chatTurns.forEach(t=>h+=t.role==="user"?`<div class="msgb me">${esc(t.show||t.content)}</div>`:`<div class="msgb ai md">${t.err?`<p class="bad">${esc(t.content)}</p>`:md(t.content)}</div>`);
+  if(streaming!==undefined)h+=`<div class="msgb ai md" id="live">${streaming?md(streaming):THINK}</div>`;
+  log.innerHTML=h;log.scrollTop=log.scrollHeight;
+  const busy=streaming!==undefined;
+  document.getElementById("chat-send").textContent=busy?"Stop":"Send";
+  document.getElementById("chat-send").classList.toggle("primary",!busy);
+}
+async function send(text,show){
+  text=(text||"").trim();if(!text||!AI)return;
+  if(chatCtl)return;
+  openDrawer();
+  if(examLocked()){renderLog();return;}
+  chatTurns.push({role:"user",content:text,show});
+  const turns=[{role:"user",content:TUTOR_RULES+studentContext()},...chatTurns.filter(t=>!t.err).slice(-12).map(t=>({role:t.role,content:t.content}))];
+  if(turns[turns.length-1].role!=="user")return;
+  chatCtl=new AbortController();renderLog("");
+  try{
+    const r=await AI(turns,{cache:false,signal:chatCtl.signal,onText:({text})=>{const el=document.getElementById("live");if(el){el.innerHTML=md(text);const log=document.getElementById("log");log.scrollTop=log.scrollHeight;}}});
+    chatTurns.push({role:"assistant",content:r.text+(r.truncated?"\n\n(Answer cut short. Ask for less at a time.)":"")});
+  }catch(e){
+    if(e&&e.text)chatTurns.push({role:"assistant",content:e.text+(e.code==="cancelled"?"\n\n(Stopped.)":"")});
+    if(!e||e.code!=="cancelled")chatTurns.push({role:"assistant",content:aiErr(e),err:true});
+  }
+  chatCtl=null;if(AI)renderLog();
+}
+function askAbout(q,p){
+  const t=TASKS[q.task];
+  const body=`Help me understand this practice question (${domOf(q.task).name} · ${t.name}).\n\nQuestion: ${q.q}\n${q.opts.map((o,k)=>"ABCD"[k]+". "+o).join("\n")}\n\nCorrect answer: ${"ABCD"[q.ans]}. ${p===null||p===undefined?"I didn't answer.":"I chose "+"ABCD"[p]+"."}\nThe app's explanation: ${q.exp||"none"}\n\nWhy is the correct answer the best choice${p!==null&&p!==q.ans?", and why is my choice wrong":""}? Give me a memory hook.`;
+  send(body,`Explain: "${q.q.slice(0,90)}${q.q.length>90?"…":""}"`);
+}
+async function debrief(){
+  if(!AI||!quiz)return;
+  const out=document.getElementById("debrief-out"),btn=document.getElementById("r-ai");
+  const n=quiz.qs.length,c=quiz.qs.filter((q,i)=>quiz.picked[i]===q.ans).length,secs=Math.round(quiz.secs.reduce((a,b)=>a+b,0)/n);
+  const missed=quiz.qs.map((q,i)=>({q,p:quiz.picked[i]})).filter(x=>x.p!==x.q.ans).slice(0,15)
+    .map(x=>`- [${x.q.task} ${TASKS[x.q.task].name}] ${x.q.q}\n  Chose: ${x.p===null?"no answer":x.q.opts[x.p]} | Correct: ${x.q.opts[x.q.ans]}`).join("\n");
+  const prompt=`${TUTOR_RULES}${studentContext()}\n\nThe student just finished a "${quiz.title}" session: ${c}/${n} correct, average ${secs}s per question.\nMissed questions:\n${missed||"none"}\n\nWrite a debrief in under 200 words with these headings:\n### What went well\n### The pattern in your mistakes\n(look for a shared mindset error, e.g. escalating too early, acting before assessing, skipping the process)\n### Do next\n(3 concrete actions; name tasks from the student's data)`;
+  btn.disabled=true;out.innerHTML=THINK;
+  try{const r=await AI(prompt,{onText:({text})=>{out.innerHTML=md(text);}});quiz.debrief=r.text;}
+  catch(e){out.innerHTML=(e&&e.text?md(e.text):"")+(e&&e.code==="cancelled"?"":`<p class="bad">${esc(aiErr(e))}</p>`);}
+  btn.disabled=false;btn.textContent="Redo debrief";
+}
+const SESS_MODES={drill:"Drill",review:"Review mistakes",weak:"Weak-area set",exam:"Exam simulation",mixed:"Mixed set",read:"Study"};
+function renderSession(){
+  if(!aiPlan)return `<p class="ainote" style="margin:0">Pick how long you have. Claude builds a time-boxed session from your heat map, with a button to start each block.</p>`;
+  if(aiPlan.loading)return THINK;
+  if(aiPlan.error)return `<p class="bad" style="margin:0">${esc(aiPlan.error)}</p>`;
+  return `${aiPlan.title?`<h3>${esc(aiPlan.title)}</h3>`:""}<ol class="sess">${aiPlan.blocks.map((b,i)=>{
+    const ok=b.mode==="drill"?TASKS[b.task]&&state.bank.some(q=>q.task===b.task):b.mode==="review"?reviewQueue().length>0:["weak","exam","mixed"].includes(b.mode)&&(b.mode!=="weak"||state.attempts.length);
+    return `<li><span class="mins">${b.minutes}m</span><span><b>${esc(b.activity)}</b><br><span class="why">${esc(b.why||"")}</span></span>${ok?`<button class="btn ghost" data-sess="${i}">Start ${esc(SESS_MODES[b.mode]||"")}</button>`:""}</li>`;}).join("")}</ol>`;
+}
+function wireSession(){
+  const go=document.getElementById("sess-go");if(!go)return;
+  document.getElementById("sess-min").onchange=e=>sessMin=+e.target.value;
+  go.onclick=buildSession;
+  document.querySelectorAll("[data-sess]").forEach(b=>b.onclick=()=>{const x=aiPlan.blocks[+b.dataset.sess];x.mode==="drill"?startQuiz("task",x.task):startQuiz(x.mode);});
+}
+async function buildSession(){
+  if(!AI)return;
+  aiPlan={loading:true};document.getElementById("sess-out").innerHTML=renderSession();document.getElementById("sess-go").disabled=true;
+  const prompt=`${TUTOR_RULES}${studentContext()}\n\nPlan a focused ${sessMin}-minute study session for this student right now. Spend most time on high-weight domains where mastery is lowest, include reviewing missed questions if any exist, and cover untried task areas when useful. Each block must be 5-30 minutes and the blocks must add up to ${sessMin} minutes.\nReply with only JSON in this shape:\n{"title": string, "blocks": [{"minutes": number, "mode": "drill"|"review"|"weak"|"exam"|"mixed"|"read", "task": string|null, "activity": string, "why": string}]}\n- "drill" needs "task" set to a task id from the data, like "B4". Each drill block is 5 questions (about 7 minutes).\n- "read" is concept study away from the app; say exactly what to read or practice in "activity" (e.g. a PMBOK or Agile Practice Guide topic).\n- Keep "activity" under 12 words and "why" under 20 words.`;
+  try{
+    const j=await AI.json(prompt);
+    const blocks=(j&&Array.isArray(j.blocks)?j.blocks:[]).map(b=>({minutes:Math.max(1,Math.round(+b.minutes||0)),mode:String(b.mode||"read"),task:b.task?String(b.task).toUpperCase():null,activity:String(b.activity||""),why:String(b.why||"")})).filter(b=>b.activity);
+    aiPlan=blocks.length?{title:String(j.title||""),blocks}:{error:AI_ERR.invalid_json};
+  }catch(e){aiPlan={error:aiErr(e)};}
+  if(!document.getElementById("view-map").hidden)renderMap();
+}
+function initAI(){
+  document.getElementById("fab").onclick=()=>{document.getElementById("drawer").hidden?openDrawer():closeDrawer();};
+  document.getElementById("dr-close").onclick=closeDrawer;
+  document.getElementById("dr-new").onclick=()=>{if(chatCtl)chatCtl.abort();chatTurns=[];renderLog();};
+  const inp=document.getElementById("chat-in");
+  document.getElementById("composer").onsubmit=e=>{e.preventDefault();if(chatCtl){chatCtl.abort();return;}const v=inp.value;inp.value="";send(v);};
+  inp.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();document.getElementById("composer").requestSubmit();}};
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("drawer").hidden)closeDrawer();});
+  try{
+    if(window.claude&&typeof window.claude.use==="function")window.claude.use("sample").then(s=>{if(typeof s==="function"){AI=s;document.body.classList.add("ai");}}).catch(()=>{});
+  }catch(e){}
+}
+/* ---------- Shared bank, accounts and class view (db + user) ---------- */
+let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
+function cloudAdmin(){return !!(DB&&IS_ADMIN);}
+function currentView(){return ["map","quiz","bank","class"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else renderBand();}
+function setSync(){
+  const el=document.getElementById("sync");
+  el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
+}
+function cloudSave(){
+  if(!DB||!UID||cloudRO||state.demo)return;
+  clearTimeout(saveT);saveT=setTimeout(flushSave,1200);
+}
+async function flushSave(){
+  if(saving){saveAgain=true;return;}
+  saving=true;
+  try{await DB.doc("progress/"+UID).set({attempts:state.attempts.slice(-600),sessions:state.sessions.slice(-60),updated:Date.now()});}
+  catch(e){if(e&&e.code==="invalid_argument"){cloudRO=true;setSync();}}
+  saving=false;if(saveAgain){saveAgain=false;flushSave();}
+}
+async function cloudPutMany(list){
+  let ok=0,fail=0;
+  for(const q of list){try{const {id,...body}=q;await DB.doc("questions/"+id).set({...body,updated:Date.now()});ok++;}catch(e){fail++;}}
+  lastMsg={t:`Saved ${ok} question${ok===1?"":"s"} to the shared bank.`+(fail?` ${fail} could not be saved; check that you have edit access.`:""),ok:ok>0};
+  if(currentView()==="bank")renderBank(true);
+}
+const QF_EMPTY={domain:"process",task:"R1",q:"",a:"",b:"",c:"",d:"",ans:0,exp:""};
+function renderQForm(){
+  const e=editId?state.bank.find(q=>q.id===editId):null;
+  const v=e?{domain:TASKS[e.task].domain,task:e.task,q:e.q,a:e.opts[0]||"",b:e.opts[1]||"",c:e.opts[2]||"",d:e.opts[3]||"",ans:e.ans,exp:e.exp||""}:QF_EMPTY;
+  const taskOpts=DOMAINS.map(D=>`<optgroup label="${D.name}">${D.tasks.map(([id,n])=>`<option value="${id}" ${id===v.task?"selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("");
+  return `<section class="card" id="qform-card" style="grid-column:1/-1"><h2>${e?"Edit question":"Add a question"}</h2>
+   <form class="qform" id="qform">
+    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
+    <label>Question<textarea id="qf-q" required>${esc(v.q)}</textarea></label>
+    <div class="row">${["a","b","c","d"].map(k=>`<label>Option ${k.toUpperCase()}<input id="qf-${k}" value="${esc(v[k])}" ${k<"c"?"required":""}></label>`).join("")}</div>
+    <label>Explanation shown after answering<textarea id="qf-exp">${esc(v.exp)}</textarea></label>
+    <div class="actions"><button class="btn primary" type="submit">${e?"Save changes":"Add to shared bank"}</button>${e?`<button class="btn ghost" type="button" id="qf-cancel">Cancel</button>`:""}<span class="msg" id="qf-msg" role="status"></span></div>
+   </form></section>`;
+}
+function wireQForm(){
+  const f=document.getElementById("qform");if(!f)return;
+  f.onsubmit=async ev=>{ev.preventDefault();
+    const g=id=>document.getElementById(id).value.trim(),opts=["a","b","c","d"].map(k=>g("qf-"+k)).filter(Boolean),ans=+g("qf-ans"),task=g("qf-task"),msg=document.getElementById("qf-msg");
+    if(!g("qf-q")||opts.length<2||ans>=opts.length){msg.className="msg bad";msg.textContent="Add the question, at least two options, and pick an answer that has text.";return;}
+    const prev=editId?state.bank.find(q=>q.id===editId):null;
+    const id=editId||("q"+Date.now().toString(36));
+    const body={task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),src:prev?prev.src:"Instructor",updated:Date.now()};
+    if(prev&&prev.order!==undefined)body.order=prev.order;
+    msg.className="msg";msg.textContent="Saving…";
+    try{await DB.doc("questions/"+id).set(body);editId=null;lastMsg={t:prev?"Question updated.":"Question added. Students see it right away.",ok:true};renderBank(true);}
+    catch(e){msg.className="msg bad";msg.textContent="Couldn't save. Check that you have edit access to this page.";}
+  };
+  const c=document.getElementById("qf-cancel");if(c)c.onclick=()=>{editId=null;renderBank(true);};
+  document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{editId=b.dataset.edit;pendingDel=null;renderBank(true);document.getElementById("qform-card").scrollIntoView({behavior:"smooth"});});
+  document.querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{
+    const id=b.dataset.del;
+    if(pendingDel!==id){pendingDel=id;renderBank(true);return;}
+    pendingDel=null;b.disabled=true;
+    try{await DB.doc("questions/"+id).delete();lastMsg={t:"Question deleted.",ok:true};}catch(e){lastMsg={t:"Couldn't delete that question.",ok:false};}
+    renderBank(true);
+  });
+}
+function renderBankReadOnly(){
+  const el=document.getElementById("view-bank"),counts={};
+  state.bank.forEach(q=>{const d=TASKS[q.task].domain;counts[d]=(counts[d]||0)+1;});
+  el.innerHTML=`<section class="card"><h2>${state.bank.length} questions</h2><p style="margin:0;color:var(--muted)">Your instructors manage this question bank. New questions show up here automatically.</p>
+   <div class="counts">${DOMAINS.map(D=>`<div><span class="label">${D.name}</span><b>${counts[D.id]||0}</b></div>`).join("")}</div>
+   <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Task</th><th>Question</th></tr></thead><tbody>${state.bank.map(q=>`<tr><td>${domOf(q.task).name}</td><td>${esc(TASKS[q.task].name)}</td><td>${esc(q.q)}</td></tr>`).join("")}</tbody></table></div></section>`;
+}
+async function renderClass(){
+  const el=document.getElementById("view-class");
+  if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
+  if(classDocs===null){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">${THINK} Loading students…</p></section>`;return;}
+  const students=classDocs.filter(d=>Array.isArray(d.attempts)&&d.attempts.length);
+  const all=[].concat(...students.map(d=>d.attempts));
+  const per=students.map(d=>({id:d.id,st:stats(d.attempts),n:d.attempts.length,last:Math.max(...d.attempts.map(a=>a.ts||0)),sessions:(d.sessions||[]).length}));
+  // cohort mastery per task = average of each student's mastery where they have data
+  const cohort={};Object.keys(TASKS).forEach(id=>{const v=per.map(p=>p.st.t[id]).filter(x=>x&&x.n);cohort[id]={n:v.reduce((s,x)=>s+x.n,0),m:v.length?v.reduce((s,x)=>s+x.m,0)/v.length:null,k:v.length};});
+  const avgReady=per.filter(p=>p.st.overall!==null);const ready=avgReady.length?avgReady.reduce((s,p)=>s+p.st.overall,0)/avgReady.length:null;
+  const week=Date.now()-7*864e5,active=per.filter(p=>p.last>week).length;
+  const byQ={};all.forEach(a=>{byQ[a.qid]=byQ[a.qid]||{n:0,c:0};byQ[a.qid].n++;if(a.ok)byQ[a.qid].c++;});
+  const hard=Object.keys(byQ).map(id=>({q:state.bank.find(q=>q.id===id),...byQ[id]})).filter(x=>x.q&&x.n>=3).sort((a,b)=>a.c/a.n-b.c/b.n).slice(0,8);
+  const ids=per.map(p=>p.id);const ps=USER&&ids.length?await USER.profiles(ids):{};
+  const weakest=p=>{const w=Object.keys(TASKS).filter(id=>p.st.t[id].n).sort((a,b)=>p.st.t[a].m-p.st.t[b].m)[0];return w?`${esc(TASKS[w].name)} (${pct(p.st.t[w].m)})`:"–";};
+  let h=`<section class="card"><div class="mapbar"><h2>Class overview</h2><span class="label">Updates live as students practice</span></div>
+   <div class="statrow"><div><span class="label">Students</span><b>${per.length}</b></div><div><span class="label">Active this week</span><b>${active}</b></div><div><span class="label">Avg readiness</span><b>${pct(ready)}</b></div><div><span class="label">Answers</span><b>${all.length}</b></div></div></section>`;
+  if(!per.length){h+=`<section class="card"><p style="margin:0">No student progress yet. Students' results appear here once they answer questions while signed in with Contributor access to this page.</p></section>`;}
+  else{
+    h+=`<section class="card"><div class="mapbar"><h2>Class heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span>Average mastery of students who tried each task</span></div></div>`;
+    DOMAINS.forEach(D=>{h+=`<div class="drow"><div class="dhead"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span></div><div class="tiles ctiles">`;
+      D.tasks.forEach(([id,name])=>{const c=cohort[id];h+=c.m===null?`<div class="tile untested"><span class="tname">${esc(name)}</span><span class="tval"><span>Not tried</span></span></div>`:`<div class="tile" style="background:${heat(c.m)}"><span class="tname">${esc(name)}</span><span class="tval"><span class="pc">${pct(c.m)}</span><span class="num">${c.k} student${c.k>1?"s":""}</span></span></div>`;});
+      h+=`</div></div>`;});
+    h+=`</section><section class="prog"><div class="card"><h2>Students</h2><div class="tablewrap"><table><thead><tr><th>Student</th><th>Readiness</th><th>Answers</th><th>Weakest task</th><th>Last active</th></tr></thead><tbody>${per.sort((a,b)=>(a.st.overall??2)-(b.st.overall??2)).map(p=>{const pr=ps[p.id]||{name:"",avatarUrl:""},[rc,rl]=rating(p.st.overall);return `<tr><td><span class="who">${pr.avatarUrl?`<img src="${esc(pr.avatarUrl)}" alt="">`:""}<span data-name="${esc(p.id)}"></span></span></td><td><span class="pill ${rc}" title="${rl}">${pct(p.st.overall)}</span></td><td class="num">${p.n}</td><td>${weakest(p)}</td><td class="num">${fmtD(p.last)}</td></tr>`;}).join("")}</tbody></table></div></div>
+     <div class="card"><h2>Hardest questions</h2>${hard.length?`<div class="tablewrap"><table><thead><tr><th>Question</th><th>Correct</th></tr></thead><tbody>${hard.map(x=>`<tr><td>${esc(x.q.q.length>110?x.q.q.slice(0,110)+"…":x.q.q)}<br><span class="label" style="letter-spacing:.04em">${esc(TASKS[x.q.task].name)}</span></td><td class="num">${pct(x.c/x.n)} <span style="color:var(--muted)">(${x.n})</span></td></tr>`).join("")}</tbody></table></div><p class="ainote" style="margin:0">Low scores can mean a hard topic or an unclear question. Worth a review either way.</p>`:`<p class="ainote" style="margin:0">Questions need at least 3 answers to appear here.</p>`}</div></section>`;
+  }
+  el.innerHTML=h;
+  el.querySelectorAll("[data-name]").forEach(s=>{const p=ps[s.dataset.name];s.textContent=(p&&p.name)||"Student";});
+}
+async function initCloud(){
+  try{
+    if(!(window.claude&&typeof window.claude.use==="function"))return;
+    const [db,user]=await Promise.all([window.claude.use("db").catch(()=>null),window.claude.use("user").catch(()=>null)]);
+    USER=user;UID=user?await user.id():null;IS_ADMIN=user?await user.canEdit():false;
+    if(!db){setSync();return;}
+    DB=db;setSync();
+    document.getElementById("nav-class").hidden=!IS_ADMIN;
+    let first=true;
+    DB.collection("questions").onSnapshot(snap=>{
+      if(snap.metadata.fromCache&&snap.empty)return;
+      sharedQs=snap.docs.map(d=>({id:d.id,...d.data()}));makeBank();
+      if(first||currentView()!=="quiz")rerender();first=false;
+    },()=>{});
+    if(UID){
+      try{
+        const d=await DB.doc("progress/"+UID).get();
+        const body=d.exists?d.data():null;
+        if(body&&Array.isArray(body.attempts)&&body.attempts.length){state.attempts=body.attempts.slice();state.sessions=(body.sessions||[]).slice();state.demo=false;try{localStorage.setItem(KEY,JSON.stringify({attempts:state.attempts,sessions:state.sessions,demo:false,custom:state.custom}))}catch(e){}}
+        else if(!state.demo&&state.attempts.length)cloudSave();
+      }catch(e){}
+    }
+    if(IS_ADMIN)DB.collection("progress").onSnapshot(snap=>{classDocs=snap.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="class")renderClass();},()=>{classDocs=classDocs||[];});
+    if(currentView()!=="quiz")rerender();
+  }catch(e){}
+}
+initCloud();
+initAI();
+load();show("map");
+})();
+</script>
