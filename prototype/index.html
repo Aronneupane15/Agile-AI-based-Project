@@ -10,6 +10,8 @@
   --accent:#2f5a8a; --accent-ink:#ffffff; --brass:#c9a24a;
   --weak:#e07a6a; --mid:#ecc56a; --strong:#79c3a2; --none:#e3e7e3; --tile-ink:#18201d;
   --ok:#2b7a5a; --warn:#a8641c; --bad:#b23a2c;
+  --c-people:#1f9e8f; --c-process:#4a5bd4; --c-business:#d08a1f;
+  --f1:#4a5bd4; --f2:#1f9e8f; --f3:#e0a43a; --f4:#d4605a; --f5:#8a6fd1; --glow:rgba(74,91,212,.35);
   --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
   --f-data:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -17,17 +19,19 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#111614; --surface:#1a211e; --ink:#e6ebe8; --muted:#98a59f; --line:#2f3934;
   --band:#0c141c; --band-line:#22313f; --accent:#8db4e0; --accent-ink:#0d1825; --none:#232b28;
-  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; color-scheme:dark}}
+  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; --c-people:#4cc9b8; --c-process:#8c9bff; --c-business:#f0b45a; --f1:#7d8cff; --f2:#3fbfae; --f3:#e8b45a; --f4:#ec7f78; --f5:#a993ee; --glow:rgba(125,140,255,.35); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111614; --surface:#1a211e; --ink:#e6ebe8; --muted:#98a59f; --line:#2f3934;
   --band:#0c141c; --band-line:#22313f; --accent:#8db4e0; --accent-ink:#0d1825; --none:#232b28;
-  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; color-scheme:dark}
+  --weak:#d9776a; --mid:#e0bb62; --strong:#6db897; --ok:#6fcf9f; --warn:#e5a35a; --bad:#f08b7c; --c-people:#4cc9b8; --c-process:#8c9bff; --c-business:#f0b45a; --f1:#7d8cff; --f2:#3fbfae; --f3:#e8b45a; --f4:#ec7f78; --f5:#a993ee; --glow:rgba(125,140,255,.35); color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body)}
 .gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .inner{max-width:1120px;margin:0 auto}
-.top{background:var(--band);color:var(--band-ink);padding-block:18px 26px}
+.top{background:radial-gradient(900px 300px at 85% -10%,rgba(74,91,212,.45),transparent 60%),radial-gradient(700px 260px at 0% 120%,rgba(31,158,143,.30),transparent 60%),var(--band);color:var(--band-ink);padding-block:18px 26px;position:relative;overflow:hidden}
+.top::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.top .inner{position:relative;z-index:1}
 .top .inner{display:grid;gap:20px}
 header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:12px}
@@ -216,6 +220,84 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
 .statrow div{border:1px solid var(--line);border-radius:6px;padding:10px 14px;display:grid;gap:2px;background:var(--surface)}
 .statrow b{font:700 26px var(--f-data)}
 .who{display:flex;align-items:center;gap:8px}.who img{width:24px;height:24px;border-radius:50%}
+
+/* v5: professional polish */
+#view-cases,#view-hub,#view-help{display:grid;gap:24px}
+.card{box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -16px rgba(16,24,40,.18)}
+.ddot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:1px}
+.dhead{border-top-color:var(--dc,var(--ink))!important}
+.dhead b{color:var(--ink)}
+.dchip{display:inline-flex;align-items:center;gap:6px;font:700 11px var(--f-body);letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:var(--dc);background:color-mix(in srgb,var(--dc) 13%,transparent)}
+.dchip::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--dc)}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.diff{font:700 10px var(--f-data);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.diff.d2{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.diff.d3{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.opt{position:relative}
+.opt .mark{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-weight:800}
+.mark.ok{color:var(--ok)}.mark.bad{color:var(--bad)}
+.fig{margin:0;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:10px 12px;display:grid;gap:6px}
+.fig figcaption{font:600 12px var(--f-body);color:var(--muted);letter-spacing:.03em}
+.figwrap{overflow-x:auto}
+.figsvg{display:block;width:100%;min-width:300px;height:auto}
+.figsvg text{fill:var(--muted);font:11px var(--f-data)}
+.figsvg text.lbl{fill:var(--ink);font:600 11px var(--f-body)}
+.figsvg text.node{fill:var(--ink);font:700 14px var(--f-data)}
+.figsvg text.ax{fill:var(--muted);font:600 11px var(--f-body)}
+.figsvg .grid{stroke:var(--line)}
+.casepanel{border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.casepanel summary{cursor:pointer;padding:10px 14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctag{font:700 10px var(--f-data);letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);padding:2px 7px;border-radius:3px}
+.casebody{padding:0 14px 14px;display:grid;gap:12px}
+.casebody p{margin:0;max-width:75ch}
+.facts{border-collapse:collapse;font-size:14px;width:100%}
+.facts th{text-align:left;font-weight:600;color:var(--muted);width:42%;padding:5px 8px;border-bottom:1px solid var(--line);text-transform:none;letter-spacing:0;font-size:13px}
+.facts td{padding:5px 8px;border-bottom:1px solid var(--line)}
+.askbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--accent) 7%,transparent);border:1px dashed color-mix(in srgb,var(--accent) 40%,var(--line))}
+.askbar .chip{background:var(--surface)}
+.aron-mini,.aron-av,.aron-big{display:inline-grid;place-items:center;border-radius:50%;font:800 13px var(--f-display);color:#fff;background:conic-gradient(from 200deg,var(--f1),var(--f2),var(--f3),var(--f1));box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--brass)}
+.aron-mini{width:22px;height:22px;font-size:11px}
+.aron-av{width:26px;height:26px;box-shadow:0 0 0 2px var(--band),0 0 0 3.5px var(--brass)}
+.aron-big{width:40px;height:40px;font-size:18px;flex:none}
+.dr-head .aron-big{box-shadow:0 0 0 2px var(--band),0 0 0 4px var(--brass)}
+.dr-head .who{display:flex;gap:10px;align-items:center}
+.linkbtn.subtle{color:var(--muted);font-size:13px;justify-self:start}
+.report{display:grid;gap:8px;border:1px solid var(--line);border-radius:8px;padding:12px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
+.report textarea{min-height:56px;font:14px var(--f-body)}
+.hero-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;background:linear-gradient(120deg,color-mix(in srgb,var(--f1) 10%,var(--surface)),color-mix(in srgb,var(--f2) 8%,var(--surface)))}
+.hero-card h2{font-size:clamp(22px,3vw,30px);text-transform:none;letter-spacing:0;line-height:1.15;margin:4px 0 8px;text-wrap:balance}
+.eyebrow{font:700 11px var(--f-data);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.casegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.casecard{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;transition:transform .15s,box-shadow .15s}
+.casecard:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px var(--glow)}
+.casecard .thumb{background:var(--bg);border-bottom:1px solid var(--line);max-height:190px;overflow:hidden}
+.casecard .thumb .fig{border:0;border-radius:0}
+.casecard .cbody{padding:14px 16px;display:grid;gap:8px;align-content:start}
+.casecard h3{font:700 20px/1.1 var(--f-display);font-stretch:85%;margin:0}
+.casecard p{margin:0;color:var(--muted);font-size:14px}
+.calc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.calc label{display:grid;gap:3px;font:600 12px var(--f-data);color:var(--muted)}
+.calc input{font:600 15px var(--f-data);padding:8px;border-radius:5px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.evtab{width:100%;border-collapse:collapse;font-size:14px}
+.evtab th{font:700 13px var(--f-data);text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);color:var(--ink);text-transform:none;letter-spacing:0}
+.evtab td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.fcard{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:4px;background:var(--bg);font-size:13px;color:var(--muted)}
+.fcard code{font:700 15px var(--f-data);color:var(--ink);background:none;padding:0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.dcard{display:grid;gap:8px;align-content:start}
+.dcard ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:3px}
+.search{width:100%;max-width:520px;font:16px var(--f-body);padding:11px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.helpaside{display:flex;gap:12px;align-items:center;max-width:300px}
+.faq{display:grid;gap:6px}
+.faq details{border:1px solid var(--line);border-radius:6px;padding:8px 12px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin:8px 0 2px;color:var(--muted)}
+.reply{font-size:13px;color:var(--ok)}
+.replybox{display:flex;gap:6px}.replybox input{min-width:0;flex:1;font:14px var(--f-body);padding:6px 8px;border-radius:4px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.qform select,.qform input{min-height:38px}
+@media (max-width:640px){.hero-card{grid-template-columns:1fr}.calc{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 <div class="top gut">
@@ -228,7 +310,10 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
       <nav aria-label="Views">
         <button id="nav-map" data-view="map" aria-current="true">Dashboard</button>
         <button id="nav-quiz" data-view="quiz">Practice</button>
+        <button id="nav-cases" data-view="cases">Case studies</button>
+        <button id="nav-hub" data-view="hub">Study hub</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
+        <button id="nav-help" data-view="help">Help</button>
         <button id="nav-class" data-view="class" hidden>Class</button>
       </nav>
     </header>
@@ -242,18 +327,21 @@ select{font:600 14px var(--f-body);padding:8px;border-radius:5px;border:1px soli
     <div id="view-quiz" hidden></div>
     <div id="view-bank" hidden></div>
     <div id="view-class" hidden></div>
+    <div id="view-cases" hidden></div>
+    <div id="view-hub" hidden></div>
+    <div id="view-help" hidden></div>
     <footer>
-      Prototype. Domains and weights follow the PMP exam content outline used from July 2026 (People 33%, Process 41%, Business Environment 26%); task names are paraphrased. Sample questions are original practice items, not real exam questions. Mastery scores weight recent answers more heavily. The study plan uses rules; the AI tutor, debrief and study session use Claude on the viewer’s own Claude account and appear when the page is opened in Claude. Readiness ratings use this prototype's own thresholds, not PMI's. When opened in Claude, progress saves to each student's account and instructors with edit access manage the shared question bank and see the class view; elsewhere, progress stays in this browser.
+      Prototype. Domains and weights follow the PMP exam content outline used from July 2026 (People 33%, Process 41%, Business Environment 26%); task names are paraphrased. Sample questions are original practice items, not real exam questions. Mastery scores weight recent answers more heavily. The study plan uses rules; Aron (the AI coach) uses Claude on the viewer’s own Claude account and appear when the page is opened in Claude. Readiness ratings use this prototype's own thresholds, not PMI's. When opened in Claude, progress saves to each student's account and instructors with edit access manage the shared question bank and see the class view; elsewhere, progress stays in this browser.
     </footer>
   </div>
 </main>
 
-<button class="fab ai-only" id="fab" aria-controls="drawer" aria-expanded="false"><span class="spark" aria-hidden="true"></span>Ask the AI tutor</button>
-<aside class="drawer" id="drawer" aria-label="AI tutor" hidden>
-  <div class="dr-head"><div><h2>AI tutor</h2><small>Knows your heat map and recent mistakes</small></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
+<button class="fab ai-only" id="fab" aria-controls="drawer" aria-expanded="false"><span class="aron-av" aria-hidden="true">A</span>Ask Aron</button>
+<aside class="drawer" id="drawer" aria-label="Aron, AI coach" hidden>
+  <div class="dr-head"><div class="who"><span class="aron-big" aria-hidden="true">A</span><div><h2>Aron</h2><small>Your AI PMP coach · knows your heat map</small></div></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
   <div class="chips" id="chips"></div>
   <div class="log" id="log" aria-live="polite"></div>
-  <form class="composer" id="composer"><textarea id="chat-in" rows="2" placeholder="Ask about a PMP concept, a question you missed, or how to study" aria-label="Message the AI tutor"></textarea><button class="btn primary" id="chat-send" type="submit">Send</button></form>
+  <form class="composer" id="composer"><textarea id="chat-in" rows="2" placeholder="Ask Aron about a PMP concept, a question you missed, or how to study" aria-label="Message Aron"></textarea><button class="btn primary" id="chat-send" type="submit">Send</button></form>
 </aside>
 
 <script>
@@ -322,7 +410,7 @@ function makeBank(){
   if(sharedQs&&sharedQs.length){
     sharedQs.forEach(q=>{if(!TASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain);});
     state.bank=sharedQs.filter(q=>TASKS[q.task]&&Array.isArray(q.opts)).slice().sort((a,b)=>(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));
-  } else state.bank=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],src:"Sample"})).concat(state.custom);
+  } else state.bank=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],diff:1,src:"Sample"})).concat(extraQuestions(),state.custom);
 }
 function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};}
 function buildDemo(){
@@ -408,7 +496,7 @@ function renderBand(){
   const st=stats(),[rc,rl]=rating(st.overall),rq=reviewQueue().length;
   const n=state.attempts.length,avg=n?state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n:null;
   let h=`<div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
-  DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm">${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
+  DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm"><i class="ddot" style="background:var(--c-${D.id})"></i>${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
   h+=`<div class="kpis">
     <div class="kpi"><span class="label">Answered</span><span class="v">${n}</span><span class="s">${state.bank.length} in bank</span></div>
     <div class="kpi"><span class="label">Coverage</span><span class="v">${st.tested}/${Object.keys(TASKS).length}</span><span class="s">task areas tried</span></div>
@@ -457,18 +545,20 @@ function renderMap(){
   }
   const examN=Math.min(30,state.bank.length);
   h+=`<section class="plan"><div class="card"><h2>Study plan</h2><ol class="steps">${steps}</ol>
-   <div class="aibox ai-only"><div class="hd"><span class="ailabel">AI study session</span><div class="actions"><label class="label" for="sess-min">Time</label><select id="sess-min">${[30,45,60,90].map(m=>`<option value="${m}" ${m===sessMin?"selected":""}>${m} min</option>`).join("")}</select><button class="btn primary" id="sess-go">${aiPlan?"Rebuild":"Build my session"}</button></div></div><div id="sess-out">${renderSession()}</div></div></div>
+   <div class="aibox ai-only"><div class="hd"><span class="ailabel">Study session by Aron</span><div class="actions"><label class="label" for="sess-min">Time</label><select id="sess-min">${[30,45,60,90].map(m=>`<option value="${m}" ${m===sessMin?"selected":""}>${m} min</option>`).join("")}</select><button class="btn primary" id="sess-go">${aiPlan?"Rebuild":"Build my session"}</button></div></div><div id="sess-out">${renderSession()}</div></div></div>
    <div class="card"><h2>Practice</h2><div class="modes">
     <button class="mode primary" id="go-weak" ${state.attempts.length?"":'aria-disabled="true"'}><b>Weak-area practice</b><span>Favors the tasks and questions you miss most</span><em>10 Q</em></button>
     <button class="mode" id="go-review" ${rq.length?"":'aria-disabled="true"'}><b>Review mistakes</b><span>Re-answer questions you got wrong last time</span><em>${rq.length} Q</em></button>
     <button class="mode" id="go-exam"><b>Exam simulation</b><span>Timed at exam pace, weighted by domain, no hints until the end</span><em>${examN} Q · ${Math.round(examN*EXAM_PACE/60)} min</em></button>
+    <button class="mode" id="go-hard"><b>Hard mode</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>
+    <button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>
     <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
    </div></div></section>`;
   // heat map
   h+=`<section class="card" aria-label="Heat map by domain and task"><div class="mapbar"><h2>Task heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span class="swatch" aria-hidden="true"></span><span>No answers</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span>Confidence</span><span class="trend">▲▼</span><span>Recent trend</span></div></div>`;
   DOMAINS.forEach((D,di)=>{
     const x=st.d[D.id];
-    h+=`<div class="drow"><div class="dhead"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span><span class="pill ${rating(x.m)[0]}" style="justify-self:start">${pct(x.m)}</span></div><div class="tiles">`;
+    h+=`<div class="drow"><div class="dhead" style="--dc:var(--c-${D.id})"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span><span class="pill ${rating(x.m)[0]}" style="justify-self:start">${pct(x.m)}</span></div><div class="tiles">`;
     D.tasks.forEach(([id,name],ti)=>{const t=st.t[id],count=state.bank.filter(q=>q.task===id).length,delay=`animation-delay:${(di*7+ti)*25}ms`;
       if(t.n){const dots=[1,2,3].map(k=>`<i class="${t.conf>=k?"on":""}"></i>`).join("");
         h+=`<button class="tile" data-task="${id}" style="background:${heat(t.m)};${delay}" aria-label="${esc(name)}: mastery ${pct(t.m)} from ${t.n} answers. Drill this task."><span class="tname">${esc(name)}</span><span class="tval"><span class="pc">${pct(t.m)}</span>${t.trend?`<span class="trend">${t.trend>0?"▲":"▼"}</span>`:""}<span class="dots" title="${t.n} answers">${dots}</span></span></button>`;}
@@ -482,7 +572,7 @@ function renderMap(){
   el.innerHTML=h;
   const cd=document.getElementById("clear-demo");if(cd)cd.onclick=()=>{clearDemo();save();renderMap();};
   const on=(id,fn)=>{const b=document.getElementById(id);b.onclick=()=>{if(b.getAttribute("aria-disabled")!=="true")fn();};};
-  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));
+  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));on("go-hard",()=>startQuiz("hard"));on("go-cases",()=>show("cases"));
   el.querySelectorAll(".tile[data-task]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.task));
 }
 
@@ -496,6 +586,8 @@ function pick(mode,task){
   if(mode==="task")return weightedPick(state.bank.filter(q=>q.task===task),5,q=>missedSet.has(q.id)?2:1);
   if(mode==="review")return weightedPick(reviewQueue(),10,()=>1);
   if(mode==="mixed")return weightedPick(state.bank,10,()=>1);
+  if(mode==="hard")return weightedPick(state.bank.filter(q=>(q.diff||1)>=2),10,q=>q.diff===3?2:1);
+  if(mode==="case")return state.bank.filter(q=>q.case===task);
   if(mode==="weak")return weightedPick(state.bank,10,q=>{const x=st.t[q.task];const m=x&&x.m!==null?x.m:.5;return (1-m)*3+(missedSet.has(q.id)?1.5:0)+(seen[q.id]?0:.6)+.05;});
   // exam: proportional to domain weights
   const N=Math.min(30,state.bank.length),out=[];
@@ -503,11 +595,11 @@ function pick(mode,task){
   const rest=state.bank.filter(q=>!out.includes(q));out.push(...weightedPick(rest,N-out.length,()=>1));
   return weightedPick(out.slice(0,N),N,()=>1);
 }
-const MODE_NAME={weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
+const MODE_NAME={hard:"Hard mode",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
 function startQuiz(mode,task){
   const qs=pick(mode,task);if(!qs.length)return;
   stopTimer();
-  quiz={mode,exam:mode==="exam",title:mode==="task"?TASKS[task].name:MODE_NAME[mode],qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
+  quiz={mode,exam:mode==="exam",title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
   if(quiz.exam)timerId=setInterval(tick,1000);
   show("quiz");
 }
@@ -539,39 +631,348 @@ function finish(){
   if(ans.length){clearDemo();state.sessions.push({id:quiz.sid||("s"+Date.now()),mode:quiz.title,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))});save();}
   quiz.done=true;quiz.review=null;renderQuiz();
 }
+/* ---------- Hard questions, case studies and exhibits ---------- */
+const NET1={type:"network",title:"Activity network (durations in days)",nodes:[{id:"A",d:3,x:0,y:1},{id:"B",d:5,x:1,y:0},{id:"C",d:4,x:1,y:2},{id:"D",d:6,x:2,y:0},{id:"E",d:2,x:2,y:2},{id:"F",d:3,x:3,y:1}],edges:[["A","B"],["A","C"],["B","D"],["C","E"],["D","F"],["E","F"]]};
+const CFD1={type:"cfd",title:"Cumulative flow diagram, team Kanban board",xlabel:"Week",x:[1,2,3,4,5,6,7,8],bands:[
+ {name:"To do",v:[12,16,20,24,28,32,36,40]},{name:"In progress",v:[5,9,13,17,21,25,29,33]},{name:"Done",v:[2,4,6,8,9,10,11,12]}]};
+const BURN1={type:"burndown",title:"Sprint burndown (story points remaining)",x:[0,1,2,3,4,5,6,7,8,9,10],ideal:[40,36,32,28,24,20,16,12,8,4,0],actual:[40,38,35,35,47,45,40,34,29,24,null]};
+const CTRL1={type:"control",title:"Control chart: weld inspection, defects per batch",points:[4.1,3.8,4.4,3.6,4.0,4.6,4.8,4.7,4.9,5.1,4.8,5.0,5.2,4.4],mean:4.2,ucl:5.8,lcl:2.6};
+const GRID1={type:"grid",title:"Power / interest grid",items:[{id:"Sponsor",p:.9,i:.9},{id:"CFO",p:.85,i:.2},{id:"End users",p:.25,i:.85},{id:"Facilities",p:.2,i:.2}]};
+const HARD=[
+["R6","Using the network diagram, what is the total float of activity E?",["0 days","3 days","5 days","7 days"],2,"Paths: A-B-D-F = 3+5+6+3 = 17 days (critical). A-C-E-F = 3+4+2+3 = 12 days. Float on the non-critical path = 17 - 12 = 5 days, so C and E each have 5 days of total float.",3,NET1],
+["R6","Using the network diagram, activity B slips by 4 days. What is the new project duration?",["17 days","19 days","21 days","22 days"],2,"B is on the critical path A-B-D-F (17 days). Any delay on a critical activity adds directly: 17 + 4 = 21 days. The other path (12 days) is still shorter.",3,NET1],
+["R4","BAC is $200,000, EV is $120,000, AC is $150,000 and PV is $140,000. If current cost performance continues, what is the EAC?",["$230,000","$250,000","$280,000","$200,000"],1,"CPI = EV / AC = 120 / 150 = 0.80. With typical variance, EAC = BAC / CPI = 200,000 / 0.80 = $250,000.",3],
+["R4","With BAC $200,000, EV $120,000 and AC $150,000, what TCPI is needed to finish within the original budget?",["0.80","1.25","1.60","0.625"],2,"TCPI = (BAC - EV) / (BAC - AC) = (200 - 120) / (200 - 150) = 80 / 50 = 1.60. The team would need to earn $1.60 of value for every dollar from now on, which is rarely realistic.",3],
+["R6","A three-point estimate has optimistic 4 days, most likely 7 days and pessimistic 16 days. Using a beta (PERT) distribution, what are the expected duration and standard deviation?",["7 days, 2 days","8 days, 2 days","9 days, 4 days","8 days, 12 days"],1,"PERT expected = (O + 4M + P) / 6 = (4 + 28 + 16) / 6 = 8 days. Standard deviation = (P - O) / 6 = 12 / 6 = 2 days.",2],
+["R3","Look at the cumulative flow diagram. What is the most likely problem, and what should the team do?",["Scope is shrinking; add more backlog items","Work is entering faster than it finishes; limit work in progress and focus on finishing","The team is idle; start more items in parallel","Throughput is rising; raise the sprint commitment"],1,"The In progress band keeps widening while Done grows slowly. That means rising WIP and longer cycle times. Limiting WIP and swarming on unfinished work restores flow.",3,CFD1],
+["R6","On a cumulative flow diagram, what does the horizontal distance between the line where items enter In progress and the line where they reach Done represent?",["Throughput","Work in progress","Approximate cycle time","Remaining scope"],2,"Vertical distance between bands shows WIP at a moment. Horizontal distance shows how long an item takes to move through, which is the approximate cycle time.",3,CFD1],
+["R6","Look at the sprint burndown. What most likely happened on day 4, and what should the project manager do?",["The team stopped working; escalate to management","Work was added mid-sprint; make the change visible and work with the product owner on scope","The ideal line is wrong; redraw it","Story points were re-estimated down; nothing needs to happen"],1,"Remaining work jumped from 35 to 47 points, which signals scope added during the sprint. Make it transparent and have the product owner trade scope rather than silently absorb it.",3,BURN1],
+["R5","Look at the control chart. Every point is inside the control limits. What should the project manager conclude?",["The process is in control; no action needed","The process may be out of control because seven or more consecutive points are above the mean; investigate","The specification limits are wrong","Recalculate the control limits to include the new points"],1,"The rule of seven: seven or more consecutive points on one side of the mean is a non-random pattern, even inside the limits. Investigate the assignable cause.",3,CTRL1],
+["B4","A threat has a 30% chance of a $50,000 impact. An opportunity has a 20% chance of a $40,000 gain. What is the combined expected monetary value?",["-$7,000","+$7,000","-$23,000","-$15,000"],0,"EMV threat = 0.30 x -50,000 = -15,000. EMV opportunity = 0.20 x +40,000 = +8,000. Combined = -$7,000.",3],
+["B4","Option A (build in house) has a 60% chance of +$200,000 and a 40% chance of -$100,000. Option B (buy) returns a certain $70,000. Based on expected monetary value, what should the team choose?",["Option B, because it has no risk","Option A, because its EMV is $80,000","Option A, because its EMV is $100,000","Option B, because its EMV is $70,000 and A's is $40,000"],1,"EMV(A) = 0.6 x 200,000 + 0.4 x -100,000 = 120,000 - 40,000 = $80,000, which beats B's $70,000. Risk appetite could still change the decision, but EMV favors A.",3],
+["P4","Using the power/interest grid, how should the project manager engage the CFO?",["Manage closely","Keep satisfied","Keep informed","Monitor with minimum effort"],1,"High power, low interest means keep satisfied: meet their needs and avoid overloading them with detail, while watching for a rise in interest.",2,GRID1],
+["R4","In which contract type does the buyer carry the most cost risk?",["Firm fixed price","Fixed price incentive fee","Cost plus fixed fee","Cost plus percentage of cost"],3,"In cost plus percentage of cost, the seller's fee grows as costs grow, so the seller has no reason to control costs. It puts the most risk on the buyer and is often prohibited in government work.",2],
+["P2","In retrospectives, a senior engineer dominates the discussion and quieter members stop contributing. What should the project manager do first?",["Ask the senior engineer to skip retrospectives","Change the facilitation, for example silent writing then round-robin sharing, so every voice is heard","Report the engineer's behavior to their manager","Run retrospectives by email instead"],1,"Start with the lowest-friction fix that the team controls: better facilitation. Escalation or exclusion comes much later, if at all.",2],
+["B3","The change control board approved a change and work has begun. Now the sponsor wants to reverse it. What should the project manager do?",["Reverse the work immediately because the sponsor outranks the board","Treat the reversal as a new change request, analyze the impact of undoing the work, and take it to the board","Refuse, because approved changes are final","Finish the change first and then discuss it"],1,"Undoing approved work is itself a change with cost, schedule and risk impact. It goes through integrated change control like any other change.",3],
+["R6","A team's last three velocities were 30, 34 and 26 points. About 240 points remain in the backlog. Roughly how many more sprints will it take?",["6 sprints","7 sprints","8 sprints","10 sprints"],2,"Average velocity = (30 + 34 + 26) / 3 = 30 points. 240 / 30 = 8 sprints. A range forecast using the low and high values (7 to 9) is even better practice.",2],
+["P5","A project team grows from 6 to 10 people. How many additional communication channels are created?",["4","15","30","45"],2,"Channels = n(n - 1) / 2. With 6 people: 15. With 10 people: 45. Added channels = 45 - 15 = 30.",2]
+];
+const CASES=[
+{id:"cs1",title:"Forward Supply App",tag:"Agile flow",domain:"process",diff:3,
+ brief:"A veteran-owned logistics company is building a mobile app so field crews can request supplies. The team of seven uses a Kanban board with no work-in-progress limits. Development looks busy, yet the operations director complains that very little reaches users. The product owner wants a delivery forecast for the next quarterly review.",
+ facts:[["Team size","7 (4 developers, 1 tester, 1 analyst, 1 product owner)"],["Method","Kanban, no WIP limits"],["Items in Testing today","20"],["Average throughput, last 4 weeks","1 item per week"]],
+ exhibits:[{type:"cfd",title:"Exhibit 1. Cumulative flow, weeks 1 to 10",xlabel:"Week",x:[1,2,3,4,5,6,7,8,9,10],bands:[{name:"Backlog",v:[20,24,28,32,36,40,44,48,52,56]},{name:"Analysis",v:[6,10,14,18,22,26,30,34,38,42]},{name:"Development",v:[3,7,11,15,19,23,27,31,35,39]},{name:"Testing",v:[1,4,8,12,16,20,24,28,32,36]},{name:"Done",v:[0,2,5,8,10,11,12,13,14,16]}]}],
+ qs:[
+ ["R6","Based on Exhibit 1, where is the main bottleneck?",["Analysis","Development","Testing","Backlog intake"],2,"The Testing band widens steadily from week 5 while Done barely rises. Work piles up waiting for the single tester.",2],
+ ["R3","What should the project manager do first?",["Ask developers to code faster","Facilitate the team to set WIP limits and have developers help test until the queue drops","Hire two contract testers immediately","Extend the release date and keep the current process"],1,"Limiting WIP and swarming on the constraint is the fastest, team-owned fix. Hiring may help later but does not address the flow problem now.",2],
+ ["R6","Once the team stabilizes, average WIP is 12 items and throughput is 4 items per week. Using Little's Law, what is the average cycle time?",["3 weeks","4 weeks","8 weeks","48 weeks"],0,"Little's Law: cycle time = WIP / throughput = 12 / 4 = 3 weeks.",3],
+ ["P5","The product owner needs a forecast for the quarterly review. What is the best approach?",["Promise a fixed date so leadership is satisfied","Give a range based on measured throughput and show the cumulative flow diagram","Ask each developer for their personal estimate and add them","Decline to forecast until the backlog is complete"],1,"Empirical, range-based forecasts from real throughput are honest and transparent. Showing the CFD makes the constraint visible to leadership.",2]]},
+{id:"cs2",title:"Clinic Relocation",tag:"Earned value",domain:"process",diff:3,
+ brief:"A regional VA clinic is moving to a new building. The project is predictive with a budget at completion of $500,000 over 10 months. At the end of month 5, the project manager pulls earned value data for the monthly steering committee.",
+ facts:[["BAC","$500,000"],["Planned value (month 5)","$300,000"],["Earned value (month 5)","$240,000"],["Actual cost (month 5)","$290,000"]],
+ exhibits:[{type:"scurve",title:"Exhibit 1. Cumulative PV, EV and AC ($ thousands)",x:[1,2,3,4,5,6,7,8,9,10],pv:[30,80,150,230,300,370,430,470,490,500],ev:[25,70,130,190,240],ac:[30,85,155,225,290],bac:500}],
+ qs:[
+ ["R6","What is the project's status at month 5?",["Ahead of schedule and under budget","Behind schedule and under budget","Behind schedule and over budget","On schedule and over budget"],2,"SPI = EV / PV = 240 / 300 = 0.80 (behind). CPI = EV / AC = 240 / 290 = 0.83 (over budget).",2],
+ ["R4","If the current cost variance is expected to continue, what is the estimate at completion?",["About $550,000","About $604,000","About $625,000","$500,000"],1,"EAC = BAC / CPI = 500,000 / 0.828 = about $604,000.",3],
+ ["R4","What TCPI is required to finish within the original $500,000?",["0.83","1.00","1.24","1.50"],2,"TCPI = (BAC - EV) / (BAC - AC) = (500 - 240) / (500 - 290) = 260 / 210 = 1.24.",3],
+ ["B1","The steering committee asks what happens next. What should the project manager present?",["Only the good news, to keep confidence high","The variance analysis, forecasts and options, with recommended corrective actions to approve through change control","A request for a 20% budget increase with no analysis","A plan to make up the gap with unpaid overtime"],1,"Governance needs transparent data and options so decision-makers can choose. Corrective actions that change baselines go through change control.",2]]},
+{id:"cs3",title:"Veteran Hiring Portal",tag:"Risk and stakeholders",domain:"business",diff:2,
+ brief:"A nonprofit is building an online portal that matches transitioning service members with employers. The project manager has run a risk workshop and a stakeholder mapping session. Legal has been quiet so far, while recruiters keep asking for features in hallway conversations.",
+ facts:[["R1","Data breach of applicant records"],["R2","Hosting vendor delivers late"],["R3","Low adoption by employers"],["R4","Key developer leaves"],["R5","New state privacy rule"]],
+ exhibits:[{type:"pim",title:"Exhibit 1. Probability / impact matrix",risks:[{id:"R1",p:2,i:5},{id:"R2",p:4,i:3},{id:"R3",p:3,i:5},{id:"R4",p:2,i:2},{id:"R5",p:1,i:4}]},{type:"grid",title:"Exhibit 2. Power / interest grid",items:[{id:"Sponsor",p:.9,i:.85},{id:"Legal",p:.85,i:.2},{id:"Recruiters",p:.25,i:.85},{id:"IT ops",p:.2,i:.25}]}],
+ qs:[
+ ["B4","Using Exhibit 1 (score = probability x impact), which risk should get attention first?",["R1 data breach","R2 vendor delay","R3 low adoption","R5 privacy rule"],2,"Scores: R1 = 10, R2 = 12, R3 = 15, R4 = 4, R5 = 4. R3 has the highest score.",2],
+ ["B4","The team buys cyber insurance to cover the financial impact of R1. Which response strategy is this?",["Avoid","Mitigate","Transfer","Accept"],2,"Insurance shifts the financial impact to a third party. That is transfer. The breach can still happen, so mitigation is also needed.",2],
+ ["P4","Based on Exhibit 2, how should the project manager engage Legal?",["Manage closely","Keep satisfied","Keep informed","Monitor"],1,"Legal has high power and low interest, so keep them satisfied, especially with R5 on the horizon.",2],
+ ["P4","Recruiters keep asking developers for features in hallway conversations. What should the project manager do?",["Tell recruiters to stop talking to the team","Keep recruiters informed and route their requests to the product owner for the backlog","Let developers add the small features quietly","Escalate to the sponsor"],1,"High-interest, low-power stakeholders should be kept informed. Requests go through the product owner so priorities stay visible.",2]]},
+{id:"cs4",title:"Field Training Center",tag:"Schedule compression",domain:"process",diff:3,
+ brief:"A contractor is building a field training center for a veterans workforce program. The sponsor has just learned that a grant deadline requires the building to open 2 days earlier than planned. The project manager reviews the schedule network and the crash costs.",
+ facts:[["A (4 days)","can crash 1 day at $2,000 per day"],["B (6 days)","can crash 2 days at $1,500 per day"],["C (3 days)","can crash 2 days at $500 per day"],["D (5 days)","can crash 2 days at $3,000 per day"],["F (2 days)","can crash 1 day at $4,000 per day"]],
+ exhibits:[{type:"network",title:"Exhibit 1. Activity network (durations in days)",nodes:[{id:"A",d:4,x:0,y:1},{id:"B",d:6,x:1,y:0},{id:"C",d:3,x:1,y:2},{id:"D",d:5,x:2,y:0},{id:"E",d:4,x:2,y:2},{id:"F",d:2,x:3,y:1}],edges:[["A","B"],["A","C"],["B","D"],["C","E"],["D","F"],["E","F"]]}],
+ qs:[
+ ["R6","What is the current project duration?",["13 days","15 days","17 days","19 days"],2,"A-B-D-F = 4 + 6 + 5 + 2 = 17 days. A-C-E-F = 4 + 3 + 4 + 2 = 13 days. The longest path sets the duration.",2],
+ ["R6","What is the cheapest way to shorten the project by 2 days?",["Crash C by 2 days for $1,000","Crash B by 2 days for $3,000","Crash A and B by 1 day each for $3,500","Crash D by 2 days for $6,000"],1,"Only critical activities (A, B, D, F) shorten the project. B costs $1,500 per day, the cheapest critical option. C is cheap but not on the critical path.",3],
+ ["R6","After crashing B by 2 days, how much total float does activity E have?",["0 days","2 days","4 days","6 days"],1,"New critical path = 15 days. Path A-C-E-F is 13 days, so E has 15 - 13 = 2 days of float.",3],
+ ["R6","Instead of crashing, the team considers fast tracking D and E. What is the main trade-off?",["Higher direct cost","Increased risk of rework","Reduced scope","Lower quality standards"],1,"Fast tracking overlaps activities that were planned in sequence. It usually costs little extra money but adds risk and rework.",2]]}
+];
+const CASE_BY={};CASES.forEach(c=>CASE_BY[c.id]=c);
+function extraQuestions(){
+  const out=HARD.map((h,i)=>({id:"h"+i,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],fig:h[6]||null,src:"Sample"}));
+  CASES.forEach(c=>c.qs.forEach((h,k)=>out.push({id:c.id+"q"+k,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],case:c.id,src:"Sample"})));
+  return out;
+}
+const DIFF_NAME={1:"Standard",2:"Hard",3:"Very hard"};
+
+/* ---------- Figure renderer (theme-aware SVG) ---------- */
+const FIGC=["var(--f1)","var(--f2)","var(--f3)","var(--f4)","var(--f5)"];
+function svgOpen(W,H,label){return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label||"")}" class="figsvg">`;}
+function axisY(L,R,T,B,W,H,max,step,fmt){let s="";for(let v=0;v<=max+1e-9;v+=step){const y=T+(H-T-B)*(1-v/max);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" class="grid"/><text x="${L-6}" y="${y+4}" text-anchor="end">${fmt?fmt(v):v}</text>`;}return s;}
+function renderFig(f){
+  if(!f)return "";
+  let body="";
+  if(f.type==="cfd"){
+    const W=560,H=260,L=40,R=110,T=14,B=30,n=f.x.length,max=Math.ceil(Math.max(...f.bands[0].v)/10)*10;
+    const x=i=>L+(W-L-R)*(i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
+    body=svgOpen(W,H,f.title)+axisY(L,R,T,B,W,H,max,max/5);const labs=[];
+    f.bands.forEach((b,k)=>{const next=f.bands[k+1];const top=b.v.map((v,i)=>`${x(i)},${y(v)}`).join(" ");const bot=next?next.v.map((v,i)=>`${x(i)},${y(v)}`).reverse().join(" "):`${x(n-1)},${y(0)} ${x(0)},${y(0)}`;
+      body+=`<polygon points="${top} ${bot}" fill="${FIGC[(f.bands.length-1-k)%5]}" fill-opacity=".85" stroke="var(--surface)" stroke-width="1"/>`;
+      const mid=next?(b.v[n-1]+next.v[n-1])/2:b.v[n-1]/2;labs.push([y(mid)+4,b.name]);});
+    for(let k=1;k<labs.length;k++)if(labs[k][0]-labs[k-1][0]<13)labs[k][0]=labs[k-1][0]+13;
+    labs.forEach(l=>body+=`<text x="${W-R+8}" y="${l[0]}" class="lbl">${esc(l[1])}</text>`);
+    f.x.forEach((v,i)=>body+=`<text x="${x(i)}" y="${H-10}" text-anchor="middle">${v}</text>`);
+    body+=`<text x="${L}" y="${H}" class="ax">${esc(f.xlabel||"")}</text></svg>`;
+  } else if(f.type==="burndown"){
+    const W=560,H=240,L=40,R=16,T=14,B=30,n=f.x.length,max=Math.ceil(Math.max(...f.ideal,...f.actual.filter(v=>v!==null))/10)*10;
+    const x=i=>L+(W-L-R)*(i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
+    body=svgOpen(W,H,f.title)+axisY(L,R,T,B,W,H,max,max/5);
+    body+=`<polyline points="${f.ideal.map((v,i)=>x(i)+","+y(v)).join(" ")}" fill="none" stroke="var(--muted)" stroke-dasharray="5 5" stroke-width="2"/>`;
+    const a=f.actual.map((v,i)=>v===null?null:[x(i),y(v)]).filter(Boolean);
+    body+=`<polyline points="${a.map(p=>p.join(",")).join(" ")}" fill="none" stroke="var(--accent)" stroke-width="3"/>`+a.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--accent)"/>`).join("");
+    f.x.forEach((v,i)=>body+=`<text x="${x(i)}" y="${H-10}" text-anchor="middle">${v}</text>`);
+    body+=`<text x="${W-R}" y="${T+10}" text-anchor="end" class="lbl">— actual · - - ideal</text><text x="${L}" y="${H}" class="ax">Day</text></svg>`;
+  } else if(f.type==="scurve"){
+    const W=560,H=260,L=44,R=16,T=14,B=30,n=f.x.length,max=Math.ceil(f.bac/100)*100;
+    const x=i=>L+(W-L-R)*(i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
+    body=svgOpen(W,H,f.title)+axisY(L,R,T,B,W,H,max,max/5);
+    [["pv","var(--muted)","PV","6 4"],["ev","var(--f1)","EV",""],["ac","var(--bad)","AC",""]].forEach(([k,c,l,d])=>{const pts=f[k].map((v,i)=>[x(i),y(v)]);
+      body+=`<polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${c}" stroke-width="2.6" ${d?`stroke-dasharray="${d}"`:""}/>`;const e=pts[pts.length-1];body+=`<circle cx="${e[0]}" cy="${e[1]}" r="4" fill="${c}"/><text x="${e[0]+7}" y="${e[1]+4}" class="lbl" style="fill:${c}">${l}</text>`;});
+    const now=x(f.ev.length-1);body+=`<line x1="${now}" x2="${now}" y1="${T}" y2="${H-B}" stroke="var(--brass)" stroke-dasharray="3 3"/><text x="${now+4}" y="${T+10}" class="lbl" style="fill:var(--brass)">status date</text>`;
+    f.x.forEach((v,i)=>body+=`<text x="${x(i)}" y="${H-10}" text-anchor="middle">${v}</text>`);body+=`<text x="${L}" y="${H}" class="ax">Month</text></svg>`;
+  } else if(f.type==="network"){
+    const W=560,H=210,bw=74,bh=46,cx=c=>30+c*145,cy=r=>18+r*70;const pos={};f.nodes.forEach(nd=>pos[nd.id]=[cx(nd.x),cy(nd.y)]);
+    body=svgOpen(W,H,f.title)+`<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="var(--muted)"/></marker></defs>`;
+    f.edges.forEach(([a,b])=>{const [x1,y1]=pos[a],[x2,y2]=pos[b];body+=`<line x1="${x1+bw}" y1="${y1+bh/2}" x2="${x2-2}" y2="${y2+bh/2}" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#arw)"/>`;});
+    f.nodes.forEach(nd=>{const [x0,y0]=pos[nd.id];body+=`<rect x="${x0}" y="${y0}" width="${bw}" height="${bh}" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/><text x="${x0+bw/2}" y="${y0+20}" text-anchor="middle" class="node">${nd.id}</text><text x="${x0+bw/2}" y="${y0+37}" text-anchor="middle">${nd.d} d</text>`;});
+    body+="</svg>";
+  } else if(f.type==="control"){
+    const W=560,H=240,L=40,R=50,T=14,B=26,n=f.points.length,lo=Math.floor(f.lcl-1),hi=Math.ceil(f.ucl+1);
+    const x=i=>L+(W-L-R)*(i/(n-1)),y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
+    body=svgOpen(W,H,f.title);
+    [["UCL",f.ucl,"var(--bad)","6 4"],["Mean",f.mean,"var(--muted)",""],["LCL",f.lcl,"var(--bad)","6 4"]].forEach(([l,v,c,d])=>body+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="${c}" ${d?`stroke-dasharray="${d}"`:""} stroke-width="1.5"/><text x="${W-R+6}" y="${y(v)+4}" class="lbl" style="fill:${c}">${l} ${v}</text>`);
+    body+=`<polyline points="${f.points.map((v,i)=>x(i)+","+y(v)).join(" ")}" fill="none" stroke="var(--accent)" stroke-width="2"/>`+f.points.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${v>f.mean?"var(--f3)":"var(--accent)"}" stroke="var(--surface)"/>`).join("");
+    f.points.forEach((v,i)=>body+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${i+1}</text>`);body+="</svg>";
+  } else if(f.type==="pim"){
+    const S=44,L=60,T=10,W=L+5*S+20,H=T+5*S+46;body=svgOpen(W,H,f.title);
+    for(let p=1;p<=5;p++)for(let i=1;i<=5;i++){const sc=p*i,c=sc>=12?"var(--weak)":sc>=6?"var(--mid)":"var(--strong)";body+=`<rect x="${L+(i-1)*S}" y="${T+(5-p)*S}" width="${S-2}" height="${S-2}" rx="3" fill="${c}" fill-opacity=".55"/>`;}
+    const cell={};f.risks.forEach(r=>{const k=r.p+"-"+r.i;cell[k]=(cell[k]||0)+1;const off=(cell[k]-1)*14;body+=`<circle cx="${L+(r.i-1)*S+S/2-1}" cy="${T+(5-r.p)*S+S/2-1+off}" r="12" fill="var(--band)"/><text x="${L+(r.i-1)*S+S/2-1}" y="${T+(5-r.p)*S+S/2+3+off}" text-anchor="middle" class="node" style="fill:var(--band-ink);font-size:10px">${esc(r.id)}</text>`;});
+    for(let k=1;k<=5;k++){body+=`<text x="${L-8}" y="${T+(5-k)*S+S/2+4}" text-anchor="end">${k}</text><text x="${L+(k-1)*S+S/2}" y="${T+5*S+14}" text-anchor="middle">${k}</text>`;}
+    body+=`<text x="${L+2.5*S}" y="${H-6}" text-anchor="middle" class="ax">Impact</text><text x="12" y="${T+2.5*S}" class="ax" transform="rotate(-90 12 ${T+2.5*S})" text-anchor="middle">Probability</text></svg>`;
+  } else if(f.type==="grid"){
+    const W=420,H=300,L=40,T=10,S=170;body=svgOpen(W,H,f.title);
+    [["Keep satisfied",0,0],["Manage closely",1,0],["Monitor",0,1],["Keep informed",1,1]].forEach(([l,c,r])=>body+=`<rect x="${L+c*S}" y="${T+r*S/1.3}" width="${S-2}" height="${S/1.3-2}" rx="4" fill="${FIGC[(c+r*2)%5]}" fill-opacity=".18" stroke="var(--line)"/><text x="${L+c*S+8}" y="${T+r*S/1.3+16}" class="lbl">${l}</text>`);
+    const gh=2*S/1.3;f.items.forEach(it=>{const px=L+it.i*2*S,py=T+(1-it.p)*gh;body+=`<circle cx="${px}" cy="${py}" r="6" fill="var(--accent)"/><text x="${px+9}" y="${py+4}" class="node" style="font-size:11px">${esc(it.id)}</text>`;});
+    body+=`<text x="${L+S}" y="${T+gh+22}" text-anchor="middle" class="ax">Interest →</text><text x="14" y="${T+gh/2}" class="ax" transform="rotate(-90 14 ${T+gh/2})" text-anchor="middle">Power →</text></svg>`;
+  }
+  return `<figure class="fig"><figcaption>${esc(f.title||"")}</figcaption><div class="figwrap">${body}</div></figure>`;
+}
+function figToText(f){
+  if(!f)return "";
+  if(f.type==="cfd")return `${f.title}. X: ${f.xlabel} ${f.x.join(",")}. Cumulative counts per state: `+f.bands.map(b=>`${b.name}=[${b.v.join(",")}]`).join("; ");
+  if(f.type==="burndown")return `${f.title}. Day 0-10. Ideal=[${f.ideal.join(",")}]. Actual=[${f.actual.map(v=>v===null?"-":v).join(",")}]`;
+  if(f.type==="scurve")return `${f.title}. Months 1-10. PV=[${f.pv.join(",")}], EV=[${f.ev.join(",")}], AC=[${f.ac.join(",")}], BAC=${f.bac}`;
+  if(f.type==="network")return `${f.title}. Activities: ${f.nodes.map(n=>n.id+"("+n.d+"d)").join(", ")}. Dependencies: ${f.edges.map(e=>e[0]+"->"+e[1]).join(", ")}`;
+  if(f.type==="control")return `${f.title}. Points=[${f.points.join(",")}], mean=${f.mean}, UCL=${f.ucl}, LCL=${f.lcl}`;
+  if(f.type==="pim")return `${f.title}. Risks (probability 1-5, impact 1-5): ${f.risks.map(r=>`${r.id} P${r.p} I${r.i}`).join(", ")}`;
+  if(f.type==="grid")return `${f.title}. Stakeholders (power 0-1, interest 0-1): ${f.items.map(r=>`${r.id} power ${r.p} interest ${r.i}`).join(", ")}`;
+  return "";
+}
+function caseText(c){return c?`Case study "${c.title}": ${c.brief} Facts: ${c.facts.map(f=>f[0]+": "+f[1]).join("; ")}. ${c.exhibits.map(figToText).join(" ")}`:"";}
+function renderCasePanel(c,open){
+  return `<details class="casepanel" ${open?"open":""}><summary><span class="ctag">Case study</span> <b>${esc(c.title)}</b> <span class="label" style="letter-spacing:.04em">${esc(c.tag)}</span></summary>
+   <div class="casebody"><p>${esc(c.brief)}</p><table class="facts"><tbody>${c.facts.map(f=>`<tr><th>${esc(f[0])}</th><td>${esc(f[1])}</td></tr>`).join("")}</tbody></table>${c.exhibits.map(renderFig).join("")}</div></details>`;
+}
+
 function renderQuiz(){
   const el=document.getElementById("view-quiz");renderBand();
-  if(!quiz){el.innerHTML=`<div class="card" style="max-width:640px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-mixed">Mixed practice</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
-    document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");return;}
+  if(!quiz){el.innerHTML=`<div class="card" style="max-width:720px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-mixed">Mixed practice</button><button class="btn" id="q-hard">Hard mode</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-cases">Case studies</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
+    document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");document.getElementById("q-hard").onclick=()=>startQuiz("hard");document.getElementById("q-cases").onclick=()=>show("cases");return;}
   if(quiz.done&&quiz.review===null)return renderResults(el);
   const i=quiz.i,q=quiz.qs[i],t=TASKS[q.task],D=domOf(q.task),p=quiz.picked[i];
   const reveal=quiz.done||(!quiz.exam&&quiz.locked[i]);
+  const live=!quiz.exam||quiz.done;
   let o="";q.opts.forEach((txt,k)=>{let cls="";if(reveal){if(k===q.ans)cls="right";else if(k===p)cls="wrong";}else if(k===p)cls="sel";
-    o+=`<button class="opt ${cls}" data-k="${k}" ${reveal?'aria-disabled="true"':""}><span class="k">${"ABCD"[k]}</span><span>${esc(txt)}</span></button>`;});
+    o+=`<button class="opt ${cls}" data-k="${k}" ${reveal?'aria-disabled="true"':""}><span class="k">${"ABCD"[k]}</span><span>${esc(txt)}</span>${reveal&&k===q.ans?'<span class="mark ok" aria-label="Correct answer">✓</span>':reveal&&k===p?'<span class="mark bad" aria-label="Your answer">✕</span>':""}</button>`;});
   const answered=quiz.picked.filter(x=>x!==null).length;
+  quiz.ai=quiz.ai||{};quiz.rep=quiz.rep||{};
+  const askBar=live?`<div class="askbar ai-only"><span class="aron-mini" aria-hidden="true">A</span><span class="label" style="letter-spacing:.04em">Ask Aron</span>${reveal?
+      (p!==null&&p!==q.ans?`<button class="chip" data-ask="wrong">Why is ${"ABCD"[p]} wrong?</button>`:"")+`<button class="chip" data-ask="right">Why is ${"ABCD"[q.ans]} right?</button><button class="chip" data-ask="simple">Explain it simply</button><button class="chip" data-ask="similar">Give me a similar question</button><button class="chip" data-ask="confused">This question doesn't make sense</button>`
+      :`<button class="chip" data-ask="hint">Give me a hint</button><button class="chip" data-ask="terms">Explain the key terms</button>`}</div>
+      <div class="aibox ai-only" id="inline-ai" ${quiz.ai[i]?"":"hidden"}><div class="hd"><span class="ailabel">Aron</span><button class="linkbtn" id="ai-chat">Continue in chat</button></div><div class="md" id="inline-ai-out">${quiz.ai[i]?md(quiz.ai[i]):""}</div></div>`:"";
+  const report=live?(quiz.rep[i]==="sent"?`<p class="ainote" style="margin:0">Thanks. Your report was sent to the instructors.</p>`:quiz.rep[i]==="open"?renderReportForm():`<button class="linkbtn subtle" id="q-report">Report a problem with this question</button>`):"";
   let foot="";
-  if(reveal&&!quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===q.ans?"Correct.":"Not quite. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div><div class="actions"><button class="btn primary" id="q-next">${i+1<quiz.qs.length?"Next question":"See results"}</button><button class="btn ghost ai-only" id="q-ask">Ask the tutor about this</button><span class="keys"><kbd>Enter</kbd> to continue</span></div>`;
-  else if(quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===null?"Not answered.":p===q.ans?"Correct.":"You chose "+"ABCD"[p]+". The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div><div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ghost" id="q-nx" ${i+1<quiz.qs.length?"":"disabled"}>Next</button><button class="btn primary" id="q-back">Back to results</button><button class="btn ghost ai-only" id="q-ask">Ask the tutor about this</button></div>`;
+  if(reveal&&!quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===q.ans?"Correct.":"Not quite. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div>${askBar}<div class="actions"><button class="btn primary" id="q-next">${i+1<quiz.qs.length?"Next question":"See results"}</button><span class="keys"><kbd>Enter</kbd> to continue</span></div>${report}`;
+  else if(quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===null?"Not answered.":p===q.ans?"Correct.":"You chose "+"ABCD"[p]+". The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div>${askBar}<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ghost" id="q-nx" ${i+1<quiz.qs.length?"":"disabled"}>Next</button><button class="btn primary" id="q-back">Back to results</button></div>${report}`;
   else if(quiz.exam)foot=`<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ${p===null?"ghost":"primary"}" id="q-nx">${i+1<quiz.qs.length?"Next":"Review and submit"}</button><button class="btn ghost" id="q-flag">${quiz.flag[i]?"Unflag":"Flag for review"}</button></div>`;
-  else foot=`<p class="keys" style="margin:0">Press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer.</p>`;
+  else foot=`${askBar}<p class="keys" style="margin:0">Press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer.</p>${report}`;
   const nav=quiz.exam?`<aside class="side card"><div class="qmeta"><span class="label">Time left</span><span class="timer num" id="timer">${quiz.done?"done":fmtT(quiz.limit-(Date.now()-quiz.start)/1000)}</span></div>
      <span class="label">${answered}/${quiz.qs.length} answered · ${quiz.flag.filter(Boolean).length} flagged</span>
      <div class="navgrid">${quiz.qs.map((qq,k)=>{let c=k===i?"cur ":"";if(quiz.done)c+=quiz.picked[k]===qq.ans?"right":"wrong";else{if(quiz.picked[k]!==null)c+="done ";if(quiz.flag[k])c+="flag";}return `<button class="${c}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`;}).join("")}</div>
      ${quiz.done?"":`<button class="btn primary" id="q-submit">Submit exam</button><p class="keys" style="margin:0"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>←</kbd><kbd>→</kbd> move · <kbd>F</kbd> flag</p><p id="confirm" class="keys" hidden style="margin:0"></p>`}</aside>`:"";
-  el.innerHTML=`<div class="qwrap" style="${quiz.exam?"":"grid-template-columns:minmax(0,760px)"}"><div class="qcard"><div class="qmeta"><span class="label">${esc(quiz.title)}${quiz.done?" · review":""}</span><span class="label num">Question ${i+1} of ${quiz.qs.length}</span></div>
+  const c=q.case?CASE_BY[q.case]:null;
+  const diff=q.diff>1?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:"";
+  el.innerHTML=`<div class="qwrap" style="${quiz.exam?"":"grid-template-columns:minmax(0,820px)"}"><div class="qcard"><div class="qmeta"><span class="label">${esc(quiz.title)}${quiz.done?" · review":""}</span><span class="label num">Question ${i+1} of ${quiz.qs.length}</span></div>
    <div class="progress"><i style="width:${(quiz.exam?answered:i+(reveal?1:0))/quiz.qs.length*100}%"></i></div>
-   <span class="label">${D.name} · ${esc(t.name)}</span><p class="qtext">${esc(q.q)}</p><div class="opts">${o}</div>${foot}</div>${nav}</div>`;
+   ${c?renderCasePanel(c,quiz.caseOpen!==false):""}
+   <div class="qhead"><span class="dchip" style="--dc:var(--c-${D.id})">${D.name}</span><span class="label" style="letter-spacing:.04em">${esc(t.name)}</span>${diff}</div>
+   <p class="qtext">${esc(q.q)}</p>${q.fig?renderFig(q.fig):""}<div class="opts">${o}</div>${foot}</div>${nav}</div>`;
   el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
   el.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  el.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>inlineAsk(b.dataset.ask));
+  const cp=el.querySelector(".casepanel");if(cp)cp.ontoggle=()=>{quiz.caseOpen=cp.open;};
   const $=id=>document.getElementById(id);
-  if($("q-next")){$("q-next").onclick=()=>{if(i+1<quiz.qs.length)go(i+1);else finish();};$("q-next").focus();}
+  if($("q-next")){$("q-next").onclick=()=>{if(i+1<quiz.qs.length)go(i+1);else finish();};if(!quiz.ai[i])$("q-next").focus();}
   if($("q-prev"))$("q-prev").onclick=()=>go(i-1);
   if($("q-nx"))$("q-nx").onclick=()=>{if(i+1<quiz.qs.length)go(i+1);else if(!quiz.done)askSubmit();};
   if($("q-flag"))$("q-flag").onclick=()=>{quiz.flag[i]=!quiz.flag[i];renderQuiz();};
   if($("q-submit"))$("q-submit").onclick=askSubmit;
-  if($("q-ask"))$("q-ask").onclick=()=>askAbout(q,p);
   if($("q-back"))$("q-back").onclick=()=>{quiz.review=null;renderQuiz();};
+  if($("ai-chat"))$("ai-chat").onclick=()=>askAbout(q,p);
+  if($("q-report"))$("q-report").onclick=()=>{quiz.rep[i]="open";renderQuiz();};
+  wireReportForm(q,i);
 }
+function renderReportForm(){
+  return `<form class="report" id="rep-form"><b>What's wrong with this question?</b>
+   <div class="radios">${["The wording is unclear","I think the answer is wrong","Typo or display problem","Something else"].map((r,k)=>`<label><input type="radio" name="rep-r" value="${esc(r)}" ${k===0?"checked":""}> ${esc(r)}</label>`).join("")}</div>
+   <textarea id="rep-note" rows="2" placeholder="Add details (optional)"></textarea>
+   <div class="actions"><button class="btn primary" type="submit">Send report</button><button class="btn ghost" type="button" id="rep-cancel">Cancel</button><button class="linkbtn ai-only" type="button" id="rep-ai">Ask Aron to explain it instead</button></div></form>`;
+}
+function wireReportForm(q,i){
+  const f=document.getElementById("rep-form");if(!f)return;
+  f.onsubmit=async e=>{e.preventDefault();const reason=(f.querySelector("input[name=rep-r]:checked")||{}).value||"Other";
+    await submitTicket({type:"Question problem",subject:reason,details:document.getElementById("rep-note").value.trim(),qid:q.id,qtext:q.q.slice(0,160)});
+    quiz.rep[i]="sent";renderQuiz();};
+  document.getElementById("rep-cancel").onclick=()=>{quiz.rep[i]=null;renderQuiz();};
+  document.getElementById("rep-ai").onclick=()=>{quiz.rep[i]=null;inlineAsk("confused");};
+}
+function qContext(q,p){
+  const c=q.case?CASE_BY[q.case]:null;
+  return `${c?caseText(c)+"\n\n":""}${q.fig?"Figure: "+figToText(q.fig)+"\n\n":""}Question (${domOf(q.task).name} · ${TASKS[q.task].name}, ${DIFF_NAME[q.diff||1]}): ${q.q}\n${q.opts.map((o,k)=>"ABCD"[k]+". "+o).join("\n")}`;
+}
+let inlineCtl=null;
+async function inlineAsk(kind){
+  if(!AI||!quiz)return;
+  const i=quiz.i,q=quiz.qs[i],p=quiz.picked[i],revealed=quiz.done||(!quiz.exam&&quiz.locked[i]);
+  const ctx=qContext(q,p);
+  const know=revealed?`\nCorrect answer: ${"ABCD"[q.ans]}. Student chose: ${p===null?"nothing":"ABCD"[p]}. App explanation: ${q.exp||"none"}`:"\nThe student has NOT answered yet. Do not reveal or hint at which letter is correct.";
+  const ask={wrong:`Explain why option ${p!==null?"ABCD"[p]:""} is wrong. Name the trap that makes it tempting and the PMI principle it breaks. Under 120 words.`,
+    right:`Explain why ${"ABCD"[q.ans]} is the best answer, step by step${q.fig||q.case?" using the exhibit data":""}. Show any math. End with a one-line memory hook. Under 150 words.`,
+    simple:"Explain this question and its answer in plain words for someone new to project management, using one everyday or military analogy. Under 120 words.",
+    similar:"Write ONE new practice question that tests the same concept, with options A-D. Do not give the answer; tell the student to reply in chat with their pick.",
+    confused:"The student says this question doesn't make sense. Restate what it is really asking in simpler words, point out any ambiguity honestly, and say which answer PMI would expect and why. Under 150 words.",
+    hint:"Give ONE short hint (max 2 sentences) that points to the concept or first step, without revealing or eliminating a specific answer letter.",
+    terms:"Define the key project management terms in this question in 1 line each (max 5 terms). Do not reveal or hint at the answer."}[kind];
+  const box=document.getElementById("inline-ai"),out=document.getElementById("inline-ai-out");
+  box.hidden=false;out.innerHTML=THINK;
+  if(inlineCtl)inlineCtl.abort();inlineCtl=new AbortController();const ctl=inlineCtl;
+  try{const r=await AI(`${TUTOR_RULES}${studentContext()}\n\n${ctx}${know}\n\nTask: ${ask}`,{signal:ctl.signal,onText:({text})=>{if(quiz&&quiz.i===i){const o=document.getElementById("inline-ai-out");if(o)o.innerHTML=md(text);}}});
+    quiz.ai[i]=r.text;}
+  catch(e){if(e&&e.code!=="cancelled"){const o=document.getElementById("inline-ai-out");if(o)o.innerHTML=(e.text?md(e.text):"")+`<p class="bad">${esc(aiErr(e))}</p>`;}}
+}
+
+/* ---------- Case studies view ---------- */
+function caseScore(c){const ids=c.qs.map((_,k)=>c.id+"q"+k),last={};state.attempts.forEach(a=>{if(ids.includes(a.qid))last[a.qid]=a.ok;});const n=Object.keys(last).length;return n?{n,c:Object.values(last).filter(Boolean).length,t:ids.length}:null;}
+function renderCases(){
+  const el=document.getElementById("view-cases");renderBand();
+  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Case studies</span><h2>Think like the exam: read the situation, study the exhibits, then decide.</h2><p style="margin:0;color:var(--muted);max-width:70ch">Each case is a realistic project with data exhibits such as cumulative flow diagrams, earned value curves, risk matrices and schedule networks. Expect calculation and judgment questions. Ask Aron about any exhibit after you answer.</p></div></section>
+  <div class="casegrid">${CASES.map(c=>{const s=caseScore(c),D=DOMAINS.find(d=>d.id===c.domain);return `<article class="casecard"><div class="thumb">${renderFig(c.exhibits[0])}</div><div class="cbody"><div class="qhead"><span class="dchip" style="--dc:var(--c-${D.id})">${D.name}</span><span class="diff d${c.diff}">${DIFF_NAME[c.diff]}</span></div><h3>${esc(c.title)}</h3><p>${esc(c.brief.split(". ")[0])}.</p><div class="actions" style="justify-content:space-between"><span class="label">${c.qs.length} questions · ${esc(c.tag)}${s?` · last score ${s.c}/${s.t}`:""}</span><button class="btn primary" data-case="${c.id}">${s?"Retake":"Start case"}</button></div></div></article>`;}).join("")}</div>
+  <section class="card"><div class="mapbar"><h2>Have a real case study to add?</h2></div><p style="margin:0">Instructors can add case material through the Help center. Send the scenario, exhibits and answers, and it can be added as a new case.</p><div class="actions"><button class="btn" id="case-help">Send a case study</button></div></section>`;
+  el.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>startQuiz("case",b.dataset.case));
+  document.getElementById("case-help").onclick=()=>{helpPrefill={type:"Content suggestion",subject:"New case study"};show("help");};
+}
+
+/* ---------- Study hub ---------- */
+const FORMULAS=[
+ ["Cost variance","CV = EV − AC","Negative means over budget."],["Schedule variance","SV = EV − PV","Negative means behind schedule."],
+ ["Cost performance index","CPI = EV ÷ AC","Below 1.0 means over budget."],["Schedule performance index","SPI = EV ÷ PV","Below 1.0 means behind schedule."],
+ ["Estimate at completion","EAC = BAC ÷ CPI","When current cost performance will continue."],["EAC, atypical variance","EAC = AC + (BAC − EV)","When the variance was a one-off."],
+ ["EAC, cost and schedule","EAC = AC + (BAC − EV) ÷ (CPI × SPI)","When both indexes drive the rest of the work."],["To-complete performance index","TCPI = (BAC − EV) ÷ (BAC − AC)","Efficiency needed to hit the budget."],
+ ["Variance at completion","VAC = BAC − EAC","Negative means a forecast overrun."],["PERT (beta) estimate","E = (O + 4M + P) ÷ 6","σ = (P − O) ÷ 6"],
+ ["Expected monetary value","EMV = probability × impact","Threats negative, opportunities positive."],["Communication channels","n(n − 1) ÷ 2","n = number of people."],
+ ["Little's Law","Cycle time = WIP ÷ throughput","Lower WIP, faster delivery."],["Float","Total float = LS − ES (or LF − EF)","Zero float means critical path."]];
+const MINDSET=["Assess the situation before acting. Gather facts, then decide.","Talk to the person directly before escalating.","Follow the process: changes go through change control.","Servant leadership: remove impediments, coach, empower the team.","Deliver value early and often; reprioritize when value changes.","Be proactive about risk; execute the planned response when it occurs.","Tailor the approach: predictive, agile or hybrid to fit the context.","Be transparent: make problems and data visible."];
+const DIAGRAMS=[
+ {f:CFD1,h:"Cumulative flow diagram",pts:["Each band is a workflow state; the top line is total work arrived.","Vertical distance between lines is WIP at that moment.","Horizontal distance is approximate cycle time.","A widening band is a bottleneck; a flat Done line means nothing is finishing."]},
+ {f:BURN1,h:"Burndown chart",pts:["The dashed line is the ideal pace; the solid line is actual remaining work.","Above the ideal line means behind; below means ahead.","A jump up means scope was added.","A flat stretch means work is blocked or not being closed."]},
+ {f:CASES[1].exhibits[0],h:"Earned value S-curve",pts:["PV is the plan, EV is the value earned, AC is the money spent.","EV below PV: behind schedule. AC above EV: over budget.","The gap at the status date gives SV and CV.","Project the curves forward to estimate EAC."]},
+ {f:CTRL1,h:"Control chart",pts:["Points between the control limits are common-cause variation.","A point outside the limits is out of control.","Seven or more points in a row on one side of the mean signals a shift.","Control limits come from the process; specification limits come from the customer."]}];
+function renderHub(){
+  const el=document.getElementById("view-hub");renderBand();
+  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Study hub</span><h2>Formulas, diagrams and the PMI mindset in one place.</h2></div></section>
+  <section class="grid2"><div class="card"><h2>Earned value calculator</h2><p style="margin:0;color:var(--muted)">Type your numbers to see every index and what it means.</p>
+   <div class="calc">${["BAC","PV","EV","AC"].map((k,n)=>`<label>${k}<input id="ev-${k}" type="number" inputmode="decimal" value="${[500000,300000,240000,290000][n]}"></label>`).join("")}</div><div id="ev-out"></div></div>
+   <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions ai-only"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>
+  <section class="card"><h2>Formula sheet</h2><div class="fgrid">${FORMULAS.map(f=>`<div class="fcard"><span class="label">${esc(f[0])}</span><code>${esc(f[1])}</code><span>${esc(f[2])}</span></div>`).join("")}</div></section>
+  <section class="card"><h2>How to read the exam's diagrams</h2><div class="dgrid">${DIAGRAMS.map(d=>`<div class="dcard">${renderFig(d.f)}<h3>${esc(d.h)}</h3><ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><button class="btn ghost ai-only" data-hubask="${esc(`Teach me how to read a ${d.h} for the PMP exam in under 150 words, then ask me one question about this example data: ${figToText(d.f)}`)}">Ask Aron to teach this</button></div>`).join("")}</div></section>`;
+  const calc=()=>{const g=k=>parseFloat(document.getElementById("ev-"+k).value)||0,BAC=g("BAC"),PV=g("PV"),EV=g("EV"),AC=g("AC");
+    const cpi=AC?EV/AC:0,spi=PV?EV/PV:0,eac=cpi?BAC/cpi:0,tc=BAC-AC?(BAC-EV)/(BAC-AC):0,m=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString(),r=v=>v.toFixed(2);
+    const rows=[["CV",m(EV-AC),EV-AC>=0?"ok":"bad",EV-AC>=0?"Under or on budget":"Over budget"],["SV",m(EV-PV),EV-PV>=0?"ok":"bad",EV-PV>=0?"On or ahead of schedule":"Behind schedule"],["CPI",r(cpi),cpi>=1?"ok":"bad",`Earning $${r(cpi)} per $1 spent`],["SPI",r(spi),spi>=1?"ok":"bad",`Progressing at ${Math.round(spi*100)}% of plan`],["EAC",m(eac),eac<=BAC?"ok":"bad","If cost performance continues"],["ETC",m(eac-AC),"","Still to spend"],["VAC",m(BAC-eac),BAC-eac>=0?"ok":"bad","Forecast variance at completion"],["TCPI",r(tc),tc<=1.05?"ok":"bad",tc>1.1?"Hard to achieve: re-baseline or get approval":"Achievable efficiency"]];
+    document.getElementById("ev-out").innerHTML=`<table class="evtab"><tbody>${rows.map(x=>`<tr><th>${x[0]}</th><td class="num ${x[2]}">${x[1]}</td><td>${x[3]}</td></tr>`).join("")}</tbody></table>`;};
+  ["BAC","PV","EV","AC"].forEach(k=>document.getElementById("ev-"+k).oninput=calc);calc();
+  el.querySelectorAll("[data-hubask]").forEach(b=>b.onclick=()=>send(b.dataset.hubask,b.textContent));
+}
+
+/* ---------- Help center ---------- */
+const FAQ=[
+ ["How is my readiness score calculated?","Each task area gets a mastery score from your answers, with recent answers counting more. Domains are averaged, then weighted by the exam outline (People 33%, Process 41%, Business Environment 26%). The 65% target is this app's own benchmark, not an official PMI cut score."],
+ ["What do the dots and arrows on heat map tiles mean?","Dots show how much data the score is based on (1 to 3). An up or down arrow shows whether your recent answers are better or worse than earlier ones."],
+ ["Who is Aron?","Aron is the app's AI coach. Aron can see your heat map and recent mistakes, explains any question, gives hints, builds study sessions and debriefs each session. Aron is paused during exam simulations."],
+ ["Why does Aron ask for permission?","Aron runs on Claude using your own Claude account, so the first time you use it, Claude asks you to allow it. If you decline, everything else in the app still works."],
+ ["A question seems wrong or confusing. What do I do?","After answering, tap \"This question doesn't make sense\" to have Aron explain it, or \"Report a problem with this question\" to send it to the instructors."],
+ ["Where is my progress saved?","When the app is opened in Claude with Contributor access, progress saves to your account. Otherwise it is saved in this browser only, so clearing your browser data removes it."],
+ ["How does the exam simulation work?","It draws up to 30 questions weighted by domain and gives you 80 seconds per question, the real exam pace. You can flag questions and move freely, and you see answers only after submitting."],
+ ["How do case studies work?","Each case has a scenario, key facts and exhibits. Open or collapse the case panel while you answer. Questions often need calculations from the exhibits."]];
+let helpPrefill=null,myTickets=[],allTickets=null;
+function ticketsLocal(){try{return JSON.parse(localStorage.getItem(KEY+"-tickets")||"[]")}catch(e){return []}}
+async function submitTicket(t){
+  t={id:"t"+Date.now().toString(36),ts:Date.now(),status:"Open",...t};
+  if(DB&&UID&&!cloudRO){
+    try{const ref=DB.doc("help/"+UID),d=await ref.get(),cur=d.exists&&Array.isArray(d.data().tickets)?d.data().tickets.slice():[];cur.push(t);await ref.set({tickets:cur.slice(-50),updated:Date.now()});myTickets=cur;return {ok:true,cloud:true};}
+    catch(e){}
+  }
+  const loc=ticketsLocal();loc.push(t);try{localStorage.setItem(KEY+"-tickets",JSON.stringify(loc.slice(-50)))}catch(e){}myTickets=loc;return {ok:true,cloud:false,t};
+}
+async function loadMyTickets(){
+  if(DB&&UID){try{const d=await DB.doc("help/"+UID).get();myTickets=d.exists&&Array.isArray(d.data().tickets)?d.data().tickets:[];return;}catch(e){}}
+  myTickets=ticketsLocal();
+}
+function ticketText(t){return `[${t.type}] ${t.subject}\n${t.details||""}${t.qid?`\nQuestion: ${t.qid} "${t.qtext||""}"`:""}\nSent: ${new Date(t.ts).toLocaleString()}`;}
+async function renderHelp(){
+  const el=document.getElementById("view-help");renderBand();
+  await loadMyTickets();
+  const pf=helpPrefill||{};helpPrefill=null;
+  const types=["Problem with the app","Question problem","Account or access","Content suggestion","Something else"];
+  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Help center</span><h2>How can we help?</h2><input class="search" id="faq-q" type="search" placeholder="Search common questions" aria-label="Search help"></div>
+   <div class="helpaside ai-only"><span class="aron-big" aria-hidden="true">A</span><div><b>Ask Aron</b><p style="margin:2px 0 8px;color:var(--muted);font-size:14px">Instant answers about the app or any PMP topic.</p><button class="btn primary" id="help-ask">Chat with Aron</button></div></div></section>
+  <section class="grid2"><div class="card"><h2>Common questions</h2><div class="faq" id="faq">${FAQ.map(f=>`<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div><p class="ainote" id="faq-none" hidden style="margin:0">No matching answers. Ask Aron or send a request.</p></div>
+   <div class="card"><h2>Submit a request</h2><form class="qform" id="help-form">
+    <label>Topic<select id="h-type">${types.map(x=>`<option ${x===pf.type?"selected":""}>${x}</option>`).join("")}</select></label>
+    <label>Subject<input id="h-subj" required maxlength="120" value="${esc(pf.subject||"")}" placeholder="Short summary"></label>
+    <label>Details<textarea id="h-det" rows="5" placeholder="What happened, what you expected, and any question text"></textarea></label>
+    <div class="actions"><button class="btn primary" type="submit">Send request</button><span class="msg" id="h-msg" role="status"></span></div></form>
+    <p class="ainote" style="margin:0">${DB&&UID&&!cloudRO?"Requests go to the instructors who manage this app.":"You're using an offline copy, so requests are saved in this browser. Copy a request to send it to your instructor."}</p></div></section>
+  <section class="card"><h2>Your requests</h2>${myTickets.length?`<div class="tablewrap"><table><thead><tr><th>Sent</th><th>Topic</th><th>Subject</th><th>Status</th><th></th></tr></thead><tbody>${myTickets.slice().reverse().map(t=>`<tr><td class="num">${fmtD(t.ts)}</td><td>${esc(t.type)}</td><td>${esc(t.subject)}${t.reply?`<br><span class="reply">Instructor: ${esc(t.reply)}</span>`:""}</td><td><span class="pill ${t.status==="Resolved"?"r2":"r1"}">${esc(t.status)}</span></td><td><button class="linkbtn" data-copy="${esc(t.id)}">Copy</button></td></tr>`).join("")}</tbody></table></div>`:`<p style="margin:0;color:var(--muted)">You haven't sent any requests.</p>`}</section>
+  ${cloudAdmin()?`<section class="card" id="inbox"><h2>Request inbox <span class="role">Admin</span></h2><div id="inbox-body">${THINK}</div></section>`:""}`;
+  const fq=document.getElementById("faq-q");fq.oninput=()=>{const v=fq.value.toLowerCase();let any=0;document.querySelectorAll("#faq details").forEach(d=>{const m=!v||d.textContent.toLowerCase().includes(v);d.hidden=!m;if(m&&v)d.open=true;any+=m;});document.getElementById("faq-none").hidden=!!any;};
+  const ha=document.getElementById("help-ask");if(ha)ha.onclick=()=>{openDrawer();};
+  document.getElementById("help-form").onsubmit=async e=>{e.preventDefault();const m=document.getElementById("h-msg");m.className="msg";m.textContent="Sending…";
+    const r=await submitTicket({type:document.getElementById("h-type").value,subject:document.getElementById("h-subj").value.trim(),details:document.getElementById("h-det").value.trim()});
+    renderHelp().then(()=>{const mm=document.getElementById("h-msg");mm.className="msg ok";mm.textContent=r.cloud?"Sent. You'll see the status below.":"Saved. Use Copy to send it to your instructor.";});};
+  el.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{const t=myTickets.find(x=>x.id===b.dataset.copy);try{navigator.clipboard.writeText(ticketText(t)).then(()=>b.textContent="Copied",()=>b.textContent="Copy failed");}catch(e){b.textContent="Copy failed";}});
+  if(cloudAdmin())renderInbox();
+}
+async function renderInbox(){
+  const body=document.getElementById("inbox-body");if(!body)return;
+  let docs=[];try{const s=await DB.collection("help").get();docs=s.docs.map(d=>({uid:d.id,...d.data()}));}catch(e){body.innerHTML=`<p class="bad">Couldn't load requests.</p>`;return;}
+  const all=[];docs.forEach(d=>(d.tickets||[]).forEach(t=>all.push({...t,uid:d.uid})));all.sort((a,b)=>(a.status==="Resolved")-(b.status==="Resolved")||b.ts-a.ts);
+  if(!all.length){body.innerHTML=`<p style="margin:0;color:var(--muted)">No requests yet.</p>`;return;}
+  const ps=USER?await USER.profiles([...new Set(all.map(t=>t.uid))]):{};
+  body.innerHTML=`<div class="tablewrap"><table><thead><tr><th>From</th><th>Sent</th><th>Request</th><th>Status</th><th>Reply</th></tr></thead><tbody>${all.map((t,k)=>`<tr><td data-uname="${esc(t.uid)}"></td><td class="num">${fmtD(t.ts)}</td><td><b>${esc(t.type)}</b>: ${esc(t.subject)}${t.details?`<br><span style="color:var(--muted)">${esc(t.details)}</span>`:""}${t.qtext?`<br><span class="label" style="letter-spacing:0;text-transform:none">Question: ${esc(t.qtext)}</span>`:""}</td><td><span class="pill ${t.status==="Resolved"?"r2":"r1"}">${esc(t.status)}</span></td><td><div class="replybox"><input id="rp-${k}" value="${esc(t.reply||"")}" placeholder="Reply to student" aria-label="Reply"><button class="btn ghost" data-res="${k}">${t.status==="Resolved"?"Update":"Resolve"}</button></div></td></tr>`).join("")}</tbody></table></div>`;
+  body.querySelectorAll("[data-uname]").forEach(td=>{const p=ps[td.dataset.uname];td.textContent=(p&&p.name)||"Student";});
+  body.querySelectorAll("[data-res]").forEach(b=>b.onclick=async()=>{const t=all[+b.dataset.res];b.disabled=true;
+    try{const ref=DB.doc("help/"+t.uid),d=await ref.get(),cur=(d.exists&&d.data().tickets||[]).map(x=>x.id===t.id?{...x,status:"Resolved",reply:document.getElementById("rp-"+b.dataset.res).value.trim()}:x);await ref.set({tickets:cur,updated:Date.now()});renderInbox();}
+    catch(e){b.disabled=false;b.textContent="Failed, retry";}});
+}
+
 function askSubmit(){
   const un=quiz.picked.filter(x=>x===null).length,fl=quiz.flag.filter(Boolean).length,c=document.getElementById("confirm");
   if(!c||(!un&&!fl))return finish();
@@ -589,14 +990,14 @@ function renderResults(el){
    <div style="display:grid;gap:4px"><h2 class="num">${c} of ${n} correct</h2><span style="color:var(--muted)">Average pace <b class="num ${secs/n>EXAM_PACE?"r1":"ok"}">${Math.round(secs/n)}s</b> per question (exam pace is ${EXAM_PACE}s).</span>${missed.length?`<span style="color:var(--muted)">Missed in: ${missed.map(esc).join(", ")}.</span>`:""}</div></div>
    <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Score</th><th>Result</th></tr></thead><tbody>${DOMAINS.filter(D=>by[D.id]).map(D=>{const x=by[D.id],[r,l]=rating(x.c/x.n);return `<tr><td>${D.name}</td><td class="num">${x.c}/${x.n}</td><td><span class="pill ${r}">${l}</span></td></tr>`;}).join("")}</tbody></table></div>
    <div class="actions"><button class="btn primary" id="r-map">See updated dashboard</button><button class="btn" id="r-review">Review answers</button><button class="btn" id="r-weak">Practice weak areas</button></div>
-   <div class="aibox ai-only" id="debrief"><div class="hd"><span class="ailabel">AI debrief</span><button class="btn primary" id="r-ai">${quiz.debrief?"Redo debrief":"Get my AI debrief"}</button></div><div class="md" id="debrief-out">${quiz.debrief?md(quiz.debrief):`<span class="ainote">Claude looks at what you missed, finds the pattern, and tells you what to study next.</span>`}</div></div></div>`;
+   <div class="aibox ai-only" id="debrief"><div class="hd"><span class="ailabel">Aron's debrief</span><button class="btn primary" id="r-ai">${quiz.debrief?"Redo debrief":"Get Aron's debrief"}</button></div><div class="md" id="debrief-out">${quiz.debrief?md(quiz.debrief):`<span class="ainote">Claude looks at what you missed, finds the pattern, and tells you what to study next.</span>`}</div></div></div>`;
   document.getElementById("r-ai").onclick=debrief;
   document.getElementById("r-map").onclick=()=>{quiz=null;show("map");};
   document.getElementById("r-review").onclick=()=>{quiz.review=true;quiz.i=0;renderQuiz();};
   document.getElementById("r-weak").onclick=()=>startQuiz("weak");
 }
 document.addEventListener("keydown",e=>{
-  if(document.getElementById("view-quiz").hidden||!quiz||e.target.tagName==="TEXTAREA"||e.target.tagName==="SELECT"||!document.getElementById("drawer").hidden||e.metaKey||e.ctrlKey||e.altKey)return;
+  if(document.getElementById("view-quiz").hidden||!quiz||e.target.tagName==="TEXTAREA"||e.target.tagName==="SELECT"||e.target.tagName==="INPUT"||!document.getElementById("drawer").hidden||e.metaKey||e.ctrlKey||e.altKey)return;
   const k=e.key.toLowerCase(),map={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
   if(quiz.done&&quiz.review===null)return;
   if(k in map&&map[k]<quiz.qs[quiz.i].opts.length){choose(map[k]);e.preventDefault();}
@@ -669,8 +1070,8 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quiz","bank","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}
+  ["map","quiz","cases","hub","bank","help","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();
   window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -703,7 +1104,7 @@ function studentContext(){
   if(state.demo)lines.push("Note: this is example data from a made-up student, used for a demo.");
   return lines.join("\n");
 }
-const TUTOR_RULES=`You are an AI study tutor inside a PMP exam prep app for military veterans transitioning into project management (Vets2PM students). The exam follows PMI's July 2026 exam content outline with three domains: People 33%, Process 41%, Business Environment 26%. Questions mix predictive, agile and hybrid approaches.
+const TUTOR_RULES=`Your name is Aron. You are the friendly, sharp AI PMP coach inside a PMP exam prep app for military veterans transitioning into project management (Vets2PM students). The exam follows PMI's July 2026 exam content outline with three domains: People 33%, Process 41%, Business Environment 26%. Questions mix predictive, agile and hybrid approaches.
 How to answer:
 - Plain, direct language. Keep replies under 170 words unless asked for more. Use short bullet lists.
 - Tie advice to the student's own data below; name the domain and task.
@@ -711,6 +1112,7 @@ How to answer:
 - Military experience can be a useful bridge (e.g. mission command and servant leadership), but don't overdo it.
 - If asked to quiz the student, ask ONE scenario question with options A-D and wait for their answer before revealing it.
 - If unsure about an exact PMI rule or number, say so instead of guessing. Never claim to know real exam questions.
+- If asked about the app: it has a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
 Student data:
 `;
 function openDrawer(){
@@ -723,14 +1125,14 @@ function closeDrawer(){const d=document.getElementById("drawer");d.hidden=true;d
 function examLocked(){return quiz&&quiz.exam&&!quiz.done&&!document.getElementById("view-quiz").hidden;}
 function renderChips(){
   const st=stats(),w=weakTasks(st,1)[0],wn=w?TASKS[w.id].name:"my weakest area";
-  const chips=[`Why am I weak in ${wn}?`,`Teach me ${wn} in 5 minutes`,"Quiz me on my weakest area","Explain agile vs predictive vs hybrid","How should I use my military experience on the exam?"];
+  const chips=["Read me a cumulative flow diagram",`Why am I weak in ${wn}?`,`Teach me ${wn} in 5 minutes`,"Quiz me on my weakest area","Explain agile vs predictive vs hybrid","How should I use my military experience on the exam?"];
   document.getElementById("chips").innerHTML=chips.map(c=>`<button class="chip" type="button">${esc(c)}</button>`).join("");
   document.querySelectorAll("#chips .chip").forEach(b=>b.onclick=()=>send(b.textContent));
 }
 function renderLog(streaming){
   const log=document.getElementById("log");
-  let h=chatTurns.length?"":`<div class="msgb note">Ask anything about PMP concepts, a question you missed, or how to study. I can see your heat map.</div>`;
-  if(examLocked())h+=`<div class="msgb note">The tutor is paused while an exam simulation is running. It comes back when you submit.</div>`;
+  let h=chatTurns.length?"":`<div class="msgb note">Hi, I'm Aron, your PMP coach. Ask me about any concept, a question you missed, or how to study. I can see your heat map.</div>`;
+  if(examLocked())h+=`<div class="msgb note">Aron is paused while an exam simulation is running. It comes back when you submit.</div>`;
   chatTurns.forEach(t=>h+=t.role==="user"?`<div class="msgb me">${esc(t.show||t.content)}</div>`:`<div class="msgb ai md">${t.err?`<p class="bad">${esc(t.content)}</p>`:md(t.content)}</div>`);
   if(streaming!==undefined)h+=`<div class="msgb ai md" id="live">${streaming?md(streaming):THINK}</div>`;
   log.innerHTML=h;log.scrollTop=log.scrollHeight;
@@ -814,8 +1216,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quiz","bank","class"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else renderBand();}
+function currentView(){return ["map","quiz","cases","hub","bank","help","class"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -844,7 +1246,7 @@ function renderQForm(){
   const taskOpts=DOMAINS.map(D=>`<optgroup label="${D.name}">${D.tasks.map(([id,n])=>`<option value="${id}" ${id===v.task?"selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("");
   return `<section class="card" id="qform-card" style="grid-column:1/-1"><h2>${e?"Edit question":"Add a question"}</h2>
    <form class="qform" id="qform">
-    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
+    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Difficulty<select id="qf-diff">${[1,2,3].map(d=>`<option value="${d}" ${d===((e&&e.diff)||1)?"selected":""}>${DIFF_NAME[d]}</option>`).join("")}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
     <label>Question<textarea id="qf-q" required>${esc(v.q)}</textarea></label>
     <div class="row">${["a","b","c","d"].map(k=>`<label>Option ${k.toUpperCase()}<input id="qf-${k}" value="${esc(v[k])}" ${k<"c"?"required":""}></label>`).join("")}</div>
     <label>Explanation shown after answering<textarea id="qf-exp">${esc(v.exp)}</textarea></label>
@@ -858,7 +1260,7 @@ function wireQForm(){
     if(!g("qf-q")||opts.length<2||ans>=opts.length){msg.className="msg bad";msg.textContent="Add the question, at least two options, and pick an answer that has text.";return;}
     const prev=editId?state.bank.find(q=>q.id===editId):null;
     const id=editId||("q"+Date.now().toString(36));
-    const body={task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),src:prev?prev.src:"Instructor",updated:Date.now()};
+    const body={task,taskName:TASKS[task].name,domain:TASKS[task].domain,q:g("qf-q"),opts,ans,exp:g("qf-exp"),diff:+g("qf-diff")||1,src:prev?prev.src:"Instructor",updated:Date.now()};if(prev&&prev.fig)body.fig=prev.fig;if(prev&&prev.case)body.case=prev.case;
     if(prev&&prev.order!==undefined)body.order=prev.order;
     msg.className="msg";msg.textContent="Saving…";
     try{await DB.doc("questions/"+id).set(body);editId=null;lastMsg={t:prev?"Question updated.":"Question added. Students see it right away.",ok:true};renderBank(true);}
@@ -901,7 +1303,7 @@ async function renderClass(){
   if(!per.length){h+=`<section class="card"><p style="margin:0">No student progress yet. Students' results appear here once they answer questions while signed in with Contributor access to this page.</p></section>`;}
   else{
     h+=`<section class="card"><div class="mapbar"><h2>Class heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span>Average mastery of students who tried each task</span></div></div>`;
-    DOMAINS.forEach(D=>{h+=`<div class="drow"><div class="dhead"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span></div><div class="tiles ctiles">`;
+    DOMAINS.forEach(D=>{h+=`<div class="drow"><div class="dhead" style="--dc:var(--c-${D.id})"><b>${D.name}</b><span class="label num">${Math.round(D.weight*100)}% of exam</span></div><div class="tiles ctiles">`;
       D.tasks.forEach(([id,name])=>{const c=cohort[id];h+=c.m===null?`<div class="tile untested"><span class="tname">${esc(name)}</span><span class="tval"><span>Not tried</span></span></div>`:`<div class="tile" style="background:${heat(c.m)}"><span class="tname">${esc(name)}</span><span class="tval"><span class="pc">${pct(c.m)}</span><span class="num">${c.k} student${c.k>1?"s":""}</span></span></div>`;});
       h+=`</div></div>`;});
     h+=`</section><section class="prog"><div class="card"><h2>Students</h2><div class="tablewrap"><table><thead><tr><th>Student</th><th>Readiness</th><th>Answers</th><th>Weakest task</th><th>Last active</th></tr></thead><tbody>${per.sort((a,b)=>(a.st.overall??2)-(b.st.overall??2)).map(p=>{const pr=ps[p.id]||{name:"",avatarUrl:""},[rc,rl]=rating(p.st.overall);return `<tr><td><span class="who">${pr.avatarUrl?`<img src="${esc(pr.avatarUrl)}" alt="">`:""}<span data-name="${esc(p.id)}"></span></span></td><td><span class="pill ${rc}" title="${rl}">${pct(p.st.overall)}</span></td><td class="num">${p.n}</td><td>${weakest(p)}</td><td class="num">${fmtD(p.last)}</td></tr>`;}).join("")}</tbody></table></div></div>

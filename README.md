@@ -11,7 +11,7 @@ An AI-driven adaptive learning tool for future Vets2PM students preparing for th
 | Path | What it is |
 | --- | --- |
 | `prototype/index.html` | The working prototype (a single HTML page). |
-| `prototype/sample-questions.csv` | 38 original PMP-style practice questions in the upload format. |
+| `prototype/sample-questions.csv` | 38 original PMP-style practice questions in the upload format. The hard questions and case studies are built into the page. |
 
 The prototype also runs as a hosted Claude artifact: <https://claude.ai/artifact/QmagGE6pTW7sxmnL6ai3ZQ>
 
@@ -23,6 +23,11 @@ The prototype also runs as a hosted Claude artifact: <https://claude.ai/artifact
 - **Question bank:** upload questions as CSV or JSON. See the format below.
 - **AI tutor:** a chat tutor, "explain this question", a debrief after each session, and AI-built study sessions. *Works only when the page is opened inside Claude.*
 - **Admin mode:** a shared question bank (add, edit, delete), plus a class view with a class heat map, a student roster and the hardest questions. *Works only when the page is opened inside Claude.*
+- **Aron, the AI coach:** a chat drawer plus "Ask Aron" buttons on every question: why my answer is wrong, why the right one is right, explain it simply, give me a similar question, a hint, or key terms. *Needs Claude.*
+- **Hard questions and case studies:** 17 hard and very hard questions (network float, EVM/TCPI, PERT, EMV, decision trees, contracts) and 4 multi-question case studies with exhibits.
+- **Charts and diagrams:** cumulative flow diagram, burndown, EVM S-curve, network diagram, control chart, probability/impact matrix and power/interest grid, drawn as SVG.
+- **Study hub:** an EVM calculator, a formula sheet, the PMI mindset, and guides to reading each diagram.
+- **Help center:** FAQ search, "report a problem with this question", and help requests. Admins get an inbox to reply and resolve.
 
 Opened directly in a browser, the page works offline. Progress is saved in that browser, and the AI and admin features are hidden.
 
