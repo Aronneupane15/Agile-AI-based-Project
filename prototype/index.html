@@ -431,6 +431,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
 .tchips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .btn.yt{display:inline-flex;align-items:center;gap:8px}
 .topic .btn{padding:7px 14px;font-size:14px}
+.topic{grid-template-columns:1fr;gap:6px}.tnum{font-size:15px}
 .dhead b{text-transform:none;letter-spacing:-.01em;font-family:var(--f-display);font-stretch:100%}
 .liblist{list-style:none;margin:0;padding:0;display:grid}
 .liblist li{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -443,6 +444,23 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
 .tbtab td,.tbtab th{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .soon{display:grid;gap:10px;justify-items:center;text-align:center;padding:40px 20px}
 @media (max-width:640px){.gnav-in{justify-content:center}.gnav .brand{width:100%;justify-content:center}.trackbar button{padding:8px 12px;font-size:13px}}
+
+.field.ph{position:relative;grid-template-rows:1fr;min-height:340px;background:#111}
+.field.ph img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .6s}
+.field.ph:hover img{transform:scale(1.05)}
+.field.ph figcaption{position:relative;z-index:1;align-self:end;padding:70px 20px 18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.78))}
+.dgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:14px}
+.dfig{all:unset;box-sizing:border-box;cursor:pointer;display:grid;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.dfig:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.dfig:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 60%,transparent)}
+.dfig img{width:100%;aspect-ratio:16/10;object-fit:contain;display:block;background:#fff}
+.dfig span{padding:10px 14px;font-size:14px;color:#1d1d1f;border-top:1px solid #ececf0;background:#fafafa}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:grid;place-items:center;padding:16px}
+.lb figure{margin:0;display:grid;gap:10px;max-width:min(1200px,100%)}
+.lb img{max-width:100%;max-height:82vh;background:#fff;border-radius:18px;display:block}
+.lb figcaption{color:#f5f5f7;text-align:center;font-size:15px}
+.lbx{position:fixed;top:14px;right:14px;font:600 14px var(--f-body);background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+#credits details{margin-top:10px}#credits summary{cursor:pointer;font-weight:600}#credits ul{padding-left:18px;margin:6px 0}#credits a{color:inherit}
 
 </style>
 
@@ -478,6 +496,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
     <div id="view-quizzes" hidden></div>
     <footer>
       PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
+      <div id="credits"></div>
     </footer>
   </div>
 </main>
@@ -1168,8 +1187,8 @@ function renderHub(){
   const el=document.getElementById("view-hub");renderBand();subLibrary();const TT=TRACKS[TRACK];
   const diag=TRACK==="pmp"?DIAGRAMS:TRACK==="acp"?DIAGRAMS.slice(0,2):[];
   el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Study · ${esc(TT.name)}</span><h2>Learn it, watch it, then prove it.</h2><p style="margin:0;color:var(--muted);max-width:68ch">Ten core topics for the ${esc(TT.full)}, each with a short video search, the key points, and a practice set that feeds your heat map.</p></div></section>
-  ${renderStudyTopics()}${renderLibrary()}
-  ${TRACK==="psm"?`<section class="grid2"><div class="card"><h2>The Scrum framework</h2>${SCRUM_SVG}<p class="ainote" style="margin:0">Drawn from the 2020 Scrum Guide.</p></div><div class="card"><h2>Time-boxes</h2><div class="tablewrap"><table class="tbtab"><tbody>${TIMEBOX.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td style="color:var(--muted)">${r[2]}</td></tr>`).join("")}</tbody></table></div><p class="ainote" style="margin:0">Maximums for a one-month Sprint. Shorter Sprints usually use shorter events.</p></div></section>`:""}
+  ${renderStudyTopics()}${renderDiagramGallery()}${renderLibrary()}
+  ${TRACK==="psm"?`<section class="card"><div><h2>Time-boxes</h2><div class="tablewrap"><table class="tbtab"><tbody>${TIMEBOX.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td style="color:var(--muted)">${r[2]}</td></tr>`).join("")}</tbody></table></div><p class="ainote" style="margin:0">Maximums for a one-month Sprint. Shorter Sprints usually use shorter events.</p></div></section>`:""}
   ${TRACK==="pmp"?`<section class="grid2"><div class="card"><h2>Earned value calculator</h2><p style="margin:0;color:var(--muted)">Type your numbers to see every index and what it means.</p>
    <div class="calc">${["BAC","PV","EV","AC"].map((k,n)=>`<label>${k}<input id="ev-${k}" type="number" inputmode="decimal" value="${[500000,300000,240000,290000][n]}"></label>`).join("")}</div><div id="ev-out"></div></div>
    <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions ai-only"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>`:""}
@@ -1180,7 +1199,7 @@ function renderHub(){
     const rows=[["CV",m(EV-AC),EV-AC>=0?"ok":"bad",EV-AC>=0?"Under or on budget":"Over budget"],["SV",m(EV-PV),EV-PV>=0?"ok":"bad",EV-PV>=0?"On or ahead of schedule":"Behind schedule"],["CPI",r(cpi),cpi>=1?"ok":"bad",`Earning $${r(cpi)} per $1 spent`],["SPI",r(spi),spi>=1?"ok":"bad",`Progressing at ${Math.round(spi*100)}% of plan`],["EAC",m(eac),eac<=BAC?"ok":"bad","If cost performance continues"],["ETC",m(eac-AC),"","Still to spend"],["VAC",m(BAC-eac),BAC-eac>=0?"ok":"bad","Forecast variance at completion"],["TCPI",r(tc),tc<=1.05?"ok":"bad",tc>1.1?"Hard to achieve: re-baseline or get approval":"Achievable efficiency"]];
     document.getElementById("ev-out").innerHTML=`<table class="evtab"><tbody>${rows.map(x=>`<tr><th>${x[0]}</th><td class="num ${x[2]}">${x[1]}</td><td>${x[3]}</td></tr>`).join("")}</tbody></table>`;};
   if(TRACK==="pmp"){["BAC","PV","EV","AC"].forEach(k=>document.getElementById("ev-"+k).oninput=calc);calc();}
-  wireLibrary(el);el.querySelectorAll("[data-studyq]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.studyq));
+  wireLibrary(el);el.querySelectorAll("[data-lb]").forEach(b=>b.onclick=()=>openLightbox(b.dataset.lb,b.dataset.cap));el.querySelectorAll("[data-studyq]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.studyq));
   el.querySelectorAll("[data-hubask]").forEach(b=>b.onclick=()=>send(b.dataset.hubask,b.textContent));
 }
 
@@ -1694,7 +1713,9 @@ const FIELDS=[
  {id:"aerospace",name:"Aerospace",eg:"Aircraft, satellites, launch",g:["#0ea5e9","#0c4a6e"]},
  {id:"infrastructure",name:"Infrastructure",eg:"Bridges, rail, water systems",g:["#a3a3a3","#404040"]},
  {id:"government",name:"Government",eg:"Public services, policy programs",g:["#6366f1","#312e81"]}];
-const FIELD_PHOTOS={}; // filled with {src, credit, license, href} once licensed photos are added
+const FIELD_PHOTOS={};
+Object.assign(FIELD_PHOTOS,{"construction": {"src": "img/photos/construction-site-thumb.jpg", "credit": "Dietmar Rabich, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Br%C3%BCckenbaustelle_der_Deutschen_Bahn_--_2016_--_2011.jpg", "cap": "A tower crane over a railway bridge construction site in Dülmen, Germany"}, "datacenter": {"src": "img/photos/data-center-thumb.jpg", "credit": "PiDatacenters, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:Racks_Amravati_Data_Center.jpg", "cap": "A cold aisle between server racks in a data center in Amravati, India"}, "software": {"src": "img/photos/software-team-thumb.jpg", "credit": "Lbronn, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:Programmers.jpg", "cap": "Software developers working together at laptops"}, "health": {"src": "img/photos/healthcare-thumb.jpg", "credit": "Sixflashphoto, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:Mount_Carmel_St._Ann%27s_Patient_Departure_1.jpg", "cap": "Patient departure entrance at Mount Carmel St. Ann's hospital, Ohio"}, "defense": {"src": "img/photos/defense-logistics-thumb.jpg", "credit": "U.S. Marine Corps photo by Lance Cpl. Franco Lewis, Public domain, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:CORE26_-_U_S_Marines_use_Norwegian_Cargo_Ship_to_Transport_Military_Equipment_for_Exercise_in_the_Arctic_(9509719).jpg", "cap": "U.S. Marines unload Humvees from a Norwegian cargo ship"}, "energy": {"src": "img/photos/energy-wind-thumb.jpg", "credit": "Matthew T Rader, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:Roscoe_Wind_Farm_in_West_Texas.jpg", "cap": "Roscoe Wind Farm turbines over farmland in West Texas"}, "manufacturing": {"src": "img/photos/manufacturing-thumb.jpg", "credit": "Marek Ślusarczyk (Tupungato), CC BY 3.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:001_Car_factory_assembly_line_-_Opel_factory_in_Gliwice,_Poland.jpg", "cap": "Cars moving along the assembly line at the Opel factory in Gliwice, Poland"}, "aerospace": {"src": "img/photos/aerospace-thumb.jpg", "credit": "NASA Michoud Assembly Facility / NASA/Sam Lott, Public domain, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:NASA_Astronauts_View_Historic_Core_Stage_Departure_from_Michoud_Assembly_Facility_(MAF_20240216_CS2_Rollout_Hansen_and_Wiseman_22_SL).jpg", "cap": "NASA astronauts with an SLS core stage leaving the Michoud Assembly Facility"}, "infrastructure": {"src": "img/photos/infrastructure-thumb.jpg", "credit": "iMahesh, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:A_railway_bridge_under_construction_in_Vasco-da-Gama.jpg", "cap": "A railway bridge under construction in Vasco da Gama, Goa, India"}, "government": {"src": "img/photos/government-office-thumb.jpg", "credit": "Tttrung, CC BY-SA 4.0, via Wikimedia Commons", "license": "", "href": "https://commons.wikimedia.org/wiki/File:A_meeting_room_at_Government_Office_of_Vietnam.jpg", "cap": "A meeting room at the Government Office of Vietnam"}});
+const DIAGRAM_FILES=[{"src": "img/diagrams/scrum-framework.svg", "cap": "Scrum framework: accountabilities, events and artifacts (Scrum Guide 2020)", "tracks": ["psm", "acp"]}, {"src": "img/diagrams/kanban-board.svg", "cap": "Kanban board with WIP limits", "tracks": ["acp"]}, {"src": "img/diagrams/cumulative-flow-diagram.svg", "cap": "Cumulative flow diagram showing WIP, lead time and throughput", "tracks": ["acp"]}, {"src": "img/diagrams/burndown-chart.svg", "cap": "Sprint burndown chart, ideal vs. actual", "tracks": ["acp", "psm"]}, {"src": "img/diagrams/gantt-chart.svg", "cap": "Gantt chart with dependencies, critical path, float and milestone", "tracks": ["pmp"]}, {"src": "img/diagrams/critical-path-network.svg", "cap": "Critical path network (activity on node) with forward/backward pass", "tracks": ["pmp"]}, {"src": "img/diagrams/earned-value-chart.svg", "cap": "Earned value S-curves with SV, CV, SPI, CPI and EAC", "tracks": ["pmp"]}, {"src": "img/diagrams/risk-probability-impact-matrix.svg", "cap": "5x5 probability and impact matrix", "tracks": ["pmp", "acp"]}, {"src": "img/diagrams/stakeholder-power-interest-grid.svg", "cap": "Stakeholder power/interest grid", "tracks": ["pmp"]}];
 function fieldArt(id){
   const W="rgba(255,255,255,.92)",F="rgba(255,255,255,.18)",st=`stroke="${W}" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
   const a={
@@ -1712,8 +1733,8 @@ function fieldArt(id){
 }
 function fieldCard(f){
   const ph=FIELD_PHOTOS[f.id];
-  const art=ph?`<img src="${esc(ph.src)}" alt="${esc(f.name)} project" loading="lazy">`:`<svg viewBox="0 0 340 200" aria-hidden="true">${fieldArt(f.id)}</svg>`;
-  return `<figure class="field" style="--g1:${f.g[0]};--g2:${f.g[1]}">${art}<figcaption><b>${esc(f.name)}</b><span>${esc(f.eg)}</span>${ph&&ph.credit?`<small><a href="${esc(ph.href||"#")}" target="_blank" rel="noopener">${esc(ph.credit)}</a>${ph.license?" · "+esc(ph.license):""}</small>`:""}</figcaption></figure>`;
+  const art=ph?`<img src="${esc(ph.src)}" alt="${esc(ph.cap||f.name)}" loading="lazy">`:`<svg viewBox="0 0 340 200" aria-hidden="true">${fieldArt(f.id)}</svg>`;
+  return `<figure class="field${ph?" ph":""}" style="--g1:${f.g[0]};--g2:${f.g[1]}">${art}<figcaption><b>${esc(f.name)}</b><span>${esc(f.eg)}</span>${ph&&ph.credit?`<small>Photo: <a href="${esc(ph.href||"#")}" target="_blank" rel="noopener">${esc(ph.credit)}</a></small>`:""}</figcaption></figure>`;
 }
 function renderFields(){
   return `<section class="fields-sec"><div class="sec-head"><span class="eyebrow">Every kind of project</span><h2>The same skills run a bridge, a data center and a sprint.</h2><p>Project management is one discipline across every field. Pick a track below and study for the exam that fits your next role.</p></div><div class="fieldrow" tabindex="0" aria-label="Project fields">${FIELDS.map(fieldCard).join("")}</div></section>`;
@@ -1798,6 +1819,14 @@ function wireLibrary(el){
     catch(err){msg.className="msg bad";msg.textContent=err&&err.code==="too_large"?"That file is too large (20 MB max).":"Couldn't upload. Only editors of this page can add files.";}};
   el.querySelectorAll("[data-libdel]").forEach(b=>b.onclick=async()=>{if(b.textContent!=="Confirm remove"){b.textContent="Confirm remove";return;}try{await DB.doc("library/"+b.dataset.libdel).delete();}catch(e){b.textContent="Couldn't remove";}});
 }
+function renderDiagramGallery(){const list=DIAGRAM_FILES.filter(d=>d.tracks.includes(TRACK));if(!list.length)return "";
+  return `<section class="card"><div class="mapbar"><h2>Reference diagrams</h2><span class="label">Select a diagram to see it full size</span></div><div class="dgal">${list.map(d=>`<button class="dfig" data-lb="${esc(d.src)}" data-cap="${esc(d.cap)}"><img src="${esc(d.src)}" alt="${esc(d.cap)}" loading="lazy"><span>${esc(d.cap)}</span></button>`).join("")}</div></section>`;}
+function openLightbox(src,cap){const o=document.createElement("div");o.className="lb";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.setAttribute("aria-label",cap);
+  o.innerHTML=`<figure><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>${esc(cap)}</figcaption></figure><button class="lbx" aria-label="Close">Close</button>`;
+  const close=()=>{o.remove();document.removeEventListener("keydown",k);};const k=e=>{if(e.key==="Escape")close();};
+  o.onclick=e=>{if(e.target===o||e.target.classList.contains("lbx"))close();};document.addEventListener("keydown",k);document.body.appendChild(o);o.querySelector(".lbx").focus();}
+function renderCredits(){const el=document.getElementById("credits");if(!el)return;const list=Object.entries(FIELD_PHOTOS);if(!list.length)return;
+  el.innerHTML=`<details><summary>Photo credits</summary><ul>${list.map(([k,p])=>`<li>${esc(p.cap||k)}: <a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.credit)}</a></li>`).join("")}</ul><p>Photos are from Wikimedia Commons under the licenses shown. Diagrams were drawn for PMP/ACP Guide.</p></details>`;}
 function renderStudyTopics(){
   return `<section class="topics">${(STUDY[TRACK]||[]).map((t,i)=>{const tasks=t[1].filter(id=>TASKS[id]);const st=stats();const m=tasks.map(id=>st.t[id]).filter(x=>x&&x.n);const mm=m.length?m.reduce((s,x)=>s+x.m,0)/m.length:null;
     return `<article class="topic"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
@@ -1863,6 +1892,6 @@ async function initCloud(){
 document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");if(b&&TRACKS[b.dataset.track]&&b.dataset.track!==TRACK){setTrack(b.dataset.track);if(b.classList.contains("tcard"))window.scrollTo({top:0,behavior:"smooth"});}});
 initCloud();
 initAI();
-load();paintAron();show("map");
+load();paintAron();renderCredits();show("map");
 })();
 </script>
