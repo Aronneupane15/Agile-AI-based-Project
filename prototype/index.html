@@ -711,6 +711,32 @@ kbd{font:600 11px var(--f-body);border:1px solid var(--line);border-radius:6px;p
 .qmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .r-qotd b{font-weight:600;font-size:14px;line-height:1.35}
 
+/* ---------- Round 6: premium background + Apple-style scroll ---------- */
+:root{--glow1:rgba(41,151,255,.18);--glow2:rgba(122,92,255,.15);--glow3:rgba(255,179,64,.12);--bg2:#e9edf5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glow1:rgba(41,151,255,.16);--glow2:rgba(122,92,255,.14);--glow3:rgba(48,209,88,.06);--bg2:#05060a}}
+:root[data-theme="dark"]{--glow1:rgba(41,151,255,.16);--glow2:rgba(122,92,255,.14);--glow3:rgba(48,209,88,.06);--bg2:#05060a}
+body{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%) fixed,var(--bg)}
+body::before{content:"";position:fixed;inset:-10vh -10vw;z-index:-1;pointer-events:none;
+  background:radial-gradient(45vw 40vh at 8% 12%,var(--glow1),transparent 70%),radial-gradient(40vw 45vh at 96% 30%,var(--glow2),transparent 70%),radial-gradient(55vw 45vh at 50% 105%,var(--glow3),transparent 70%);
+  transform:translate3d(0,calc(var(--py,0) * -1px),0);will-change:transform}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(color-mix(in srgb,var(--ink) 5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--ink) 5%,transparent) 1px,transparent 1px);background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(70% 55% at 50% 0%,#000,transparent 75%);mask-image:radial-gradient(70% 55% at 50% 0%,#000,transparent 75%)}
+.gnav{transition:box-shadow .3s,background .3s}
+.gnav.scrolled{box-shadow:0 8px 30px -18px rgba(0,0,0,.35)}
+.top .hero-t{transform-origin:50% 0;will-change:transform,opacity}
+/* scroll-linked (Chrome, Edge, Safari 26+) */
+@keyframes sxIn{from{opacity:0;translate:0 56px;scale:.955}to{opacity:1;translate:0 0;scale:1}}
+@keyframes sxHead{from{opacity:0;translate:0 40px;scale:.92;filter:blur(6px)}to{opacity:1;translate:0 0;scale:1;filter:blur(0)}}
+@keyframes sxOut{to{opacity:.35;scale:.94;translate:0 30px}}
+@keyframes sxGrad{from{background-position:0% 50%}to{background-position:100% 50%}}
+.sx-tl .center>[id^="view-"]:not(#view-quiz) :is(.card,.topic,.excard,.milcard,.ccard,.vcard,.board li,.banner,.qotd,.teaser,.reveal){animation:sxIn linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+.sx-tl .center>[id^="view-"] :is(.sec-head,.story-hero,.mega){animation:sxHead linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.sx-tl .top .cmd{animation:sxOut linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+.sx-tl .grad-t{background-size:200% 100%;background-image:linear-gradient(90deg,#2997ff,#7a5cff 30%,#ff4f8b 55%,#ffb340 80%,#2997ff);animation:sxGrad linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.sx-tl .js-reveal .reveal,.sx-tl .reveal{transition:none}
+@media (prefers-reduced-motion:reduce){body::before{transform:none}.sx-tl *{animation:none!important}}
+
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -2245,10 +2271,10 @@ function openSheet(html,origin,label){
 /* scroll reveal */
 let revealIO=null;
 function initReveal(){
-  if(RM()||!("IntersectionObserver" in window))return;
+  if(RM()||!("IntersectionObserver" in window)||document.documentElement.classList.contains("sx-tl"))return;
   document.documentElement.classList.add("js-reveal");
   revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIO.unobserve(e.target);}}),{rootMargin:"0px 0px -8% 0px",threshold:.08});
-  const scan=()=>document.querySelectorAll(".reveal:not([data-rv])").forEach((n,i)=>{n.dataset.rv="1";const sib=n.parentElement?[...n.parentElement.children].indexOf(n):0;n.style.setProperty("--d",Math.min(sib,8)*60+"ms");revealIO.observe(n);});
+  const scan=()=>document.querySelectorAll(".reveal:not([data-rv]),.center>[id^=view-]:not(#view-quiz) :is(.card,.topic,.excard,.vcard):not([data-rv])").forEach((n,i)=>{n.dataset.rv="1";n.classList.add("reveal");const sib=n.parentElement?[...n.parentElement.children].indexOf(n):0;n.style.setProperty("--d",Math.min(sib,8)*60+"ms");revealIO.observe(n);});
   new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan();
 }
 /* Careers view */
@@ -2696,6 +2722,18 @@ function renderCommunity(){
   el.querySelector("#cm-me").onclick=e=>openProfile(e.target);
 }
 
+/* Apple-style scroll effects */
+function initScrollFX(){
+  const root=document.documentElement,nav=document.querySelector(".gnav");
+  const tl=!RM()&&window.CSS&&CSS.supports&&CSS.supports("animation-timeline: view()");
+  if(tl)root.classList.add("sx-tl");
+  let ticking=false;
+  const run=()=>{ticking=false;const y=window.scrollY||0;if(nav)nav.classList.toggle("scrolled",y>8);if(RM())return;
+    root.style.setProperty("--py",String(Math.round(y*.08)));
+    const h=document.querySelector(".top .hero-t");if(h){const k=Math.min(1,y/460);h.style.transform=k?`translate3d(0,${(y*.22).toFixed(1)}px,0) scale(${(1-k*.06).toFixed(3)})`:"";h.style.opacity=k?String(Math.max(.1,1-k*.95)):"";}};
+  window.addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(run);}},{passive:true});run();
+}
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
@@ -2753,7 +2791,7 @@ async function initCloud(){
   }catch(e){}
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");if(b&&TRACKS[b.dataset.track]&&b.dataset.track!==TRACK){setTrack(b.dataset.track);if(b.classList.contains("tcard"))window.scrollTo({top:0,behavior:"smooth"});}});
-loadProfile();paintAcct();initReveal();
+loadProfile();paintAcct();initScrollFX();initReveal();
 initCloud();
 initAI();
 load();paintAron();renderCredits();show("map");
