@@ -462,6 +462,116 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
 .lbx{position:fixed;top:14px;right:14px;font:600 14px var(--f-body);background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
 #credits details{margin-top:10px}#credits summary{cursor:pointer;font-weight:600}#credits ul{padding-left:18px;margin:6px 0}#credits a{color:inherit}
 
+/* ---------- Round 3: careers story, sheets, motion, account ---------- */
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+#view-careers{display:grid;gap:56px}
+.grad-t{background:linear-gradient(90deg,#2997ff,#7a5cff 55%,#ff4f8b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(17px,2.1vw,21px);line-height:1.45;color:var(--muted);max-width:60ch;margin:0}
+.story,.sec{display:grid;gap:28px}
+.story-hero{text-align:center;display:grid;gap:14px;justify-items:center;padding:24px 0 8px}
+.mega{font:800 clamp(36px,7vw,80px)/1.02 var(--f-display);letter-spacing:-.045em;margin:0;text-wrap:balance}
+.ex-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.excard{background:var(--surface);border-radius:22px;padding:20px;box-shadow:var(--shadow);display:grid;gap:6px;align-content:start}
+.excard b{font:700 18px/1.2 var(--f-display);letter-spacing:-.02em}.excard span{color:var(--muted);font-size:15px}
+.milmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.milcard,.ccard{all:unset;box-sizing:border-box;cursor:pointer;position:relative;background:var(--surface);border-radius:22px;padding:20px 52px 20px 20px;box-shadow:var(--shadow);display:grid;gap:6px;align-content:start;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.milcard:hover,.ccard:hover{transform:translateY(-3px) scale(1.01);box-shadow:var(--shadow),0 18px 40px -22px rgba(0,0,0,.35)}
+.milcard:focus-visible,.ccard:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.mterm{font-size:14px;color:var(--muted)}.pterm{font:700 20px/1.15 var(--f-display);letter-spacing:-.02em}
+.plus{position:absolute;right:16px;bottom:16px;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font:500 20px/1 var(--f-body);transition:transform .35s}
+.milcard:hover .plus,.ccard:hover .plus{transform:rotate(90deg)}
+.indtabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:4px;margin:0 auto;max-width:100%;background:color-mix(in srgb,var(--ink) 6%,transparent);border-radius:999px}
+.indtabs::-webkit-scrollbar{display:none}
+.indtabs button{all:unset;cursor:pointer;white-space:nowrap;padding:8px 16px;border-radius:999px;font:500 14px var(--f-body);color:var(--muted);transition:background .3s,color .3s}
+.indtabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.indtabs button:focus-visible{outline:2px solid var(--accent)}
+.ind-panel{padding:0;overflow:hidden}
+.ind-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.ind-photo{min-height:280px;background:linear-gradient(135deg,var(--g1),var(--g2));position:relative}
+.ind-photo img,.ind-photo svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ind-txt{padding:clamp(20px,3vw,34px);display:grid;gap:12px;align-content:center}
+.ind-txt h3{font:700 clamp(24px,3vw,34px)/1.1 var(--f-display);letter-spacing:-.03em;margin:0}
+.ind-txt p{margin:0}.ind-txt .ex{color:var(--muted)}
+.ind-panel.swap .ind-photo{animation:rIn .6s cubic-bezier(.2,.8,.2,1) both}
+.ind-panel.swap .ind-txt>*{animation:rUp .55s cubic-bezier(.2,.8,.2,1) both}
+.ind-panel.swap .ind-txt>*:nth-child(2){animation-delay:.05s}.ind-panel.swap .ind-txt>*:nth-child(3){animation-delay:.1s}.ind-panel.swap .ind-txt>*:nth-child(n+4){animation-delay:.15s}
+@keyframes rIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+@keyframes rUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (max-width:760px){.ind-in{grid-template-columns:1fr}.ind-photo{min-height:200px}}
+.rolechip{font-size:13px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--ink)}
+.cred{font-size:12px;color:var(--muted)}.cred a{color:inherit}
+.spec{display:grid;gap:4px;max-width:420px;width:100%}
+.spec-bar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,#ff9f0a,#bf5af2 50%,#2997ff)}
+.spec-bar i{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:var(--surface);border:3px solid var(--ink);transform:translate(-50%,-50%);transition:left .6s cubic-bezier(.2,.8,.2,1)}
+.spec-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.spec.mini .spec-bar{height:6px}.spec.mini .spec-bar i{width:12px;height:12px;border-width:2px}.spec.mini .spec-lbl{display:none}
+.spec-all{display:grid;gap:10px}
+.spec-row{display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr) 70px;gap:14px;align-items:center;font-size:15px}
+.spec-row em{font-style:normal;color:var(--muted);font-size:13px;text-align:right}
+@media (max-width:560px){.spec-row{grid-template-columns:1fr 64px}.spec-row .spec{grid-column:1/3;grid-row:2}}
+.careergrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ccard b{font:700 20px/1.15 var(--f-display);letter-spacing:-.02em}.ccard .eyebrow{font-size:13px}
+.certline{font-size:13px;color:var(--muted)}
+/* Sheet (Apple-style modal that grows from the tapped card) */
+html.noscroll{overflow:hidden}
+.sheet-wrap{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,0);-webkit-backdrop-filter:blur(0);backdrop-filter:blur(0);transition:background .35s,backdrop-filter .35s,-webkit-backdrop-filter .35s}
+.sheet-wrap.open{background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.sheet{position:relative;width:min(760px,100%);max-height:calc(100dvh - 32px);overflow:auto;background:var(--surface);color:var(--ink);border-radius:28px;padding:clamp(24px,4vw,44px);box-shadow:0 30px 80px -20px rgba(0,0,0,.5);opacity:0;transform:scale(.88) translateY(20px);transition:transform .45s cubic-bezier(.2,.9,.25,1),opacity .3s}
+.sheet-wrap.open .sheet{opacity:1;transform:none}
+.sheet-wrap.closing .sheet{opacity:0;transform:scale(.94) translateY(10px);transition-duration:.28s}
+.sheet-body{display:grid;gap:14px}
+.sheet-body>*{margin:0}
+.sheet-wrap.open .sheet-body>*{animation:rUp .5s cubic-bezier(.2,.8,.2,1) both}
+.sheet-wrap.open .sheet-body>*:nth-child(2){animation-delay:.06s}.sheet-wrap.open .sheet-body>*:nth-child(3){animation-delay:.12s}.sheet-wrap.open .sheet-body>*:nth-child(n+4){animation-delay:.18s}
+.sheet-x{position:sticky;top:0;float:right;margin:-8px -8px 0 12px;width:36px;height:36px;border-radius:50%;border:0;background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);font:500 16px var(--f-body);cursor:pointer;z-index:2}
+.sheet-h{font:700 clamp(28px,4vw,40px)/1.08 var(--f-display);letter-spacing:-.035em}
+.sheet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.sheet-grid h4{margin:0 0 6px;font-size:15px}.sheet-grid ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.certs{list-style:none;padding:0!important}.certs li{display:grid;gap:0}.certs span{font-size:13px;color:var(--muted)}
+.milnote{background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:16px;padding:14px 16px}
+.mil-big{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;font:700 clamp(26px,4.5vw,44px)/1.1 var(--f-display);letter-spacing:-.035em}
+.mil-big .arrow{color:var(--muted);font-weight:400}
+@media (prefers-reduced-motion:reduce){.sheet,.sheet-wrap{transition:none}.sheet-wrap.open .sheet-body>*,.ind-panel.swap *{animation:none!important}}
+/* Scroll reveal */
+.js-reveal .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.8,.2,1) var(--d,0ms),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.js-reveal .reveal.in{opacity:1;transform:none}
+.js-reveal .milcard.reveal.in:hover,.js-reveal .ccard.reveal.in:hover{transform:translateY(-3px) scale(1.01);transition-delay:0ms}
+/* Page transitions */
+main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){main .inner>[id^="view-"]{animation:none!important}}
+/* Account */
+.acct{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:color-mix(in srgb,var(--ink) 7%,transparent);font:500 14px var(--f-body);color:var(--ink);white-space:nowrap}
+.acct:not(:has(.acct-av)){padding:7px 14px;background:var(--accent);color:#fff}
+.acct:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.acct-av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2997ff,#7a5cff);color:#fff;font:700 11px var(--f-body)}
+.pform{display:grid;gap:12px}
+.pform label{display:grid;gap:4px;font-size:14px;color:var(--muted)}
+.pform input,.pform select{font:16px var(--f-body);padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.hello{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:15px;color:#d2d2d7}
+.hello b{color:#fff}.hello .cd{padding:2px 10px;border-radius:999px;background:rgba(255,255,255,.12);font-size:13px}
+/* Levels + sources + videos */
+.diff.d4{background:color-mix(in srgb,#bf5af2 18%,transparent);color:#a84fe0}
+.m4{background:#bf5af2}
+.levels{display:flex;flex-wrap:wrap;gap:8px}
+.levels .btn{display:inline-flex;gap:8px;align-items:center}.levels .btn i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.src{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
+.vstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.vcard{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);display:grid;text-decoration:none;color:var(--ink);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.vcard:hover{transform:translateY(-3px)}
+.vcard:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vthumb{aspect-ratio:16/9;background:linear-gradient(135deg,#1d1d1f,#3a3a3c);display:grid;place-items:center;position:relative}
+.vthumb svg{width:56px;height:56px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));transition:transform .35s}
+.vcard:hover .vthumb svg{transform:scale(1.1)}
+.vthumb span{position:absolute;left:12px;bottom:10px;font:600 12px var(--f-body);color:#fff;opacity:.85}
+.vcard b{padding:12px 16px 2px;font:600 15px/1.3 var(--f-body)}.vcard small{padding:0 16px 14px;color:var(--muted);font-size:13px}
+.vbtn{display:inline-flex;align-items:center;gap:8px}
+.teaser{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;background:linear-gradient(120deg,#1d1d1f,#2c2c48);color:#f5f5f7}
+.teaser h2{color:#fff;margin:2px 0 6px}.teaser p{margin:0;color:#c7c7cc}.teaser .eyebrow{color:#64d2ff}
+@media (max-width:640px){.teaser{grid-template-columns:1fr}}
+
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -472,10 +582,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
         <button id="nav-quiz" data-view="quiz">Practice</button>
         <button id="nav-cases" data-view="cases">Case studies</button>
         <button id="nav-hub" data-view="hub">Study</button>
+        <button id="nav-careers" data-view="careers">Careers</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
         <button id="nav-help" data-view="help">Help</button>
         <button id="nav-class" data-view="class" hidden>Class</button>
       </nav>
+      <button class="acct" id="acct" type="button" aria-label="Your account"><span class="acct-n">Create account</span></button>
 </div></div>
 <div class="top gut">
   <div class="inner">
@@ -494,6 +606,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
     <div id="view-hub" hidden></div>
     <div id="view-help" hidden></div>
     <div id="view-quizzes" hidden></div>
+    <div id="view-careers" hidden></div>
     <footer>
       PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
       <div id="credits"></div>
@@ -501,7 +614,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,
   </div>
 </main>
 
-<button class="fab ai-only" id="fab" aria-controls="drawer" aria-expanded="false"><span class="aron-av" aria-hidden="true">A</span>Ask Aron</button>
+<button class="fab" id="fab" aria-controls="drawer" aria-expanded="false"><span class="aron-av" aria-hidden="true">A</span>Ask Aron</button>
 <aside class="drawer" id="drawer" aria-label="Aron, AI coach" hidden>
   <div class="dr-head"><div class="who"><span class="aron-big" aria-hidden="true">A</span><div><h2>Aron</h2><small>Your AI exam coach · knows your heat map</small></div></div><div class="actions"><button class="iconbtn" id="dr-new">New chat</button><button class="iconbtn" id="dr-close" aria-label="Close tutor">Close</button></div></div>
   <div class="chips" id="chips"></div>
@@ -693,7 +806,7 @@ function makeBank(){
   if(sharedQs&&sharedQs.length){
     sharedQs.forEach(q=>{if(!ALLTASKS[q.task])addTask(q.task,q.taskName||q.task,q.domain,q.track);});
     all=sharedQs.filter(q=>ALLTASKS[q.task]&&Array.isArray(q.opts)).slice().sort((a,b)=>(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));
-  } else all=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],diff:1,src:"Sample"})).concat(extraQuestions(),trackQuestions(),state.custom);
+  } else all=SAMPLE.map((q,i)=>({id:"s"+i,task:q[0],q:q[1],opts:q[2],ans:q[3],exp:q[4],diff:1,src:"Sample"})).concat(extraQuestions(),trackQuestions(),moreTrackQuestions(),state.custom);
   state.bank=all.filter(q=>trackOfQ(q)===TRACK&&TASKS[q.task]);
 }
 function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};}
@@ -780,7 +893,7 @@ function gaugeSVG(v){
 function renderBand(){
   const st=stats(),[rc,rl]=rating(st.overall),rq=reviewQueue().length;
   const n=state.attempts.length,avg=n?state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n:null;
-  const T=TRACKS[TRACK];let h=`<div class="hero-t"><span class="eyebrow">${esc(T.full)} · ${esc(T.body)}</span><h2>Your <span style="white-space:nowrap">${esc(T.name)}</span> readiness.</h2><p>${esc(T.exam)} · ${esc(T.outline)}</p></div><div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
+  const T=TRACKS[TRACK];let h=`<div class="hero-t">${helloLine()}<span class="eyebrow">${esc(T.full)} · ${esc(T.body)}</span><h2>Your <span style="white-space:nowrap">${esc(T.name)}</span> readiness.</h2><p>${esc(T.exam)} · ${esc(T.outline)}</p></div><div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
   DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm"><i class="ddot" style="background:var(--c-${D.id})"></i>${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
   h+=`<div class="kpis">
     <div class="kpi"><span class="label">Answered</span><span class="v">${n}</span><span class="s">${state.bank.length} in bank</span></div>
@@ -835,10 +948,11 @@ function renderMap(){
     <button class="mode primary" id="go-weak" ${state.attempts.length?"":'aria-disabled="true"'}><b>Weak-area practice</b><span>Favors the tasks and questions you miss most</span><em>10 Q</em></button>
     <button class="mode" id="go-review" ${rq.length?"":'aria-disabled="true"'}><b>Review mistakes</b><span>Re-answer questions you got wrong last time</span><em>${rq.length} Q</em></button>
     <button class="mode" id="go-exam"><b>Exam simulation</b><span>Timed at exam pace, weighted by domain, no hints until the end</span><em>${examN} Q · ${Math.round(examN*EXAM_PACE/60)} min</em></button>
-    ${state.bank.some(q=>(q.diff||1)>=2)?`<button class="mode" id="go-hard"><b>Advanced practice</b><span>Calculations, diagrams and tricky situational questions</span><em>10 Q</em></button>`:""}
+    ${state.bank.some(q=>(q.diff||1)>=3)?`<button class="mode" id="go-hard"><b>Hard practice</b><span>Hard and very hard: calculations, diagrams and tricky situations</span><em>10 Q</em></button>`:""}
     ${TRACK==="pmp"?`<button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>`:""}
     <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
-   </div></div></section>`;
+   </div><div class="levels" aria-label="Practice by difficulty"><span class="label" style="width:100%">Or pick a level</span>${[1,2,3,4].map(d=>{const n=state.bank.filter(q=>(q.diff||1)===d).length;return n?`<button class="btn ghost" data-level="${d}"><i class="m${d}"></i>${DIFF_NAME[d]} <span class="label">${n}</span></button>`:"";}).join("")}</div></div></section>`;
+  h+=`<section class="card teaser"><div><span class="eyebrow">New · Careers</span><h2>You've already run projects. You called them missions.</h2><p>See how your military experience translates, which methods each industry uses, and the career paths and certifications that fit you.</p></div><button class="btn primary" data-go="careers">Explore careers</button></section>`;
   // heat map
   h+=`<section class="card" aria-label="Heat map by domain and task"><div class="mapbar"><h2>Task heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span class="swatch" aria-hidden="true"></span><span>No answers</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span>Confidence</span><span class="trend">▲▼</span><span>Recent trend</span></div></div>`;
   DOMAINS.forEach((D,di)=>{
@@ -858,7 +972,7 @@ function renderMap(){
   el.innerHTML=h;
   const cd=document.getElementById("clear-demo");if(cd)cd.onclick=()=>{clearDemo();save();renderMap();};
   const on=(id,fn)=>{const b=document.getElementById(id);b.onclick=()=>{if(b.getAttribute("aria-disabled")!=="true")fn();};};
-  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));if(document.getElementById("go-hard"))on("go-hard",()=>startQuiz("hard"));if(document.getElementById("go-cases"))on("go-cases",()=>show("cases"));
+  on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));if(document.getElementById("go-hard"))on("go-hard",()=>startQuiz("hard"));document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>startQuiz("level",+b.dataset.level));if(document.getElementById("go-cases"))on("go-cases",()=>show("cases"));
   el.querySelectorAll(".tile[data-task]").forEach(b=>b.onclick=()=>startQuiz("task",b.dataset.task));
 }
 
@@ -872,7 +986,8 @@ function pick(mode,task){
   if(mode==="task")return weightedPick(state.bank.filter(q=>q.task===task),5,q=>missedSet.has(q.id)?2:1);
   if(mode==="review")return weightedPick(reviewQueue(),10,()=>1);
   if(mode==="mixed")return weightedPick(state.bank,10,()=>1);
-  if(mode==="hard")return weightedPick(state.bank.filter(q=>(q.diff||1)>=2),10,q=>q.diff===3?2:1);
+  if(mode==="hard")return weightedPick(state.bank.filter(q=>(q.diff||1)>=3),10,q=>q.diff===4?2:1);
+  if(mode==="level")return weightedPick(state.bank.filter(q=>(q.diff||1)===task),10,()=>1);
   if(mode==="case")return state.bank.filter(q=>q.case===task);
   if(mode==="quiz")return quizQs(task);
   if(mode==="weak")return weightedPick(state.bank,10,q=>{const x=st.t[q.task];const m=x&&x.m!==null?x.m:.5;return (1-m)*3+(missedSet.has(q.id)?1.5:0)+(seen[q.id]?0:.6)+.05;});
@@ -882,11 +997,11 @@ function pick(mode,task){
   const rest=state.bank.filter(q=>!out.includes(q));out.push(...weightedPick(rest,N-out.length,()=>1));
   return weightedPick(out.slice(0,N),N,()=>1);
 }
-const MODE_NAME={hard:"Advanced practice",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
+const MODE_NAME={hard:"Hard practice",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
 function startQuiz(mode,task){
   const qs=pick(mode,task);if(!qs.length)return;
   stopTimer();
-  quiz={mode,exam:mode==="exam"||mode==="quiz",quizName:mode==="quiz"?task:null,title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:mode==="quiz"?task+(isValidation(task)?" · validation":""):MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
+  quiz={mode,exam:mode==="exam"||mode==="quiz",quizName:mode==="quiz"?task:null,title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:mode==="quiz"?task+(isValidation(task)?" · validation":""):mode==="level"?DIFF_NAME[task]+" practice":MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
   if(quiz.exam)timerId=setInterval(tick,1000);
   show("quiz");
 }
@@ -985,10 +1100,10 @@ const CASES=[
 const CASE_BY={};CASES.forEach(c=>CASE_BY[c.id]=c);
 function extraQuestions(){
   const out=HARD.map((h,i)=>({id:"h"+i,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],fig:h[6]||null,src:"Sample"}));
-  CASES.forEach(c=>c.qs.forEach((h,k)=>out.push({id:c.id+"q"+k,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],case:c.id,src:"Sample"})));
+  CASES.forEach(c=>c.qs.forEach((h,k)=>out.push({id:c.id+"q"+k,task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:Math.min(4,(h[5]||1)+1),case:c.id,src:"Sample"})));
   return out;
 }
-const DIFF_NAME={1:"Easy",2:"Moderate",3:"Advanced"};
+const DIFF_NAME={1:"Easy",2:"Medium",3:"Hard",4:"Very hard"};
 
 /* ---------- Figure renderer (theme-aware SVG) ---------- */
 const FIGC=["var(--f1)","var(--f2)","var(--f3)","var(--f4)","var(--f5)"];
@@ -1081,14 +1196,14 @@ function renderQuiz(){
     o+=`<button class="opt ${cls}" data-k="${k}" ${reveal?'aria-disabled="true"':""}><span class="k">${"ABCD"[k]}</span><span>${esc(txt)}</span>${reveal&&k===q.ans?'<span class="mark ok" aria-label="Correct answer">✓</span>':reveal&&k===p?'<span class="mark bad" aria-label="Your answer">✕</span>':""}</button>`;});
   const answered=quiz.picked.filter(x=>x!==null).length;
   quiz.ai=quiz.ai||{};quiz.rep=quiz.rep||{};
-  const askBar=live?`<div class="askbar ai-only"><span class="aron-mini" aria-hidden="true">A</span><span class="label" style="letter-spacing:.04em">Ask Aron</span>${reveal?
+  const askBar=live?`<div class="askbar"><span class="aron-mini" aria-hidden="true">A</span><span class="label" style="letter-spacing:.04em">Ask Aron</span>${reveal?
       (p!==null&&p!==q.ans?`<button class="chip" data-ask="wrong">Why is ${"ABCD"[p]} wrong?</button>`:"")+`<button class="chip" data-ask="right">Why is ${"ABCD"[q.ans]} right?</button><button class="chip" data-ask="simple">Explain it simply</button><button class="chip" data-ask="similar">Give me a similar question</button><button class="chip" data-ask="confused">This question doesn't make sense</button>`
       :`<button class="chip" data-ask="hint">Give me a hint</button><button class="chip" data-ask="terms">Explain the key terms</button>`}</div>
-      <div class="aibox ai-only" id="inline-ai" ${quiz.ai[i]?"":"hidden"}><div class="hd"><span class="ailabel">Aron</span><button class="linkbtn" id="ai-chat">Continue in chat</button></div><div class="md" id="inline-ai-out">${quiz.ai[i]?md(quiz.ai[i]):""}</div></div>`:"";
+      <div class="aibox" id="inline-ai" ${quiz.ai[i]?"":"hidden"}><div class="hd"><span class="ailabel">Aron</span><button class="linkbtn" id="ai-chat">Continue in chat</button></div><div class="md" id="inline-ai-out">${quiz.ai[i]?md(quiz.ai[i]):""}</div></div>`:"";
   const report=live?(quiz.rep[i]==="sent"?`<p class="ainote" style="margin:0">Thanks. Your report was sent to the instructors.</p>`:quiz.rep[i]==="open"?renderReportForm():`<button class="linkbtn subtle" id="q-report">Report a problem with this question</button>`):"";
   let foot="";
-  if(reveal&&!quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===q.ans?"Correct.":"Not quite. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div>${askBar}<div class="actions"><button class="btn primary" id="q-next">${i+1<quiz.qs.length?"Next question":"See results"}</button><span class="keys"><kbd>Enter</kbd> to continue</span></div>${report}`;
-  else if(quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===null?"Not answered.":p===q.ans?"Correct.":"You chose "+"ABCD"[p]+". The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}</div>${askBar}<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ghost" id="q-nx" ${i+1<quiz.qs.length?"":"disabled"}>Next</button><button class="btn primary" id="q-back">Back to results</button></div>${report}`;
+  if(reveal&&!quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===q.ans?"Correct.":"Not quite. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}${refOf(q)?`<span class="src">Source: ${esc(refOf(q))}</span>`:""}</div>${askBar}<div class="actions"><button class="btn primary" id="q-next">${i+1<quiz.qs.length?"Next question":"See results"}</button><span class="keys"><kbd>Enter</kbd> to continue</span></div>${report}`;
+  else if(quiz.done)foot=`<div class="explain"><b class="${p===q.ans?"ok":"bad"}">${p===null?"Not answered.":p===q.ans?"Correct.":"You chose "+"ABCD"[p]+". The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}${refOf(q)?`<span class="src">Source: ${esc(refOf(q))}</span>`:""}</div>${askBar}<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ghost" id="q-nx" ${i+1<quiz.qs.length?"":"disabled"}>Next</button><button class="btn primary" id="q-back">Back to results</button></div>${report}`;
   else if(quiz.exam)foot=`<div class="actions"><button class="btn ghost" id="q-prev" ${i?"":"disabled"}>Previous</button><button class="btn ${p===null?"ghost":"primary"}" id="q-nx">${i+1<quiz.qs.length?"Next":"Review and submit"}</button><button class="btn ghost" id="q-flag">${quiz.flag[i]?"Unflag":"Flag for review"}</button></div>`;
   else foot=`${askBar}<p class="keys" style="margin:0">Press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer.</p>${report}`;
   const nav=quiz.exam?`<aside class="side card"><div class="qmeta"><span class="label">Time left</span><span class="timer num" id="timer">${quiz.done?"done":fmtT(quiz.limit-(Date.now()-quiz.start)/1000)}</span></div>
@@ -1137,7 +1252,8 @@ function qContext(q,p){
 }
 let inlineCtl=null;
 async function inlineAsk(kind){
-  if(!AI||!quiz)return;
+  if(!quiz)return;
+  if(!AI){const i=quiz.i;quiz.ai[i]=offlineInline(kind,quiz.qs[i],quiz.picked[i]);document.getElementById("inline-ai").hidden=false;document.getElementById("inline-ai-out").innerHTML=md(quiz.ai[i]);return;}
   const i=quiz.i,q=quiz.qs[i],p=quiz.picked[i],revealed=quiz.done||(!quiz.exam&&quiz.locked[i]);
   const ctx=qContext(q,p);
   const know=revealed?`\nCorrect answer: ${"ABCD"[q.ans]}. Student chose: ${p===null?"nothing":"ABCD"[p]}. App explanation: ${q.exp||"none"}`:"\nThe student has NOT answered yet. Do not reveal or hint at which letter is correct.";
@@ -1187,13 +1303,13 @@ function renderHub(){
   const el=document.getElementById("view-hub");renderBand();subLibrary();const TT=TRACKS[TRACK];
   const diag=TRACK==="pmp"?DIAGRAMS:TRACK==="acp"?DIAGRAMS.slice(0,2):[];
   el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Study · ${esc(TT.name)}</span><h2>Learn it, watch it, then prove it.</h2><p style="margin:0;color:var(--muted);max-width:68ch">Ten core topics for the ${esc(TT.full)}, each with a short video search, the key points, and a practice set that feeds your heat map.</p></div></section>
-  ${renderStudyTopics()}${renderDiagramGallery()}${renderLibrary()}
+  ${videoStrip(TRACK)}${renderStudyTopics()}${renderDiagramGallery()}${renderLibrary()}
   ${TRACK==="psm"?`<section class="card"><div><h2>Time-boxes</h2><div class="tablewrap"><table class="tbtab"><tbody>${TIMEBOX.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td style="color:var(--muted)">${r[2]}</td></tr>`).join("")}</tbody></table></div><p class="ainote" style="margin:0">Maximums for a one-month Sprint. Shorter Sprints usually use shorter events.</p></div></section>`:""}
   ${TRACK==="pmp"?`<section class="grid2"><div class="card"><h2>Earned value calculator</h2><p style="margin:0;color:var(--muted)">Type your numbers to see every index and what it means.</p>
    <div class="calc">${["BAC","PV","EV","AC"].map((k,n)=>`<label>${k}<input id="ev-${k}" type="number" inputmode="decimal" value="${[500000,300000,240000,290000][n]}"></label>`).join("")}</div><div id="ev-out"></div></div>
-   <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions ai-only"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>`:""}
+   <div class="card"><h2>PMI mindset</h2><ol class="steps">${MINDSET.map(m=>`<li><span>${esc(m)}</span></li>`).join("")}</ol><div class="actions"><button class="btn" data-hubask="Quiz me with one tricky situational question that tests the PMI mindset. Give options A-D and wait for my answer.">Quiz me on the mindset</button></div></div></section>`:""}
   ${TRACK!=="psm"?`<section class="card"><h2>Formula sheet</h2><div class="fgrid">${FORMULAS.filter(f=>TRACK==="pmp"||/Little|PERT|Communication|Expected/.test(f[0])).concat(TRACK==="acp"?[["Weighted shortest job first","WSJF = cost of delay ÷ job size","Highest score goes first."],["Iterations remaining","Remaining points ÷ velocity","Assumes stable velocity and scope."]]:[]).map(f=>`<div class="fcard"><span class="label">${esc(f[0])}</span><code>${esc(f[1])}</code><span>${esc(f[2])}</span></div>`).join("")}</div></section>`:""}
-  ${diag.length?`<section class="card"><h2>How to read the exam's diagrams</h2><div class="dgrid">${diag.map(d=>`<div class="dcard">${renderFig(d.f)}<h3>${esc(d.h)}</h3><ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><button class="btn ghost ai-only" data-hubask="${esc(`Teach me how to read a ${d.h} for the ${TT.name} exam in under 150 words, then ask me one question about this example data: ${figToText(d.f)}`)}">Ask Aron to teach this</button></div>`).join("")}</div></section>`:""}`;
+  ${diag.length?`<section class="card"><h2>How to read the exam's diagrams</h2><div class="dgrid">${diag.map(d=>`<div class="dcard">${renderFig(d.f)}<h3>${esc(d.h)}</h3><ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><button class="btn ghost" data-hubask="${esc(`Teach me how to read a ${d.h} for the ${TT.name} exam in under 150 words, then ask me one question about this example data: ${figToText(d.f)}`)}">Ask Aron to teach this</button></div>`).join("")}</div></section>`:""}`;
   const calc=()=>{const g=k=>parseFloat(document.getElementById("ev-"+k).value)||0,BAC=g("BAC"),PV=g("PV"),EV=g("EV"),AC=g("AC");
     const cpi=AC?EV/AC:0,spi=PV?EV/PV:0,eac=cpi?BAC/cpi:0,tc=BAC-AC?(BAC-EV)/(BAC-AC):0,m=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString(),r=v=>v.toFixed(2);
     const rows=[["CV",m(EV-AC),EV-AC>=0?"ok":"bad",EV-AC>=0?"Under or on budget":"Over budget"],["SV",m(EV-PV),EV-PV>=0?"ok":"bad",EV-PV>=0?"On or ahead of schedule":"Behind schedule"],["CPI",r(cpi),cpi>=1?"ok":"bad",`Earning $${r(cpi)} per $1 spent`],["SPI",r(spi),spi>=1?"ok":"bad",`Progressing at ${Math.round(spi*100)}% of plan`],["EAC",m(eac),eac<=BAC?"ok":"bad","If cost performance continues"],["ETC",m(eac-AC),"","Still to spend"],["VAC",m(BAC-eac),BAC-eac>=0?"ok":"bad","Forecast variance at completion"],["TCPI",r(tc),tc<=1.05?"ok":"bad",tc>1.1?"Hard to achieve: re-baseline or get approval":"Achievable efficiency"]];
@@ -1234,7 +1350,8 @@ async function renderHelp(){
   const pf=helpPrefill||{};helpPrefill=null;
   const types=["Problem with the app","Question problem","Account or access","Content suggestion","Something else"];
   el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Help center</span><h2>How can we help?</h2><input class="search" id="faq-q" type="search" placeholder="Search common questions" aria-label="Search help"></div>
-   <div class="helpaside ai-only"><span class="aron-big" aria-hidden="true">A</span><div><b>Ask Aron</b><p style="margin:2px 0 8px;color:var(--muted);font-size:14px">Instant answers about the app or any PMP topic.</p><button class="btn primary" id="help-ask">Chat with Aron</button></div></div></section>
+   <div class="helpaside"><span class="aron-big" aria-hidden="true">A</span><div><b>Ask Aron</b><p style="margin:2px 0 8px;color:var(--muted);font-size:14px">Instant answers about the app or any PMP topic.</p><button class="btn primary" id="help-ask">Chat with Aron</button></div></div></section>
+  ${videoStrip("all","Hard topics, explained on video.","When the written steps aren't enough, watch an instructor walk through it. Videos open on YouTube.")}
   <section class="grid2"><div class="card"><h2>Common questions</h2><div class="faq" id="faq">${FAQ.map(f=>`<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div><p class="ainote" id="faq-none" hidden style="margin:0">No matching answers. Ask Aron or send a request.</p></div>
    <div class="card"><h2>Submit a request</h2><form class="qform" id="help-form">
     <label>Topic<select id="h-type">${types.map(x=>`<option ${x===pf.type?"selected":""}>${x}</option>`).join("")}</select></label>
@@ -1324,7 +1441,7 @@ function importRows(objs){
     let tid=byCode&&ALLTASKS[byCode].track===trk?byCode:Object.keys(ALLTASKS).find(id=>ALLTASKS[id].track===trk&&ALLTASKS[id].name.toLowerCase()===tname.toLowerCase());
     if(!tid){tid="U"+Object.keys(ALLTASKS).length;addTask(tid,tname,dom,trk);}
     const qz=normQuiz(r.quiz),dv=parseDiff(r.difficulty??r.level),qn=parseInt(r.number??r["#"]??r.question_number,10);
-    const nq={id:"u"+Date.now().toString(36)+i,track:trk,task:tid,taskName:ALLTASKS[tid].name,domain:ALLTASKS[tid].domain,q:String(r.question),opts,ans,exp:r.explanation||"",src:"Uploaded",diff:dv};if(qz)nq.quiz=qz;if(qn>0)nq.qn=qn;added.push(nq);
+    const nq={id:"u"+Date.now().toString(36)+i,track:trk,task:tid,taskName:ALLTASKS[tid].name,domain:ALLTASKS[tid].domain,q:String(r.question),opts,ans,exp:r.explanation||"",...((r.source||r.reference)?{ref:String(r.source||r.reference)}:{}),src:"Uploaded",diff:dv};if(qz)nq.quiz=qz;if(qn>0)nq.qn=qn;added.push(nq);
   });
   if(cloudAdmin()){added.forEach((q,k)=>{q.id="q"+Date.now().toString(36)+k;q.src="Instructor";});cloudPutMany(added);}
   else{state.custom=state.custom.concat(added);makeBank();save();}
@@ -1366,8 +1483,8 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quizzes","quiz","cases","hub","bank","help","class"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();
+  ["map","quizzes","quiz","cases","hub","bank","help","class","careers"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();
   window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -1397,7 +1514,7 @@ function studentContext(){
   lines.push(`Answers so far: ${n}. Average pace: ${avg?avg+"s":"n/a"} per question (exam pace ${EXAM_PACE}s).`);
   const rq=reviewQueue().slice(0,8);
   if(rq.length){lines.push("Questions most recently answered wrong:");rq.forEach(q=>lines.push(`  - [${q.task}] ${q.q} Correct answer: ${q.opts[q.ans]}`));}
-  if(state.demo)lines.push("Note: this is example data from a made-up student, used for a demo.");
+  if(state.demo)lines.push("Note: this is example data from a made-up student, used for a demo.");if(PROFILE)lines.unshift(profileLine());
   return lines.join("\n");
 }
 function tutorRules(){const T=TRACKS[TRACK];
@@ -1411,7 +1528,8 @@ How to answer:
 - Military experience can be a useful bridge (e.g. mission command and servant leadership), but don't overdo it.
 - If asked to quiz the student, ask ONE scenario question with options A-D and wait for their answer before revealing it.
 - If unsure about an exact PMI rule or number, say so instead of guessing. Never claim to know real exam questions.
-- If asked about the app: it has a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
+- You help with anything the student asks: exam concepts, study plans, careers, certifications, translating military experience into project terms, resumes and interviews. Be honest and practical, and say when something should be confirmed with the certifier.
+- If asked about the app: it has a Careers tab (military-to-project translator, how each industry uses predictive, agile or hybrid, career paths with optional certifications), an account profile, a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
 Student data:
 `;
 function openDrawer(){
@@ -1430,7 +1548,7 @@ function renderChips(){
 }
 function renderLog(streaming){
   const log=document.getElementById("log");
-  let h=chatTurns.length?"":`<div class="msgb note">Hi, I'm Aron, your PMP coach. Ask me about any concept, a question you missed, or how to study. I can see your heat map.</div>`;
+  let h=chatTurns.length?"":`<div class="msgb note">Hi${PROFILE&&PROFILE.name?" "+esc(PROFILE.name.split(" ")[0]):""}, I'm Aron, your ${esc(TRACKS[TRACK].name)} coach. Ask me anything: a concept, a question you missed, careers, or how to study. ${AI?"I can see your heat map.":"Right now I'm offline, so I answer from the app's notes."} Press / to open me from anywhere.</div>`;
   if(examLocked())h+=`<div class="msgb note">Aron is paused while an exam simulation is running. It comes back when you submit.</div>`;
   chatTurns.forEach(t=>h+=t.role==="user"?`<div class="msgb me">${esc(t.show||t.content)}</div>`:`<div class="msgb ai md">${t.err?`<p class="bad">${esc(t.content)}</p>`:md(t.content)}</div>`);
   if(streaming!==undefined)h+=`<div class="msgb ai md" id="live">${streaming?md(streaming):THINK}</div>`;
@@ -1439,11 +1557,12 @@ function renderLog(streaming){
   document.getElementById("chat-send").textContent=busy?"Stop":"Send";
   document.getElementById("chat-send").classList.toggle("primary",!busy);
 }
-async function send(text,show){
-  text=(text||"").trim();if(!text||!AI)return;
+async function send(text,show,offline){
+  text=(text||"").trim();if(!text)return;
   if(chatCtl)return;
   openDrawer();
   if(examLocked()){renderLog();return;}
+  if(!AI){chatTurns.push({role:"user",content:text,show});chatTurns.push({role:"assistant",content:offlineReply(text,offline)});renderLog();return;}
   chatTurns.push({role:"user",content:text,show});
   const turns=[{role:"user",content:tutorRules()+studentContext()},...chatTurns.filter(t=>!t.err).slice(-12).map(t=>({role:t.role,content:t.content}))];
   if(turns[turns.length-1].role!=="user")return;
@@ -1460,7 +1579,7 @@ async function send(text,show){
 function askAbout(q,p){
   const t=TASKS[q.task];
   const body=`Help me understand this practice question (${domOf(q.task).name} · ${t.name}).\n\nQuestion: ${q.q}\n${q.opts.map((o,k)=>"ABCD"[k]+". "+o).join("\n")}\n\nCorrect answer: ${"ABCD"[q.ans]}. ${p===null||p===undefined?"I didn't answer.":"I chose "+"ABCD"[p]+"."}\nThe app's explanation: ${q.exp||"none"}\n\nWhy is the correct answer the best choice${p!==null&&p!==q.ans?", and why is my choice wrong":""}? Give me a memory hook.`;
-  send(body,`Explain: "${q.q.slice(0,90)}${q.q.length>90?"…":""}"`);
+  send(body,`Explain: "${q.q.slice(0,90)}${q.q.length>90?"…":""}"`,AI?null:`**The answer is ${"ABCD"[q.ans]}.** ${q.exp||""}${refOf(q)?"\n\nSource: "+refOf(q):""}`);
 }
 async function debrief(){
   if(!AI||!quiz)return;
@@ -1515,8 +1634,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -1528,7 +1647,7 @@ function cloudSave(){
 async function flushSave(){
   if(saving){saveAgain=true;return;}
   saving=true;
-  try{await DB.doc("progress/"+UID).set({attempts:ALLA.slice(-1500),sessions:ALLS.slice(-150),updated:Date.now()});}
+  try{await DB.doc("progress/"+UID).set({attempts:ALLA.slice(-1500),sessions:ALLS.slice(-150),profile:PROFILE,updated:Date.now()});}
   catch(e){if(e&&e.code==="invalid_argument"){cloudRO=true;setSync();}}
   saving=false;if(saveAgain){saveAgain=false;flushSave();}
 }
@@ -1545,7 +1664,7 @@ function renderQForm(){
   const taskOpts=DOMAINS.map(D=>`<optgroup label="${D.name}">${D.tasks.map(([id,n])=>`<option value="${id}" ${id===v.task?"selected":""}>${esc(n)}</option>`).join("")}</optgroup>`).join("");
   return `<section class="card" id="qform-card" style="grid-column:1/-1"><h2>${e?"Edit question":"Add a question"}</h2>
    <form class="qform" id="qform">
-    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Quiz<input id="qf-quiz" list="qf-quizzes" value="${esc((e&&e.quiz)||"")}" placeholder="Quiz 1"><datalist id="qf-quizzes">${QUIZ_SLOTS.map(s=>`<option value="${s.name}">`).join("")}</datalist></label><label>Number<input id="qf-qn" type="number" min="1" value="${(e&&e.qn)||""}"></label><label>Difficulty<select id="qf-diff">${[1,2,3].map(d=>`<option value="${d}" ${d===((e&&e.diff)||1)?"selected":""}>${DIFF_NAME[d]}</option>`).join("")}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
+    <div class="row"><label>Task area<select id="qf-task">${taskOpts}</select></label><label>Quiz<input id="qf-quiz" list="qf-quizzes" value="${esc((e&&e.quiz)||"")}" placeholder="Quiz 1"><datalist id="qf-quizzes">${QUIZ_SLOTS.map(s=>`<option value="${s.name}">`).join("")}</datalist></label><label>Number<input id="qf-qn" type="number" min="1" value="${(e&&e.qn)||""}"></label><label>Difficulty<select id="qf-diff">${[1,2,3,4].map(d=>`<option value="${d}" ${d===((e&&e.diff)||1)?"selected":""}>${DIFF_NAME[d]}</option>`).join("")}</select></label><label>Correct answer<select id="qf-ans">${["A","B","C","D"].map((L,k)=>`<option value="${k}" ${k===v.ans?"selected":""}>${L}</option>`).join("")}</select></label></div>
     <label>Question<textarea id="qf-q" required>${esc(v.q)}</textarea></label>
     <div class="row">${["a","b","c","d"].map(k=>`<label>Option ${k.toUpperCase()}<input id="qf-${k}" value="${esc(v[k])}" ${k<"c"?"required":""}></label>`).join("")}</div>
     <label>Explanation shown after answering<textarea id="qf-exp">${esc(v.exp)}</textarea></label>
@@ -1585,15 +1704,15 @@ function renderBankReadOnly(){
 /* ---------- Sprint quizzes: ECO tagging, difficulty check, test data ---------- */
 const QUIZ_SLOTS=[
  {name:"Quiz 1",role:"Baseline quiz"},{name:"Quiz 2",role:"Baseline quiz"},{name:"Quiz 3",role:"Baseline quiz"},
- {name:"Quiz 4",role:"Validation quiz · advanced",validation:true}];
+ {name:"Quiz 4",role:"Validation quiz · hard",validation:true}];
 function parseDiff(s){s=String(s??"").trim().toLowerCase();if(!s)return null;
-  if(/^(1|e|basic|low|beginner)/.test(s))return 1;if(/^(2|m|intermediate)/.test(s))return 2;if(/^(3|a|hard|difficult|high|v)/.test(s))return 3;return null;}
+  if(/^(4|v|expert|extreme)/.test(s))return 4;if(/^(1|e|basic|low|beginner)/.test(s))return 1;if(/^(2|m|intermediate)/.test(s))return 2;if(/^(3|a|h|difficult|high)/.test(s))return 3;return null;}
 function normQuiz(s){s=String(s??"").trim();if(!s)return "";const m=s.match(/^(?:quiz)?\s*#?\s*(\d+)$/i);return m?"Quiz "+m[1]:s;}
 function quizNames(){const set=new Set(QUIZ_SLOTS.map(s=>s.name));state.bank.forEach(q=>{if(q.quiz)set.add(q.quiz);});return [...set];}
 function quizQs(name){return state.bank.filter(q=>q.quiz===name).sort((a,b)=>(a.qn??1e9)-(b.qn??1e9)||(a.order??1e9)-(b.order??1e9)||String(a.id).localeCompare(String(b.id)));}
 const isValidation=name=>!!(QUIZ_SLOTS.find(s=>s.name===name)||{}).validation;
-const DIFF_SHORT={1:"E",2:"M",3:"A"};
-function suggestDiff(p){return p>=.75?1:p>=.45?2:3;}
+const DIFF_SHORT={1:"E",2:"M",3:"H",4:"VH"};
+function suggestDiff(p){return p>=.8?1:p>=.6?2:p>=.4?3:4;}
 // pool = [{who, attempts, sessions}]
 function myPool(){return [{who:UID||"me",attempts:state.attempts,sessions:state.sessions}];}
 function classPool(){return (classDocs||[]).filter(d=>Array.isArray(d.attempts)).map(d=>({who:d.id,attempts:d.attempts.filter(a=>trackOfA(a)===TRACK),sessions:(d.sessions||[]).filter(x=>(x.track||"pmp")===TRACK)}));}
@@ -1618,14 +1737,14 @@ function renderQuizzes(){
   // quiz cards
   const cards=names.map(name=>{
     const qs=quizQs(name),slot=QUIZ_SLOTS.find(s=>s.name===name),val=isValidation(name);
-    const mix={1:0,2:0,3:0,0:0};qs.forEach(q=>mix[q.diff||0]++);
+    const mix={1:0,2:0,3:0,4:0,0:0};qs.forEach(q=>mix[q.diff||0]++);
     const doms={};qs.forEach(q=>{const d=TASKS[q.task].domain;doms[d]=(doms[d]||0)+1;});
     const ls=latestQuizSession(myPool()[0],name);
-    const bar=qs.length?`<div class="mixbar" aria-label="Difficulty mix">${[1,2,3,0].map(d=>mix[d]?`<i class="m${d}" style="flex:${mix[d]}" title="${d?DIFF_NAME[d]:"Untagged"}: ${mix[d]}"></i>`:"").join("")}</div>
-      <div class="mixkey">${[1,2,3].map(d=>`<span><i class="m${d}"></i>${DIFF_NAME[d]} ${mix[d]}</span>`).join("")}${mix[0]?`<span><i class="m0"></i>Untagged ${mix[0]}</span>`:""}</div>
+    const bar=qs.length?`<div class="mixbar" aria-label="Difficulty mix">${[1,2,3,4,0].map(d=>mix[d]?`<i class="m${d}" style="flex:${mix[d]}" title="${d?DIFF_NAME[d]:"Untagged"}: ${mix[d]}"></i>`:"").join("")}</div>
+      <div class="mixkey">${[1,2,3,4].map(d=>`<span><i class="m${d}"></i>${DIFF_NAME[d]} ${mix[d]}</span>`).join("")}${mix[0]?`<span><i class="m0"></i>Untagged ${mix[0]}</span>`:""}</div>
       <div class="mixkey">${DOMAINS.map(D=>`<span><i style="background:var(--c-${D.id})"></i>${D.name} ${doms[D.id]||0}</span>`).join("")}</div>`
       :`<p class="ainote" style="margin:0">No questions yet. ${admin||!DB?`Upload them in <a href="#" data-goto="bank">Question bank</a> with the quiz column set to “${esc(name)}”.`:"Your instructor hasn't added them yet."}</p>`;
-    return `<article class="quizcard${val?" val":""}"><div class="qhead"><span class="label">${esc(slot?slot.role:"Quiz")}</span>${val?`<span class="diff d3">Advanced</span>`:""}</div>
+    return `<article class="quizcard${val?" val":""}"><div class="qhead"><span class="label">${esc(slot?slot.role:"Quiz")}</span>${val?`<span class="diff d3">Hard</span>`:""}</div>
       <h3>${esc(name)}</h3><span class="label num">${qs.length} question${qs.length===1?"":"s"}${ls?` · your last score ${ls.c}/${ls.n} (${pct(ls.c/ls.n)})`:""}</span>
       ${bar}
       <div class="actions"><button class="btn ${qs.length?"primary":"ghost"}" data-takequiz="${esc(name)}" ${qs.length?"":"disabled"}>${ls?"Retake":"Take quiz"}</button></div></article>`;
@@ -1647,7 +1766,7 @@ function renderQuizzes(){
     return {q,r,p,s,st,cls,rank:{bad:0,warn:1,good:2,muted:3}[cls]};}).filter(x=>x.r.n||!x.q.diff||tagged).sort((a,b)=>a.rank-b.rank||(a.p??2)-(b.p??2));
   const counts={};dRows.forEach(x=>counts[x.st]=(counts[x.st]||0)+1);
   const canFix=q=>admin||(!DB&&q.src==="Uploaded");
-  const dCard=`<section class="card"><div class="mapbar"><h2>Difficulty check</h2><span class="label">${scope==="class"?`Class answers · at least ${minN} per question`:"Your answers"} · Easy ≥ 75% correct · Moderate 45–74% · Advanced &lt; 45%</span></div>
+  const dCard=`<section class="card"><div class="mapbar"><h2>Difficulty check</h2><span class="label">${scope==="class"?`Class answers · at least ${minN} per question`:"Your answers"} · Easy ≥ 80% correct · Medium 60–79% · Hard 40–59% · Very hard &lt; 40%</span></div>
     <div class="statrow">${["Matches","Easier than tagged","Harder than tagged","Not tagged","Needs more answers"].map(k=>`<div><span class="label">${k}</span><b>${counts[k]||0}</b></div>`).join("")}</div>
     ${dRows.length?`<div class="tablewrap"><table><thead><tr><th>Quiz</th><th>Question</th><th>Tagged</th><th>Correct</th><th>Real level</th><th>Status</th>${dRows.some(x=>canFix(x.q))?"<th></th>":""}</tr></thead><tbody>${dRows.slice(0,60).map(x=>`<tr><td class="num">${esc(x.q.quiz||"–")}${x.q.qn?` #${x.q.qn}`:""}</td><td>${esc(x.q.q.length>90?x.q.q.slice(0,90)+"…":x.q.q)}<br><span class="label" style="letter-spacing:.04em">${esc(x.q.task)} · ${esc(TASKS[x.q.task].name)}</span></td><td>${x.q.diff?`<span class="diff d${x.q.diff}">${DIFF_NAME[x.q.diff]}</span>`:"–"}</td><td class="num">${pct(x.p)} <span style="color:var(--muted)">(${x.r.n})</span></td><td>${x.s?`<span class="diff d${x.s}">${DIFF_NAME[x.s]}</span>`:"–"}</td><td><span class="stat ${x.cls}">${x.st}</span></td>${dRows.some(y=>canFix(y.q))?`<td>${canFix(x.q)&&x.s&&x.s!==x.q.diff&&x.r.n>=5?`<button class="btn ghost sm" data-setdiff="${esc(x.q.id)}" data-d="${x.s}">Use ${DIFF_NAME[x.s]}</button>`:""}</td>`:""}</tr>`).join("")}</tbody></table></div>${dRows.length>60?`<p class="ainote" style="margin:0">Showing the 60 that most need a look. The CSV export has all of them.</p>`:""}`:`<p style="margin:0">No answers yet. Once students take the quizzes, each question's real difficulty shows here next to its tag.</p>`}
     <div class="actions"><button class="btn" id="dl-diff">Download difficulty report (CSV)</button></div></section>`;
@@ -1829,10 +1948,300 @@ function renderCredits(){const el=document.getElementById("credits");if(!el)retu
   el.innerHTML=`<details><summary>Photo credits</summary><ul>${list.map(([k,p])=>`<li>${esc(p.cap||k)}: <a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.credit)}</a></li>`).join("")}</ul><p>Photos are from Wikimedia Commons under the licenses shown. Diagrams were drawn for PMP/ACP Guide.</p></details>`;}
 function renderStudyTopics(){
   return `<section class="topics">${(STUDY[TRACK]||[]).map((t,i)=>{const tasks=t[1].filter(id=>TASKS[id]);const st=stats();const m=tasks.map(id=>st.t[id]).filter(x=>x&&x.n);const mm=m.length?m.reduce((s,x)=>s+x.m,0)/m.length:null;
-    return `<article class="topic"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+    return `<article class="topic reveal"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
       <div class="tchips">${tasks.map(id=>`<span class="dchip" style="--dc:var(--c-${TASKS[id].domain})">${esc(id)} · ${esc(TASKS[id].name)}</span>`).join("")}${mm!==null?`<span class="pill ${rating(mm)[0]}">Your mastery ${pct(mm)}</span>`:""}</div>
-      <div class="actions"><a class="btn yt" href="${yt(t[4])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>Watch on YouTube</a>${tasks.some(id=>state.bank.some(q=>q.task===id))?`<button class="btn" data-studyq="${tasks.find(id=>state.bank.some(q=>q.task===id))}">Practice this</button>`:""}<button class="btn ghost ai-only" data-hubask="${esc(`Teach me "${t[0]}" for the ${TRACKS[TRACK].name} exam in under 160 words with one example, then ask me one exam-style question on it.`)}">Ask Aron</button></div></div></article>`;}).join("")}</section>`;
+      <div class="actions">${TOPIC_VIDEO[TRACK+":"+i]?`<a class="btn primary vbtn" href="${ytWatch(VIDEOS[TOPIC_VIDEO[TRACK+":"+i]].id)}" target="_blank" rel="noopener">▶ Watch explainer</a>`:""}<a class="btn yt" href="${yt(t[4])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>More videos</a>${tasks.some(id=>state.bank.some(q=>q.task===id))?`<button class="btn" data-studyq="${tasks.find(id=>state.bank.some(q=>q.task===id))}">Practice this</button>`:""}<button class="btn ghost" data-hubask="${esc(`Teach me "${t[0]}" for the ${TRACKS[TRACK].name} exam in under 160 words with one example, then ask me one exam-style question on it.`)}">Ask Aron</button></div></div></article>`;}).join("")}</section>`;
 }
+
+/* ---------- Round 3 content: military bridge, industries, careers, sourced questions, videos ---------- */
+const MIL_MAP=[
+ ["Commander's intent","Project vision and objectives","The purpose and end state everyone works toward, so the team can adapt when the plan breaks."],
+ ["Mission analysis and METT-TC","Scope, constraints and environment","Understanding the task, the conditions, the resources and the time before committing to a plan."],
+ ["Troop leading procedures","The project life cycle","Receive, plan, prepare, execute, assess: initiating, planning, executing, monitoring and closing."],
+ ["Operations order (OPORD)","Project management plan","Situation, mission, execution, sustainment, command and signal: scope, schedule, resources and communications in one plan."],
+ ["Task organization","Team structure and RACI","Who owns which task, who supports, and who must be informed."],
+ ["Backbrief","Plan validation","Subordinates explain the plan back to confirm understanding, just as a team reviews and baselines a plan."],
+ ["Rehearsal (ROC drill)","Schedule walk-through","Walking the sequence before execution exposes dependencies and timing problems, like a critical-path review."],
+ ["PACE plan","Risk responses and contingency","Primary, alternate, contingency, emergency: planned responses before the risk occurs."],
+ ["Logistics and sustainment","Procurement and resources","Getting the right equipment and supplies to the right place at the right time."],
+ ["Battle rhythm","Communications plan and cadence","Recurring meetings, reports and syncs that keep everyone aligned."],
+ ["SITREP","Status report","Current situation, progress against plan, issues and next steps."],
+ ["FRAGO","Change request","A change to the order, issued through a controlled process and communicated to all."],
+ ["Mission command","Servant leadership and empowered teams","Give intent and resources, then trust disciplined initiative, the same idea behind self-organizing agile teams."],
+ ["After action review (AAR)","Lessons learned and retrospectives","What was supposed to happen, what happened, why, and what to sustain or improve."]];
+const MIL_EXAMPLES=[
+ ["Moving a convoy","Route planning, timing, risk, comms: a schedule with dependencies and a risk register."],
+ ["Fielding new equipment","Training, logistics, acceptance testing and handover: a full project life cycle."],
+ ["Planning a range day","Scope, resources, safety approvals and stakeholders, on a fixed date."],
+ ["A barracks renovation","Contracts, budget, inspections and change orders: a predictive construction project."],
+ ["Standing up a new unit system","Requirements, user feedback and iterations: an agile rollout."]];
+
+/* Typical approach per industry. pos: 0 = predictive, 50 = hybrid, 100 = agile */
+const INDUSTRY_METHODS=[
+ {id:"construction",name:"Construction",m:"Predictive",pos:12,why:"Designs, permits and contracts are fixed early, and changes get expensive once work is built.",ex:"A new clinic: design, bid, build, inspect, hand over. Lean tools such as the Last Planner System add pull planning on site.",roles:["Construction project manager","Project engineer","Scheduler"]},
+ {id:"datacenter",name:"Data centers",m:"Hybrid",pos:38,why:"The building, power and cooling follow a fixed plan; the IT fit-out and migrations run in waves.",ex:"Shell and power on a predictive schedule, then server migrations in two-week waves.",roles:["Data center project manager","Commissioning manager","IT infrastructure PM"]},
+ {id:"software",name:"Software and IT",m:"Agile",pos:90,why:"Requirements change quickly and working software can ship often, so short feedback loops pay off.",ex:"A mobile app built in Scrum sprints, with continuous delivery. Large companies may scale with frameworks such as SAFe.",roles:["Scrum Master","Product Owner","IT project manager"]},
+ {id:"health",name:"Healthcare",m:"Hybrid",pos:45,why:"Regulation and patient safety need firm plans; clinical software is configured with users in iterations.",ex:"An electronic health record rollout: fixed go-live and compliance milestones, iterative build and testing with clinicians.",roles:["Healthcare project manager","Clinical systems PM","Quality improvement lead"]},
+ {id:"defense",name:"Defense and logistics",m:"Hybrid",pos:42,why:"Acquisition programs use milestone reviews; software is increasingly built with agile methods.",ex:"A vehicle program with milestone decisions, while its software team delivers in sprints.",roles:["Program manager","Logistics project manager","Acquisition specialist"]},
+ {id:"energy",name:"Energy",m:"Predictive",pos:15,why:"Engineering, procurement and construction run on stage gates with heavy safety and permitting.",ex:"A wind farm: site studies, permits, turbine procurement, construction, commissioning.",roles:["Energy project manager","Project controls specialist","Construction manager"]},
+ {id:"manufacturing",name:"Manufacturing",m:"Hybrid",pos:40,why:"New products pass stage gates; day-to-day improvement uses Lean and continuous improvement.",ex:"A new production line with stage-gate approvals, then Kaizen events to improve it.",roles:["Manufacturing project manager","Continuous improvement lead","Operations manager"]},
+ {id:"aerospace",name:"Aerospace",m:"Predictive to hybrid",pos:28,why:"Systems engineering with formal design reviews and certification; software and prototypes iterate.",ex:"An aircraft upgrade with design reviews and flight test, plus iterative avionics software.",roles:["Program manager","Systems engineering PM","Integration manager"]},
+ {id:"infrastructure",name:"Infrastructure",m:"Predictive",pos:10,why:"Public funding, environmental reviews and fixed scope favor a detailed plan up front.",ex:"A bridge replacement: environmental review, design, procurement, phased construction.",roles:["Infrastructure project manager","Resident engineer","Project controls"]},
+ {id:"government",name:"Government",m:"Hybrid",pos:48,why:"Budgets and procurement are planned annually; digital services increasingly use agile delivery.",ex:"A benefits website built in sprints with users, inside a fixed contract and budget year.",roles:["Government program analyst","Digital service PM","Contracting officer's representative"]}];
+
+/* Career paths: [role, field, what you need, optional certifications, military bridge] */
+const CAREERS=[
+ {role:"Project coordinator",field:"Any industry",need:["Strong organization and follow-up","Scheduling and tracking tools (Excel, MS Project, Jira)","Clear writing and meeting notes"],certs:[["CAPM","PMI"],["CompTIA Project+","CompTIA"]],mil:"Operations, admin and training NCOs already coordinate schedules, people and reports."},
+ {role:"Project manager",field:"Any industry",need:["3 to 5 years leading projects or teams","Budget, schedule and risk management","Stakeholder communication"],certs:[["PMP","PMI"],["PRINCE2","PeopleCert"]],mil:"Platoon leaders, platoon sergeants and staff officers lead missions with budgets, timelines and people."},
+ {role:"Construction project manager",field:"Construction and infrastructure",need:["Field experience and safety knowledge","Contracts, change orders and inspections","Often a construction management or engineering degree"],certs:[["PMI-CP (Construction Professional)","PMI"],["CCM","Construction Management Association of America"],["OSHA 30","OSHA-authorized trainers"],["LEED AP","U.S. Green Building Council"]],mil:"Engineers, Seabees and facilities NCOs manage builds, crews and inspections."},
+ {role:"Data center project manager",field:"Data centers and mission-critical facilities",need:["Basics of power, cooling and networking","Commissioning and change control in live sites","Vendor coordination"],certs:[["PMP","PMI"],["Accredited Tier Designer / Operations Specialist","Uptime Institute"],["RCDD","BICSI"]],mil:"Signal, cyber and communications maintenance backgrounds translate directly."},
+ {role:"IT project manager",field:"Software and IT",need:["Software delivery life cycle","Cloud and infrastructure basics","Agile and hybrid delivery"],certs:[["PMP","PMI"],["PMI-ACP","PMI"],["ITIL 4 Foundation","PeopleCert"]],mil:"IT, signal and cyber specialists who ran system rollouts or network upgrades."},
+ {role:"Scrum Master",field:"Software, IT and increasingly every industry",need:["Facilitation and coaching","Deep Scrum knowledge","Removing impediments and protecting the team"],certs:[["PSM I","Scrum.org"],["CSM","Scrum Alliance"],["PMI-ACP","PMI"],["SAFe Scrum Master","Scaled Agile"]],mil:"NCOs who coach teams, run AARs and protect their people's focus."},
+ {role:"Product owner",field:"Software, digital services and product companies",need:["Customer and business focus","Backlog ordering and decision-making","Measuring value"],certs:[["PSPO I","Scrum.org"],["CSPO","Scrum Alliance"],["PMI-PBA","PMI"]],mil:"Requirements officers and capability developers who define what the force needs."},
+ {role:"Program manager",field:"Defense, government, aerospace and large enterprises",need:["Several years managing projects","Managing related projects toward one benefit","Governance and executive communication"],certs:[["PgMP","PMI"],["DAWIA Program Management","Defense Acquisition University"],["SAFe Agilist","Scaled Agile"]],mil:"Field-grade officers and senior NCOs coordinating multiple efforts toward one mission."},
+ {role:"Healthcare project manager",field:"Hospitals, clinics and health IT",need:["Clinical workflows and patient safety","Privacy rules (HIPAA)","Change management with clinicians"],certs:[["PMP","PMI"],["CPHIMS","HIMSS"],["Lean Six Sigma Green Belt","ASQ and others"]],mil:"Medics, corpsmen and medical admin who know clinical operations."},
+ {role:"Continuous improvement lead",field:"Manufacturing, logistics and operations",need:["Process mapping and data analysis","Lean and Six Sigma tools","Leading change on the floor"],certs:[["Six Sigma Green or Black Belt","ASQ"],["CPIM","ASCM"],["PMP","PMI"]],mil:"Maintenance, supply and logistics leaders who improved readiness rates."},
+ {role:"Risk or scheduling specialist",field:"Construction, energy, aerospace and defense",need:["Schedule tools such as Primavera P6","Risk analysis and forecasting","Earned value"],certs:[["PMI-SP","PMI"],["PMI-RMP","PMI"]],mil:"Planners and operations staff who built synchronization matrices and risk assessments."},
+ {role:"Government project manager",field:"Federal, state and local government",need:["Public budgeting and procurement","Compliance and oversight","Stakeholder and public communication"],certs:[["FAC-P/PM","Federal Acquisition Institute"],["PMP","PMI"]],mil:"Veterans' preference and clearance can help for federal roles."}];
+const CERT_REQS=[
+ ["CAPM","PMI","Entry level","Secondary diploma and 23 hours of project management education. No experience needed."],
+ ["PMP","PMI","Experienced PM","Four-year degree with 36 months leading projects, or secondary diploma with 60 months; plus 35 hours of PM education (or the CAPM)."],
+ ["PMI-ACP","PMI","Agile practitioner","28 hours of agile training and agile experience within the last five years (PMI lists two to three years; less if you hold an agile certification or the PMP). Check pmi.org before applying."],
+ ["PSM I","Scrum.org","Scrum Master","No prerequisites. 80 questions in 60 minutes; 85% to pass. No renewal fee."],
+ ["CSM","Scrum Alliance","Scrum Master","Attend a course with a Certified Scrum Trainer, then pass the test. Renews every two years."],
+ ["PgMP","PMI","Program manager","Several years of project and program management experience, plus a panel review. See pmi.org for details."]];
+
+/* Explainer videos, found on YouTube (titles as listed there) */
+const VIDEOS={
+ evm:{id:"MO6EOMd-CkA",title:"Earned Value Management (1 of 4): Earned Value"},
+ cpm:{id:"Nui3YvFV64o",title:"Calculating Critical Path with Forward and Backward Pass"},
+ risk:{id:"e_pPs6qxVrY",title:"Strategies for Threats vs Opportunities"},
+ manifesto:{id:"v0h9yyGDIC8",title:"Agile Manifesto and Agile Principles explained"},
+ scrum:{id:"gy1c4_YixCo",title:"A Brief Overview of the Scrum Framework"},
+ cfd:{id:"uRpRPW3QV6g",title:"Making Flow Visible: The Cumulative Flow Diagram"},
+ scrum5:{id:"D-LVdyMme6I",title:"Scrum in 5 minutes from a Professional Scrum Trainer"}};
+const TOPIC_VIDEO={"pmp:0":"evm","pmp:1":"cpm","pmp:2":"risk","acp:0":"manifesto","acp:1":"scrum","acp:2":"cfd","acp:9":"cfd","psm:0":"scrum5","psm:2":"scrum"};
+const ytWatch=id=>"https://www.youtube.com/watch?v="+id;
+
+/* Sources */
+const SRC={
+ sg:s=>`Scrum Guide 2020 (Schwaber & Sutherland), "${s}"`,
+ apg:"Agile Practice Guide (PMI & Agile Alliance, 2017)",
+ man:"Manifesto for Agile Software Development (2001)",
+ eco:d=>`PMI-ACP Exam Content Outline (2024), ${d} domain`};
+const REF_BY_TASK={AM1:SRC.man,AM2:SRC.apg,AM3:SRC.apg,AL1:SRC.eco("Leadership")+"; "+SRC.apg,AL2:SRC.eco("Leadership"),AL3:SRC.eco("Leadership")+"; "+SRC.apg,AL4:SRC.apg,AP1:SRC.eco("Product"),AP2:SRC.apg,AP3:SRC.apg,AD1:SRC.apg+", Kanban",AD2:SRC.apg,AD3:SRC.apg+", XP practices",AD4:SRC.apg,
+ SF1:SRC.sg("Scrum Theory; Scrum Values"),SF2:SRC.sg("Scrum Team"),SF3:SRC.sg("Scrum Events"),SF4:SRC.sg("Scrum Artifacts"),ST1:SRC.sg("Scrum Team"),ST2:SRC.sg("Scrum Master"),SP1:SRC.sg("Product Owner"),SP2:SRC.sg("Product Backlog"),SP3:SRC.sg("Product Backlog"),SP4:SRC.sg("Sprint Review")};
+const REF_OVERRIDE={acp14:"Scaled Agile Framework (SAFe), WSJF; "+SRC.eco("Product"),acp15:"DSDM / MoSCoW prioritization; "+SRC.eco("Product"),acp18:"Bill Wake, INVEST (2003); "+SRC.apg,acp23:"Little's Law; "+SRC.apg+", Kanban",
+ psm7:SRC.sg("Daily Scrum"),psm8:SRC.sg("Sprint Planning"),psm9:SRC.sg("The Sprint"),psm10:SRC.sg("The Sprint"),psm11:SRC.sg("Sprint Review"),psm12:SRC.sg("Sprint Retrospective"),psm13:SRC.sg("Product Backlog"),psm14:SRC.sg("Commitment: Definition of Done"),psm15:SRC.sg("Increment"),psm16:SRC.sg("Commitment: Definition of Done"),psm17:SRC.sg("Commitment: Definition of Done"),psm28:SRC.sg("The Sprint"),psm27:SRC.sg("Scrum Team"),psm19:SRC.sg("The Sprint"),psm23:SRC.sg("Daily Scrum")};
+
+/* New questions, 4 levels: 1 Easy, 2 Medium, 3 Hard, 4 Very hard. [task, q, opts, ans, exp, diff, ref] */
+const ACP_QS2=[
+["AD2","Which approach uses fixed-length iterations, and which uses continuous flow without iterations?",["Kanban iterations; Scrum flow","Scrum iterations; Kanban flow","Both use fixed iterations","Neither uses iterations"],1,"Scrum works in fixed-length Sprints. Kanban pulls work continuously and limits WIP instead of using iterations.",2,SRC.apg],
+["AD2","A team's velocity swings widely from iteration to iteration. What is the best first step?",["Set a velocity target the team must hit","Inspect the causes in a retrospective, such as unplanned work or poor story slicing","Stop measuring velocity","Average it and promise that number"],1,"Velocity is a planning aid, not a target. Inspect the causes and adapt how work is sized and protected.",2,SRC.apg],
+["AP2","What is the main purpose of a spike?",["A sudden increase in velocity","A time-boxed investigation to reduce uncertainty","An emergency bug fix","A stakeholder escalation"],1,"A spike is a short, time-boxed research task that buys knowledge so the team can estimate or decide.",2,SRC.apg+", XP"],
+["AD4","Which chart best shows the work remaining against time within one iteration?",["Burndown chart","Gantt chart","Pareto chart","Fishbone diagram"],0,"A burndown chart plots remaining work over time for the iteration.",2,SRC.apg],
+["AM3","A regulated medical device project needs fixed regulatory documents, but the user interface is still uncertain. Which approach fits best?",["Fully predictive for everything","Fully agile, skipping the regulatory plan","Hybrid: plan the regulatory deliverables, iterate on the interface with users","Wait until the interface is known"],2,"The Agile Practice Guide describes hybrid approaches: plan what is certain and regulated, iterate on what is uncertain.",3,SRC.apg+", hybrid approaches"],
+["AP1","A Kano analysis finds a feature customers expect and only notice when it is missing. Which category is it?",["Delighter","Performance","Basic (must-be)","Indifferent"],2,"Basic needs cause dissatisfaction when absent but add little satisfaction when present.",3,"Kano model (N. Kano, 1984); "+SRC.eco("Product")],
+["AM3","Which is the strongest sign that a team is self-organizing?",["The manager assigns tasks each morning","Team members pull work and decide together how to meet the goal","The team follows a detailed task plan","The Scrum Master approves each change"],1,"Self-organizing teams decide who does what and how, toward a shared goal.",3,SRC.apg],
+["AL2","A distributed team spans three time zones and collaboration is suffering. What should the agile leader do first?",["Move everyone to email","Agree on overlapping core hours, working agreements and shared visual tools","Split the team by time zone without discussion","Increase status reporting"],1,"Distributed teams need deliberate overlap, explicit agreements and shared visibility.",3,SRC.apg],
+["AL4","A senior stakeholder asks a developer to add work mid-iteration, bypassing the product owner. What should the servant leader do?",["Let the developer decide","Redirect the request to the product owner to prioritize in the backlog","Add it and extend the iteration","Escalate to HR"],1,"Work enters through the product owner and the backlog. This protects focus and keeps priorities transparent.",3,SRC.eco("Leadership")],
+["AD3","Which statement about technical debt is most accurate?",["It never affects delivery speed","Make it visible and pay it down continuously as backlog work","Fix it only in a final hardening phase","Hide it from stakeholders"],1,"Unmanaged technical debt slows future delivery. Agile teams make it visible and reduce it continuously.",3,SRC.apg],
+["AD1","Throughput stayed the same while average cycle time doubled. By Little's Law, what happened to average WIP?",["It halved","It stayed the same","It doubled","It cannot be known"],2,"Cycle time = WIP ÷ throughput. With throughput constant, doubling cycle time means WIP doubled.",4,"Little's Law; "+SRC.apg+", Kanban"],
+["AP3","The sponsor wants a fixed scope and fixed date for a year-long agile product. What is the best response?",["Commit to everything to keep the sponsor happy","Fix time and budget, flex scope, and give forecasts with ranges updated every iteration","Refuse to give any date","Switch to fully predictive"],1,"Agile teams usually fix time and cost and let scope flex, sharing honest forecasts that improve with data.",4,SRC.apg],
+["AP1","Using WSJF: A has cost of delay 8 and size 2; B has 21 and 8; C has 13 and 3. In what order should they go?",["A, B, C","C, A, B","B, C, A","A, C, B"],1,"WSJF: A = 4.0, B = 2.6, C = 4.3. So C, then A, then B.",4,"Scaled Agile Framework (SAFe), WSJF"],
+["AP3","Velocity over the last three iterations was 18, 24 and 21. 126 points remain and a 15-point addition was approved. Using average velocity, how many iterations remain?",["6","7","8","9"],1,"Average velocity = 21. Remaining = 126 + 15 = 141. 141 ÷ 21 = 6.7, so 7 iterations.",4,SRC.apg],
+["AD3","Escaped defects rose after management pushed the team to raise velocity. What is the most likely cause and best response?",["The testers are weak; replace them","The team cut quality to hit a velocity target; stop using velocity as a target and strengthen the Definition of Done and automation","Velocity should be raised further","Add a QA phase at the end of the release"],1,"Turning a measure into a target distorts it. Protect quality with a strong Definition of Done and test automation.",4,SRC.apg],
+["AD4","A team's cumulative flow diagram shows the Done band flat for three weeks while the In progress band keeps widening. What is the best action?",["Start more work to raise throughput","Find what is blocking completion, limit WIP and swarm to finish items","Remove the Done column","Wait for the release review"],1,"A flat Done line with growing WIP means work is stuck. Limit WIP and swarm to restore flow.",4,SRC.apg+", Kanban"]];
+const PSM_QS2=[
+["SF2","What are the Developers accountable for?",["Ordering the Product Backlog","Instilling quality by adhering to a Definition of Done","Making sure Scrum events take place","Maximizing the value of the product"],1,"Developers create the Sprint Backlog plan, instill quality through the Definition of Done, adapt their plan daily and hold each other accountable.",2,SRC.sg("Developers")],
+["SF3","When does the next Sprint begin?",["After a planning break","Immediately after the previous Sprint ends","When the Product Owner is ready","At the start of the next month"],1,"A new Sprint starts immediately after the conclusion of the previous Sprint.",2,SRC.sg("The Sprint")],
+["SF3","What is the purpose of the Daily Scrum?",["Report status to the Scrum Master","Inspect progress toward the Sprint Goal and adapt the Sprint Backlog","Assign tasks for the day","Update stakeholders"],1,"The Daily Scrum inspects progress toward the Sprint Goal and adapts the Sprint Backlog as needed.",2,SRC.sg("Daily Scrum")],
+["SF3","In Sprint Planning, who selects how many Product Backlog items go into the Sprint?",["The Product Owner alone","The Scrum Master","The Developers, in discussion with the Product Owner","The stakeholders"],2,"Through discussion with the Product Owner, the Developers select items for the Sprint. They know their capacity best.",3,SRC.sg("Sprint Planning")],
+["SP1","The Product Owner wants a business analyst to handle Product Backlog ordering. Is this allowed?",["No, never","Yes, but the Product Owner remains accountable","Yes, and the analyst becomes accountable","Only with the Scrum Master's approval"],1,"The Product Owner may delegate the work, but stays accountable for effective Product Backlog management.",3,SRC.sg("Product Owner")],
+["SF4","Three Scrum Teams build one product. What must be true about their Definition of Done?",["Each team writes its own","They must mutually define and follow the same Definition of Done","Only the strictest team needs one","The Product Owner writes it for them"],1,"When multiple Scrum Teams work on a product, they must mutually define and comply with the same Definition of Done.",3,SRC.sg("Commitment: Definition of Done")],
+["SF1","Scrum uses an iterative, incremental approach mainly to…",["Maximize the number of features","Optimize predictability and control risk","Remove the need for planning","Measure individual productivity"],1,"Scrum employs an iterative, incremental approach to optimize predictability and to control risk.",3,SRC.sg("Scrum Theory")],
+["SF2","Can a Scrum Master also work on Sprint Backlog items?",["No, it is forbidden","Yes; when actively working on Sprint Backlog items, they take part as a Developer","Only if the Product Owner agrees","Only in the first Sprint"],1,"If the Product Owner or Scrum Master are actively working on items in the Sprint Backlog, they participate as Developers.",3,SRC.sg("Daily Scrum")],
+["SF4","A team holds every finished Increment until the Sprint Review. What does the Scrum Guide say?",["That is required","The Sprint Review should never be considered a gate to releasing value","Increments can only be released at the end of a release","The Scrum Master decides"],1,"An Increment may be delivered to stakeholders before the end of the Sprint. The Review is not a release gate.",3,SRC.sg("Increment")],
+["SF3","Who crafts the Sprint Goal?",["The Product Owner alone","The Developers alone","The whole Scrum Team collaborates on it","The stakeholders"],2,"The Product Owner proposes how the product could increase its value; the whole Scrum Team then collaborates to define the Sprint Goal.",4,SRC.sg("Sprint Planning")],
+["SP2","Mid-Sprint, an important new requirement appears and the Sprint Goal still makes sense. What should happen?",["The Scrum Master adds it to the Sprint Backlog","The Product Owner orders it in the Product Backlog; scope may be renegotiated with the Developers only if the Sprint Goal is not endangered","The Sprint is cancelled","It waits for the next release"],1,"No changes are made that would endanger the Sprint Goal. Scope may be clarified and renegotiated with the Product Owner as more is learned.",4,SRC.sg("The Sprint")],
+["SF2","Who is accountable for creating a valuable, useful Increment every Sprint?",["The Developers","The Product Owner","The Scrum Master","The entire Scrum Team"],3,"The Scrum Guide says the entire Scrum Team is accountable for creating a valuable, useful Increment every Sprint.",4,SRC.sg("Scrum Team")],
+["SF3","The Retrospective identifies a high-impact improvement. What does the Scrum Guide suggest?",["Save it for the next quarter","Address it as soon as possible; it may even be added to the next Sprint Backlog","Ask management for approval first","Document it only"],1,"The most impactful improvements are addressed as soon as possible and may be added to the Sprint Backlog for the next Sprint.",4,SRC.sg("Sprint Retrospective")],
+["SF1","How does the Scrum Guide describe the Scrum framework?",["A complete methodology with every practice defined","Purposefully incomplete, defining only the parts required to implement Scrum theory","A set of optional suggestions","A project management process"],1,"The framework is purposefully incomplete; people's collective intelligence fills in the rest.",4,SRC.sg("Scrum Definition")],
+["SF1","Inspection shows the product is unacceptable. According to Scrum theory, what must happen?",["Wait until the end of the release","Adjust the process or the materials being produced as soon as possible","Escalate to management","Add more inspections"],1,"If any aspect deviates outside acceptable limits, the process or materials must be adjusted as soon as possible to minimize further deviation.",4,SRC.sg("Scrum Theory")]];
+
+function moreTrackQuestions(){
+  const out=[];
+  ACP_QS2.forEach((h,i)=>out.push({id:"acpx"+i,track:"acp",task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],ref:h[6],src:"Sample"}));
+  PSM_QS2.forEach((h,i)=>out.push({id:"psmx"+i,track:"psm",task:h[0],q:h[1],opts:h[2],ans:h[3],exp:h[4],diff:h[5],ref:h[6],src:"Sample"}));
+  return out;
+}
+function refOf(q){return q.ref||REF_OVERRIDE[q.id]||REF_BY_TASK[q.task]||(trackOfQ(q)==="pmp"&&q.src==="Sample"?"PMI PMP Exam Content Outline (2026); original practice question":"");}
+
+/* ---------- Round 3 UI: careers view, sheets, profile, offline Aron, motion ---------- */
+const RM=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Apple-style sheet that grows from the element you tapped */
+function openSheet(html,origin,label){
+  const wrap=document.createElement("div");wrap.className="sheet-wrap";
+  wrap.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(label||"Details")}"><button class="sheet-x" aria-label="Close">✕</button><div class="sheet-body">${html}</div></div>`;
+  const sh=wrap.querySelector(".sheet");
+  if(origin&&origin.getBoundingClientRect){const r=origin.getBoundingClientRect();sh.style.transformOrigin=`${Math.round(r.left+r.width/2-Math.max(0,(innerWidth-Math.min(760,innerWidth-32))/2))}px ${Math.round(r.top+r.height/2-40)}px`;}
+  document.body.appendChild(wrap);document.documentElement.classList.add("noscroll");
+  requestAnimationFrame(()=>wrap.classList.add("open"));
+  const prev=document.activeElement;
+  const close=()=>{wrap.classList.remove("open");wrap.classList.add("closing");document.removeEventListener("keydown",k);setTimeout(()=>{wrap.remove();document.documentElement.classList.remove("noscroll");if(prev&&prev.focus)prev.focus();},RM()?0:320);};
+  const k=e=>{if(e.key==="Escape")close();};document.addEventListener("keydown",k);
+  wrap.addEventListener("click",e=>{if(e.target===wrap||e.target.closest(".sheet-x"))close();});
+  setTimeout(()=>{const f=wrap.querySelector(".sheet-x");if(f)f.focus();},40);
+  return {el:wrap,close};
+}
+/* scroll reveal */
+let revealIO=null;
+function initReveal(){
+  if(RM()||!("IntersectionObserver" in window))return;
+  document.documentElement.classList.add("js-reveal");
+  revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revealIO.unobserve(e.target);}}),{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  const scan=()=>document.querySelectorAll(".reveal:not([data-rv])").forEach((n,i)=>{n.dataset.rv="1";const sib=n.parentElement?[...n.parentElement.children].indexOf(n):0;n.style.setProperty("--d",Math.min(sib,8)*60+"ms");revealIO.observe(n);});
+  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});scan();
+}
+/* Careers view */
+let indSel=0;
+function spectrum(pos,cls){return `<div class="spec ${cls||""}"><div class="spec-bar"><i style="left:${pos}%"></i></div><div class="spec-lbl"><span>Predictive</span><span>Hybrid</span><span>Agile</span></div></div>`;}
+function industryPanel(i){
+  const x=INDUSTRY_METHODS[i],ph=FIELD_PHOTOS[x.id],f=FIELDS.find(f=>f.id===x.id);
+  return `<div class="ind-in"><div class="ind-photo" style="--g1:${f?f.g[0]:"#333"};--g2:${f?f.g[1]:"#111"}">${ph?`<img src="${esc(ph.src)}" alt="${esc(ph.cap||x.name)}">`:`<svg viewBox="0 0 340 200" aria-hidden="true">${fieldArt(x.id)}</svg>`}</div>
+   <div class="ind-txt"><span class="eyebrow">${esc(x.name)}</span><h3>Mostly ${esc(x.m.toLowerCase())}.</h3>${spectrum(x.pos)}<p>${esc(x.why)}</p><p class="ex"><b>Example.</b> ${esc(x.ex)}</p><div class="tchips">${x.roles.map(r=>`<span class="rolechip">${esc(r)}</span>`).join("")}</div>${ph?`<small class="cred">Photo: <a href="${esc(ph.href)}" target="_blank" rel="noopener">${esc(ph.credit)}</a></small>`:""}</div></div>`;
+}
+function milSheet(i){const m=MIL_MAP[i];return `<span class="eyebrow">You already know this</span><div class="mil-big"><span>${esc(m[0])}</span><span class="arrow">→</span><span class="grad-t">${esc(m[1])}</span></div><p class="lede">${esc(m[2])}</p><p style="color:var(--muted)">On the exam, use the project term, but think the way you did in uniform: understand intent, plan, rehearse, adapt, and learn.</p><div class="actions"><button class="btn primary" data-askaron="${esc(`I'm a veteran. Explain how "${m[0]}" from the military maps to "${m[1]}" in project management, with one exam-style example.`)}">Ask Aron to go deeper</button></div>`;}
+function careerSheet(i){const c=CAREERS[i];const trk=c.certs.map(x=>x[0]).join(" ");const study=[["PMP","pmp"],["PMI-ACP","acp"],["PSM I","psm"]].filter(([n])=>trk.includes(n));
+  return `<span class="eyebrow">${esc(c.field)}</span><h2 class="sheet-h">${esc(c.role)}</h2>
+  <div class="sheet-grid"><div><h4>What you need</h4><ul>${c.need.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>
+  <div><h4>Optional certifications</h4><ul class="certs">${c.certs.map(([n,b])=>`<li><b>${esc(n)}</b><span>${esc(b)}</span></li>`).join("")}</ul></div></div>
+  <div class="milnote"><b>From the military.</b> ${esc(c.mil)}</div>
+  <div class="actions">${study.map(([n,t])=>`<button class="btn primary" data-gotrack="${t}">Study for ${n}</button>`).join("")}<button class="btn" data-askaron="${esc(`I'm interested in becoming a ${c.role} in ${c.field}. Based on my profile, what should my next three steps be?`)}">Ask Aron for a plan</button></div>`;}
+function renderCareers(){
+  const el=document.getElementById("view-careers");renderBand();
+  el.innerHTML=`<section class="story">
+    <div class="story-hero reveal"><span class="eyebrow">For veterans and service members</span><h2 class="mega">You've already run projects.<br><span class="grad-t">You called them missions.</span></h2><p class="lede">Every operation you planned had a goal, a timeline, resources, risks and a team. That's project management. The exam just uses different words.</p></div>
+    <div class="ex-row">${MIL_EXAMPLES.map(e=>`<div class="excard reveal"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></div>`).join("")}</div>
+    <div class="sec-head reveal"><h2>Translate what you know.</h2><p>Select any card to see how it shows up in project management.</p></div>
+    <div class="milmap">${MIL_MAP.map((m,i)=>`<button class="milcard reveal" data-sheet="mil:${i}"><span class="mterm">${esc(m[0])}</span><span class="pterm">${esc(m[1])}</span><span class="plus" aria-hidden="true">+</span></button>`).join("")}</div>
+   </section>
+   <section class="sec">
+    <div class="sec-head reveal"><span class="eyebrow">How each industry works</span><h2>Predictive, agile or hybrid?</h2><p>Predictive plans the whole job up front. Agile delivers in short cycles and adapts. Hybrid mixes both. Here's how each field usually leans.</p></div>
+    <div class="indtabs reveal" role="tablist" aria-label="Industries">${INDUSTRY_METHODS.map((x,i)=>`<button role="tab" data-ind="${i}" aria-selected="${i===indSel}">${esc(x.name)}</button>`).join("")}</div>
+    <div class="card ind-panel reveal" id="ind-panel" role="tabpanel">${industryPanel(indSel)}</div>
+    <div class="card reveal"><h3 style="margin:0">All industries at a glance</h3><div class="spec-all">${INDUSTRY_METHODS.map(x=>`<div class="spec-row"><span>${esc(x.name)}</span>${spectrum(x.pos,"mini")}<em>${esc(x.m)}</em></div>`).join("")}</div><p class="ainote" style="margin:0">Typical patterns, not rules. Many organizations tailor their approach to each project.</p></div>
+   </section>
+   <section class="sec">
+    <div class="sec-head reveal"><span class="eyebrow">Career paths</span><h2>Where your next role could be.</h2><p>What each role needs, and the certifications that can help. All certifications are optional; experience matters most.</p></div>
+    <div class="careergrid">${CAREERS.map((c,i)=>`<button class="ccard reveal" data-sheet="car:${i}"><span class="eyebrow">${esc(c.field)}</span><b>${esc(c.role)}</b><span class="certline">${c.certs.map(x=>esc(x[0])).join(" · ")}</span><span class="plus" aria-hidden="true">+</span></button>`).join("")}</div>
+    <div class="card reveal"><h2>Certification requirements</h2><div class="tablewrap"><table><thead><tr><th>Certification</th><th>From</th><th>For</th><th>What you need</th></tr></thead><tbody>${CERT_REQS.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("")}</tbody></table></div>
+     <p class="ainote" style="margin:0"><b>Paying for exams.</b> Veterans can use GI Bill benefits for many license and certification test fees. Service members can check their branch's COOL program or credentialing assistance. Requirements change, so confirm on each certifier's website before applying.</p></div>
+   </section>`;
+  el.querySelectorAll("[data-ind]").forEach(b=>b.onclick=()=>{indSel=+b.dataset.ind;el.querySelectorAll("[data-ind]").forEach(x=>x.setAttribute("aria-selected",x===b));const p=document.getElementById("ind-panel");p.classList.remove("swap");void p.offsetWidth;p.innerHTML=industryPanel(indSel);p.classList.add("swap");b.scrollIntoView({behavior:RM()?"auto":"smooth",block:"nearest",inline:"center"});});
+}
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-sheet]");
+  if(s){const [k,i]=s.dataset.sheet.split(":");if(k==="mil")openSheet(milSheet(+i),s,MIL_MAP[+i][0]);if(k==="car")openSheet(careerSheet(+i),s,CAREERS[+i].role);return;}
+  const a=e.target.closest("[data-askaron]");if(a){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();send(a.dataset.askaron);return;}
+  const g=e.target.closest("[data-gotrack]");if(g){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();setTrack(g.dataset.gotrack,true);show("hub");}
+});
+
+/* Profile ("account") */
+let PROFILE=null;const PKEY=KEY+"-profile";
+const BRANCHES=["Army","Navy","Air Force","Marine Corps","Space Force","Coast Guard","National Guard or Reserve","Not military"];
+const STATUSES=["Active duty","Transitioning (within 12 months)","Veteran","Military spouse or family","Civilian"];
+function loadProfile(){try{PROFILE=JSON.parse(localStorage.getItem(PKEY)||"null");}catch(e){}}
+function initials(n){return String(n||"").trim().split(/\s+/).map(w=>w[0]||"").join("").slice(0,2).toUpperCase()||"?";}
+function paintAcct(){const b=document.getElementById("acct");if(!b)return;b.innerHTML=PROFILE&&PROFILE.name?`<span class="acct-av">${esc(initials(PROFILE.name))}</span><span class="acct-n">${esc(PROFILE.name.split(" ")[0])}</span>`:`<span class="acct-n">Create account</span>`;}
+async function saveProfile(p){
+  PROFILE=p;try{localStorage.setItem(PKEY,JSON.stringify(p));}catch(e){}
+  paintAcct();
+  if(DB&&UID){try{await DB.doc("progress/"+UID).set({attempts:state.demo?[]:ALLA.slice(-1500),sessions:state.demo?[]:ALLS.slice(-150),profile:PROFILE,updated:Date.now()});}catch(e){}}
+}
+function daysTo(d){if(!d)return null;const t=new Date(d+"T00:00:00").getTime();if(isNaN(t))return null;return Math.ceil((t-Date.now())/864e5);}
+function profileForm(){
+  const p=PROFILE||{},inClaude=!!(DB&&UID),opt=(arr,v)=>arr.map(x=>`<option ${x===v?"selected":""}>${esc(x)}</option>`).join("");
+  return `<span class="eyebrow">${PROFILE?"Your account":"Create your account"}</span><h2 class="sheet-h">${PROFILE?"Your profile":"Let's set you up."}</h2>
+  <p style="color:var(--muted);margin:0 0 14px">${inClaude?"You're signed in through Claude, so your profile and progress follow you to any device where you open PMP/ACP Guide.":"This browser will remember your profile and progress. To keep them on every device, open PMP/ACP Guide in Claude. Email and password accounts will come with the full web app."}</p>
+  <form id="pf" class="pform">
+   <label>Name<input id="pf-name" required value="${esc(p.name||"")}" autocomplete="name"></label>
+   <div class="row2"><label>Branch<select id="pf-branch">${opt(BRANCHES,p.branch)}</select></label><label>Status<select id="pf-status">${opt(STATUSES,p.status)}</select></label></div>
+   <div class="row2"><label>Job code (MOS, rate or AFSC)<input id="pf-mos" value="${esc(p.mos||"")}" placeholder="e.g. 11B, 92Y, IT"></label><label>Years leading people or projects<input id="pf-years" type="number" min="0" max="50" value="${esc(p.years??"")}"></label></div>
+   <div class="row2"><label>Exam you're studying for<select id="pf-track">${Object.values(TRACKS).map(T=>`<option value="${T.id}" ${(p.track||TRACK)===T.id?"selected":""}>${esc(T.name)}</option>`).join("")}</select></label><label>Target exam date<input id="pf-date" type="date" value="${esc(p.date||"")}"></label></div>
+   <label>Career interest<select id="pf-career"><option value="">Not sure yet</option>${CAREERS.map(c=>`<option ${c.role===p.career?"selected":""}>${esc(c.role)}</option>`).join("")}</select></label>
+   <div class="actions"><button class="btn primary" type="submit">${PROFILE?"Save changes":"Create account"}</button>${PROFILE?`<button class="btn ghost" type="button" id="pf-del">Remove profile</button>`:""}<span class="msg" id="pf-msg" role="status"></span></div>
+  </form>`;
+}
+function openProfile(origin){
+  const s=openSheet(profileForm(),origin,"Your account");
+  const f=s.el.querySelector("#pf"),g=id=>s.el.querySelector("#"+id).value.trim();
+  f.onsubmit=async e=>{e.preventDefault();if(!g("pf-name"))return;
+    const p={name:g("pf-name"),branch:g("pf-branch"),status:g("pf-status"),mos:g("pf-mos"),years:g("pf-years")===""?null:+g("pf-years"),track:g("pf-track"),date:g("pf-date"),career:g("pf-career"),created:(PROFILE&&PROFILE.created)||Date.now()};
+    await saveProfile(p);s.close();if(p.track!==TRACK)setTrack(p.track);else rerender();};
+  const d=s.el.querySelector("#pf-del");if(d)d.onclick=()=>{if(d.textContent!=="Confirm remove"){d.textContent="Confirm remove";return;}PROFILE=null;try{localStorage.removeItem(PKEY);}catch(e){}if(DB&&UID)saveProfile(null);paintAcct();s.close();rerender();};
+}
+function profileLine(){if(!PROFILE)return "";const d=daysTo(PROFILE.date);return `Student profile: ${PROFILE.name}; ${PROFILE.branch||""}, ${PROFILE.status||""}${PROFILE.mos?", job code "+PROFILE.mos:""}${PROFILE.years!=null?", "+PROFILE.years+" years leading people or projects":""}. Studying for ${TRACKS[PROFILE.track||TRACK].name}${d!=null?`, exam in ${d} days`:""}${PROFILE.career?`. Career interest: ${PROFILE.career}`:""}.`;}
+
+/* Aron offline: answers from the app's own notes when Claude isn't available */
+const STOP=new Set("the a an and or of to in on for is are was be what how why when who which do does i me my you your it this that with can about tell explain please give".split(" "));
+let KB=null;
+function buildKB(){
+  KB=[];
+  Object.entries(STUDY).forEach(([t,list])=>list.forEach(x=>KB.push({h:`${x[0]} (${TRACKS[t].name})`,b:x[2]+"\n"+x[3].map(p=>"- "+p).join("\n")})));
+  MIL_MAP.forEach(m=>KB.push({h:`${m[0]} → ${m[1]}`,b:m[2]}));
+  INDUSTRY_METHODS.forEach(x=>KB.push({h:`${x.name}: mostly ${x.m.toLowerCase()}`,b:x.why+" "+x.ex}));
+  CAREERS.forEach(c=>KB.push({h:`Career: ${c.role}`,b:c.need.map(n=>"- "+n).join("\n")+"\nCertifications: "+c.certs.map(x=>x[0]+" ("+x[1]+")").join(", ")}));
+  CERT_REQS.forEach(r=>KB.push({h:`${r[0]} requirements`,b:r[3]}));
+  FORMULAS.forEach(f=>KB.push({h:f[0],b:f[1]+". "+f[2]}));
+  TIMEBOX.forEach(r=>KB.push({h:`${r[0]} time-box`,b:r[1]+". "+r[2]}));
+  FAQ.forEach(q=>KB.push({h:q[0],b:q[1]}));
+}
+function toks(s){return String(s).toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2&&!STOP.has(w));}
+function offlineAnswer(text){
+  if(!KB)buildKB();const q=toks(text);if(!q.length)return null;
+  const sc=KB.map(e=>{const h=toks(e.h),b=toks(e.b);let s=0;q.forEach(w=>{if(h.some(x=>x.startsWith(w)||w.startsWith(x)))s+=3;if(b.some(x=>x.startsWith(w)))s+=1;});return {e,s};}).filter(x=>x.s>=3).sort((a,b)=>b.s-a.s).slice(0,3);
+  return sc.length?sc.map(x=>`**${x.e.h}**\n${x.e.b}`).join("\n\n"):null;
+}
+
+/* ---------- Round 3 glue: videos, greeting, offline Aron replies, shortcuts ---------- */
+const PLAY=`<svg viewBox="0 0 68 48" aria-hidden="true"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.2.3 34 .3 34 .3s-21.2 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.8 47.7 34 47.7 34 47.7s21.2 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#ff0033"/><path d="M27 34.3 45 24 27 13.7z" fill="#fff"/></svg>`;
+function videosFor(track){
+  const keys=[];Object.entries(TOPIC_VIDEO).forEach(([k,v])=>{const [t,i]=k.split(":");if((track==="all"||t===track)&&!keys.some(x=>x[0]===v))keys.push([v,t,+i]);});
+  return keys.map(([v,t,i])=>({v,t,topic:(STUDY[t]&&STUDY[t][i])?STUDY[t][i][0]:""}));
+}
+function videoStrip(track,title,sub){
+  const list=videosFor(track||TRACK);if(!list.length)return "";
+  return `<section class="sec" style="gap:18px"><div class="sec-head reveal" style="text-align:left;justify-items:start;margin:0"><span class="eyebrow">Video lessons</span><h2 style="font-size:clamp(24px,3.4vw,34px)">${esc(title||"Watch someone explain it.")}</h2><p style="font-size:16px">${esc(sub||"Short explainers for the topics students find hardest. They open on YouTube.")}</p></div>
+  <div class="vstrip">${list.map(x=>`<a class="vcard reveal" href="${ytWatch(VIDEOS[x.v].id)}" target="_blank" rel="noopener"><span class="vthumb">${PLAY}<span>${esc(TRACKS[x.t].name)}</span></span><b>${esc(VIDEOS[x.v].title)}</b><small>${esc(x.topic)}</small></a>`).join("")}</div></section>`;
+}
+function helloLine(){
+  if(!PROFILE||!PROFILE.name)return "";const d=daysTo(PROFILE.date);
+  return `<div class="hello"><span>Welcome back, <b>${esc(PROFILE.name.split(" ")[0])}</b>.</span>${d!=null&&d>=0?`<span class="cd">${d===0?"Exam day":d+" days to your exam"}</span>`:""}</div>`;
+}
+const OFFLINE_NOTE="\n\n*Offline mode: I'm answering from PMP/ACP Guide's own notes. Open the app in Claude for full, personal coaching.*";
+function offlineReply(text,pre){
+  return (pre||offlineAnswer(text)||`I don't have notes on that yet. Try a key term, like "critical path", "Sprint Review", "servant leadership" or "career", or browse the Study and Careers tabs.`)+OFFLINE_NOTE;
+}
+function offlineInline(kind,q,p){
+  const L=k=>"ABCD"[k],src=refOf(q)?`\n\nSource: ${refOf(q)}`:"";
+  const kb=offlineAnswer(TASKS[q.task].name+" "+q.q);
+  const out={
+    wrong:`**Why ${L(p)} isn't the best answer.** The best answer is ${L(q.ans)}. ${q.exp||""}${src}`,
+    right:`**Why ${L(q.ans)} is right.** ${q.exp||""}${src}`,
+    simple:`**In plain words.** ${q.exp||""}${kb?"\n\n"+kb.split("\n\n")[0]:""}`,
+    similar:`Writing new questions needs Claude. For now, try more questions on **${TASKS[q.task].name}** from Practice.`,
+    confused:`${q.exp||""}${src}\n\nIf it still doesn't make sense, use "Report a problem with this question" so an instructor can check it.`,
+    hint:`This one tests **${TASKS[q.task].name}**. Think about what the role would do first, not what is fastest.`,
+    terms:kb?kb.split("\n\n")[0]:`This question is about **${TASKS[q.task].name}**. See the Study tab for the key terms.`}[kind]||q.exp||"";
+  return out+OFFLINE_NOTE;
+}
+document.addEventListener("keydown",e=>{
+  if(e.key!=="/"||e.metaKey||e.ctrlKey||e.altKey)return;const t=e.target.tagName;
+  if(t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||document.querySelector(".sheet-wrap")||examLocked())return;
+  e.preventDefault();openDrawer();
+});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)show(g.dataset.go);const a=e.target.closest("#acct");if(a)openProfile(a);});
 
 async function renderClass(){
   const el=document.getElementById("view-class");
@@ -1881,6 +2290,7 @@ async function initCloud(){
       try{
         const d=await DB.doc("progress/"+UID).get();
         const body=d.exists?d.data():null;
+        if(body&&body.profile&&body.profile.name){PROFILE=body.profile;try{localStorage.setItem(PKEY,JSON.stringify(PROFILE));}catch(e){}paintAcct();}
         if(body&&Array.isArray(body.attempts)&&body.attempts.length){ALLA=body.attempts.slice();ALLS=(body.sessions||[]).slice();state.demo=false;setTrack(TRACK,true);try{localStorage.setItem(KEY,JSON.stringify({attempts:ALLA,sessions:ALLS,demo:false,custom:state.custom}))}catch(e){}}
         else if(!state.demo&&ALLA.length)cloudSave();
       }catch(e){}
@@ -1890,6 +2300,7 @@ async function initCloud(){
   }catch(e){}
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");if(b&&TRACKS[b.dataset.track]&&b.dataset.track!==TRACK){setTrack(b.dataset.track);if(b.classList.contains("tcard"))window.scrollTo({top:0,behavior:"smooth"});}});
+loadProfile();paintAcct();initReveal();
 initCloud();
 initAI();
 load();paintAron();renderCredits();show("map");

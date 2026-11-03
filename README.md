@@ -37,7 +37,11 @@ Each track has its own questions, heat map, progress and Study topics. Uploads t
 - **Question bank:** upload questions as CSV or JSON. See the format below.
 - **AI tutor:** a chat tutor, "explain this question", a debrief after each session, and AI-built study sessions. *Works only when the page is opened inside Claude.*
 - **Admin mode:** a shared question bank (add, edit, delete), plus a class view with a class heat map, a student roster and the hardest questions. *Works only when the page is opened inside Claude.*
-- **Aron, the AI coach:** a chat drawer plus "Ask Aron" buttons on every question: why my answer is wrong, why the right one is right, explain it simply, give me a similar question, a hint, or key terms. *Needs Claude.*
+- **Aron, the AI coach:** always available from the Ask Aron button or the `/` key, plus "Ask Aron" buttons on every question. Inside Claude he answers anything (concepts, study plans, careers, certifications). Outside Claude he answers from the app's own notes.
+- **Careers:** how military work already maps to project management (14 translations and real examples), how each industry uses predictive, agile or hybrid methods, 12 career paths with what you need and optional certifications, and a certification requirements table. Details open in Apple-style sheets, with scroll animations.
+- **Account:** create a profile (name, branch, status, job code, exam and date, career interest). Inside Claude it uses the Claude sign-in and syncs across devices; elsewhere it is saved in the browser. Email and password accounts come with the production app.
+- **Video lessons:** explainer videos for the hardest topics (EVM, critical path, risk responses, the Agile Manifesto, Scrum, cumulative flow) in Study and Help. They open on YouTube.
+- **Sourced questions:** every ACP and PSM I question names its source (Scrum Guide 2020, PMI-ACP exam content outline, Agile Practice Guide). Four levels: Easy, Medium, Hard, Very hard.
 - **Hard questions and case studies:** 17 hard and very hard questions (network float, EVM/TCPI, PERT, EMV, decision trees, contracts) and 4 multi-question case studies with exhibits.
 - **Charts and diagrams:** cumulative flow diagram, burndown, EVM S-curve, network diagram, control chart, probability/impact matrix and power/interest grid, drawn as SVG.
 - **Study hub:** an EVM calculator, a formula sheet, the PMI mindset, and guides to reading each diagram.
@@ -50,8 +54,8 @@ Opened directly in a browser, the page works offline. Progress is saved in that 
 The **Quizzes** tab supports the current sprint:
 
 - **Quiz 1–3** are the baseline quizzes. **Quiz 4** is the advanced validation quiz that shows improvement.
-- Every question is tagged with a **difficulty** (Easy, Moderate, Advanced) and an **exam outline task** (P1–P6, R1–R7, B1–B6).
-- **Difficulty check:** compares each question's tagged level with how students actually scored (Easy ≥ 75% correct, Moderate 45–74%, Advanced < 45%). Admins can apply the suggested level once a question has 5 or more answers.
+- Every question is tagged with a **difficulty** (Easy, Medium, Hard, Very hard) and an **exam outline task** (P1–P6, R1–R7, B1–B6).
+- **Difficulty check:** compares each question's tagged level with how students actually scored (Easy ≥ 80% correct, Medium 60–79%, Hard 40–59%, Very hard < 40%). Admins can apply the suggested level once a question has 5 or more answers.
 - **Exam outline coverage:** questions per task area per quiz, with gaps highlighted.
 - **Test data:** download every answer as CSV (student, quiz, question number, domain, task code, difficulty, answer, correct, seconds, time). Admins can download the whole class. The tagged question bank also downloads as CSV.
 
@@ -68,7 +72,7 @@ quiz,number,difficulty,domain,task,question,a,b,c,d,answer,explanation
 Quiz 1,1,Easy,People,P2,"Two team members disagree about priorities. What should the PM do first?",Decide for them,Facilitate a discussion to find a solution together,Escalate,Ignore it,B,Collaboration addresses the root cause.
 ```
 
-- `quiz` is Quiz 1 to Quiz 4 (or just 1–4). `number` is the question's position in the quiz. `difficulty` is Easy, Moderate or Advanced. All three are optional.
+- `quiz` is Quiz 1 to Quiz 4 (or just 1–4). `number` is the question's position in the quiz. `difficulty` is Easy, Medium, Hard or Very hard (Moderate and Advanced still work). An optional `source` column is shown under the explanation. All are optional.
 - `task` takes the exam outline code (P1–P6, R1–R7, B1–B6) or the task name.
 
 - `domain` starts with People, Process, or Business.
