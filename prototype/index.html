@@ -538,11 +538,11 @@ html.noscroll{overflow:hidden}
 .js-reveal .reveal.in{opacity:1;transform:none}
 .js-reveal .milcard.reveal.in:hover,.js-reveal .ccard.reveal.in:hover{transform:translateY(-3px) scale(1.01);transition-delay:0ms}
 /* Page transitions */
-main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,1) both}
-@media (prefers-reduced-motion:reduce){main .inner>[id^="view-"]{animation:none!important}}
+.center>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.center>[id^="view-"]{animation:none!important}}
 /* Account */
 .acct{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:color-mix(in srgb,var(--ink) 7%,transparent);font:500 14px var(--f-body);color:var(--ink);white-space:nowrap}
-.acct:not(:has(.acct-av)){padding:7px 14px;background:var(--accent);color:#fff}
+.acct:not(:has(.acct-av,.av)){padding:7px 14px;background:var(--accent);color:#fff}
 .acct:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .acct-av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2997ff,#7a5cff);color:#fff;font:700 11px var(--f-body)}
 .pform{display:grid;gap:12px}
@@ -572,6 +572,145 @@ main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,
 .teaser h2{color:#fff;margin:2px 0 6px}.teaser p{margin:0;color:#c7c7cc}.teaser .eyebrow{color:#64d2ff}
 @media (max-width:640px){.teaser{grid-template-columns:1fr}}
 
+/* ---------- Round 4: search + side rails ---------- */
+.center{display:grid;gap:32px;min-width:0}
+@media (min-width:1400px){.gnav .inner{max-width:1760px}}
+.rail{display:none}
+@media (min-width:1400px){
+  main .inner.shell{max-width:1760px;grid-template-columns:260px minmax(0,1fr) 280px;gap:28px;align-items:start}
+  .rail{display:grid;gap:16px;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin;padding:2px 2px 12px;align-content:start}
+}
+.rail{grid-template-columns:minmax(0,1fr)}.rail>*{min-width:0}
+.r-vid>span:last-child{display:grid;min-width:0}
+.rcard{background:var(--surface);border-radius:20px;padding:16px;box-shadow:var(--shadow);display:grid;gap:8px;font-size:14px}
+.rcard .eyebrow{font-size:13px}
+.r-big{font:700 30px/1.05 var(--f-display);letter-spacing:-.03em}
+.rcard small{color:var(--muted);font-size:13px}
+.r-list{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:6px}
+.r-list li{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:6px}
+.r-list span{color:var(--muted)}.r-list b{text-align:right}
+.r-next{display:grid;gap:4px;background:color-mix(in srgb,var(--accent) 9%,transparent);border-radius:14px;padding:10px 12px;margin-top:4px}
+.r-next .btn{justify-self:start;margin-top:4px}
+.btn.sm{padding:6px 14px;font-size:14px}
+.r-links{display:grid;gap:2px}
+.r-links button{all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;font-size:14px;transition:background .2s}
+.r-links button:hover,.r-links button:focus-visible{background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.r-links span{color:var(--muted);font-size:12px}
+.r-lib{margin:0;padding-left:18px;display:grid;gap:6px}.r-lib a{color:var(--accent);text-decoration:none}.r-lib a:hover{text-decoration:underline}
+.rail-search{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;background:var(--surface);box-shadow:var(--shadow);border-radius:14px;padding:11px 14px;color:var(--muted);font-size:15px}
+.rail-search:hover{color:var(--ink)}.rail-search kbd{margin-left:auto}
+kbd{font:600 11px var(--f-body);border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--muted);background:var(--bg)}
+.r-aron{background:linear-gradient(160deg,#1d1d1f,#2a2a40);color:#f5f5f7}
+.r-aron small{color:#c7c7cc}
+.r-aron-h{display:flex;gap:10px;align-items:center}.r-aron-h div{display:grid}
+.r-ask{display:flex;gap:6px}
+.r-ask input{flex:1;min-width:0;width:0;font:14px var(--f-body);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff}
+.r-ask input::placeholder{color:#a1a1a6}
+.r-chips{display:flex;flex-wrap:wrap;gap:6px}
+.r-aron .chip{background:rgba(255,255,255,.1);color:#f5f5f7;border-color:transparent;font-size:12px;text-align:left}
+.r-tip,.r-vid{all:unset;cursor:pointer;display:grid;gap:2px;border-radius:12px;padding:6px;margin:-6px;transition:background .2s}
+.r-tip:hover,.r-vid:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.r-tip b{font:700 18px/1.2 var(--f-display);letter-spacing:-.02em}
+.r-vid{grid-template-columns:34px 1fr;gap:10px;align-items:start;color:var(--ink);text-decoration:none;margin:0 -6px}
+.r-vid b{font-size:13px;line-height:1.3;font-weight:600}
+.r-play{width:34px;height:24px;border-radius:7px;background:#ff0033;color:#fff;display:grid;place-items:center;font-size:11px}
+/* nav search button */
+.gnav-tools{display:flex;align-items:center;gap:8px}
+.srch{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:color-mix(in srgb,var(--ink) 7%,transparent);color:var(--muted);font:500 14px var(--f-body);white-space:nowrap}
+.srch:hover{color:var(--ink)}.srch:focus-visible{outline:2px solid var(--accent)}
+@media (max-width:900px){.srch .srch-t,.srch kbd{display:none}}
+/* Spotlight-style search */
+.spot-wrap{position:fixed;inset:0;z-index:70;display:flex;justify-content:center;align-items:flex-start;padding:min(12vh,96px) 16px 16px;background:rgba(0,0,0,0);transition:background .22s,backdrop-filter .22s}
+.spot-wrap.open{background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.spot{width:min(720px,100%);max-height:min(76vh,720px);display:grid;grid-template-rows:auto auto minmax(0,1fr);background:var(--surface);color:var(--ink);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);overflow:hidden;opacity:0;transform:translateY(-10px) scale(.97);transition:opacity .22s,transform .3s cubic-bezier(.2,.9,.25,1)}
+.spot-wrap.open .spot{opacity:1;transform:none}
+.sr-bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);color:var(--muted)}
+.sr-bar input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--ink);font:500 20px var(--f-body)}
+.sr-bar input::-webkit-search-cancel-button{display:none}
+.sr-esc{all:unset;cursor:pointer;font:600 12px var(--f-body);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted)}
+.sr-filters{display:flex;gap:6px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.sr-filters button{all:unset;cursor:pointer;padding:5px 12px;border-radius:999px;font:500 13px var(--f-body);color:var(--muted);white-space:nowrap}
+.sr-filters button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.sr-out{overflow:auto;padding:6px 8px 12px;overscroll-behavior:contain}
+.sr-g{font:600 12px var(--f-body);color:var(--muted);padding:12px 10px 4px}
+.sr{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 10px;border-radius:12px;color:var(--ink);text-decoration:none}
+.sr.sel,.sr:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.sr-ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--ink) 7%,transparent);font:600 14px var(--f-body)}
+.sr-t{display:grid;min-width:0}.sr-t b{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr-t small{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr-go{color:var(--muted)}
+.sr mark{background:color-mix(in srgb,#ffd60a 45%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+.sr-empty{padding:14px 10px}.sr-sugg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{box-shadow:0 0 0 3px var(--accent),var(--shadow)}100%{box-shadow:var(--shadow)}}
+@media (prefers-reduced-motion:reduce){.spot,.spot-wrap{transition:none}.flash{animation:none;outline:3px solid var(--accent)}}
+
+/* ---------- Round 5: check-in, report, scoreboard, chat, QOTD ---------- */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.av{display:inline-grid;place-items:center;flex:none;width:var(--s);height:var(--s);border-radius:50%;background:linear-gradient(135deg,var(--a1),var(--a2));font-size:calc(var(--s)*.5);line-height:1;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.avpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
+.avopt{position:relative;display:grid;place-items:center;padding:4px;border-radius:14px;cursor:pointer;color:inherit!important}
+.avopt input{position:absolute;opacity:0;pointer-events:none}
+.avopt:has(input:checked){background:color-mix(in srgb,var(--accent) 16%,transparent);box-shadow:inset 0 0 0 2px var(--accent)}
+.avopt:has(input:focus-visible){outline:2px solid var(--accent)}
+.avopt .av{transition:transform .25s}.avopt:hover .av{transform:scale(1.08)}
+.chk{display:flex!important;align-items:center;gap:8px;color:var(--ink)!important}
+.chk input{width:auto!important}
+/* report */
+.rep{display:grid;gap:16px;color:var(--ink)}
+.rep-banner{background:color-mix(in srgb,#ffb340 20%,var(--surface));color:color-mix(in srgb,#b45309 80%,var(--ink));border:1px solid color-mix(in srgb,#ffb340 55%,transparent);border-radius:10px;padding:6px 10px;font:700 12px/1.3 var(--f-body);letter-spacing:.06em;text-align:center}
+.rep-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--ink);padding-bottom:10px;gap:12px;flex-wrap:wrap}
+.rep-brand{font:800 26px/1 var(--f-display);letter-spacing:-.02em}.rep-sub{color:var(--muted)}
+.rep-id{text-align:right;display:grid}
+.rep-id span,.rep-grid span,.rep-overall span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 20px}.rep-grid div{display:grid}
+.rep-overall{display:grid;grid-template-columns:1fr auto;align-items:center;border-radius:16px;padding:14px 18px;background:color-mix(in srgb,currentColor 10%,var(--surface))}
+.rep-overall span{grid-column:1/3}.rep-overall b,.rep-overall em{font:800 28px/1.1 var(--f-display);font-style:normal}
+.lv-AT{color:#1f9d55}.lv-T{color:#2f7de1}.lv-BT{color:#d97706}.lv-NI{color:#e5484d}
+.rep-t{width:100%;border-collapse:collapse}.rep-t th,.rep-t td{border-bottom:1px solid var(--line);padding:8px;text-align:center}
+.rep-t th:first-child,.rep-t td:first-child{text-align:left}.rep-t small{color:var(--muted);display:block}
+.rep-t td.on{font-size:18px;background:color-mix(in srgb,currentColor 10%,transparent)}
+.rep-key{font-size:13px;color:var(--muted)}
+.rep-cta{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 14%,var(--surface)),var(--surface));border-radius:18px;padding:14px 18px}
+.rep-cta .rep-badge{font:800 22px/1 var(--f-display);padding:10px 12px;border-radius:12px;background:color-mix(in srgb,currentColor 12%,transparent)}
+@media (max-width:560px){.rep-cta{grid-template-columns:1fr}}
+#print-report{display:none}
+@media print{html.printing body>*:not(#print-report){display:none!important}html.printing #print-report{display:block!important}}
+/* scoreboard */
+.comm{align-items:start}
+.seg[role=tablist]{border-radius:999px;padding:3px;gap:2px;background:color-mix(in srgb,var(--ink) 6%,transparent);border:0;flex-wrap:wrap}
+.seg[role=tablist] button{border-radius:999px;background:none;color:var(--muted)}
+.seg[role=tablist] button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.board{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.board li{display:grid;grid-template-columns:32px 40px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--ink) 4%,transparent);animation:rUp .45s cubic-bezier(.2,.8,.2,1) both}
+.board li:nth-child(2){animation-delay:.04s}.board li:nth-child(3){animation-delay:.08s}.board li:nth-child(n+4){animation-delay:.12s}
+.board li.first{background:linear-gradient(110deg,color-mix(in srgb,#ffd60a 24%,var(--surface)),var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,#ffd60a 50%,transparent)}
+.board li.me{box-shadow:inset 0 0 0 2px var(--accent)}
+.board .rank{font:700 16px var(--f-display);text-align:center}
+.board .who{display:grid;min-width:0}.board .who b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.board .who small{color:var(--muted);font-size:12px}
+.board .sc{display:grid;justify-items:end}.board .sc b{font:700 20px var(--f-display)}.board .sc em{font:700 12px var(--f-body);font-style:normal}
+/* chat */
+.chatcard{min-height:520px;grid-template-rows:auto minmax(0,1fr) auto auto}
+.chatlog{display:flex;flex-direction:column;gap:10px;overflow:auto;max-height:480px;min-height:280px;padding:4px 2px;overscroll-behavior:contain}
+.cm{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;animation:rUp .35s ease both}
+.cm-av{width:34px;height:34px;border-radius:50%;overflow:hidden;display:block}.cm-av svg{width:100%;height:100%}
+.cm-b{background:color-mix(in srgb,var(--ink) 5%,transparent);border-radius:16px;border-top-left-radius:4px;padding:8px 12px;min-width:0}
+.cm.mine .cm-b{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.cm.ai .cm-b{background:linear-gradient(135deg,color-mix(in srgb,#7a5cff 12%,var(--surface)),color-mix(in srgb,#2997ff 10%,var(--surface)));box-shadow:inset 0 0 0 1px color-mix(in srgb,#7a5cff 30%,transparent)}
+.cm-h{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.cm-h small{color:var(--muted);font-size:12px}
+.ai-tag{font:700 10px var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:6px;background:#7a5cff;color:#fff}
+.cm-t{overflow-wrap:anywhere}.cm-t p{margin:4px 0}
+.cm-x{display:flex;gap:12px;margin-top:2px}.linkbtn.subtle{font-size:12px;color:var(--muted)}
+.chatform{display:flex;gap:8px}.chatform input{flex:1;min-width:0;font:15px var(--f-body);padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.chatx{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* qotd */
+.qotd{background:linear-gradient(135deg,color-mix(in srgb,#ff9f0a 10%,var(--surface)),var(--surface) 55%)}
+.qotd .qq{font:600 clamp(17px,2vw,20px)/1.4 var(--f-body);margin:0;max-width:75ch}
+.qotd .qopts{display:grid;gap:8px}
+.qotd.compact .qq{font-size:17px}
+.qmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.r-qotd b{font-weight:600;font-size:14px;line-height:1.35}
+
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -583,11 +722,13 @@ main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,
         <button id="nav-cases" data-view="cases">Case studies</button>
         <button id="nav-hub" data-view="hub">Study</button>
         <button id="nav-careers" data-view="careers">Careers</button>
+        <button id="nav-community" data-view="community">Community</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
         <button id="nav-help" data-view="help">Help</button>
         <button id="nav-class" data-view="class" hidden>Class</button>
       </nav>
-      <button class="acct" id="acct" type="button" aria-label="Your account"><span class="acct-n">Create account</span></button>
+      <div class="gnav-tools"><button class="srch" id="srch" type="button" data-opensearch="" aria-label="Search study materials"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="srch-t">Search</span><kbd>⌘K</kbd></button>
+      <button class="acct" id="acct" type="button" aria-label="Your account"><span class="acct-n">Create account</span></button></div>
 </div></div>
 <div class="top gut">
   <div class="inner">
@@ -597,7 +738,9 @@ main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,
 </div>
 
 <main class="gut">
-  <div class="inner">
+  <div class="inner shell">
+    <aside id="rail-l" class="rail" aria-label="Study shortcuts"></aside>
+    <div class="center">
     <div id="view-map" style="display:grid;gap:24px"></div>
     <div id="view-quiz" hidden></div>
     <div id="view-bank" hidden></div>
@@ -607,10 +750,13 @@ main .inner>[id^="view-"]:not([hidden]){animation:rUp .5s cubic-bezier(.2,.8,.2,
     <div id="view-help" hidden></div>
     <div id="view-quizzes" hidden></div>
     <div id="view-careers" hidden></div>
+    <div id="view-community" hidden></div>
     <footer>
       PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
       <div id="credits"></div>
     </footer>
+    </div>
+    <aside id="rail-r" class="rail" aria-label="Aron and extras"></aside>
   </div>
 </main>
 
@@ -952,6 +1098,7 @@ function renderMap(){
     ${TRACK==="pmp"?`<button class="mode" id="go-cases"><b>Case studies</b><span>Scenarios with exhibits like CFDs and S-curves</span><em>${CASES.length} cases</em></button>`:""}
     <button class="mode" id="go-mixed"><b>Mixed practice</b><span>A random set from every domain with instant feedback</span><em>10 Q</em></button>
    </div><div class="levels" aria-label="Practice by difficulty"><span class="label" style="width:100%">Or pick a level</span>${[1,2,3,4].map(d=>{const n=state.bank.filter(q=>(q.diff||1)===d).length;return n?`<button class="btn ghost" data-level="${d}"><i class="m${d}"></i>${DIFF_NAME[d]} <span class="label">${n}</span></button>`:"";}).join("")}</div></div></section>`;
+  h+=qotdCard(true);
   h+=`<section class="card teaser"><div><span class="eyebrow">New · Careers</span><h2>You've already run projects. You called them missions.</h2><p>See how your military experience translates, which methods each industry uses, and the career paths and certifications that fit you.</p></div><button class="btn primary" data-go="careers">Explore careers</button></section>`;
   // heat map
   h+=`<section class="card" aria-label="Heat map by domain and task"><div class="mapbar"><h2>Task heat map</h2><div class="legend"><span>0%</span><span class="ramp" aria-hidden="true"></span><span>100%</span><span class="swatch" aria-hidden="true"></span><span>No answers</span><span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span><span>Confidence</span><span class="trend">▲▼</span><span>Recent trend</span></div></div>`;
@@ -998,7 +1145,7 @@ function pick(mode,task){
   return weightedPick(out.slice(0,N),N,()=>1);
 }
 const MODE_NAME={hard:"Hard practice",weak:"Weak-area practice",review:"Review mistakes",mixed:"Mixed practice",exam:"Exam simulation"};
-function startQuiz(mode,task){
+function startQuizNow(mode,task){
   const qs=pick(mode,task);if(!qs.length)return;
   stopTimer();
   quiz={mode,exam:mode==="exam"||mode==="quiz",quizName:mode==="quiz"?task:null,title:mode==="task"?TASKS[task].name:mode==="case"?"Case: "+CASE_BY[task].title:mode==="quiz"?task+(isValidation(task)?" · validation":""):mode==="level"?DIFF_NAME[task]+" practice":MODE_NAME[mode],caseOpen:true,qs,i:0,picked:qs.map(()=>null),flag:qs.map(()=>false),secs:qs.map(()=>0),locked:qs.map(()=>false),done:false,shownAt:Date.now(),limit:qs.length*EXAM_PACE,start:Date.now()};
@@ -1031,7 +1178,7 @@ function finish(){
   if(quiz.exam)quiz.qs.forEach((q,i)=>{if(quiz.picked[i]!==null)record(i);});
   const ans=quiz.qs.map((q,i)=>({q,i,p:quiz.picked[i]})).filter(x=>x.p!==null);
   if(ans.length){clearDemo();const se={track:TRACK,id:quiz.sid||("s"+Date.now()),mode:quiz.title,quiz:quiz.quizName||null,ts:Date.now(),n:quiz.qs.length,c:ans.filter(x=>x.p===x.q.ans).length,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0))};state.sessions.push(se);ALLS.push(se);save();}
-  quiz.done=true;quiz.review=null;renderQuiz();
+  quiz.done=true;quiz.review=null;if(ans.length&&quiz.exam)postExam();renderQuiz();
 }
 /* ---------- Hard questions, case studies and exhibits ---------- */
 const NET1={type:"network",title:"Activity network (durations in days)",nodes:[{id:"A",d:3,x:0,y:1},{id:"B",d:5,x:1,y:0},{id:"C",d:4,x:1,y:2},{id:"D",d:6,x:2,y:0},{id:"E",d:2,x:2,y:2},{id:"F",d:3,x:3,y:1}],edges:[["A","B"],["A","C"],["B","D"],["C","E"],["D","F"],["E","F"]]};
@@ -1398,9 +1545,10 @@ function renderResults(el){
    <div class="result-hero"><div style="display:grid;gap:4px"><span class="num" style="font:800 64px/1 var(--f-display);font-stretch:80%">${pct(c/n)}</span><span class="pill ${rc}" style="justify-self:start">${rl}</span></div>
    <div style="display:grid;gap:4px"><h2 class="num">${c} of ${n} correct</h2><span style="color:var(--muted)">Average pace <b class="num ${secs/n>EXAM_PACE?"r1":"ok"}">${Math.round(secs/n)}s</b> per question (exam pace is ${EXAM_PACE}s).</span>${missed.length?`<span style="color:var(--muted)">Missed in: ${missed.map(esc).join(", ")}.</span>`:""}</div></div>
    <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Score</th><th>Result</th></tr></thead><tbody>${DOMAINS.filter(D=>by[D.id]).map(D=>{const x=by[D.id],[r,l]=rating(x.c/x.n);return `<tr><td>${D.name}</td><td class="num">${x.c}/${x.n}</td><td><span class="pill ${r}">${l}</span></td></tr>`;}).join("")}</tbody></table></div>
+   ${quiz.report?(()=>{const L=levelOf(quiz.report.c/quiz.report.n);return `<div class="rep-cta"><span class="rep-badge lv-${L[0]}">${L[0]}</span><div><b>Your practice score report is ready</b><br><span style="color:var(--muted)">${esc(quiz.report.name)} · Overall ${L[1]} · download, print or email it</span></div><button class="btn primary" id="r-rep">View score report</button></div>`;})():""}
    <div class="actions"><button class="btn primary" id="r-map">See updated dashboard</button><button class="btn" id="r-review">Review answers</button><button class="btn" id="r-weak">Practice weak areas</button></div>
    <div class="aibox ai-only" id="debrief"><div class="hd"><span class="ailabel">Aron's debrief</span><button class="btn primary" id="r-ai">${quiz.debrief?"Redo debrief":"Get Aron's debrief"}</button></div><div class="md" id="debrief-out">${quiz.debrief?md(quiz.debrief):`<span class="ainote">Claude looks at what you missed, finds the pattern, and tells you what to study next.</span>`}</div></div></div>`;
-  document.getElementById("r-ai").onclick=debrief;
+  document.getElementById("r-ai").onclick=debrief;{const rb=document.getElementById("r-rep");if(rb){rb.onclick=()=>openReport(rb);if(!quiz.reportShown){quiz.reportShown=true;setTimeout(()=>openReport(rb),400);}}}
   document.getElementById("r-map").onclick=()=>{quiz=null;show("map");};
   document.getElementById("r-review").onclick=()=>{quiz.review=true;quiz.i=0;renderQuiz();};
   document.getElementById("r-weak").onclick=()=>startQuiz("weak");
@@ -1483,9 +1631,9 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quizzes","quiz","cases","hub","bank","help","class","careers"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();
-  window.scrollTo(0,0);
+  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();
+  renderRails();window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
 
@@ -1529,7 +1677,7 @@ How to answer:
 - If asked to quiz the student, ask ONE scenario question with options A-D and wait for their answer before revealing it.
 - If unsure about an exact PMI rule or number, say so instead of guessing. Never claim to know real exam questions.
 - You help with anything the student asks: exam concepts, study plans, careers, certifications, translating military experience into project terms, resumes and interviews. Be honest and practical, and say when something should be confirmed with the certifier.
-- If asked about the app: it has a Careers tab (military-to-project translator, how each industry uses predictive, agile or hybrid, career paths with optional certifications), an account profile, a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
+- If asked about the app: it has a Community tab (question of the day, class scoreboard, chat room where students tag @Aron), exam check-in with a practice score report (AT/T/BT/NI), a Careers tab (military-to-project translator, how each industry uses predictive, agile or hybrid, career paths with optional certifications), an account profile, a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
 Student data:
 `;
 function openDrawer(){
@@ -1634,8 +1782,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -1948,7 +2096,7 @@ function renderCredits(){const el=document.getElementById("credits");if(!el)retu
   el.innerHTML=`<details><summary>Photo credits</summary><ul>${list.map(([k,p])=>`<li>${esc(p.cap||k)}: <a href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.credit)}</a></li>`).join("")}</ul><p>Photos are from Wikimedia Commons under the licenses shown. Diagrams were drawn for PMP/ACP Guide.</p></details>`;}
 function renderStudyTopics(){
   return `<section class="topics">${(STUDY[TRACK]||[]).map((t,i)=>{const tasks=t[1].filter(id=>TASKS[id]);const st=stats();const m=tasks.map(id=>st.t[id]).filter(x=>x&&x.n);const mm=m.length?m.reduce((s,x)=>s+x.m,0)/m.length:null;
-    return `<article class="topic reveal"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+    return `<article class="topic reveal" id="topic-${i}"><div class="tnum">${String(i+1).padStart(2,"0")}</div><div class="tbody"><h3>${esc(t[0])}</h3><p>${esc(t[2])}</p><ul>${t[3].map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
       <div class="tchips">${tasks.map(id=>`<span class="dchip" style="--dc:var(--c-${TASKS[id].domain})">${esc(id)} · ${esc(TASKS[id].name)}</span>`).join("")}${mm!==null?`<span class="pill ${rating(mm)[0]}">Your mastery ${pct(mm)}</span>`:""}</div>
       <div class="actions">${TOPIC_VIDEO[TRACK+":"+i]?`<a class="btn primary vbtn" href="${ytWatch(VIDEOS[TOPIC_VIDEO[TRACK+":"+i]].id)}" target="_blank" rel="noopener">▶ Watch explainer</a>`:""}<a class="btn yt" href="${yt(t[4])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#ff0033"/><path d="M10 8.5v7l6-3.5z" fill="#fff"/></svg>More videos</a>${tasks.some(id=>state.bank.some(q=>q.task===id))?`<button class="btn" data-studyq="${tasks.find(id=>state.bank.some(q=>q.task===id))}">Practice this</button>`:""}<button class="btn ghost" data-hubask="${esc(`Teach me "${t[0]}" for the ${TRACKS[TRACK].name} exam in under 160 words with one example, then ask me one exam-style question on it.`)}">Ask Aron</button></div></div></article>`;}).join("")}</section>`;
 }
@@ -2153,7 +2301,7 @@ const BRANCHES=["Army","Navy","Air Force","Marine Corps","Space Force","Coast Gu
 const STATUSES=["Active duty","Transitioning (within 12 months)","Veteran","Military spouse or family","Civilian"];
 function loadProfile(){try{PROFILE=JSON.parse(localStorage.getItem(PKEY)||"null");}catch(e){}}
 function initials(n){return String(n||"").trim().split(/\s+/).map(w=>w[0]||"").join("").slice(0,2).toUpperCase()||"?";}
-function paintAcct(){const b=document.getElementById("acct");if(!b)return;b.innerHTML=PROFILE&&PROFILE.name?`<span class="acct-av">${esc(initials(PROFILE.name))}</span><span class="acct-n">${esc(PROFILE.name.split(" ")[0])}</span>`:`<span class="acct-n">Create account</span>`;}
+function paintAcct(){const b=document.getElementById("acct");if(!b)return;b.innerHTML=PROFILE&&PROFILE.name?`${PROFILE.avatar?avatarHTML(PROFILE.avatar,26):`<span class="acct-av">${esc(initials(PROFILE.name))}</span>`}<span class="acct-n">${esc(PROFILE.name.split(" ")[0])}</span>`:`<span class="acct-n">Create account</span>`;}
 async function saveProfile(p){
   PROFILE=p;try{localStorage.setItem(PKEY,JSON.stringify(p));}catch(e){}
   paintAcct();
@@ -2166,6 +2314,9 @@ function profileForm(){
   <p style="color:var(--muted);margin:0 0 14px">${inClaude?"You're signed in through Claude, so your profile and progress follow you to any device where you open PMP/ACP Guide.":"This browser will remember your profile and progress. To keep them on every device, open PMP/ACP Guide in Claude. Email and password accounts will come with the full web app."}</p>
   <form id="pf" class="pform">
    <label>Name<input id="pf-name" required value="${esc(p.name||"")}" autocomplete="name"></label>
+   <div class="row2"><label>Scoreboard and chat name<input id="pf-nick" maxlength="24" value="${esc(p.nick||"")}" placeholder="First name or nickname"></label><label>Email for score reports (optional)<input id="pf-email" type="email" value="${esc(p.email||"")}" autocomplete="email"></label></div>
+   <span class="label">Avatar</span>${avatarPicker(p.avatar)}
+   <label class="chk"><input type="checkbox" id="pf-board" ${p.board===false?"":"checked"}> Show my best scores on the class scoreboard</label>
    <div class="row2"><label>Branch<select id="pf-branch">${opt(BRANCHES,p.branch)}</select></label><label>Status<select id="pf-status">${opt(STATUSES,p.status)}</select></label></div>
    <div class="row2"><label>Job code (MOS, rate or AFSC)<input id="pf-mos" value="${esc(p.mos||"")}" placeholder="e.g. 11B, 92Y, IT"></label><label>Years leading people or projects<input id="pf-years" type="number" min="0" max="50" value="${esc(p.years??"")}"></label></div>
    <div class="row2"><label>Exam you're studying for<select id="pf-track">${Object.values(TRACKS).map(T=>`<option value="${T.id}" ${(p.track||TRACK)===T.id?"selected":""}>${esc(T.name)}</option>`).join("")}</select></label><label>Target exam date<input id="pf-date" type="date" value="${esc(p.date||"")}"></label></div>
@@ -2177,7 +2328,7 @@ function openProfile(origin){
   const s=openSheet(profileForm(),origin,"Your account");
   const f=s.el.querySelector("#pf"),g=id=>s.el.querySelector("#"+id).value.trim();
   f.onsubmit=async e=>{e.preventDefault();if(!g("pf-name"))return;
-    const p={name:g("pf-name"),branch:g("pf-branch"),status:g("pf-status"),mos:g("pf-mos"),years:g("pf-years")===""?null:+g("pf-years"),track:g("pf-track"),date:g("pf-date"),career:g("pf-career"),created:(PROFILE&&PROFILE.created)||Date.now()};
+    const p={name:g("pf-name"),branch:g("pf-branch"),status:g("pf-status"),mos:g("pf-mos"),years:g("pf-years")===""?null:+g("pf-years"),track:g("pf-track"),date:g("pf-date"),career:g("pf-career"),nick:g("pf-nick")||g("pf-name").split(" ")[0],email:g("pf-email"),avatar:(s.el.querySelector('input[name="avatar"]:checked')||{}).value||(PROFILE&&PROFILE.avatar)||"🦅",board:s.el.querySelector("#pf-board").checked,created:(PROFILE&&PROFILE.created)||Date.now()};
     await saveProfile(p);s.close();if(p.track!==TRACK)setTrack(p.track);else rerender();};
   const d=s.el.querySelector("#pf-del");if(d)d.onclick=()=>{if(d.textContent!=="Confirm remove"){d.textContent="Confirm remove";return;}PROFILE=null;try{localStorage.removeItem(PKEY);}catch(e){}if(DB&&UID)saveProfile(null);paintAcct();s.close();rerender();};
 }
@@ -2241,7 +2392,309 @@ document.addEventListener("keydown",e=>{
   if(t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||document.querySelector(".sheet-wrap")||examLocked())return;
   e.preventDefault();openDrawer();
 });
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)show(g.dataset.go);const a=e.target.closest("#acct");if(a)openProfile(a);});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();show(g.dataset.go);}const a=e.target.closest("#acct");if(a)openProfile(a);});
+
+/* ---------- Round 4: student search + side rails ---------- */
+const SR_TYPES={topic:["Study topics","📘"],video:["Videos","▶"],formula:["Formulas and rules","∑"],diagram:["Diagrams","◧"],resource:["Library and official resources","📄"],career:["Careers","💼"],mil:["Military translator","★"],industry:["Industries","🏗"],cert:["Certifications","🎓"],case:["Case studies","🗂"],question:["Practice questions","?"],faq:["Help and FAQ","i"],tool:["Tools and features","⚙"]};
+const SR_FILTERS=[["all","All"],["study","Study"],["video","Videos"],["career","Careers"],["question","Questions"],["resource","Resources"]];
+const SR_GROUP={topic:"study",formula:"study",diagram:"study",case:"study",video:"video",career:"career",mil:"career",industry:"career",cert:"career",question:"question",resource:"resource",faq:"resource",tool:"all"};
+let srFilter="all",srSel=0,SR=[];
+function flash(el){if(!el)return;el.scrollIntoView({behavior:RM()?"auto":"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
+function goTo(view,sel,track){if(track&&track!==TRACK)setTrack(track,true);show(view);if(sel)setTimeout(()=>flash(document.querySelector(sel)),60);}
+function infoSheet(eyebrow,title,body,actions,origin){openSheet(`<span class="eyebrow">${esc(eyebrow)}</span><h2 class="sheet-h">${esc(title)}</h2>${body}${actions?`<div class="actions">${actions}</div>`:""}`,origin,title);}
+function srIndex(){
+  const I=[],add=(type,title,sub,text,act,extra)=>I.push({type,title,sub:sub||"",text:(title+" "+(sub||"")+" "+(text||"")).toLowerCase(),act,...(extra||{})});
+  Object.entries(STUDY).forEach(([t,list])=>list.forEach((x,i)=>add("topic",x[0],`${TRACKS[t].name} · ${x[2]}`,x[3].join(" ")+" "+x[1].join(" "),()=>goTo("hub","#topic-"+i,t),{track:t})));
+  const seenV={};Object.entries(TOPIC_VIDEO).forEach(([k,v])=>{if(seenV[v])return;seenV[v]=1;const [t,i]=k.split(":");add("video",VIDEOS[v].title,`${TRACKS[t].name} · ${STUDY[t][+i]?STUDY[t][+i][0]:""} · opens YouTube`,v,null,{href:ytWatch(VIDEOS[v].id),track:t});});
+  FORMULAS.forEach(f=>add("formula",f[0],f[1],f[2],o=>infoSheet("Formula",f[0],`<p class="mil-big" style="font-size:clamp(22px,3.4vw,32px)">${esc(f[1])}</p><p class="lede">${esc(f[2])}</p>`,`<button class="btn primary" data-go="hub">Open the formula sheet</button><button class="btn" data-askaron="${esc(`Explain ${f[0]} (${f[1]}) with one worked exam example.`)}">Ask Aron for an example</button>`,o),{track:"pmp"}));
+  TIMEBOX.forEach(r=>add("formula",`${r[0]} time-box`,r[1],r[2]+" scrum event",o=>infoSheet("Scrum Guide 2020",`${r[0]} time-box`,`<p class="mil-big" style="font-size:clamp(22px,3.4vw,32px)">${esc(r[1])}</p><p class="lede">${esc(r[2])}</p>`,`<button class="btn primary" data-gotrack="psm">Study PSM I</button>`,o),{track:"psm"}));
+  MINDSET.forEach((m,i)=>add("formula","PMI mindset: rule "+(i+1),m,"mindset situational",o=>infoSheet("PMI mindset","Rule "+(i+1),`<p class="lede">${esc(m)}</p>`,"",o),{track:"pmp"}));
+  DIAGRAM_FILES.forEach(d=>add("diagram",d.cap.split(":")[0],d.cap,"diagram chart picture",()=>openLightbox(d.src,d.cap),{track:d.tracks[0]}));
+  DIAGRAMS.forEach(d=>add("diagram",d.h,"How to read it",d.pts.join(" "),o=>infoSheet("How to read a",d.h,`<ul>${d.pts.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`,`<button class="btn primary" data-go="hub">See it in Study</button>`,o)));
+  Object.entries(OFFICIAL).forEach(([t,l])=>l.forEach(([n,u])=>add("resource",n,`${TRACKS[t].name} · official site`,"official pdf outline guide",null,{href:u,track:t})));
+  (libDocs||[]).forEach(d=>add("resource",d.title||"PDF",`${TRACKS[d.track||"pmp"].name} · PDF in the library`,"pdf library file",null,{href:d.url,track:d.track||"pmp"}));
+  CAREERS.forEach((c,i)=>add("career",c.role,`${c.field} · ${c.certs.map(x=>x[0]).join(", ")}`,c.need.join(" ")+" "+c.mil+" job career",o=>openSheet(careerSheet(i),o,c.role)));
+  MIL_MAP.forEach((m,i)=>add("mil",`${m[0]} → ${m[1]}`,m[2],"military veteran army navy",o=>openSheet(milSheet(i),o,m[0])));
+  INDUSTRY_METHODS.forEach((x,i)=>add("industry",x.name,`Mostly ${x.m.toLowerCase()} · ${x.why}`,x.ex+" "+x.roles.join(" ")+" industry methodology agile predictive hybrid",()=>{indSel=i;goTo("careers","#ind-panel");}));
+  CERT_REQS.forEach(r=>add("cert",r[0],`${r[1]} · ${r[2]}`,r[3]+" certification requirements eligibility",o=>infoSheet(r[1],r[0]+" requirements",`<p class="lede">${esc(r[3])}</p><p style="color:var(--muted)">For: ${esc(r[2])}. Confirm on the certifier's website before applying.</p>`,`<button class="btn primary" data-go="careers">See career paths</button>`,o)));
+  CASES.forEach(c=>add("case",c.title,`Case study · ${c.tag}`,c.brief,()=>{setTrack("pmp",true);startQuiz("case",c.id);},{track:"pmp"}));
+  state.bank.forEach(q=>add("question",q.q.length>110?q.q.slice(0,110)+"…":q.q,`${TRACKS[TRACK].name} · ${TASKS[q.task].name}${q.diff?" · "+DIFF_NAME[q.diff]:""}`,q.opts.join(" ")+" "+(q.exp||""),o=>infoSheet(`${TRACKS[TRACK].name} practice question`,TASKS[q.task].name,`<p class="lede">${esc(q.q)}</p><ol type="A">${q.opts.map(x=>`<li>${esc(x)}</li>`).join("")}</ol><p style="color:var(--muted)">The answer is hidden so you can try it. Practice this task area to answer it and see the explanation.</p>`,`<button class="btn primary" data-srtask="${esc(q.task)}">Practice ${esc(TASKS[q.task].name)}</button>`,o),{track:TRACK}));
+  FAQ.forEach(f=>add("faq",f[0],f[1],"help",o=>infoSheet("Help center",f[0],`<p class="lede">${esc(f[1])}</p>`,`<button class="btn" data-go="help">Open Help center</button>`,o)));
+  [["Exam simulation","Timed, weighted by domain, like the real exam",()=>startQuiz("exam")],["Weak-area practice","Questions from the areas you miss most",()=>state.attempts.length?startQuiz("weak"):startQuiz("mixed")],["Review mistakes","Re-answer questions you got wrong",()=>reviewQueue().length?startQuiz("review"):show("map")],["Sprint quizzes","Quiz 1 to 4 and the difficulty check",()=>show("quizzes")],["Question bank","Every question in this track",()=>show("bank")],["Heat map and readiness","Your dashboard",()=>show("map")],["Create account or edit profile","Name, branch, exam date, career goal",o=>openProfile(o)],["Submit a help request","Ask an instructor or report a problem",()=>show("help")],["Careers","Military translator, industries and career paths",()=>show("careers")],["Scoreboard","Top scores on each exam and quiz",()=>show("community")],["Chat room","Discuss with classmates and Aron",()=>show("community")],["Question of the day","A daily challenge with a streak",()=>show("community")]]
+    .forEach(([n,s,a])=>add("tool",n,s,"feature tool",a));
+  return I;
+}
+function srToks(s){return String(s).toLowerCase().replace(/[^a-z0-9+#.\- ]/g," ").split(/\s+/).filter(Boolean);}
+function srSearch(q){
+  const idx=srIndex(),t=srToks(q);
+  const pool=idx.filter(e=>srFilter==="all"||SR_GROUP[e.type]===srFilter||(srFilter==="study"&&e.type==="tool"&&false));
+  if(!t.length)return [];
+  const score=e=>{let s=0,all=true;const tl=e.title.toLowerCase();t.forEach(w=>{const inT=tl.includes(w),inB=e.text.includes(w);if(!inT&&!inB)all=false;s+=(inT?(tl.startsWith(w)?6:4):0)+(inB?1:0);});if(e.track===TRACK)s+=1;return all?s:0;};
+  return pool.map(e=>({e,s:score(e)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,40).map(x=>x.e);
+}
+function hl(s,q){let h=esc(s);srToks(q).filter(w=>w.length>1).forEach(w=>{h=h.replace(new RegExp("("+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>");});return h;}
+const SR_SUGGEST=["Earned value formulas","Critical path","Sprint Review","Servant leadership","Cumulative flow diagram","Scrum Guide","PMP requirements","Data center project manager","AAR","Risk responses"];
+function renderSearch(){
+  const w=document.getElementById("spot");if(!w)return;const q=w.querySelector("#sr-in").value.trim(),out=w.querySelector("#sr-out");
+  w.querySelectorAll("[data-srf]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.srf===srFilter));
+  if(!q){SR=[];out.innerHTML=`<div class="sr-empty"><span class="label">Try searching for</span><div class="sr-sugg">${SR_SUGGEST.map(s=>`<button class="chip" data-srs="${esc(s)}">${esc(s)}</button>`).join("")}</div><p class="label" style="margin:12px 0 0">Searches study topics, formulas, diagrams, videos, PDFs, careers, certifications, case studies, practice questions and help. Shortcut: Ctrl K or ⌘K.</p></div>`;return;}
+  SR=srSearch(q);{const ord=[];SR.forEach(e=>{if(!ord.includes(e.type))ord.push(e.type);});SR=ord.flatMap(t=>SR.filter(e=>e.type===t));}srSel=Math.min(srSel,Math.max(0,SR.length-1));
+  let h="",last=null;
+  SR.forEach((e,i)=>{if(e.type!==last){h+=`<div class="sr-g">${SR_TYPES[e.type][0]}</div>`;last=e.type;}
+    const inner=`<span class="sr-ic" aria-hidden="true">${SR_TYPES[e.type][1]}</span><span class="sr-t"><b>${hl(e.title,q)}</b><small>${hl(e.sub.length>140?e.sub.slice(0,140)+"…":e.sub,q)}</small></span>${e.href?`<span class="sr-go" aria-hidden="true">↗</span>`:""}`;
+    h+=e.href?`<a class="sr${i===srSel?" sel":""}" data-sri="${i}" href="${esc(e.href)}" target="_blank" rel="noopener" role="option">${inner}</a>`:`<button class="sr${i===srSel?" sel":""}" data-sri="${i}" role="option">${inner}</button>`;});
+  h+=`<div class="sr-g">Not finding it?</div><button class="sr${SR.length===srSel?" sel":""}" data-sri="ask"><span class="sr-ic" aria-hidden="true">A</span><span class="sr-t"><b>Ask Aron: "${esc(q)}"</b><small>Aron answers any question about the exams, studying or careers</small></span></button>`;
+  out.innerHTML=(SR.length?"":`<p class="label" style="padding:8px 4px">No matches in ${srFilter==="all"?"the app":SR_FILTERS.find(f=>f[0]===srFilter)[1].toLowerCase()}.</p>`)+h;
+  const s=out.querySelector(".sr.sel");if(s)s.scrollIntoView({block:"nearest"});
+}
+function closeSearch(){const w=document.getElementById("spot");if(!w)return;w.classList.remove("open");document.documentElement.classList.remove("noscroll");setTimeout(()=>w.remove(),RM()?0:220);}
+function openSearch(q){
+  if(document.getElementById("spot")){document.getElementById("sr-in").focus();return;}
+  const w=document.createElement("div");w.id="spot";w.className="spot-wrap";
+  w.innerHTML=`<div class="spot" role="dialog" aria-modal="true" aria-label="Search study materials"><div class="sr-bar"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="sr-in" type="search" placeholder="Search materials, formulas, videos, careers…" aria-label="Search" autocomplete="off" role="combobox" aria-controls="sr-out" aria-expanded="true"><button class="sr-esc" type="button" aria-label="Close search">Esc</button></div>
+   <div class="sr-filters" role="group" aria-label="Filter">${SR_FILTERS.map(([k,n])=>`<button data-srf="${k}" aria-pressed="${k===srFilter}">${n}</button>`).join("")}</div><div class="sr-out" id="sr-out" role="listbox"></div></div>`;
+  document.body.appendChild(w);document.documentElement.classList.add("noscroll");requestAnimationFrame(()=>w.classList.add("open"));
+  const inp=w.querySelector("#sr-in");inp.value=q||"";srSel=0;renderSearch();setTimeout(()=>inp.focus(),30);
+  inp.oninput=()=>{srSel=0;renderSearch();};
+  inp.onkeydown=e=>{const n=SR.length+(inp.value.trim()?1:0);
+    if(e.key==="ArrowDown"){srSel=Math.min(n-1,srSel+1);renderSearch();e.preventDefault();}
+    else if(e.key==="ArrowUp"){srSel=Math.max(0,srSel-1);renderSearch();e.preventDefault();}
+    else if(e.key==="Enter"){const el=w.querySelector(".sr.sel");if(el){el.click();e.preventDefault();}}
+    else if(e.key==="Escape"){closeSearch();e.preventDefault();}};
+  w.addEventListener("click",e=>{
+    if(e.target===w||e.target.closest(".sr-esc")){closeSearch();return;}
+    const f=e.target.closest("[data-srf]");if(f){srFilter=f.dataset.srf;srSel=0;renderSearch();inp.focus();return;}
+    const s=e.target.closest("[data-srs]");if(s){inp.value=s.dataset.srs;srSel=0;renderSearch();inp.focus();return;}
+    const r=e.target.closest("[data-sri]");if(!r)return;
+    if(r.dataset.sri==="ask"){const v=inp.value.trim();closeSearch();send(v);return;}
+    const it=SR[+r.dataset.sri];if(!it)return;if(it.href){setTimeout(closeSearch,50);return;}
+    e.preventDefault();closeSearch();setTimeout(()=>it.act(document.querySelector("#srch")),RM()?0:230);});
+}
+document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch();}});
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-opensearch]");if(s){openSearch(s.dataset.opensearch||"");return;}
+  const t=e.target.closest("[data-srtask]");if(t){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();startQuiz("task",t.dataset.srtask);}
+});
+/* Side rails for wide screens */
+function railTip(){const day=Math.floor(Date.now()/864e5);return MIL_MAP[day%MIL_MAP.length];}
+function renderRails(){
+  const L=document.getElementById("rail-l"),R=document.getElementById("rail-r");if(!L||!R)return;
+  if(!matchMedia("(min-width:1400px)").matches){L.innerHTML="";R.innerHTML="";return;}
+  const T=TRACKS[TRACK],st=stats(),w=weakTasks(st,1)[0],rq=reviewQueue().length,d=PROFILE?daysTo(PROFILE.date):null;
+  const vids=videosFor(TRACK),tip=railTip(),ti=MIL_MAP.indexOf(tip);
+  const lib=[...(OFFICIAL[TRACK]||[]).map(([n,u])=>[n,u]),...(libDocs||[]).filter(x=>(x.track||"pmp")===TRACK).slice(0,3).map(x=>[x.title||"PDF",x.url])];
+  L.innerHTML=`<button class="rail-search" data-opensearch=""><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Search materials<kbd>⌘K</kbd></button>
+   <section class="rcard"><span class="eyebrow">Today</span>
+    ${PROFILE&&PROFILE.name?`<b class="r-big">${d!=null&&d>=0?(d===0?"Exam day":d+" days"):"Hi, "+esc(PROFILE.name.split(" ")[0])}</b><small>${d!=null&&d>=0?"until your "+esc(T.name)+" exam":"Set an exam date in your profile"}</small>`:`<b class="r-big">${pct(st.overall)}</b><small>${esc(T.name)} readiness</small>`}
+    <ul class="r-list">
+     <li><span>Readiness</span><b>${pct(st.overall)}</b></li>
+     <li><span>Answered</span><b>${state.attempts.length}</b></li>
+     <li><span>To review</span><b>${rq}</b></li></ul>
+    ${w?`<div class="r-next"><span class="label">Next best step</span><b>${esc(TASKS[w.id].name)}</b><button class="btn primary sm" data-srtask="${esc(w.id)}">Practice 5 questions</button></div>`:`<div class="r-next"><span class="label">Next best step</span><b>Take a mixed set</b><button class="btn primary sm" data-go="quiz">Start practicing</button></div>`}
+    ${PROFILE?"":`<button class="linkbtn" data-acct>Create an account to track your exam date</button>`}</section>
+   <section class="rcard"><span class="eyebrow">Quick links</span><nav class="r-links" aria-label="Quick links">
+    <button data-rq="exam">Exam simulation<span>${Math.min(30,state.bank.length)} Q</span></button>
+    <button data-rq="weak">Weak-area practice<span>10 Q</span></button>
+    <button data-rq="review">Review mistakes<span>${rq} Q</span></button>
+    <button data-go="hub">${TRACK==="pmp"?"Formula sheet":TRACK==="psm"?"Time-boxes":"Study topics"}<span>Study</span></button>
+    <button data-go="quizzes">Sprint quizzes<span>1–4</span></button>
+    <button data-go="careers">Career paths<span>12</span></button>
+    <button data-go="community">Scoreboard and chat<span>Live</span></button></nav></section>
+   <section class="rcard"><span class="eyebrow">Library</span><ul class="r-lib">${lib.map(([n,u])=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a></li>`).join("")}</ul></section>`;
+  R.innerHTML=`<section class="rcard r-aron"><div class="r-aron-h"><span class="aron-av" aria-hidden="true">A</span><div><b>Ask Aron</b><small>${AI?"Your AI coach, ready for anything":"Answers from the app's notes"}</small></div></div>
+    <form class="r-ask" id="r-ask"><input id="r-ask-in" placeholder="Ask about any topic or career" aria-label="Ask Aron"><button class="btn primary sm" type="submit">Ask</button></form>
+    <div class="r-chips">${[w?`Teach me ${TASKS[w.id].name}`:`Explain ${T.name} in 1 minute`,"How do I use my military experience?","Make me a 7-day study plan"].map(c=>`<button class="chip" data-askaron="${esc(c)}">${esc(c)}</button>`).join("")}</div></section>
+   ${(()=>{const q=qotdQ();if(!q)return "";const st=qotdState();return `<section class="rcard r-qotd"><span class="eyebrow">Question of the day</span><b>${esc(q.q.length>120?q.q.slice(0,120)+"…":q.q)}</b><small>${st?(st.ok?"✓ You got it today":"Answered today. New one tomorrow."):"🔥 "+qotdStreak()+"-day streak"}</small><button class="btn sm" style="justify-self:start" data-go="community">${st?"See the scoreboard":"Answer it"}</button></section>`;})()}
+   <section class="rcard"><span class="eyebrow">From the military</span><button class="r-tip" data-sheet="mil:${ti}"><span class="label">${esc(tip[0])}</span><b>${esc(tip[1])}</b><small>${esc(tip[2].length>110?tip[2].slice(0,110)+"…":tip[2])}</small></button></section>
+   ${vids.length?`<section class="rcard"><span class="eyebrow">Watch next</span>${vids.slice(0,3).map(x=>`<a class="r-vid" href="${ytWatch(VIDEOS[x.v].id)}" target="_blank" rel="noopener"><span class="r-play" aria-hidden="true">▶</span><span><b>${esc(VIDEOS[x.v].title)}</b><small>${esc(x.topic)}</small></span></a>`).join("")}</section>`:""}
+   <section class="rcard"><span class="eyebrow">${esc(T.name)} exam facts</span><ul class="r-list"><li><span>Format</span><b>${esc(T.exam)}</b></li><li><span>From</span><b>${esc(T.body)}</b></li><li><span>Pace</span><b>${T.pace}s per question</b></li></ul><small style="color:var(--muted)">${esc(T.outline)}</small></section>`;
+  paintAron();const f=R.querySelector("#r-ask");f.onsubmit=e=>{e.preventDefault();const v=R.querySelector("#r-ask-in").value.trim();if(v){R.querySelector("#r-ask-in").value="";send(v);}};
+  L.querySelectorAll("[data-rq]").forEach(b=>b.onclick=()=>{const m=b.dataset.rq;if(m==="review"&&!rq)return show("map");if(m==="weak"&&!state.attempts.length)return startQuiz("mixed");startQuiz(m);});
+  const a=L.querySelector("[data-acct]");if(a)a.onclick=()=>openProfile(a);
+  const g=L.querySelector('.r-next [data-go="quiz"]');if(g){g.removeAttribute("data-go");g.onclick=()=>startQuiz("mixed");}
+}
+let railT=null;window.addEventListener("resize",()=>{clearTimeout(railT);railT=setTimeout(renderRails,150);});
+
+/* ---------- Round 5: exam check-in, score report, scoreboard, chat room, question of the day ---------- */
+const AVATARS=[["🦅","#2997ff","#1e40af"],["⭐","#ffb340","#c2410c"],["🎖️","#34c759","#166534"],["⚓","#0ea5e9","#0c4a6e"],["✈️","#64d2ff","#2563eb"],["🚀","#bf5af2","#5b21b6"],["🛡️","#94a3b8","#334155"],["🧭","#f97316","#9a3412"],["🦁","#facc15","#a16207"],["🐺","#a1a1aa","#3f3f46"],["🐻","#d97706","#78350f"],["🔥","#ff453a","#9f1239"],["⚡","#ffd60a","#ca8a04"],["🏗️","#fb923c","#c2410c"],["💻","#30d158","#065f46"],["🎯","#ff375f","#831843"]];
+function avatarHTML(a,size){const v=AVATARS.find(x=>x[0]===a)||AVATARS[0];return `<span class="av" style="--a1:${v[1]};--a2:${v[2]};--s:${size||36}px" aria-hidden="true">${v[0]}</span>`;}
+function avatarPicker(cur){return `<div class="avpick" role="radiogroup" aria-label="Choose an avatar">${AVATARS.map(([e],i)=>`<label class="avopt"><input type="radio" name="avatar" value="${e}" ${e===(cur||AVATARS[0][0])?"checked":""}>${avatarHTML(e,44)}<span class="sr-only">Avatar ${i+1}</span></label>`).join("")}</div>`;}
+function nickOf(){return (PROFILE&&(PROFILE.nick||(PROFILE.name||"").split(" ")[0]))||"Student";}
+/* exam check-in */
+let CHECKED=false;
+function startQuiz(mode,task){
+  if((mode==="exam"||mode==="quiz")&&!CHECKED)return openCheckin(mode,task);
+  CHECKED=false;startQuizNow(mode,task);
+  if(quiz&&quiz.exam&&!quiz.cand)quiz.cand={name:(PROFILE&&PROFILE.name)||"Student",nick:nickOf(),avatar:(PROFILE&&PROFILE.avatar)||AVATARS[0][0],email:(PROFILE&&PROFILE.email)||""};
+}
+function openCheckin(mode,task){
+  const p=PROFILE||{},what=mode==="exam"?`${TRACKS[TRACK].name} exam simulation`:`${task}`;
+  const s=openSheet(`<span class="eyebrow">Exam check-in · ${esc(TRACKS[TRACK].name)}</span><h2 class="sheet-h">Before you begin.</h2>
+   <p style="color:var(--muted)">You're starting the <b>${esc(what)}</b>. Type your name as you want it on your score report, then choose how you appear on the scoreboard.</p>
+   <form id="ck" class="pform">
+    <label>Full name for your report<input id="ck-name" required autocomplete="name" value="${esc(p.name||"")}" placeholder="First and last name"></label>
+    <div class="row2"><label>Scoreboard name<input id="ck-nick" maxlength="24" value="${esc(p.nick||(p.name||"").split(" ")[0]||"")}" placeholder="A first name or nickname"></label>
+    <label>Email for your report (optional)<input id="ck-email" type="email" autocomplete="email" value="${esc(p.email||"")}" placeholder="you@example.com"></label></div>
+    <span class="label">Choose your avatar</span>${avatarPicker(p.avatar)}
+    <label class="chk"><input type="checkbox" id="ck-board" ${p.board===false?"":"checked"}> Show my best score on the class scoreboard</label>
+    <p class="ainote" style="margin:0">This is a practice exam. Your score report comes from PMP/ACP Guide. It is not an official PMI or Scrum.org result.</p>
+    <div class="actions"><button class="btn primary" type="submit">Start ${mode==="exam"?"exam":"quiz"}</button><button class="btn ghost" type="button" id="ck-cancel">Not now</button></div>
+   </form>`,document.activeElement,"Exam check-in");
+  const g=id=>s.el.querySelector("#"+id);
+  g("ck-cancel").onclick=()=>s.close();
+  g("ck").onsubmit=async e=>{e.preventDefault();const name=g("ck-name").value.trim();if(!name){g("ck-name").focus();return;}
+    const av=(s.el.querySelector('input[name="avatar"]:checked')||{}).value||AVATARS[0][0];
+    const np={...(PROFILE||{track:TRACK,created:Date.now()}),name,nick:g("ck-nick").value.trim()||name.split(" ")[0],email:g("ck-email").value.trim(),avatar:av,board:g("ck-board").checked};
+    s.close();await saveProfile(np);
+    CHECKED=true;startQuiz(mode,task);
+    if(quiz)quiz.cand={name:np.name,nick:np.nick,avatar:np.avatar,email:np.email};};
+  setTimeout(()=>{const n=g("ck-name");if(n&&!n.value)n.focus();},60);
+}
+/* score report */
+const LEVELS=[["AT","Above Target",.8],["T","Target",.65],["BT","Below Target",.5],["NI","Needs Improvement",0]];
+function levelOf(p){return LEVELS.find(l=>p>=l[2]);}
+function buildReport(){
+  const by={},n=quiz.qs.length;let c=0;
+  quiz.qs.forEach((q,i)=>{const d=TASKS[q.task].domain;by[d]=by[d]||{n:0,c:0};by[d].n++;if(quiz.picked[i]===q.ans){by[d].c++;c++;}});
+  const T=TRACKS[TRACK],now=new Date(),cand=quiz.cand||{name:(PROFILE&&PROFILE.name)||"Student",email:(PROFILE&&PROFILE.email)||""};
+  return {id:"PG-"+now.toISOString().slice(0,10).replace(/-/g,"")+"-"+Math.random().toString(36).slice(2,7).toUpperCase(),name:cand.name,email:cand.email||"",avatar:cand.avatar,track:T.name,full:T.full,title:quiz.quizName?quiz.quizName:quiz.title,date:now.toLocaleString(undefined,{dateStyle:"long",timeStyle:"short"}),n,c,secs:Math.round(quiz.secs.reduce((a,b)=>a+b,0)),
+    domains:DOMAINS.filter(D=>by[D.id]).map(D=>({name:D.name,weight:D.weight,c:by[D.id].c,n:by[D.id].n}))};
+}
+function reportBody(r){
+  const p=r.c/r.n,L=levelOf(p),mins=Math.floor(r.secs/60),ss=r.secs%60;
+  return `<div class="rep"><div class="rep-banner">PRACTICE REPORT · Not an official PMI or Scrum.org result</div>
+  <div class="rep-head"><div><div class="rep-brand">PMP/ACP Guide</div><div class="rep-sub">Practice Examination Score Report</div></div><div class="rep-id"><span>Report ID</span><b>${esc(r.id)}</b></div></div>
+  <div class="rep-grid"><div><span>Candidate</span><b>${esc(r.name)}</b></div><div><span>Exam</span><b>${esc(r.full)} (${esc(r.track)}) practice</b></div><div><span>Session</span><b>${esc(r.title)}</b></div><div><span>Date</span><b>${esc(r.date)}</b></div><div><span>Questions</span><b>${r.c} of ${r.n} correct (${Math.round(p*100)}%)</b></div><div><span>Time used</span><b>${mins} min ${ss} s</b></div></div>
+  <div class="rep-overall lv-${L[0]}"><span>Overall performance</span><b>${L[1]}</b><em>${L[0]}</em></div>
+  <table class="rep-t"><thead><tr><th>Domain</th><th>Score</th>${LEVELS.map(l=>`<th title="${l[1]}">${l[0]}</th>`).join("")}</tr></thead><tbody>${r.domains.map(d=>{const dl=levelOf(d.c/d.n);return `<tr><td>${esc(d.name)}${d.weight?` <small>${Math.round(d.weight*100)}% of exam</small>`:""}</td><td>${d.c}/${d.n}</td>${LEVELS.map(l=>`<td class="${l[0]===dl[0]?"on lv-"+l[0]:""}">${l[0]===dl[0]?"●":""}</td>`).join("")}</tr>`;}).join("")}</tbody></table>
+  <div class="rep-key"><b>Rating levels.</b> ${LEVELS.map(l=>`<span><b>${l[0]}</b> ${l[1]}${l[2]?` (${Math.round(l[2]*100)}%+)`:" (under 50%)"}</span>`).join(" · ")}. These bands are set by PMP/ACP Guide for practice and only estimate readiness. Real exam results are decided by the exam provider.</div></div>`;
+}
+const REPORT_CSS=`body{font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;color:#1d1d1f;margin:24px;background:#fff}.rep{max-width:760px;margin:0 auto;display:grid;gap:16px}.rep-banner{background:#fff4d6;color:#7a4b00;border:1px solid #f1c66b;border-radius:8px;padding:6px 10px;font:700 12px/1.3 inherit;letter-spacing:.06em;text-align:center}.rep-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #1d1d1f;padding-bottom:10px;gap:12px}.rep-brand{font:800 26px/1 inherit;letter-spacing:-.02em}.rep-sub{color:#6e6e73}.rep-id{text-align:right;display:grid}.rep-id span,.rep-grid span,.rep-overall span{font-size:12px;color:#6e6e73;text-transform:uppercase;letter-spacing:.06em}.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 20px}.rep-grid div{display:grid}.rep-overall{display:grid;grid-template-columns:1fr auto;align-items:center;border-radius:12px;padding:14px 18px;background:#f5f5f7}.rep-overall span{grid-column:1/3}.rep-overall b{font:800 28px/1.1 inherit}.rep-overall em{font:800 28px/1 inherit;font-style:normal}.lv-AT{color:#0a7d32}.lv-T{color:#0b63c5}.lv-BT{color:#b25000}.lv-NI{color:#c4161c}.rep-t{width:100%;border-collapse:collapse}.rep-t th,.rep-t td{border-bottom:1px solid #d2d2d7;padding:8px;text-align:center}.rep-t th:first-child,.rep-t td:first-child{text-align:left}.rep-t small{color:#6e6e73;display:block}.rep-t td.on{font-size:18px;background:#f5f5f7}.rep-key{font-size:13px;color:#424245}`;
+function reportDoc(r){return `<!doctype html><html><head><meta charset="utf-8"><title>Practice score report ${esc(r.id)}</title><style>${REPORT_CSS}</style></head><body>${reportBody(r)}</body></html>`;}
+function reportText(r){const p=r.c/r.n;return `PMP/ACP Guide - Practice Examination Score Report\nPRACTICE REPORT. Not an official PMI or Scrum.org result.\n\nReport ID: ${r.id}\nCandidate: ${r.name}\nExam: ${r.full} (${r.track}) practice\nSession: ${r.title}\nDate: ${r.date}\nScore: ${r.c} of ${r.n} correct (${Math.round(p*100)}%)\nOverall performance: ${levelOf(p)[1]} (${levelOf(p)[0]})\n\nBy domain:\n${r.domains.map(d=>`- ${d.name}: ${d.c}/${d.n}, ${levelOf(d.c/d.n)[1]} (${levelOf(d.c/d.n)[0]})`).join("\n")}\n\nRating levels: AT Above Target (80%+), T Target (65-79%), BT Below Target (50-64%), NI Needs Improvement (under 50%). Practice estimate only.`;}
+async function offerFile(filename,text,type,msg){
+  const set=(t,ok)=>{if(msg){msg.className="msg "+(ok?"ok":"bad");msg.textContent=t;}};
+  let dl=null;try{dl=window.claude&&typeof window.claude.use==="function"?await window.claude.use("downloads"):null;}catch(e){}
+  if(dl){try{await dl.save({filename,data:new Blob([text],{type})});set("Saved "+filename+".",true);}catch(e){set(e&&e.code==="declined"?"Download cancelled.":"This view can't save files.",false);}return;}
+  try{const u=URL.createObjectURL(new Blob([text],{type})),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);set("Downloaded "+filename+".",true);}catch(e){set("Your browser blocked the download.",false);}
+}
+function openReport(origin){
+  const r=quiz&&quiz.report;if(!r)return;
+  const mail=r.email?`mailto:${encodeURIComponent(r.email)}?subject=${encodeURIComponent("Your PMP/ACP Guide practice score report "+r.id)}&body=${encodeURIComponent(reportText(r))}`:"";
+  const s=openSheet(`${reportBody(r)}<div class="actions rep-actions"><button class="btn primary" id="rp-dl">Download report</button><button class="btn" id="rp-print">Print</button>${mail?`<a class="btn" href="${mail}" target="_blank" rel="noopener">Email to ${esc(r.email)}</a>`:`<button class="btn" id="rp-addmail">Add an email</button>`}<span class="msg" id="rp-msg" role="status"></span></div>
+   <p class="ainote" style="margin:0">Email opens your mail app with the report filled in, addressed to you. Sending it automatically from our own server comes with the full web app.</p>`,origin,"Score report");
+  const g=id=>s.el.querySelector("#"+id);
+  g("rp-dl").onclick=()=>offerFile(`score-report-${r.id}.html`,reportDoc(r),"text/html",g("rp-msg"));
+  g("rp-print").onclick=()=>{const d=document.createElement("div");d.id="print-report";d.innerHTML=`<style>${REPORT_CSS.replace(/body\{/,"#print-report{")}</style>`+reportBody(r);document.body.appendChild(d);document.documentElement.classList.add("printing");
+    const done=()=>{d.remove();document.documentElement.classList.remove("printing");};try{window.print();}catch(e){g("rp-msg").textContent="Printing is blocked here. Download the report and print it from your browser.";}setTimeout(done,800);};
+  const am=g("rp-addmail");if(am)am.onclick=()=>{s.close();openProfile(am);};
+}
+/* scoreboard + qotd store */
+let boardDocs=null,boardSub=false,chatDocs=null,chatSub=false;
+const LKEY=KEY+"-scores";
+function myScores(){try{return JSON.parse(localStorage.getItem(LKEY)||"{}");}catch(e){return {};}}
+let scoreWrite=Promise.resolve();
+function saveScores(sc){try{localStorage.setItem(LKEY,JSON.stringify(sc));}catch(e){}
+  if(DB&&UID&&!(PROFILE&&PROFILE.board===false))scoreWrite=scoreWrite.then(()=>DB.doc("scores/"+UID).set({nick:nickOf(),avatar:(PROFILE&&PROFILE.avatar)||AVATARS[0][0],best:sc.best||{},qotd:sc.qotd||null,updated:Date.now()})).catch(()=>{});
+}
+function postExam(){
+  quiz.report=buildReport();const r=quiz.report,key=TRACK+"|"+(quiz.quizName||"Exam simulation");
+  const sc=myScores();sc.best=sc.best||{};const cur=sc.best[key],p=r.c/r.n;
+  const tries=(cur?cur.tries||1:0)+1;
+  if(!cur||p>cur.pct||(p===cur.pct&&r.secs<cur.secs))sc.best[key]={pct:p,c:r.c,n:r.n,secs:r.secs,ts:Date.now(),tries};else cur.tries=tries;
+  saveScores(sc);
+}
+function subBoard(){if(boardSub||!DB)return;boardSub=true;try{DB.collection("scores").onSnapshot(s=>{boardDocs=s.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="community")renderCommunityParts();},()=>{boardDocs=[];});}catch(e){}}
+function subChat(){if(chatSub||!DB)return;chatSub=true;try{DB.collection("chat").onSnapshot(s=>{chatDocs=s.docs.map(d=>({id:d.id,...d.data()}));if(currentView()==="community")renderChat();},()=>{chatDocs=[];});}catch(e){}}
+function boardRows(key){
+  const rows=[];
+  if(boardDocs&&boardDocs.length)boardDocs.forEach(d=>{const b=d.best&&d.best[key];if(b&&typeof b.pct==="number")rows.push({me:d.id===UID,nick:String(d.nick||"Student").slice(0,24),avatar:d.avatar,...b});});
+  else{const b=(myScores().best||{})[key];if(b)rows.push({me:true,nick:nickOf(),avatar:PROFILE&&PROFILE.avatar,...b});}
+  return rows.sort((a,b)=>b.pct-a.pct||a.secs-b.secs||a.ts-b.ts);
+}
+let boardKey=null;
+function renderBoard(){
+  const el=document.getElementById("board");if(!el)return;
+  const keys=["Exam simulation",...QUIZ_SLOTS.map(s=>s.name)],cur=boardKey&&boardKey.startsWith(TRACK+"|")?boardKey:TRACK+"|Exam simulation";boardKey=cur;
+  const rows=boardRows(cur);
+  el.innerHTML=`<div class="mapbar"><div><span class="eyebrow">Scoreboard · ${esc(TRACKS[TRACK].name)}</span><h2>Top scores</h2></div><div class="seg" role="tablist" aria-label="Exam or quiz">${keys.map(k=>`<button role="tab" data-bk="${esc(TRACK+"|"+k)}" aria-selected="${TRACK+"|"+k===cur}">${esc(k==="Exam simulation"?"Exam":k)}</button>`).join("")}</div></div>
+   ${rows.length?`<ol class="board">${rows.slice(0,20).map((x,i)=>{const L=levelOf(x.pct);return `<li class="${x.me?"me":""}${i===0?" first":""}"><span class="rank">${i===0?"👑":i+1}</span>${avatarHTML(x.avatar,40)}<span class="who"><b>${esc(x.nick)}${x.me?" (you)":""}</b><small>${x.c}/${x.n} correct · ${Math.round(x.secs/60)} min · ${x.tries||1} ${(x.tries||1)===1?"try":"tries"} · ${fmtD(x.ts)}</small></span><span class="sc"><b>${Math.round(x.pct*100)}%</b><em class="lv-${L[0]}">${L[0]}</em></span></li>`;}).join("")}</ol>`:`<p style="color:var(--muted);margin:0">No scores yet for this ${cur.endsWith("simulation")?"exam":"quiz"}. Be the first: ${cur.endsWith("simulation")?`<button class="linkbtn" data-rq2="exam">take the exam simulation</button>`:`<button class="linkbtn" data-go="quizzes">open Quizzes</button>`}.</p>`}
+   <p class="ainote" style="margin:0">${DB?"Best score per student. Ties go to the faster time. Students choose their scoreboard name and can turn this off in check-in.":"You're seeing only your own scores. Open PMP/ACP Guide in Claude to see the class scoreboard."}</p>`;
+  el.querySelectorAll("[data-bk]").forEach(b=>b.onclick=()=>{boardKey=b.dataset.bk;renderBoard();});
+  const t=el.querySelector("[data-rq2]");if(t)t.onclick=()=>startQuiz("exam");
+}
+/* question of the day */
+function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function hashStr(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
+function qotdQ(){const pool=state.bank.filter(q=>(q.diff||1)>=2&&!q.case);const list=pool.length?pool:state.bank;if(!list.length)return null;const ids=list.map(q=>q.id).sort();const id=ids[hashStr(todayStr()+"|"+TRACK)%ids.length];return list.find(q=>q.id===id);}
+function qotdState(){const sc=myScores();return (sc.qotdLog||{})[TRACK+"|"+todayStr()];}
+function qotdStreak(){const log=myScores().qotdLog||{};let n=0;const d=new Date();for(;;){const k=TRACK+"|"+d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");if(log[k]&&log[k].ok){n++;d.setDate(d.getDate()-1);}else if(n===0&&!log[k]&&d.toDateString()===new Date().toDateString()){d.setDate(d.getDate()-1);}else break;}return n;}
+function qotdCard(compact){
+  const q=qotdQ();if(!q)return "";const st=qotdState(),streak=qotdStreak();
+  const solvers=(boardDocs||[]).filter(d=>d.qotd&&d.qotd.date===todayStr()&&d.qotd.track===TRACK&&d.qotd.ok).length;
+  return `<section class="card qotd ${compact?"compact":""}" data-qotd="${esc(q.id)}"><div class="mapbar"><div><span class="eyebrow">Question of the day · ${esc(TRACKS[TRACK].name)}</span>${compact?"":`<h2>Challenge yourself.</h2>`}</div><div class="qmeta">${q.diff?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:""}<span class="label">🔥 ${streak}-day streak</span>${DB?`<span class="label">${solvers} solved today</span>`:""}</div></div>
+   <p class="qq">${esc(q.q)}</p>${q.fig?renderFig(q.fig):""}
+   <div class="qopts">${q.opts.map((o,k)=>`<button class="opt ${st?(k===q.ans?"right":k===st.pick?"wrong":""):""}" data-qp="${k}" ${st?'aria-disabled="true"':""}><span class="k">${"ABCD"[k]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+   ${st?`<div class="explain"><b class="${st.ok?"ok":"bad"}">${st.ok?"Correct. Nice work.":"Not this time. The answer is "+"ABCD"[q.ans]+"."}</b> ${esc(q.exp||"")}${refOf(q)?`<span class="src">Source: ${esc(refOf(q))}</span>`:""}<p class="label" style="margin:8px 0 0">A new question appears tomorrow.</p></div>`:`<p class="label" style="margin:0">One try. Answer to see the explanation and keep your streak.</p>`}</section>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-qp]");if(!b)return;const card=b.closest("[data-qotd]");const q=state.bank.find(x=>x.id===card.dataset.qotd);if(!q||qotdState())return;
+  const pick=+b.dataset.qp,ok=pick===q.ans,sc=myScores();sc.qotdLog=sc.qotdLog||{};sc.qotdLog[TRACK+"|"+todayStr()]={pick,ok,ts:Date.now()};
+  sc.qotd={date:todayStr(),track:TRACK,ok,streak:0};saveScores(sc);sc.qotd.streak=qotdStreak();saveScores(sc);
+  document.querySelectorAll("[data-qotd]").forEach(c=>{const compact=c.classList.contains("compact");c.outerHTML=qotdCard(compact);});renderRails();if(currentView()==="community")renderBoard();
+});
+/* chat room */
+let chatBusy=false,chatQ=Promise.resolve();
+function allMsgs(){
+  const out=[];
+  if(DB&&chatDocs)chatDocs.forEach(d=>(d.msgs||[]).forEach(m=>out.push({...m,uid:d.id,nick:String(m.ai?"Aron":d.nick||"Student").slice(0,24),avatar:d.avatar,asker:String(d.nick||"Student").slice(0,24)})));
+  else{let loc=[];try{loc=JSON.parse(localStorage.getItem(KEY+"-chat")||"[]");}catch(e){}loc.forEach(m=>out.push({...m,uid:UID||"me",nick:m.ai?"Aron":nickOf(),avatar:PROFILE&&PROFILE.avatar,asker:nickOf()}));}
+  return out.filter(m=>m&&typeof m.t==="string").sort((a,b)=>a.ts-b.ts).slice(-150);
+}
+function pushMsg(m){
+  m.id=m.id||("m"+Date.now().toString(36)+Math.random().toString(36).slice(2,6));m.ts=m.ts||Date.now();m.track=TRACK;
+  if(DB&&UID){chatQ=chatQ.then(async()=>{const mine=(chatDocs||[]).find(d=>d.id===UID);const msgs=((mine&&mine.msgs)||[]).concat(m).slice(-60);
+      if(mine)mine.msgs=msgs;else (chatDocs=chatDocs||[]).push({id:UID,msgs,nick:nickOf(),avatar:(PROFILE&&PROFILE.avatar)||AVATARS[0][0]});
+      renderChat();await DB.doc("chat/"+UID).set({nick:nickOf(),avatar:(PROFILE&&PROFILE.avatar)||AVATARS[0][0],msgs,updated:Date.now()});}).catch(()=>{});}
+  else{let loc=[];try{loc=JSON.parse(localStorage.getItem(KEY+"-chat")||"[]");}catch(e){}loc.push(m);try{localStorage.setItem(KEY+"-chat",JSON.stringify(loc.slice(-100)));}catch(e){}renderChat();}
+  return m;
+}
+async function aronInChat(question,re,mode){
+  chatBusy=true;renderChat();
+  const ctx=allMsgs().slice(-12).map(m=>`${m.ai?"Aron":m.nick}: ${m.t}`).join("\n");
+  const task=mode==="check"?`Fact-check this message from the chat: "${question}". Say clearly whether it is correct, partly correct or incorrect, then give the right answer in under 110 words. Cite the source (PMBOK Guide, Agile Practice Guide, Scrum Guide 2020, or the PMI exam content outline) when you can. If you're unsure, say so.`:`A student in the class chat asked: "${question}". Answer helpfully in under 140 words. If anything earlier in the chat is wrong, politely correct it.`;
+  let text="";
+  if(AI){try{const r=await AI(`${tutorRules()}\nYou are posting in a group chat room for students studying for the ${TRACKS[TRACK].full}. Several students can read your reply. Recent chat:\n${ctx}\n\n${task}`,{cache:false});text=r.text;}catch(e){text=aiErr(e);}}
+  else text=offlineReply(question.replace(/@aron/ig,""));
+  chatBusy=false;pushMsg({t:text,ai:true,re,kind:mode});
+}
+function renderChat(){
+  const el=document.getElementById("chatlog");if(!el)return;const atBottom=el.scrollHeight-el.scrollTop-el.clientHeight<60;
+  const ms=allMsgs().filter(m=>(m.track||"pmp")===TRACK);
+  el.innerHTML=(ms.length?ms.map(m=>`<div class="cm ${m.ai?"ai":""} ${m.uid===(UID||"me")&&!m.ai?"mine":""}" data-mid="${esc(m.id||"")}">${m.ai?`<span class="aron-av cm-av" aria-hidden="true"></span>`:avatarHTML(m.avatar,34)}<div class="cm-b"><div class="cm-h"><b>${esc(m.nick)}</b>${m.ai?`<span class="ai-tag">AI${m.kind==="check"?" fact-check":""}</span><small>for ${esc(m.asker)}</small>`:""}<small>${new Date(m.ts).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</small></div><div class="cm-t md">${m.ai?md(m.t):esc(m.t)}</div>
+     ${m.ai?"":`<div class="cm-x"><button class="linkbtn subtle" data-fc="${esc(m.id||"")}">Fact-check with Aron</button>${(m.uid===UID&&DB)||cloudAdmin()?`<button class="linkbtn subtle" data-cdel="${esc(m.id||"")}" data-cu="${esc(m.uid)}">Delete</button>`:""}</div>`}</div></div>`).join(""):`<p class="label" style="text-align:center;padding:24px">No messages yet. Say hello, ask a question, or tag <b>@Aron</b> for help.</p>`)+
+   (chatBusy?`<div class="cm ai"><span class="aron-av cm-av" aria-hidden="true"></span><div class="cm-b">${THINK}</div></div>`:"");
+  paintAron();if(atBottom||chatBusy)el.scrollTop=el.scrollHeight;
+  el.querySelectorAll("[data-fc]").forEach(b=>b.onclick=()=>{const m=allMsgs().find(x=>x.id===b.dataset.fc);if(m&&!chatBusy)aronInChat(m.t,m.id,"check");});
+  el.querySelectorAll("[data-cdel]").forEach(b=>b.onclick=async()=>{if(b.textContent!=="Confirm delete"){b.textContent="Confirm delete";return;}
+    const u=b.dataset.cu,d=(chatDocs||[]).find(x=>x.id===u);if(!d||!DB)return;d.msgs=(d.msgs||[]).filter(m=>m.id!==b.dataset.cdel&&m.re!==b.dataset.cdel);renderChat();try{await DB.doc("chat/"+u).update({msgs:d.msgs});}catch(e){}});
+}
+function renderCommunityParts(){renderBoard();const q=document.querySelector("#view-community [data-qotd]");if(q)q.outerHTML=qotdCard(false);}
+function renderCommunity(){
+  const el=document.getElementById("view-community");renderBand();subBoard();subChat();
+  el.innerHTML=`<section class="card hero-card"><div><span class="eyebrow">Community · ${esc(TRACKS[TRACK].name)}</span><h2>Study together.</h2><p style="margin:0;color:var(--muted);max-width:66ch">Take on the question of the day, see who's leading each exam and quiz, and talk it through with classmates. Tag <b>@Aron</b> in the chat for help, or ask him to fact-check any message.</p></div></section>
+   ${qotdCard(false)}
+   <section class="grid2 comm"><div class="card" id="board"></div>
+   <div class="card chatcard"><div class="mapbar"><div><span class="eyebrow">Chat room · ${esc(TRACKS[TRACK].name)}</span><h2>Class discussion</h2></div><span class="label">You appear as ${avatarHTML(PROFILE&&PROFILE.avatar,22)} <b>${esc(nickOf())}</b> · <button class="linkbtn" id="cm-me">change</button></span></div>
+    <div class="chatlog" id="chatlog" aria-live="polite"></div>
+    <form class="chatform" id="chatform"><input id="chat-msg" maxlength="600" placeholder="Message the class. Tag @Aron for help." aria-label="Message the class" autocomplete="off"><button class="btn primary" type="submit">Send</button></form>
+    <div class="chatx"><button class="chip" type="button" data-cq="@Aron explain this simply: ">Ask Aron</button><button class="chip" type="button" data-cq="@Aron quiz the room with one question on ">Quiz the room</button><span class="label">${DB?"Be respectful. Instructors can remove messages.":"Offline copy: only you see these messages. Open in Claude to chat with classmates."}</span></div></div></section>`;
+  renderBoard();renderChat();
+  const f=el.querySelector("#chatform"),inp=el.querySelector("#chat-msg");
+  f.onsubmit=e=>{e.preventDefault();const t=inp.value.trim();if(!t)return;if(!PROFILE||!PROFILE.name){openProfile(f);return;}inp.value="";const m=pushMsg({t});if(/@aron\b/i.test(t)&&!chatBusy)aronInChat(t,m.id,"ask");};
+  el.querySelectorAll("[data-cq]").forEach(b=>b.onclick=()=>{inp.value=b.dataset.cq;inp.focus();});
+  el.querySelector("#cm-me").onclick=e=>openProfile(e.target);
+}
 
 async function renderClass(){
   const el=document.getElementById("view-class");
