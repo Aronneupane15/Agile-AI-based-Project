@@ -1016,7 +1016,7 @@ body[data-view="linkedin"] .top,body[data-view="apply"] .top{display:none}
 .ab-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding-bottom:40px}
 .ab-gallery figure{margin:0;background:var(--ai-tile);border-radius:24px;padding:12px;box-shadow:inset 0 0 0 1px var(--ai-line);text-align:center}
 .ab-gallery figcaption{font-size:14px;color:var(--ai-mute);margin-top:6px}
-.ai-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ai-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}.ai-solo{max-width:520px;width:100%;justify-self:center}.ai-solo .ai-face{margin:0}
 .ai-pair figure{margin:0;display:grid;gap:8px}
 .ai-pair figcaption{font-size:14px;color:var(--ai-mute);text-align:center}
 .ai-real img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px;display:block;box-shadow:inset 0 0 0 1px var(--ai-line)}
@@ -3336,8 +3336,7 @@ function renderAI(){
   </section>
 
   <section class="ai-sec"><div class="ai-in ai-close">
-    <div class="ai-pair"><figure class="ai-real"><img src="img/aron-real.webp" alt="Aron, the real person the coach is modeled on" loading="lazy"><figcaption>The real Aron</figcaption></figure>
-     <figure class="ai-face">${aronFig("115 22 130 130","suit","rest","none","Aron, illustrated")}<figcaption>Aron, the coach</figcaption></figure></div>
+    <div class="ai-solo"><figure class="ai-face">${aronFig("115 22 130 130","suit","rest","none","Aron, illustrated")}</figure></div>
     <div><p class="ai-eye">The face behind the coach</p><h2 class="ai-h">Modeled on<br><span class="ai-grad">the real Aron.</span></h2>
     <p class="ai-p">Same beard, same modern mullet, same sharp double-breasted suit. Behind the face is Claude, one of the most capable AI models, so Aron can <b>explain the why behind every answer</b> in plain words.</p></div>
   </div></section>
