@@ -798,6 +798,172 @@ footer{max-width:none!important}footer>.ftxt{max-width:85ch}
 .teaser .v2-link{color:#64d2ff}
 @media (prefers-reduced-motion:reduce){.sheen::after,.v2-logo-card,.v2pm-badge{animation:none!important}}
 
+
+@media (max-width:1600px){.gnav nav button{padding:8px 8px}}
+@media (max-width:1500px){.srch .srch-t,.srch kbd{display:none}}
+/* ---------- Round 10: meter scope, team photos, Meet Aron ---------- */
+body:not([data-view="map"]):not([data-view="quizzes"]):not([data-view="quiz"]):not([data-view="cases"]):not([data-view="bank"]):not([data-view="class"]) #band{display:none}
+body[data-view="ai"] .top,body[data-view="vets2pm"] .top{display:none}
+.v2-av{position:relative;overflow:hidden;flex:none}
+.v2-av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.v2-team{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.v2-person{grid-template-columns:56px minmax(0,1fr);align-items:start}
+.v2-person .v2-av{width:56px;height:56px}
+.v2-person p{margin:2px 0 0;font-size:13px;color:var(--muted);line-height:1.35}
+.gnav nav .nav-ai{background:linear-gradient(90deg,#64d2ff,#a78bfa 50%,#ff7ab6);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+/* AI tab is its own dark world, full-bleed */
+html{overflow-x:clip}
+body[data-view="ai"] .rail{display:none}
+body[data-view="ai"] main .inner.shell{max-width:none;grid-template-columns:minmax(0,1fr)}
+
+body[data-view="ai"] footer{max-width:1180px;margin:0 auto;width:100%}
+#view-ai{--ai-ink:#f5f5f7;--ai-mute:#a1a1a6;--ai-tile:#101014;--ai-line:rgba(255,255,255,.1);--ai-c1:#64d2ff;--ai-c2:#a78bfa;--ai-c3:#ff7ab6;--ai-c4:#ffd27a;
+  margin-inline:calc(50% - 50vw);background:#000;color:var(--ai-ink);display:grid;gap:0;margin-top:-32px;overflow:clip}
+.ai-in{max-width:1120px;margin:0 auto;width:100%;box-sizing:border-box;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.ai-sec{padding-block:clamp(72px,11vw,140px)}
+.ai-eye{font:600 clamp(17px,1.6vw,21px)/1.2 var(--f-body);color:var(--ai-c4);letter-spacing:-.01em;margin:0 0 10px}
+.ai-h{font:700 clamp(40px,6.4vw,80px)/1.02 var(--f-body);letter-spacing:-.045em;margin:0;text-wrap:balance}
+.ai-p{font:500 clamp(18px,1.9vw,24px)/1.38 var(--f-body);color:var(--ai-mute);letter-spacing:-.015em;max-width:30ch;margin:16px 0 0;text-wrap:pretty}
+.ai-p b{color:var(--ai-ink);font-weight:600}
+.ai-grad{background:linear-gradient(100deg,var(--ai-c1),var(--ai-c2) 40%,var(--ai-c3) 70%,var(--ai-c4));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:aiShift 8s ease-in-out infinite alternate}
+@keyframes aiShift{to{background-position:100% 0}}
+.ai-btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.ai-btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font:600 17px var(--f-body);background:#f5f5f7;color:#000;transition:transform .2s,background .2s}
+.ai-btn:hover{transform:scale(1.03)}.ai-btn:focus-visible{outline:3px solid var(--ai-c1);outline-offset:3px}
+.ai-btn.ghost{background:none;color:var(--ai-c1);padding-inline:6px}
+.ai-btn.ghost:hover{text-decoration:underline;transform:none}
+/* hero */
+.ai-hero{position:relative;text-align:center;padding-top:clamp(56px,8vw,96px);padding-bottom:0;isolation:isolate}
+.ai-hero::before{content:"";position:absolute;inset:-10% -20% 0;z-index:-1;background:radial-gradient(40% 32% at 50% 62%,rgba(122,92,255,.45),transparent 70%),radial-gradient(30% 24% at 38% 70%,rgba(100,210,255,.32),transparent 70%),radial-gradient(28% 22% at 64% 72%,rgba(255,122,182,.28),transparent 70%);filter:blur(10px);animation:aiAura 9s ease-in-out infinite alternate}
+@keyframes aiAura{to{transform:scale(1.08) translateY(-12px);opacity:.85}}
+.ai-hero .ai-eye{color:var(--ai-mute);animation:aiUp 1s .1s both}
+.ai-name{font:800 clamp(84px,17vw,220px)/.9 var(--f-body);letter-spacing:-.065em;margin:0;animation:aiBlur 1.3s .2s both}
+.ai-sub{font:600 clamp(22px,3vw,36px)/1.15 var(--f-body);letter-spacing:-.03em;margin:14px auto 0;max-width:22ch;text-wrap:balance;animation:aiUp 1s .55s both}
+.ai-hero .ai-btns{justify-content:center;margin-top:22px;animation:aiUp 1s .75s both}
+.ai-status{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font:500 14px var(--f-body);color:var(--ai-mute);animation:aiUp 1s .9s both}
+.ai-status i{width:8px;height:8px;border-radius:50%;background:#30d158;box-shadow:0 0 10px #30d158}
+.ai-status.off i{background:var(--ai-c4);box-shadow:0 0 10px var(--ai-c4)}
+.ai-stage{position:relative;width:min(380px,78vw);margin:30px auto 0;animation:aiRise 1.6s .45s cubic-bezier(.2,.9,.25,1) both}
+.ai-stage .ab-svg{display:block;width:100%;height:auto;animation:aiFloat 6s 2s ease-in-out infinite}
+@keyframes aiUp{from{opacity:0;transform:translateY(24px)}}
+@keyframes aiBlur{from{opacity:0;transform:scale(1.12);filter:blur(18px)}}
+@keyframes aiRise{from{opacity:0;transform:translateY(80px) scale(.92)}}
+@keyframes aiFloat{50%{transform:translateY(-10px)}}
+.spark{position:absolute;width:var(--s,14px);aspect-ratio:1;left:var(--x);top:var(--y);background:#fff;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);filter:drop-shadow(0 0 6px #fff);animation:twinkle var(--d,3s) var(--dl,0s) ease-in-out infinite;pointer-events:none}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.ab-ear{animation:earPulse 2.4s ease-in-out infinite}
+@keyframes earPulse{50%{opacity:.35}}
+.ai-scroll{display:block;margin:6px auto 0;font:500 14px var(--f-body);color:var(--ai-mute);padding-bottom:40px}
+/* build story */
+.ab-build{position:relative;height:calc(100vh + 6 * 62vh)}
+.ab-sticky{position:sticky;top:var(--navh,54px);height:calc(100vh - var(--navh,54px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:24px}
+.ab-fig{position:relative;height:100%;display:grid;place-items:center;min-height:0}
+.ab-fig .ab-svg{height:min(84%,640px);width:auto;max-width:100%}
+.ab-fig::before{content:"";position:absolute;inset:15% 10%;border-radius:50%;background:radial-gradient(closest-side,rgba(122,92,255,calc(var(--p,0) * .55)),transparent);filter:blur(30px)}
+.ab-p{transition:transform 1s cubic-bezier(.2,.9,.25,1),opacity .7s ease,filter .6s;transform-box:fill-box;transform-origin:50% 50%}
+.ab-stage-js .ab-p:not(.on){opacity:0;transform:translate(var(--dx,0),var(--dy,0)) scale(var(--ds,1)) rotate(var(--dr,0))}
+.ab-legs,.ab-shoes{--dy:140px}
+.ab-torso{--dy:-120px;--ds:.9}
+.ab-arms{--ds:.55;--dr:-8deg}
+.ab-head{--dy:-180px;--dr:6deg}
+.ab-stache{--ds:.1}
+.ab-aura{--ds:.6}
+.ab-p.cur{filter:drop-shadow(0 0 14px rgba(100,210,255,.85))}
+.ab-steps{position:relative;min-height:330px}
+.ab-step{position:absolute;inset:0 0 auto;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .8s cubic-bezier(.2,.9,.25,1);pointer-events:none}
+.ab-step.on{opacity:1;transform:none;pointer-events:auto}
+.ab-step .k{font:600 15px var(--f-data);color:var(--ai-c1);letter-spacing:.04em;margin:0 0 10px;display:block}
+.ab-step h3{font:700 clamp(32px,4.4vw,56px)/1.04 var(--f-body);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ab-step p{font:500 clamp(17px,1.6vw,21px)/1.42 var(--f-body);color:var(--ai-mute);max-width:34ch;margin:14px 0 0}
+.ab-dots{display:flex;gap:8px;margin-top:28px;position:absolute;bottom:-70px;left:0}
+.ab-dots i{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.25);transition:width .4s,background .4s}
+.ab-dots i.on{width:28px;background:var(--ai-ink)}
+.ab-build.static{height:auto}
+.ab-build.static .ab-sticky{position:static;height:auto;padding-block:40px}
+.ab-build.static .ab-fig .ab-svg{height:auto;width:min(320px,70vw)}
+.ab-build.static .ab-steps{min-height:0;display:grid;gap:28px}
+.ab-build.static .ab-step{position:static;opacity:1;transform:none}
+.ab-build.static .ab-dots{display:none}
+/* close-up */
+.ai-close{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.ai-face{border-radius:36px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#2a2350,#0a0a10 70%);aspect-ratio:1;max-width:100%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--ai-line)}
+.ai-face .ab-svg{width:100%;height:100%}
+.ai-face .ab-stache{transform-box:fill-box;transform-origin:50% 60%;animation:stache 4s 1s ease-in-out infinite}
+@keyframes stache{0%,86%,100%{transform:none}90%{transform:scaleX(1.08) translateY(-1px)}94%{transform:scaleX(.97)}}
+.sx-tl .ai-face{animation:faceZoom linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+@keyframes faceZoom{from{transform:scale(.82);border-radius:80px;opacity:.4}to{transform:none;opacity:1}}
+/* bento */
+.ai-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:48px}
+.ai-tile{background:var(--ai-tile);border-radius:28px;padding:clamp(22px,2.6vw,34px);box-shadow:inset 0 0 0 1px var(--ai-line);display:grid;gap:14px;align-content:start;grid-column:span 2;min-width:0;position:relative;overflow:hidden}
+.ai-tile.w4{grid-column:span 4}.ai-tile.w3{grid-column:span 3}.ai-tile.w6{grid-column:span 6}
+.ai-tile h3{font:700 clamp(24px,2.5vw,32px)/1.08 var(--f-body);letter-spacing:-.035em;margin:0}
+.ai-tile p{margin:0;color:var(--ai-mute);font-size:16px;line-height:1.45}
+.ai-tile .big{font:800 clamp(44px,6vw,76px)/1 var(--f-body);letter-spacing:-.05em}
+.ai-tile:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.mini{border-radius:16px;background:rgba(255,255,255,.04);padding:14px;display:grid;gap:8px;font-size:14px}
+.mini .q{color:var(--ai-ink);font-weight:600}
+.mini .ln{height:8px;border-radius:9px;background:rgba(255,255,255,.12)}
+.mini .why{color:var(--ai-c1)}
+.bub{padding:9px 13px;border-radius:18px;max-width:88%;font-size:14px;line-height:1.4}
+.bub.me{background:#0a84ff;color:#fff;justify-self:end;border-bottom-right-radius:6px}
+.bub.ai{background:#26262b;color:var(--ai-ink);border-bottom-left-radius:6px}
+.ai-chk{display:inline-flex;gap:6px;align-items:center;font:600 12px var(--f-body);color:#30d158;background:rgba(48,209,88,.12);border-radius:99px;padding:3px 10px;justify-self:start}
+.heatg{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.heatg i{aspect-ratio:1;border-radius:5px;background:var(--hc)}
+.lvls{display:flex;gap:8px;flex-wrap:wrap}
+.lvls span{font:700 15px var(--f-data);padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.06)}
+.lvls span:first-child{background:linear-gradient(135deg,#30d158,#0a84ff);color:#000}
+.xl{display:grid;gap:6px}.xl div{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.xl s{text-decoration:none;color:var(--ai-mute)}.xl b{color:var(--ai-c4)}
+.aiplan{list-style:none;margin:0;padding:0;display:grid;gap:6px}.aiplan li{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--ai-line);padding-top:6px}.aiplan span{color:var(--ai-mute)}
+.kbdx{font:700 clamp(54px,8vw,96px)/1 var(--f-data);padding:14px 30px;border-radius:24px;background:linear-gradient(180deg,#2a2a30,#141418);box-shadow:inset 0 -6px 0 rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.12),0 20px 60px -20px rgba(100,210,255,.5);justify-self:start}
+.ai-tile.w6{grid-template-columns:auto minmax(0,1fr);align-items:center;gap:clamp(20px,4vw,48px)}
+/* demo */
+.ai-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.phone{width:min(360px,100%);justify-self:center;border-radius:48px;padding:12px;background:linear-gradient(160deg,#3a3a40,#121216);box-shadow:0 40px 120px -30px rgba(122,92,255,.6),inset 0 0 0 1px rgba(255,255,255,.15)}
+.phone-in{border-radius:38px;background:#0b0b0e;padding:46px 14px 18px;display:grid;gap:10px;min-height:520px;align-content:start;position:relative}
+.phone-in::before{content:"";position:absolute;top:12px;left:50%;translate:-50% 0;width:96px;height:26px;border-radius:99px;background:#000}
+.phone-h{display:flex;gap:10px;align-items:center;padding:0 4px 8px;border-bottom:1px solid var(--ai-line)}
+.phone-h .aron-av{width:34px;height:34px;border-radius:50%;overflow:hidden;flex:none}
+.phone-h b{font-size:15px}.phone-h small{display:block;color:var(--ai-mute);font-size:12px}
+.typing{display:inline-flex;gap:4px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--ai-mute);animation:dot 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{50%{opacity:.25;transform:translateY(-3px)}}
+.phone.play .dm{animation:msgIn .55s cubic-bezier(.2,.9,.25,1) both;animation-delay:calc(var(--i) * .9s)}
+.phone.play .dm.typ{animation:msgTyp calc(.9s) both;animation-delay:calc(var(--i) * .9s)}
+@keyframes msgIn{from{opacity:0;transform:translateY(14px) scale(.96)}}
+@keyframes msgTyp{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0;height:0;padding:0}}
+.dm.typ{display:none}.phone.play .dm.typ{display:block}
+/* specs */
+.ai-specs{margin-top:40px;display:grid;border-top:1px solid var(--ai-line)}
+.ai-specs div{display:grid;grid-template-columns:minmax(120px,220px) minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--ai-line)}
+.ai-specs dt{font:700 20px var(--f-body);letter-spacing:-.02em}
+.ai-specs dd{margin:0;color:var(--ai-mute);font-size:17px;line-height:1.5}
+.ai-specs dd b{color:var(--ai-ink);font-weight:600}
+/* final */
+.ai-final{text-align:center;position:relative;isolation:isolate}
+.ai-final::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(40% 50% at 50% 50%,rgba(122,92,255,.28),transparent 70%)}
+.ai-final .aron-big{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 26px;box-shadow:0 0 0 6px rgba(255,255,255,.06),0 0 80px rgba(122,92,255,.6)}
+.ai-final .ai-btns{justify-content:center;margin-top:30px}
+.ai-fine{font-size:13px;color:#6e6e73;max-width:70ch;margin:40px auto 0;line-height:1.5}
+/* scroll-linked reveals for this tab */
+.sx-tl #view-ai :is(.ai-tile,.ai-specs div,.ai-h,.ai-p,.phone){animation:sxIn linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+.sx-tl #view-ai .ab-build :is(.ai-h,.ai-p){animation:none}
+@media (max-width:860px){
+  .ab-sticky{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;align-items:stretch;gap:8px;padding-bottom:24px}
+  .ab-fig .ab-svg{height:min(100%,46vh)}
+  .ab-steps{min-height:220px}
+  .ab-dots{bottom:-26px;left:50%;translate:-50% 0}
+  .ab-sticky .ai-eye{text-align:center}
+  .ab-step{text-align:center}.ab-step p{margin-inline:auto}
+  .ai-close,.ai-demo{grid-template-columns:minmax(0,1fr)}
+  .ai-bento{grid-template-columns:minmax(0,1fr)}
+  .ai-tile,.ai-tile.w4,.ai-tile.w3,.ai-tile.w6{grid-column:auto}
+  .ai-tile.w6{grid-template-columns:minmax(0,1fr)}
+  .ai-specs div{grid-template-columns:minmax(0,1fr);gap:6px}
+}
+@media (max-width:860px) and (max-height:560px){.ab-build{height:auto}.ab-sticky{position:static;height:auto}}
+@media (prefers-reduced-motion:reduce){
+  #view-ai *,#view-ai *::before{animation:none!important;transition:none!important}
+}
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -810,6 +976,7 @@ footer{max-width:none!important}footer>.ftxt{max-width:85ch}
         <button id="nav-hub" data-view="hub">Study</button>
         <button id="nav-careers" data-view="careers">Careers</button>
         <button id="nav-community" data-view="community">Community</button>
+        <button id="nav-ai" data-view="ai" class="nav-ai">Aron AI</button>
         <button id="nav-vets2pm" data-view="vets2pm">Vets2PM</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
         <button id="nav-help" data-view="help">Help</button>
@@ -840,6 +1007,7 @@ footer{max-width:none!important}footer>.ftxt{max-width:85ch}
     <div id="view-careers" hidden></div>
     <div id="view-community" hidden></div>
     <div id="view-vets2pm" hidden></div>
+    <div id="view-ai" hidden></div>
     <footer>
       <div class="v2pm-foot"><span class="v2pm-logo sheen"><img src="img/vets2pm-logo-premium.webp" alt="Vets2PM"></span><div><b>Transform your military experience into a project management career.</b><p>PMP/ACP Guide is a Vets2PM learning platform for service members, veterans and military families. Vets2PM offers fast, affordable, live PMP certification training.</p></div><div class="actions"><button class="btn" type="button" data-go="vets2pm">About Vets2PM</button><a class="btn" href="https://vets2pm.com/" target="_blank" rel="noopener">Visit vets2pm.com</a></div></div>
       <div class="ftxt">PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
@@ -1721,8 +1889,9 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();
+  document.body.dataset.view=v;
+  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();if(v==="ai")renderAI();
   renderRails();window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -1873,8 +2042,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else if(v==="vets2pm")renderVets2PM();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else if(v==="vets2pm")renderVets2PM();else if(v==="ai")renderAIStatus();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -2057,7 +2226,7 @@ async function offerCSV(filename,text,msg){
 }
 
 /* ---------- Aron, fields gallery, Study tab ---------- */
-const ARON_SVG=`<svg viewBox="0 0 64 64" class="aron-svg" aria-hidden="true"><defs><linearGradient id="arbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa8ff"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="arclip"><circle cx="32" cy="32" r="32"/></clipPath></defs><g clip-path="url(#arclip)"><rect width="64" height="64" fill="url(#arbg)"/><rect x="27.5" y="35" width="9" height="11" rx="3" fill="#d99c7c"/><path d="M4 66C6 51 17 45.5 32 44.5C47 45.5 58 51 60 66Z" fill="#1c2433"/><path d="M25.5 45L32 58L38.5 45Z" fill="#f4f6fa"/><path d="M30.6 46.2h2.8l1 3L32 58.5l-2.4-9.3Z" fill="#a61b2b"/><path d="M25.5 45L32 58.5L27.5 61L19.5 47.5Z" fill="#111827"/><path d="M38.5 45L32 58.5L36.5 61L44.5 47.5Z" fill="#111827"/><circle cx="41" cy="54" r="1.6" fill="#e5e7eb" opacity=".8"/><ellipse cx="21.6" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="42.4" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="32" cy="26.5" rx="10.4" ry="12.6" fill="#f0bd9b"/><path d="M21.4 25.5C20.6 15.5 26.5 11.8 33 12.2C40.4 12.6 44 16.6 42.7 25.5C41.6 20.3 38 18.4 32.4 18.6C26.6 18.9 23.6 21 21.4 25.5Z" fill="#2a1c13"/><path d="M26.2 23.6q2-1 3.8 0M34 23.6q2-1 3.8 0" stroke="#2a1c13" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="28.1" cy="27.4" r="1.15" fill="#1f160f"/><circle cx="35.9" cy="27.4" r="1.15" fill="#1f160f"/><path d="M28.4 32.9q3.6 2.6 7.2 0" stroke="#9b5a44" stroke-width="1.3" fill="none" stroke-linecap="round"/></g></svg>`;
+const ARON_SVG=`<svg viewBox="0 0 64 64" class="aron-svg" aria-hidden="true"><defs><linearGradient id="arbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa8ff"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="arclip"><circle cx="32" cy="32" r="32"/></clipPath></defs><g clip-path="url(#arclip)"><rect width="64" height="64" fill="url(#arbg)"/><rect x="27.5" y="35" width="9" height="11" rx="3" fill="#d99c7c"/><path d="M4 66C6 51 17 45.5 32 44.5C47 45.5 58 51 60 66Z" fill="#1c2433"/><path d="M25.5 45L32 58L38.5 45Z" fill="#f4f6fa"/><path d="M30.6 46.2h2.8l1 3L32 58.5l-2.4-9.3Z" fill="#a61b2b"/><path d="M25.5 45L32 58.5L27.5 61L19.5 47.5Z" fill="#111827"/><path d="M38.5 45L32 58.5L36.5 61L44.5 47.5Z" fill="#111827"/><circle cx="41" cy="54" r="1.6" fill="#e5e7eb" opacity=".8"/><ellipse cx="21.6" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="42.4" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="32" cy="26.5" rx="10.4" ry="12.6" fill="#f0bd9b"/><path d="M21.4 25.5C20.6 15.5 26.5 11.8 33 12.2C40.4 12.6 44 16.6 42.7 25.5C41.6 20.3 38 18.4 32.4 18.6C26.6 18.9 23.6 21 21.4 25.5Z" fill="#2a1c13"/><path d="M26.2 23.6q2-1 3.8 0M34 23.6q2-1 3.8 0" stroke="#2a1c13" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="28.1" cy="27.4" r="1.15" fill="#1f160f"/><circle cx="35.9" cy="27.4" r="1.15" fill="#1f160f"/><path d="M29.6 35q2.4 1.5 4.8 0" stroke="#9b5a44" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M32 30.9Q29.6 29.7 27.4 30.7Q25.8 31.5 25.1 33.2Q27 32.3 28.8 32.6Q30.6 32.8 32 32Q33.4 32.8 35.2 32.6Q37 32.3 38.9 33.2Q38.2 31.5 36.6 30.7Q34.4 29.7 32 30.9Z" fill="#2a1c13"/></g></svg>`;
 function paintAron(){document.querySelectorAll(".aron-av,.aron-big").forEach(e=>{if(!e.querySelector("svg"))e.innerHTML=ARON_SVG;});}
 
 const FIELDS=[
@@ -2515,6 +2684,8 @@ function srIndex(){
   FAQ.forEach(f=>add("faq",f[0],f[1],"help",o=>infoSheet("Help center",f[0],`<p class="lede">${esc(f[1])}</p>`,`<button class="btn" data-go="help">Open Help center</button>`,o)));
   [["Exam simulation","Timed, weighted by domain, like the real exam",()=>startQuiz("exam")],["Weak-area practice","Questions from the areas you miss most",()=>state.attempts.length?startQuiz("weak"):startQuiz("mixed")],["Review mistakes","Re-answer questions you got wrong",()=>reviewQueue().length?startQuiz("review"):show("map")],["Sprint quizzes","Quiz 1 to 4 and the difficulty check",()=>show("quizzes")],["Question bank","Every question in this track",()=>show("bank")],["Heat map and readiness","Your dashboard",()=>show("map")],["Create account or edit profile","Name, branch, exam date, career goal",o=>openProfile(o)],["Submit a help request","Ask an instructor or report a problem",()=>show("help")],["Careers","Military translator, industries and career paths",()=>show("careers")],["Scoreboard","Top scores on each exam and quiz",()=>show("community")],["Chat room","Discuss with classmates and Aron",()=>show("community")],["Question of the day","A daily challenge with a streak",()=>show("community")]]
     .forEach(([n,s,a])=>add("tool",n,s,"feature tool",a));
+  add("tool","Meet Aron, your AI coach","What Aron can do: explain, fact-check, plan, debrief","ai artificial intelligence coach tutor aron chatbot assistant mustache",()=>show("ai"));
+  V2PM.team.forEach(t=>add("v2pm",t[0],"Vets2PM team · "+t[1],(t[2]||"")+" "+t[3]+" staff instructor people",()=>goTo("vets2pm",".v2-team")));
   add("v2pm","About Vets2PM","Mission, programs, funding, SkillBridge, team and FAQ","vets2pm academy veterans school",()=>show("vets2pm"));
   V2PM.programs.forEach(p=>add("v2pm",p.n,"Vets2PM program · "+p.t,p.d,null,{href:V2PM_URL+p.u}));
   V2PM.funding.forEach(f=>add("v2pm",f[0],"Vets2PM funding · "+f[1],"funding pay benefits",()=>goTo("vets2pm",".v2-fund")));
@@ -2769,7 +2940,7 @@ async function aronInChat(question,re,mode){
 function renderChat(){
   const el=document.getElementById("chatlog");if(!el)return;const atBottom=el.scrollHeight-el.scrollTop-el.clientHeight<60;
   const ms=allMsgs().filter(m=>(m.track||"pmp")===TRACK);
-  el.innerHTML=(ms.length?ms.map(m=>`<div class="cm ${m.ai?"ai":""} ${m.uid===(UID||"me")&&!m.ai?"mine":""}" data-mid="${esc(m.id||"")}">${m.ai?`<span class="aron-av cm-av" aria-hidden="true"></span>`:avatarHTML(m.avatar,34)}<div class="cm-b"><div class="cm-h"><b>${esc(m.nick)}</b>${m.ai?`<span class="ai-tag">AI${m.kind==="check"?" fact-check":""}</span><small>for ${esc(m.asker)}</small>`:""}<small>${new Date(m.ts).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</small></div><div class="cm-t md">${m.ai?md(m.t):esc(m.t)}</div>
+  el.innerHTML=(ms.length?ms.map(m=>`<div class="cm ${m.ai?"ai":""} ${m.uid===(UID||"me")&&!m.ai?"mine":""}" data-mid="${esc(m.id||"")}">${m.ai?`<span class="aron-av cm-av" aria-hidden="true"></span>`:avatarHTML(m.avatar,34)}<div class="cm-b"><div class="cm-h"><b>${esc(m.nick)}</b>${m.ai?`<span class="ai-sub">AI${m.kind==="check"?" fact-check":""}</span><small>for ${esc(m.asker)}</small>`:""}<small>${new Date(m.ts).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})}</small></div><div class="cm-t md">${m.ai?md(m.t):esc(m.t)}</div>
      ${m.ai?"":`<div class="cm-x"><button class="linkbtn subtle" data-fc="${esc(m.id||"")}">Fact-check with Aron</button>${(m.uid===UID&&DB)||cloudAdmin()?`<button class="linkbtn subtle" data-cdel="${esc(m.id||"")}" data-cu="${esc(m.uid)}">Delete</button>`:""}</div>`}</div></div>`).join(""):`<p class="label" style="text-align:center;padding:24px">No messages yet. Say hello, ask a question, or tag <b>@Aron</b> for help.</p>`)+
    (chatBusy?`<div class="cm ai"><span class="aron-av cm-av" aria-hidden="true"></span><div class="cm-b">${THINK}</div></div>`:"");
   paintAron();if(atBottom||chatBusy)el.scrollTop=el.scrollHeight;
@@ -2827,7 +2998,7 @@ const V2PM={
  funding:[["Army Credentialing Assistance","Request an invoice to include with your credentialing goal."],["AF COOL","Follow the AF COOL handbook steps Vets2PM lays out."],["CG COOL and DoD COOL","Vets2PM is DoD COOL approved."],["GI Bill","Post-9/11 and Montgomery. Reimbursed after you take the PMP exam."],["MyCAA (SpouseWorks)","For eligible military spouses."],["VR&E","Veteran Readiness and Employment."],["Unit funds","An SF-182 routed through your commander and paid by Government Purchase Card."]],
  careers:[["DoD SkillBridge","Vets2PM is a SkillBridge provider that matches interns with host employers in their last months of service."],["Job board","Project management openings from partner employers."],["PurpleX","A candidate database employers use to find trained veterans."],["Lifetime placement support","Free job placement help and lifetime access to course content."],["Mentorship","Mentoring through the Veteran Project Manager Mentor Alliance."],["Resume and interview help","Career services that help translate military experience for civilian hiring."]],
  trust:["PMI Premier Authorized Training Partner","DoD SkillBridge Provider","DoD COOL Approved","GSA Contract Holder","Licensed by the Florida Commission for Independent Education","Kentucky Commission on Proprietary Education","Texas Workforce Commission"],
- team:[["Eric \"Doc\" Wright","Founder","PhD, PMP, ACP, PSM"],["Jeremy Burdick","Chief Operating Officer","A&P, PMP"],["Kelly Wright","Director of Staff","CSM, CM"],["Cathy Miclat","Director of Career Services",""],["Aaron McEvers","Program Manager and Instructor, Fort Bliss MPLW","PMP, PMI-ACP, PSM I · Retired U.S. Army SFC"],["Frederick Claro","Program Manager and Instructor, Fort Bliss and Fort Campbell MPLW","PMP, PMI-ACP, PSM I"],["Garrik Dennis","Instructor","PhD, PMP, ACP, PSM · U.S. Army veteran"],["Max Rodgers","Instructor","PMP, PMI-ACP, PSM · Retired U.S. Navy CEC officer"]],
+ team:[["Eric \"Doc\" Wright","Founder","PhD, PMP, ACP, PSM","Founded Vets2PM. 30+ years in project management.","eric-wright"],["Jeremy Burdick","Chief Operating Officer","A&P, PMP","Leads day-to-day operations.","jeremy-burdick"],["Kelly Wright","Director of Staff","CSM, CM","Runs internal operations and administration.","kelly-wright"],["Cathy Miclat","Director of Career Services","","Leads SkillBridge internships and placements.","cathy-miclat"],["Jessica Boswell","SkillBridge Assistant Program Manager","aPHR","Supports service members through training and placement.","jessica-boswell"],["Lyndsey Lemus","SkillBridge Assistant Program Manager","","Supports transitioning service members.","lyndsey-lemus"],["Jaden Canseco","Administrative Assistant","","Registration, live chat and coordination.","jaden-canseco"],["Aaron McEvers","Program Manager and Instructor, Fort Bliss MPLW","PMP, PMI-ACP, PSM I","Retired U.S. Army SFC, 21 years of service. MPLW graduate.","aaron-mcevers"],["Carson Carter","Growth and Compliance Manager","PMP","Secures training funding through government partnerships.","carson-carter"],["Brian Taylor","Group Training Coordinator","","Coordinates training for military and civilian groups.","brian-taylor"],["Frederick Claro","Program Manager and Instructor, Fort Campbell MPLW","PMP, PMI-ACP, PSM I","Supports MPLW cohorts at Fort Bliss and Fort Campbell.","frederick-claro"],["Garrik Dennis","Instructor","PhD, PMP, ACP, PSM","U.S. Army veteran and Vets2PM graduate. Teaching since 2018.","garrik-dennis"],["Keith Robinson","Instructor","PMP, LSSBB","Senior engineering project manager in mining.","keith-robinson"],["Kimberly Cole","Instructor","PMP, SHRM-SCP, PHR","EVP of Human Capital at 9th Way Insignia.","kimberly-cole"],["Max Rodgers","Instructor","PMP, PMI-ACP, PSM","Retired U.S. Navy CEC officer. 35+ years of international projects.","max-rodgers"],["Michael Chin","Instructor","PMP, PSM, SAFe 6.0, ITIL, Sec+","Military and civilian program management.","michael-chin"]],
  faq:[["How do classes work?","Live virtual classrooms with cameras, microphones and chat, or in-person classes at select locations. Both are highly interactive."],["How much time does it take?","The live course is 40 hours, which covers PMI's 35-hour requirement. Most students then study 1 to 2 hours a day for 3 to 6 weeks."],["Can I use the GI Bill?","Yes. With the GI Bill you're reimbursed after you take the PMP exam. Check the GI Bill page on vets2pm.com first."],["Does Vets2PM schedule my exam?","No. PMI must accept your application first, then you schedule the exam with Pearson VUE."],["Can my unit pay?","Yes. Use the SF-182 template and route it through your commander and resource advisor to the Government Purchase Cardholder."],["What happens after I'm certified?","Career services, SkillBridge internships, the job board and lifetime placement support help you land a project role."]],
  links:[["Courses","courses/"],["Funding","funding/"],["SkillBridge","skillbridge/"],["Job board","job-board/"],["About","about/"],["FAQ","faq/"],["Contact","contact/"]]
 };
@@ -2860,8 +3031,8 @@ function renderVets2PM(){
      <div class="actions" style="justify-content:center"><a class="btn primary" href="${u("skillbridge/")}" target="_blank" rel="noopener">SkillBridge</a><a class="btn" href="${u("job-board/")}" target="_blank" rel="noopener">Job board</a></div></section>
    <section class="sec"><div class="sec-head"><span class="eyebrow">Credentials</span><h2>Licensed, approved and audited.</h2></div>
      <div class="v2-trust">${V2PM.trust.map(t=>`<span class="v2-tb">✓ ${esc(t)}</span>`).join("")}</div></section>
-   <section class="sec"><div class="sec-head"><span class="eyebrow">People</span><h2>Led by people who made the move.</h2></div>
-     <div class="v2-team">${V2PM.team.map(t=>`<div class="card v2-person"><span class="v2-av">${esc(t[0].replace(/"[^"]*"\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2))}</span><div><b>${esc(t[0])}</b><span>${esc(t[1])}</span>${t[2]?`<small>${esc(t[2])}</small>`:""}</div></div>`).join("")}</div>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">People</span><h2>Meet the team.</h2><p class="lede">${V2PM.team.length} people, many of them veterans who made the same move you are making.</p></div>
+     <div class="v2-team">${V2PM.team.map(teamCard).join("")}</div>
      <p class="label" style="text-align:center;margin:0"><a href="${u("about/")}" target="_blank" rel="noopener">Meet the full team on vets2pm.com</a></p></section>
    <section class="sec"><div class="sec-head"><span class="eyebrow">Questions</span><h2>Good to know.</h2></div>
      <div class="card faq v2-faq">${V2PM.faq.map(f=>`<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></section>
@@ -2871,6 +3042,205 @@ function renderVets2PM(){
 }
 
 let V2PM_DATA=null;try{if(/^https?:/.test(location.protocol))fetch(V2PM_LOGO).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const fr=new FileReader();fr.onload=()=>{V2PM_DATA=fr.result;};fr.readAsDataURL(b);}).catch(()=>{});}catch(e){}
+/* ---------- Round 10: team photos + Meet Aron ---------- */
+// Add a slug here once its photo is saved at img/team/<slug>.jpg
+const TEAM_PH=new Set([]);
+function teamCard(t){
+  const ini=esc(t[0].replace(/"[^"]*"\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2));
+  const ph=TEAM_PH.has(t[4])?`<img src="img/team/${t[4]}.jpg" alt="" loading="lazy" onerror="this.remove()">`:"";
+  return `<div class="card v2-person"><span class="v2-av" aria-hidden="true">${ini}${ph}</span><div><b>${esc(t[0])}</b><span>${esc(t[1])}</span>${t[2]?`<small>${esc(t[2])}</small>`:""}<p>${esc(t[3])}</p></div></div>`;
+}
+
+function aronBody(p,vb){
+  return `<svg viewBox="${vb||"0 0 240 560"}" class="ab-svg" role="img" aria-label="Aron, the AI coach: a man with a mustache in a navy suit, holding a tablet">
+<defs>
+<linearGradient id="${p}su" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3a57"/><stop offset="1" stop-color="#151c2c"/></linearGradient>
+<linearGradient id="${p}pa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d273b"/><stop offset="1" stop-color="#0f141f"/></linearGradient>
+<radialGradient id="${p}sk" cx=".45" cy=".38" r=".75"><stop offset="0" stop-color="#f8cfae"/><stop offset="1" stop-color="#e0a27d"/></radialGradient>
+<linearGradient id="${p}sc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64d2ff"/><stop offset=".55" stop-color="#7a5cff"/><stop offset="1" stop-color="#ff7ab6"/></linearGradient>
+<linearGradient id="${p}ti" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d42a47"/><stop offset="1" stop-color="#8a1022"/></linearGradient>
+<radialGradient id="${p}au"><stop offset="0" stop-color="#7a5cff" stop-opacity=".55"/><stop offset="1" stop-color="#7a5cff" stop-opacity="0"/></radialGradient>
+</defs>
+<g class="ab-p ab-aura"><ellipse cx="120" cy="280" rx="118" ry="250" fill="url(#${p}au)"/></g>
+<ellipse cx="120" cy="538" rx="80" ry="9" fill="#000" opacity=".45"/>
+<g class="ab-p ab-legs">
+ <path d="M70 318L118 318L114 512L82 512Z" fill="url(#${p}pa)"/>
+ <path d="M122 318L170 318L158 512L126 512Z" fill="url(#${p}pa)"/>
+ <path d="M96 336L98 506M145 336L142 506" stroke="#090c14" stroke-width="1.4" opacity=".7"/>
+</g>
+<g class="ab-p ab-shoes">
+ <path d="M80 506h36v12q0 10-10 10H66q-11 0-9-8q4-12 23-14Z" fill="#0a0a0d"/>
+ <path d="M124 506h36q19 2 23 14q2 8-9 8H134q-10 0-10-10Z" fill="#0a0a0d"/>
+ <path d="M66 517q8-6 18-6M156 511q10 0 18 6" stroke="#fff" stroke-opacity=".25" stroke-width="2" fill="none" stroke-linecap="round"/>
+</g>
+<g class="ab-p ab-torso">
+ <path d="M107 120L133 120L135 152L120 168L105 152Z" fill="#dc9d78"/>
+ <path d="M97 148L120 170L143 148L148 240L92 240Z" fill="#f4f6fa"/>
+ <path d="M115 166h10l3 10-4 4 6 58-10 12-10-12 6-58-4-4Z" fill="url(#${p}ti)"/>
+ <path d="M60 178Q63 154 100 145L120 236L112 332L62 332Q55 252 60 178Z" fill="url(#${p}su)"/>
+ <path d="M180 178Q177 154 140 145L120 236L128 332L178 332Q185 252 180 178Z" fill="url(#${p}su)"/>
+ <path d="M100 145L91 170L104 182L95 195L120 242Z" fill="#1a2438"/>
+ <path d="M140 145L149 170L136 182L145 195L120 242Z" fill="#1a2438"/>
+ <path d="M120 236L120 332" stroke="#0b101b" stroke-width="1.2"/>
+ <circle cx="124" cy="266" r="2.6" fill="#0b0f17"/><circle cx="124" cy="296" r="2.6" fill="#0b0f17"/>
+ <path d="M101 192l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#ffd60a"/>
+</g>
+<g class="ab-p ab-arms">
+ <path d="M62 180Q49 192 47 242L43 312L67 314L73 244Q75 214 80 198Z" fill="url(#${p}su)"/>
+ <rect x="42" y="306" width="26" height="8" rx="3" fill="#f4f6fa"/>
+ <ellipse cx="55" cy="325" rx="11" ry="13" fill="url(#${p}sk)"/>
+ <path d="M178 178Q193 190 195 232L197 266L175 270L169 230Q167 206 162 196Z" fill="url(#${p}su)"/>
+ <path d="M197 262Q194 284 176 282L150 272L154 250L178 254Z" fill="url(#${p}su)"/>
+ <g transform="rotate(-9 146 252)">
+  <rect x="112" y="210" width="62" height="84" rx="8" fill="#0c0c10" stroke="#3a3a42" stroke-width="1.5"/>
+  <rect x="116" y="215" width="54" height="74" rx="5" fill="url(#${p}sc)"/>
+  <g fill="#fff">
+   <rect x="121" y="222" width="20" height="4" rx="2" opacity=".9"/>
+   <rect x="121" y="232" width="9" height="9" rx="2" opacity=".85"/><rect x="133" y="232" width="9" height="9" rx="2" opacity=".35"/><rect x="145" y="232" width="9" height="9" rx="2" opacity=".6"/><rect x="157" y="232" width="9" height="9" rx="2" opacity=".2"/>
+   <rect x="121" y="244" width="9" height="9" rx="2" opacity=".4"/><rect x="133" y="244" width="9" height="9" rx="2" opacity=".75"/><rect x="145" y="244" width="9" height="9" rx="2" opacity=".25"/><rect x="157" y="244" width="9" height="9" rx="2" opacity=".9"/>
+   <rect x="121" y="256" width="9" height="9" rx="2" opacity=".7"/><rect x="133" y="256" width="9" height="9" rx="2" opacity=".2"/><rect x="145" y="256" width="9" height="9" rx="2" opacity=".85"/><rect x="157" y="256" width="9" height="9" rx="2" opacity=".5"/>
+   <rect x="121" y="270" width="45" height="3" rx="1.5" opacity=".5"/><rect x="121" y="277" width="30" height="3" rx="1.5" opacity=".5"/>
+  </g>
+ </g>
+ <ellipse cx="168" cy="262" rx="10" ry="12" fill="url(#${p}sk)"/>
+ <rect x="158" y="268" width="8" height="18" rx="4" fill="#d79a76" transform="rotate(-14 162 277)"/>
+</g>
+<g class="ab-p ab-head">
+ <ellipse cx="86" cy="96" rx="7" ry="10.5" fill="#e3a682"/><ellipse cx="154" cy="96" rx="7" ry="10.5" fill="#e3a682"/>
+ <path d="M86 88Q86 50 120 48Q154 50 154 88Q154 124 132 136Q120 142 108 136Q86 124 86 88Z" fill="url(#${p}sk)"/>
+ <path d="M83 94Q76 46 116 37Q152 33 159 64Q161 80 156 94Q153 72 141 64Q122 73 98 62Q88 72 83 94Z" fill="#2a1c13"/>
+ <path d="M104 46Q120 40 140 48" stroke="#4a3426" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+ <path d="M97 80q8-5 17-1M126 79q9-4 17 1" stroke="#2a1c13" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+ <ellipse cx="106" cy="90" rx="3.4" ry="3.9" fill="#1f160f"/><ellipse cx="134" cy="90" rx="3.4" ry="3.9" fill="#1f160f"/>
+ <circle cx="107.2" cy="88.6" r="1.1" fill="#fff"/><circle cx="135.2" cy="88.6" r="1.1" fill="#fff"/>
+ <path d="M120 93q-4 11-2 15q3 2 6 0" stroke="#c4835f" stroke-width="2" fill="none" stroke-linecap="round"/>
+ <path d="M110 126q10 6 20 0" stroke="#9b5a44" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+ <circle class="ab-ear" cx="157" cy="99" r="2.6" fill="#64d2ff"/>
+</g>
+<g class="ab-p ab-stache"><path d="M120 112Q110 105 100 109Q91 113 87 123Q95 117 104 119Q112 121 120 116Q128 121 136 119Q145 117 153 123Q149 113 140 109Q130 105 120 112Z" fill="#2a1c13"/><path d="M104 112q8-2 14 1" stroke="#4a3426" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".8"/></g>
+</svg>`;
+}
+
+const AB_STEPS=[
+ ["legs shoes","Piece 1 · Foundation","Stands on the exam outline.","Every question Aron asks and every answer he gives is tagged to PMI's exam content outline, so he knows exactly which task you are practicing."],
+ ["torso","Piece 2 · The suit","Dressed in the PMI mindset.","Servant leadership, ethics, value first. Aron thinks the way the exam wants a project manager to think, and he tells you why."],
+ ["arms","Piece 3 · The hands","Builds your study plan.","Aron turns your heat map into a day-by-day plan, picks your next quiz and queues the questions you missed."],
+ ["head","Piece 4 · The mind","Sees what you're missing.","He reads your readiness by domain and task, your pace and your review queue, so every answer fits where you are."],
+ ["stache","Piece 5 · The mustache","Fact-checks with a straight face.","Tag @Aron in the chat room and he checks claims against the source, then shows what's right and what isn't."],
+ ["aura","Piece 6 · Switched on","Always one key away.","Press / on any tab, or tap the Aron button. He's there at 0300 before PT, and he's paused only during a timed exam."]
+];
+const HEAT=["#30d158","#30d158","#ffd60a","#ff9f0a","#30d158","#ff453a","#ffd60a","#30d158","#ffd60a","#30d158","#30d158","#ff9f0a","#30d158","#ffd60a","#ff453a","#30d158"];
+
+function sparks(n){let s="";for(let i=0;i<n;i++){const x=(i*37%100),y=(i*53%90)+4;s+=`<i class="spark" style="--x:${x}%;--y:${y}%;--s:${8+i*7%14}px;--d:${2.4+i%4*.7}s;--dl:${i*.43%3}s"></i>`;}return s;}
+
+function renderAIStatus(){const s=document.querySelector("#view-ai .ai-status");if(s){s.classList.toggle("off",!AI);s.lastChild.textContent=AI?"Aron is online on your Claude account":"Offline playbook mode. Open the app in Claude to switch on full AI.";}}
+
+let abBound=false,abRaf=0;
+function abTick(){
+  abRaf=0;const b=document.querySelector("#view-ai .ab-build");if(!b||b.classList.contains("static")||document.getElementById("view-ai").hidden)return;
+  const nv=document.querySelector(".gnav");if(nv)b.style.setProperty("--navh",nv.offsetHeight+"px");
+  const r=b.getBoundingClientRect(),st=b.querySelector(".ab-sticky"),span=r.height-st.offsetHeight;
+  const p=Math.max(0,Math.min(1,-r.top/Math.max(1,span)));const N=AB_STEPS.length,k=Math.min(N-1,Math.floor(p*N*1.02));
+  if(b.dataset.step==k&&b.dataset.pp==Math.round(p*20))return;b.dataset.step=k;b.dataset.pp=Math.round(p*20);
+  b.style.setProperty("--p",p.toFixed(3));
+  AB_STEPS.forEach((s,i)=>s[0].split(" ").forEach(c=>{const g=b.querySelector(".ab-"+c);if(g){g.classList.toggle("on",i<=k);g.classList.toggle("cur",i===k&&i<N-1);}}));
+  b.querySelectorAll(".ab-step").forEach((e,i)=>e.classList.toggle("on",i===k));
+  b.querySelectorAll(".ab-dots i").forEach((e,i)=>e.classList.toggle("on",i===k));
+}
+
+function renderAI(){
+  const el=document.getElementById("view-ai");
+  const T=TRACKS[TRACK].name;
+  el.innerHTML=`
+  <section class="ai-hero" aria-labelledby="ai-name">
+   <div class="ai-in">
+    <p class="ai-eye">Introducing your AI coach</p>
+    <h2 class="ai-name ai-grad" id="ai-name">Aron.</h2>
+    <p class="ai-sub">The study partner who never sleeps, never judges and always has a mustache.</p>
+    <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask">Ask Aron</button><button class="ai-btn ghost" type="button" id="ai-down">See how he works ›</button></div>
+    <span class="ai-status"><i></i><span></span></span>
+    <div class="ai-stage">${sparks(9)}${aronBody("abh")}</div>
+   </div>
+  </section>
+
+  <section class="ab-build ${RM()?"static":""}" id="ai-build" aria-label="How Aron is built">
+   <div class="ab-sticky ai-in">
+    <div class="ab-fig ${RM()?"":"ab-stage-js"}">${aronBody("abb")}</div>
+    <div>
+     <p class="ai-eye">Built piece by piece</p>
+     <div class="ab-steps">${AB_STEPS.map((s,i)=>`<div class="ab-step${i===0||RM()?" on":""}"><span class="k">${esc(s[1])}</span><h3>${esc(s[2])}</h3><p>${esc(s[3])}</p></div>`).join("")}
+      <div class="ab-dots" aria-hidden="true">${AB_STEPS.map((s,i)=>`<i class="${i===0?"on":""}"></i>`).join("")}</div></div>
+    </div>
+   </div>
+  </section>
+
+  <section class="ai-sec"><div class="ai-in ai-close">
+    <div class="ai-face">${aronBody("abf","60 30 120 120")}</div>
+    <div><p class="ai-eye">The mustache</p><h2 class="ai-h">Distinguished.<br><span class="ai-grad">Never guessing.</span></h2>
+    <p class="ai-p">Behind the mustache is Claude, one of the most capable AI models. Aron uses it to <b>explain the why behind every answer</b>, in plain words, with a military example when it helps.</p></div>
+  </div></section>
+
+  <section class="ai-sec" style="padding-top:0"><div class="ai-in">
+    <p class="ai-eye">What Aron can do</p>
+    <h2 class="ai-h">One coach.<br>Every way you study.</h2>
+    <div class="ai-bento">
+     <div class="ai-tile w4"><h3>Explains every answer.</h3><p>Miss a question and Aron walks you through why the right choice wins, and why the others don't.</p>
+      <div class="mini"><span class="q">Two engineers argue in stand-up. What do you do first?</span><span class="ln" style="width:80%"></span><span class="why">Why B: collaborate on the root cause. PMI ranks problem-solving above forcing or smoothing.</span></div></div>
+     <div class="ai-tile"><h3>Fact-checks the chat room.</h3><div class="mini"><div class="bub me">SPI over 1 means behind schedule, right?</div><div class="bub ai">Not quite. SPI = EV ÷ PV. Above 1 is ahead.</div><span class="ai-chk">✓ Fact-checked</span></div></div>
+     <div class="ai-tile"><h3>Reads your heat map.</h3><div class="heatg">${HEAT.map(c=>`<i style="--hc:${c}"></i>`).join("")}</div><p>Green you've got. Red is where he sends you next.</p></div>
+     <div class="ai-tile"><h3>Debriefs every exam.</h3><div class="lvls"><span>AT</span><span>T</span><span>BT</span><span>NI</span></div><p>A practice score report by domain, and a plan to move each one up a level.</p></div>
+     <div class="ai-tile"><h3>Speaks military.</h3><div class="xl"><div><s>Platoon sergeant</s>→<b>Project manager</b></div><div><s>OPORD</s>→<b>Project charter</b></div><div><s>AAR</s>→<b>Lessons learned</b></div></div></div>
+     <div class="ai-tile w3"><h3>Builds your week.</h3><ul class="aiplan"><li>Mon<span>Risk responses · 20 min</span></li><li>Tue<span>Quiz 2, weak areas</span></li><li>Wed<span>Earned value drills</span></li><li>Thu<span>Case study: data center</span></li><li>Fri<span>Full exam simulation</span></li></ul></div>
+     <div class="ai-tile w3"><span class="big ai-grad">3 tracks.</span><h3>PMP, PMI-ACP and PSM I.</h3><p>Aron keeps them separate. He coaches each track on its own outline and never mixes the methods.</p></div>
+     <div class="ai-tile w6"><span class="kbdx" aria-hidden="true">/</span><div><h3>Press slash. Anywhere.</h3><p>From the dashboard, a case study or the Vets2PM page, one key opens Aron with your progress already loaded. No signal? He answers from a built-in playbook.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="ai-sec" style="padding-top:0"><div class="ai-in ai-demo">
+    <div><p class="ai-eye">Watch him work</p><h2 class="ai-h">Ask like you'd ask<br><span class="ai-grad">your squad leader.</span></h2>
+     <p class="ai-p">Plain questions get plain answers. Aron gives you the exam answer, the reason and the trap to avoid.</p>
+     <div class="ai-btns" style="margin-top:24px"><button class="ai-btn" type="button" data-askaron="Two engineers argue in stand-up. What does PMI want me to pick, and why?">Try this question</button></div></div>
+    <div class="phone" id="ai-phone"><div class="phone-in">
+      <div class="phone-h"><span class="aron-av"></span><div><b>Aron</b><small>${esc(T)} coach</small></div></div>
+      <div class="bub me dm" style="--i:0">Two engineers are arguing in stand-up. What does PMI want me to pick?</div>
+      <div class="bub ai dm typ" style="--i:1"><span class="typing"><i></i><i></i><i></i></span></div>
+      <div class="bub ai dm" style="--i:2">Collaborate. Meet with both after the stand-up, find the root cause and let them own the fix.</div>
+      <div class="bub ai dm" style="--i:3">Trap to avoid: "make the decision yourself." That's forcing, and PMI ranks it last.</div>
+      <div class="bub me dm" style="--i:4">What if it keeps happening?</div>
+      <div class="bub ai dm typ" style="--i:5"><span class="typing"><i></i><i></i><i></i></span></div>
+      <div class="bub ai dm" style="--i:6">Then raise it at the retro and agree a working agreement together. Want 3 questions on conflict?</div>
+    </div></div>
+  </div></section>
+
+  <section class="ai-sec" style="padding-top:0"><div class="ai-in">
+    <p class="ai-eye">Tech specs</p><h2 class="ai-h">Under the suit.</h2>
+    <dl class="ai-specs">
+     <div><dt>Brain</dt><dd><b>Claude</b>, running on your own Claude account when this app is opened in Claude.</dd></div>
+     <div><dt>Knows</dt><dd>PMP exam content outline (July 2026), PMI-ACP outline (2024), the 2020 Scrum Guide, and Vets2PM programs, funding and SkillBridge.</dd></div>
+     <div><dt>Sees</dt><dd>Your readiness by domain and task, your pace, your missed questions and your exam date. Nothing else.</dd></div>
+     <div><dt>Modes</dt><dd>Coach chat, chat-room fact-checks, exam debriefs, study plans and the military translator.</dd></div>
+     <div><dt>Availability</dt><dd>Every tab, any hour. Press <b>/</b> or tap the Aron button. Paused during a timed exam simulation.</dd></div>
+     <div><dt>Offline</dt><dd>When AI isn't available, Aron answers from a built-in playbook of exam rules, formulas and tips.</dd></div>
+     <div><dt>Honesty</dt><dd>Aron can make mistakes. Check key facts against PMI or Scrum.org before exam day.</dd></div>
+    </dl>
+  </div></section>
+
+  <section class="ai-sec ai-final"><div class="ai-in">
+    <div class="aron-big"></div>
+    <h2 class="ai-h">Say hello to <span class="ai-grad">Aron.</span></h2>
+    <p class="ai-p" style="margin-inline:auto">Your next question is the best place to start.</p>
+    <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask2">Ask Aron now</button><button class="ai-btn ghost" type="button" data-go="quizzes">Take a quiz first ›</button></div>
+    <p class="ai-fine">Aron is a fictional AI coach character built for PMP/ACP Guide. Practice questions are original and are not real exam questions. PMP and PMI-ACP are marks of the Project Management Institute; PSM is a mark of Scrum.org.</p>
+  </div></section>`;
+  paintAron();renderAIStatus();
+  el.querySelector("#ai-ask").onclick=openDrawer;el.querySelector("#ai-ask2").onclick=openDrawer;
+  el.querySelector("#ai-down").onclick=()=>document.getElementById("ai-build").scrollIntoView({behavior:RM()?"auto":"smooth"});
+  const ph=el.querySelector("#ai-phone");
+  if(!RM()&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ph.classList.remove("play");void ph.offsetWidth;ph.classList.add("play");io.disconnect();}}),{rootMargin:"0px 0px -15% 0px"});io.observe(ph);}
+  if(!abBound){abBound=true;const q=()=>{if(!abRaf)abRaf=requestAnimationFrame(abTick);};addEventListener("scroll",q,{passive:true});addEventListener("resize",q);}
+  if(!RM())requestAnimationFrame(abTick);
+}
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
