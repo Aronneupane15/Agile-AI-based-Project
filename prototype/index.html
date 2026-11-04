@@ -2846,7 +2846,7 @@ function srIndex(){
   add("tool","LinkedIn optimization","Headline, About, experience translator and an example profile","linkedin profile headline about resume recruiter keywords networking",()=>show("linkedin"));
   add("tool","PMP application builder","Eligibility, project descriptions, military translation, CAPM","pmp application eligibility experience months 35 hours project description audit capm pmi.org apply",()=>show("apply"));
   add("tool","CAPM: if you need more experience","No experience needed: 23 hours of training","capm certified associate entry level",()=>show("apply"));
-  add("tool","Meet Aron, your AI coach","What Aron can do: explain, fact-check, plan, debrief","ai artificial intelligence coach tutor aron chatbot assistant mustache",()=>show("ai"));
+  add("tool","Meet Aron, your AI coach","What Aron can do: explain, fact-check, plan, debrief","ai artificial intelligence coach tutor aron chatbot assistant",()=>show("ai"));
   V2PM.team.forEach(t=>add("v2pm",t[0],"Vets2PM team · "+t[1],(t[2]||"")+" "+t[3]+" staff instructor people",()=>goTo("vets2pm",".v2-team")));
   add("v2pm","About Vets2PM","Mission, programs, funding, SkillBridge, team and FAQ","vets2pm academy veterans school",()=>show("vets2pm"));
   V2PM.programs.forEach(p=>add("v2pm",p.n,"Vets2PM program · "+p.t,p.d,null,{href:V2PM_URL+p.u}));
@@ -3322,7 +3322,7 @@ function renderAI(){
     <p class="ai-sub">Your PMP coach. Dressed for every industry, fluent in every method.</p>
     <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask">Ask Aron</button><button class="ai-btn ghost" type="button" id="ai-down">Watch him work ›</button></div>
     <span class="ai-status"><i></i><span></span></span>
-    <div class="ai-stage">${sparks(9)}${aronFig("0 0 360 560","suit","wave","wave","Aron waving, in a brown double-breasted suit")}</div>
+    <div class="ai-stage">${sparks(9)}${aronFig("0 0 360 560","suit","wave","wave","Aron waving")}</div>
   </div></section>
 
   <section class="ab-build ${stat?"static":""}" id="ai-build" aria-label="Aron in different industries">
@@ -3337,8 +3337,8 @@ function renderAI(){
 
   <section class="ai-sec"><div class="ai-in ai-close">
     <div class="ai-solo"><figure class="ai-face">${aronFig("115 22 130 130","suit","rest","none","Aron, illustrated")}</figure></div>
-    <div><p class="ai-eye">The face behind the coach</p><h2 class="ai-h">Modeled on<br><span class="ai-grad">the real Aron.</span></h2>
-    <p class="ai-p">Same beard, same modern mullet, same sharp double-breasted suit. Behind the face is Claude, one of the most capable AI models, so Aron can <b>explain the why behind every answer</b> in plain words.</p></div>
+    <div><p class="ai-eye">The face behind the coach</p><h2 class="ai-h">Modeled after<br><span class="ai-grad">a Vets2PM alumnus.</span></h2>
+    <p class="ai-p">Aron looks like someone who made the same move you are making. Behind the face is Claude, one of the most capable AI models, so Aron can <b>explain the why behind every answer</b> in plain words.</p></div>
   </div></section>
 
   <section class="ai-sec" style="padding-top:0"><div class="ai-in">
@@ -3380,7 +3380,7 @@ function renderAI(){
      <div><dt>Knows</dt><dd>PMP exam content outline (July 2026), PMI-ACP outline (2024), the 2020 Scrum Guide, PMI's application rules, and Vets2PM programs, funding and SkillBridge.</dd></div>
      <div><dt>Sees</dt><dd>Your readiness by domain and task, your pace, your missed questions and your exam date. Nothing else.</dd></div>
      <div><dt>Modes</dt><dd>Coach chat, chat-room fact-checks, exam debriefs, study plans, PMP application writing, LinkedIn rewrites and the military translator.</dd></div>
-     <div><dt>Wardrobe</dt><dd>Double-breasted suit, hi-vis vest and hard hat, quarter-zip, data center polo and a white coat.</dd></div>
+     <div><dt>Wardrobe</dt><dd>Suit, hi-vis vest and hard hat, quarter-zip, data center polo and a white coat.</dd></div>
      <div><dt>Availability</dt><dd>Every tab, any hour. Press <b>/</b> or tap the Aron button. Paused during a timed exam simulation.</dd></div>
      <div><dt>Honesty</dt><dd>Aron can make mistakes. Check key facts against PMI or Scrum.org before exam day.</dd></div>
     </dl>
@@ -3391,7 +3391,7 @@ function renderAI(){
     <h2 class="ai-h">Say hello to <span class="ai-grad">Aron.</span></h2>
     <p class="ai-p" style="margin-inline:auto">Your next question is the best place to start.</p>
     <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask2">Ask Aron now</button><button class="ai-btn ghost" type="button" data-go="quizzes">Take a quiz first ›</button></div>
-    <p class="ai-fine">Aron is an AI coach character for PMP/ACP Guide, modeled with permission on a real person. Practice questions are original and are not real exam questions. PMP and PMI-ACP are marks of the Project Management Institute; PSM is a mark of Scrum.org.</p>
+    <p class="ai-fine">Aron is an AI coach character for PMP/ACP Guide, modeled after a Vets2PM alumnus. Practice questions are original and are not real exam questions. PMP and PMI-ACP are marks of the Project Management Institute; PSM is a mark of Scrum.org.</p>
   </div></section>`;
   paintAron();renderAIStatus();
   el.querySelector("#ai-ask").onclick=openDrawer;el.querySelector("#ai-ask2").onclick=openDrawer;
