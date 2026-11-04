@@ -964,6 +964,160 @@ body[data-view="ai"] footer{max-width:1180px;margin:0 auto;width:100%}
 @media (prefers-reduced-motion:reduce){
   #view-ai *,#view-ai *::before{animation:none!important;transition:none!important}
 }
+
+/* ---------- Round 11: Aron figure (outfits + poses), LinkedIn, PMP application ---------- */
+body[data-view="linkedin"] .top,body[data-view="apply"] .top{display:none}
+@media (min-width:821px){.gnav-in{flex-wrap:nowrap}.gnav nav{flex:1 1 auto;min-width:0;-webkit-mask-image:linear-gradient(90deg,#000 94%,transparent);mask-image:linear-gradient(90deg,#000 94%,transparent);padding-right:18px}}
+.v2-person{grid-template-columns:72px minmax(0,1fr)}
+.v2-person .v2-av{width:72px;height:72px;font-size:20px}
+/* figure */
+.afig{--pt:#4e3322;--sh:#2b1a10;--sl:#6a4630;--fa:#6a4630;--cf:#3b3e44;display:block;overflow:visible}
+.afig[data-of="con"]{--pt:#34527a;--sh:#6b4423;--sl:#8fb6dc;--fa:#8fb6dc;--cf:#7aa2c9}
+.afig[data-of="dev"]{--pt:#1f2733;--sh:#ececf0;--sl:#3a3f47;--fa:#3a3f47;--cf:#2c3037}
+.afig[data-of="dc"]{--pt:#b59f78;--sh:#5a3d26;--sl:#1d3a63;--fa:#c99472;--cf:#c99472}
+.afig[data-of="med"]{--pt:#4b5563;--sh:#222;--sl:#f4f6f9;--fa:#f4f6f9;--cf:#dfe9f5}
+.afig path,.afig rect{transition:fill .6s ease}
+.afig .of,.afig .pr,.afig .hp{opacity:0;transition:opacity .55s ease}
+.afig[data-of="suit"] .of-suit,.afig[data-of="con"] .of-con,.afig[data-of="dev"] .of-dev,.afig[data-of="dc"] .of-dc,.afig[data-of="med"] .of-med{opacity:1}
+.afig[data-sc="suit"] .pr-suit,.afig[data-sc="con"] .pr-con,.afig[data-sc="dev"] .pr-dev,.afig[data-sc="dc"] .pr-dc,.afig[data-sc="med"] .pr-med{opacity:1}
+.afig[data-pose="point"] .hp-roll,.afig[data-pose="clip"] .hp-clip{opacity:1}
+.afig .arm,.afig .fore,.afig .wv{transform-box:view-box;transition:transform .95s cubic-bezier(.3,1.25,.4,1)}
+.afig .armL{transform-origin:64px 182px;transform:rotate(var(--l1,6deg))}
+.afig .foreL{transform-origin:64px 258px;transform:rotate(var(--l2,0deg))}
+.afig .armR{transform-origin:176px 182px;transform:rotate(var(--r1,-6deg))}
+.afig .foreR{transform-origin:176px 258px;transform:rotate(var(--r2,0deg))}
+.afig .wv{transform-origin:176px 258px}
+.afig[data-pose="present"]{--r1:-40deg;--r2:-70deg}
+.afig[data-pose="point"]{--l1:10deg;--l2:-95deg;--r1:-85deg;--r2:0deg}
+.afig[data-pose="reach"]{--r1:-150deg;--r2:30deg}
+.afig[data-pose="laptop"]{--l1:8deg;--l2:-80deg;--r1:-8deg;--r2:80deg}
+.afig[data-pose="clip"]{--r2:75deg}
+.afig[data-pose="wave"]{--r1:-100deg;--r2:-70deg}
+.afig[data-pose="wave"] .wv{animation:wave 1.8s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+.afig .led{animation:led 1.4s steps(2) infinite}
+@keyframes led{50%{opacity:.25}}
+.face-wrap{display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#7fb2ff,#1e3a8a)}
+.face-wrap .afig{width:100%;height:100%;overflow:hidden}.ai-face .afig{overflow:hidden}
+.face-wrap .ab-ear,.ai-face .ab-ear{display:none}
+/* AI tab updates */
+.ai-stage .afig{width:100%;height:auto;animation:aiFloat 6s 2s ease-in-out infinite}
+.ai-stage{width:min(460px,90vw)}
+.ab-build{height:calc(100vh + 6 * 70vh)}
+.ab-fig{position:relative}
+.ab-fig .afig{height:min(88%,660px);width:auto;max-width:100%}
+.ab-fig .scan{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:2;background:linear-gradient(180deg,transparent 35%,rgba(100,210,255,.55) 50%,rgba(167,139,250,.0) 62%,transparent);background-size:100% 260%;mix-blend-mode:screen}
+.ab-fig.morph .scan{animation:scan .8s ease-out}
+@keyframes scan{0%{opacity:1;background-position:0 100%}100%{opacity:0;background-position:0 0}}
+.ab-fig.morph .afig{animation:morphF .8s ease}
+@keyframes morphF{35%{filter:brightness(1.7) saturate(1.5) drop-shadow(0 0 26px #64d2ff)}}
+.ab-step .k{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ab-step .k b{font:600 12px var(--f-body);letter-spacing:.02em;padding:4px 10px;border-radius:99px;background:rgba(100,210,255,.14);color:var(--ai-c1)}
+.ab-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding-bottom:40px}
+.ab-gallery figure{margin:0;background:var(--ai-tile);border-radius:24px;padding:12px;box-shadow:inset 0 0 0 1px var(--ai-line);text-align:center}
+.ab-gallery figcaption{font-size:14px;color:var(--ai-mute);margin-top:6px}
+.ai-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ai-pair figure{margin:0;display:grid;gap:8px}
+.ai-pair figcaption{font-size:14px;color:var(--ai-mute);text-align:center}
+.ai-real img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px;display:block;box-shadow:inset 0 0 0 1px var(--ai-line)}
+.ai-face{border-radius:28px;aspect-ratio:auto;background:none;box-shadow:none;place-items:stretch}
+.ai-face .afig{width:100%;height:auto;aspect-ratio:1;border-radius:28px;background:radial-gradient(circle at 50% 40%,#2a2350,#0a0a10 70%);box-shadow:inset 0 0 0 1px var(--ai-line)}
+.ai-btn.sm{font-size:14px;padding:8px 16px;justify-self:start}
+@media (max-width:860px){.ab-col>.ai-eye{display:none}.ab-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-fig .afig{height:min(100%,48vh)}}
+/* shared tool layout */
+.tool-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:center}
+.tool-hero h2{font:700 clamp(32px,4.6vw,52px)/1.05 var(--f-body);letter-spacing:-.035em;margin:6px 0 10px;text-wrap:balance}
+.fgrid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin:10px 0}
+.fgrid2 .wide{grid-column:1/-1}
+.fgrid2 label,.ap-build>label,.li-grid label{display:grid;gap:4px;font:600 13px var(--f-body);color:var(--muted)}
+.fgrid2 input,.fgrid2 select,.ap-build input,.ap-build textarea,.li-grid input,.li-grid textarea,.ap-elig select{font:15px var(--f-body);padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box;min-width:0}
+.ap-build textarea,.li-grid textarea{min-height:0;font:15px/1.45 var(--f-body)}
+.muted{color:var(--muted)}
+.btn.sm{padding:5px 12px;font-size:13px}
+/* LinkedIn */
+.li-ring{display:flex;gap:16px;align-items:center;justify-self:center}
+.li-ring svg{width:140px;height:140px}
+.li-ring circle{transition:stroke-dasharray .6s}
+.li-ring div{display:grid}.li-ring b{font-size:44px;line-height:1}.li-ring span{font-weight:600}.li-ring small{color:var(--muted)}
+.li-checks{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.li-checks label{display:flex;gap:10px;align-items:flex-start;padding:8px;border-radius:10px;cursor:pointer;color:var(--ink);font:inherit}
+.li-checks label:hover{background:color-mix(in srgb,var(--ink) 5%,transparent)}
+.li-checks input{margin-top:4px;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.li-checks span{display:grid}.li-checks small{color:var(--muted);font-size:13px}
+.li-outs{display:grid;gap:8px;margin:6px 0 12px}
+.li-out{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.li-out p{margin:0;font-size:15px;font-weight:600;line-height:1.35}
+.li-draft{white-space:pre-wrap;font:15px/1.5 var(--f-body);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;max-height:320px;overflow:auto;min-height:60px}
+.li-draft mark,.ap-desc mark{background:color-mix(in srgb,#30d158 28%,transparent);color:inherit;border-radius:4px;padding:0 2px}
+.li-kw{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.li-kw>div{display:grid;gap:6px}.li-kw .chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip.on{background:var(--ok);color:#fff}
+.li-help{display:flex;gap:18px;align-items:flex-start}
+.li-help .aron-av{width:64px;height:64px;flex:none;border-radius:50%;overflow:hidden}
+.li-help .chips{display:flex;flex-wrap:wrap;gap:8px}
+.li-mock{max-width:780px;margin:0 auto;width:100%;background:var(--surface);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;font-size:15px}
+.li-banner{height:150px;background:linear-gradient(120deg,#0b1f3a,#1e3a8a 45%,#6a3df0 80%,#ff2d6f);display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;text-align:right;padding:16px 20px;color:#fff;font:700 clamp(16px,2.4vw,22px) var(--f-body);letter-spacing:-.02em}
+.li-bn-logo{height:34px;background:#fff;border-radius:8px;padding:4px 8px}
+.li-top{position:relative;padding:0 24px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 20px}
+.li-photo{width:148px;height:148px;border-radius:50%;object-fit:cover;border:4px solid var(--surface);margin-top:-80px;grid-column:1/-1;background:var(--surface)}
+.li-id h3{margin:4px 0 0;font:700 24px var(--f-body)}.li-id h3 small{font:500 13px var(--f-body);color:var(--muted);margin-left:6px;padding:2px 8px;border-radius:99px;background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.li-head{margin:4px 0;font-size:16px;line-height:1.4}.li-loc{margin:0;color:var(--muted);font-size:14px}.li-loc a{color:var(--accent);font-weight:600}
+.li-acts{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.li-b{padding:6px 16px;border-radius:99px;border:1px solid var(--accent);color:var(--accent);font-weight:600;font-size:14px}.li-b.pri{background:var(--accent);color:var(--accent-ink)}
+.li-otw{display:grid;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--ok) 10%,transparent);font-size:14px;max-width:360px}
+.li-org{display:grid;gap:10px;align-content:start;padding-top:10px;font-weight:600;font-size:14px}
+.li-org span{display:flex;gap:8px;align-items:center}.li-org img{height:22px;width:auto;background:#fff;border-radius:4px;padding:2px}.li-org i{font-style:normal}
+.li-sec{border-top:8px solid var(--bg);padding:18px 24px;display:grid;gap:12px}
+.li-sec h4{margin:0;font:700 19px var(--f-body)}
+.li-pre{white-space:pre-line;margin:0;line-height:1.5}
+.li-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.li-feat div{display:grid;padding:12px;border:1px solid var(--line);border-radius:12px}.li-feat span{color:var(--muted);font-size:13px}
+.li-row{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px}
+.li-row>div{display:grid}.li-row span:not(.li-logo){font-size:14px}.li-row small{color:var(--muted);font-size:13px}.li-row p{margin:6px 0 0;font-size:14px;line-height:1.45}
+.li-logo{width:48px;height:48px;border-radius:8px;display:grid;place-items:center;font-weight:800;color:#fff;background:#3b4a63}
+.li-logo.v{background:#fff;box-shadow:inset 0 0 0 1px var(--line)}.li-logo.v img{width:42px}
+.li-logo.c{background:linear-gradient(135deg,#0a84ff,#6a3df0)}
+.li-skills{display:flex;flex-wrap:wrap;gap:8px}.li-skills span{padding:6px 12px;border-radius:99px;border:1px solid var(--line);font-size:14px}
+/* Application */
+.ap-elig{display:grid;gap:12px}
+.ap-elig label{display:grid;gap:4px;font:600 13px var(--f-body);color:var(--muted)}
+.ap-ck{display:flex!important;gap:8px;align-items:flex-start;font:500 14px var(--f-body)!important;color:var(--ink)!important;cursor:pointer}
+.ap-ck input{margin-top:3px;width:17px;height:17px;accent-color:var(--accent);flex:none}
+.ap-meter{display:grid;gap:6px}.ap-meter b{font-size:30px}
+.ap-meter .track{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.ap-meter .track i{display:block;height:100%;border-radius:99px;transition:width .5s}
+.ap-stat{margin:0;font-weight:600;color:var(--warn)}.ap-stat.ok{color:var(--ok)}
+.ap-capm{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
+.ap-capm h2{margin:4px 0 8px}.ap-capm p{margin:0 0 10px;max-width:68ch}
+.ap-facts{list-style:none;margin:6px 0 12px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:560px}
+.ap-facts li{display:grid;padding:10px;border-radius:12px;background:color-mix(in srgb,var(--accent) 8%,transparent)}.ap-facts b{font-size:22px}.ap-facts span{font-size:12px;color:var(--muted)}
+.ap-badge{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font:800 22px var(--f-body);color:#fff;background:conic-gradient(from 200deg,#0a84ff,#6a3df0,#ff2d6f,#0a84ff);box-shadow:0 10px 40px -10px rgba(106,61,240,.6)}
+.ap-list{display:grid;gap:12px}
+.ap-empty{text-align:center}
+.ap-proj{padding:0;overflow:hidden}
+.ap-head{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:36px minmax(0,1fr) auto 18px;gap:12px;align-items:center;padding:16px 18px}
+.ap-head:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ap-n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.ap-t{display:grid;min-width:0}.ap-t b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ap-t small{color:var(--muted)}
+.ap-wc{font:600 13px var(--f-data);padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn);white-space:nowrap}
+.ap-wc.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}.ap-wc.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.ap-chev{transition:transform .3s;color:var(--muted);font-size:22px}.ap-proj.open .ap-chev{transform:rotate(90deg)}
+.ap-body{padding:0 18px 18px;display:grid;gap:12px}
+.ap-body h3{margin:6px 0 0}
+.ap-build{display:grid;gap:10px}
+.ap-resp{border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0}
+.ap-resp legend{font:600 13px var(--f-body);color:var(--muted);padding:0 6px}
+.ap-resp>div{display:grid;gap:4px}.ap-resp b{font-size:14px}
+.ap-out{border-radius:14px;padding:14px;background:color-mix(in srgb,var(--accent) 6%,transparent);display:grid;gap:10px}
+.ap-out-h{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.ap-desc{font-size:15px;line-height:1.55}
+.ap-jh{margin:0;font-size:14px}
+.ap-audit summary{cursor:pointer;font-weight:600}
+.ap-ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.ap-idea{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:2px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);transition:border-color .2s,transform .2s}
+.ap-idea:hover,.ap-idea:focus-visible{border-color:var(--accent);transform:translateY(-2px)}
+.ap-idea span{font-size:13px;color:var(--muted)}
+.ap-steps,.ap-rules{margin:0 0 14px;padding-left:20px;display:grid;gap:8px;line-height:1.45}
+@media (max-width:760px){.tool-hero,.ap-capm{grid-template-columns:minmax(0,1fr)}.fgrid2{grid-template-columns:minmax(0,1fr)}.ap-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.ap-badge{display:none}.li-top{grid-template-columns:minmax(0,1fr)}.li-out{grid-template-columns:minmax(0,1fr) auto}.li-out p{grid-column:1/-1}.ap-head{grid-template-columns:32px minmax(0,1fr) 18px}.ap-head .ap-wc{display:none}}
+@media (prefers-reduced-motion:reduce){.afig *{transition:none!important;animation:none!important}}
+.gnav .brand{flex:none}.gnav .brand small,.gnav .brand .sub{white-space:nowrap}
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -975,6 +1129,8 @@ body[data-view="ai"] footer{max-width:1180px;margin:0 auto;width:100%}
         <button id="nav-cases" data-view="cases">Case studies</button>
         <button id="nav-hub" data-view="hub">Study</button>
         <button id="nav-careers" data-view="careers">Careers</button>
+        <button id="nav-linkedin" data-view="linkedin">LinkedIn</button>
+        <button id="nav-apply" data-view="apply">PMP application</button>
         <button id="nav-community" data-view="community">Community</button>
         <button id="nav-ai" data-view="ai" class="nav-ai">Aron AI</button>
         <button id="nav-vets2pm" data-view="vets2pm">Vets2PM</button>
@@ -1008,6 +1164,8 @@ body[data-view="ai"] footer{max-width:1180px;margin:0 auto;width:100%}
     <div id="view-community" hidden></div>
     <div id="view-vets2pm" hidden></div>
     <div id="view-ai" hidden></div>
+    <div id="view-linkedin" hidden></div>
+    <div id="view-apply" hidden></div>
     <footer>
       <div class="v2pm-foot"><span class="v2pm-logo sheen"><img src="img/vets2pm-logo-premium.webp" alt="Vets2PM"></span><div><b>Transform your military experience into a project management career.</b><p>PMP/ACP Guide is a Vets2PM learning platform for service members, veterans and military families. Vets2PM offers fast, affordable, live PMP certification training.</p></div><div class="actions"><button class="btn" type="button" data-go="vets2pm">About Vets2PM</button><a class="btn" href="https://vets2pm.com/" target="_blank" rel="noopener">Visit vets2pm.com</a></div></div>
       <div class="ftxt">PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
@@ -1890,8 +2048,9 @@ function renderBank(keepMsg){
 
 function show(v){
   document.body.dataset.view=v;
-  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();if(v==="ai")renderAI();
+  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai","linkedin","apply"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();if(v==="ai")renderAI();if(v==="linkedin")renderLinkedIn();if(v==="apply")renderApply();
+  const nb=document.getElementById("nav-"+v);if(nb&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"nearest"});}catch(e){}
   renderRails();window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -2042,8 +2201,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else if(v==="vets2pm")renderVets2PM();else if(v==="ai")renderAIStatus();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai","linkedin","apply"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else if(v==="vets2pm")renderVets2PM();else if(v==="ai")renderAIStatus();else if(v==="linkedin"||v==="apply"){}else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -2226,7 +2385,7 @@ async function offerCSV(filename,text,msg){
 }
 
 /* ---------- Aron, fields gallery, Study tab ---------- */
-const ARON_SVG=`<svg viewBox="0 0 64 64" class="aron-svg" aria-hidden="true"><defs><linearGradient id="arbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa8ff"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="arclip"><circle cx="32" cy="32" r="32"/></clipPath></defs><g clip-path="url(#arclip)"><rect width="64" height="64" fill="url(#arbg)"/><rect x="27.5" y="35" width="9" height="11" rx="3" fill="#d99c7c"/><path d="M4 66C6 51 17 45.5 32 44.5C47 45.5 58 51 60 66Z" fill="#1c2433"/><path d="M25.5 45L32 58L38.5 45Z" fill="#f4f6fa"/><path d="M30.6 46.2h2.8l1 3L32 58.5l-2.4-9.3Z" fill="#a61b2b"/><path d="M25.5 45L32 58.5L27.5 61L19.5 47.5Z" fill="#111827"/><path d="M38.5 45L32 58.5L36.5 61L44.5 47.5Z" fill="#111827"/><circle cx="41" cy="54" r="1.6" fill="#e5e7eb" opacity=".8"/><ellipse cx="21.6" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="42.4" cy="27.5" rx="2.1" ry="3.1" fill="#e2a885"/><ellipse cx="32" cy="26.5" rx="10.4" ry="12.6" fill="#f0bd9b"/><path d="M21.4 25.5C20.6 15.5 26.5 11.8 33 12.2C40.4 12.6 44 16.6 42.7 25.5C41.6 20.3 38 18.4 32.4 18.6C26.6 18.9 23.6 21 21.4 25.5Z" fill="#2a1c13"/><path d="M26.2 23.6q2-1 3.8 0M34 23.6q2-1 3.8 0" stroke="#2a1c13" stroke-width="1.1" fill="none" stroke-linecap="round"/><circle cx="28.1" cy="27.4" r="1.15" fill="#1f160f"/><circle cx="35.9" cy="27.4" r="1.15" fill="#1f160f"/><path d="M29.6 35q2.4 1.5 4.8 0" stroke="#9b5a44" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M32 30.9Q29.6 29.7 27.4 30.7Q25.8 31.5 25.1 33.2Q27 32.3 28.8 32.6Q30.6 32.8 32 32Q33.4 32.8 35.2 32.6Q37 32.3 38.9 33.2Q38.2 31.5 36.6 30.7Q34.4 29.7 32 30.9Z" fill="#2a1c13"/></g></svg>`;
+let ARON_SVG="";
 function paintAron(){document.querySelectorAll(".aron-av,.aron-big").forEach(e=>{if(!e.querySelector("svg"))e.innerHTML=ARON_SVG;});}
 
 const FIELDS=[
@@ -2684,6 +2843,9 @@ function srIndex(){
   FAQ.forEach(f=>add("faq",f[0],f[1],"help",o=>infoSheet("Help center",f[0],`<p class="lede">${esc(f[1])}</p>`,`<button class="btn" data-go="help">Open Help center</button>`,o)));
   [["Exam simulation","Timed, weighted by domain, like the real exam",()=>startQuiz("exam")],["Weak-area practice","Questions from the areas you miss most",()=>state.attempts.length?startQuiz("weak"):startQuiz("mixed")],["Review mistakes","Re-answer questions you got wrong",()=>reviewQueue().length?startQuiz("review"):show("map")],["Sprint quizzes","Quiz 1 to 4 and the difficulty check",()=>show("quizzes")],["Question bank","Every question in this track",()=>show("bank")],["Heat map and readiness","Your dashboard",()=>show("map")],["Create account or edit profile","Name, branch, exam date, career goal",o=>openProfile(o)],["Submit a help request","Ask an instructor or report a problem",()=>show("help")],["Careers","Military translator, industries and career paths",()=>show("careers")],["Scoreboard","Top scores on each exam and quiz",()=>show("community")],["Chat room","Discuss with classmates and Aron",()=>show("community")],["Question of the day","A daily challenge with a streak",()=>show("community")]]
     .forEach(([n,s,a])=>add("tool",n,s,"feature tool",a));
+  add("tool","LinkedIn optimization","Headline, About, experience translator and an example profile","linkedin profile headline about resume recruiter keywords networking",()=>show("linkedin"));
+  add("tool","PMP application builder","Eligibility, project descriptions, military translation, CAPM","pmp application eligibility experience months 35 hours project description audit capm pmi.org apply",()=>show("apply"));
+  add("tool","CAPM: if you need more experience","No experience needed: 23 hours of training","capm certified associate entry level",()=>show("apply"));
   add("tool","Meet Aron, your AI coach","What Aron can do: explain, fact-check, plan, debrief","ai artificial intelligence coach tutor aron chatbot assistant mustache",()=>show("ai"));
   V2PM.team.forEach(t=>add("v2pm",t[0],"Vets2PM team · "+t[1],(t[2]||"")+" "+t[3]+" staff instructor people",()=>goTo("vets2pm",".v2-team")));
   add("v2pm","About Vets2PM","Mission, programs, funding, SkillBridge, team and FAQ","vets2pm academy veterans school",()=>show("vets2pm"));
@@ -3042,142 +3204,142 @@ function renderVets2PM(){
 }
 
 let V2PM_DATA=null;try{if(/^https?:/.test(location.protocol))fetch(V2PM_LOGO).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const fr=new FileReader();fr.onload=()=>{V2PM_DATA=fr.result;};fr.readAsDataURL(b);}).catch(()=>{});}catch(e){}
-/* ---------- Round 10: team photos + Meet Aron ---------- */
-// Add a slug here once its photo is saved at img/team/<slug>.jpg
-const TEAM_PH=new Set([]);
+/* ---------- Round 11: team photos + Aron (likeness, outfits, poses) ---------- */
+const TEAM_PH=new Set(["eric-wright","jeremy-burdick","kelly-wright","cathy-miclat","jessica-boswell","lyndsey-lemus","jaden-canseco","aaron-mcevers","carson-carter","brian-taylor","frederick-claro","garrik-dennis","keith-robinson","kimberly-cole","max-rodgers","michael-chin"]);
 function teamCard(t){
   const ini=esc(t[0].replace(/"[^"]*"\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2));
-  const ph=TEAM_PH.has(t[4])?`<img src="img/team/${t[4]}.jpg" alt="" loading="lazy" onerror="this.remove()">`:"";
+  const ph=TEAM_PH.has(t[4])?`<img src="img/team/${t[4]}.webp" alt="" loading="lazy" onerror="this.remove()">`:"";
   return `<div class="card v2-person"><span class="v2-av" aria-hidden="true">${ini}${ph}</span><div><b>${esc(t[0])}</b><span>${esc(t[1])}</span>${t[2]?`<small>${esc(t[2])}</small>`:""}<p>${esc(t[3])}</p></div></div>`;
 }
 
-function aronBody(p,vb){
-  return `<svg viewBox="${vb||"0 0 240 560"}" class="ab-svg" role="img" aria-label="Aron, the AI coach: a man with a mustache in a navy suit, holding a tablet">
-<defs>
-<linearGradient id="${p}su" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3a57"/><stop offset="1" stop-color="#151c2c"/></linearGradient>
-<linearGradient id="${p}pa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d273b"/><stop offset="1" stop-color="#0f141f"/></linearGradient>
-<radialGradient id="${p}sk" cx=".45" cy=".38" r=".75"><stop offset="0" stop-color="#f8cfae"/><stop offset="1" stop-color="#e0a27d"/></radialGradient>
-<linearGradient id="${p}sc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64d2ff"/><stop offset=".55" stop-color="#7a5cff"/><stop offset="1" stop-color="#ff7ab6"/></linearGradient>
-<linearGradient id="${p}ti" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d42a47"/><stop offset="1" stop-color="#8a1022"/></linearGradient>
-<radialGradient id="${p}au"><stop offset="0" stop-color="#7a5cff" stop-opacity=".55"/><stop offset="1" stop-color="#7a5cff" stop-opacity="0"/></radialGradient>
-</defs>
-<g class="ab-p ab-aura"><ellipse cx="120" cy="280" rx="118" ry="250" fill="url(#${p}au)"/></g>
-<ellipse cx="120" cy="538" rx="80" ry="9" fill="#000" opacity=".45"/>
-<g class="ab-p ab-legs">
- <path d="M70 318L118 318L114 512L82 512Z" fill="url(#${p}pa)"/>
- <path d="M122 318L170 318L158 512L126 512Z" fill="url(#${p}pa)"/>
- <path d="M96 336L98 506M145 336L142 506" stroke="#090c14" stroke-width="1.4" opacity=".7"/>
-</g>
-<g class="ab-p ab-shoes">
- <path d="M80 506h36v12q0 10-10 10H66q-11 0-9-8q4-12 23-14Z" fill="#0a0a0d"/>
- <path d="M124 506h36q19 2 23 14q2 8-9 8H134q-10 0-10-10Z" fill="#0a0a0d"/>
- <path d="M66 517q8-6 18-6M156 511q10 0 18 6" stroke="#fff" stroke-opacity=".25" stroke-width="2" fill="none" stroke-linecap="round"/>
-</g>
-<g class="ab-p ab-torso">
- <path d="M107 120L133 120L135 152L120 168L105 152Z" fill="#dc9d78"/>
- <path d="M97 148L120 170L143 148L148 240L92 240Z" fill="#f4f6fa"/>
- <path d="M115 166h10l3 10-4 4 6 58-10 12-10-12 6-58-4-4Z" fill="url(#${p}ti)"/>
- <path d="M60 178Q63 154 100 145L120 236L112 332L62 332Q55 252 60 178Z" fill="url(#${p}su)"/>
- <path d="M180 178Q177 154 140 145L120 236L128 332L178 332Q185 252 180 178Z" fill="url(#${p}su)"/>
- <path d="M100 145L91 170L104 182L95 195L120 242Z" fill="#1a2438"/>
- <path d="M140 145L149 170L136 182L145 195L120 242Z" fill="#1a2438"/>
- <path d="M120 236L120 332" stroke="#0b101b" stroke-width="1.2"/>
- <circle cx="124" cy="266" r="2.6" fill="#0b0f17"/><circle cx="124" cy="296" r="2.6" fill="#0b0f17"/>
- <path d="M101 192l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#ffd60a"/>
-</g>
-<g class="ab-p ab-arms">
- <path d="M62 180Q49 192 47 242L43 312L67 314L73 244Q75 214 80 198Z" fill="url(#${p}su)"/>
- <rect x="42" y="306" width="26" height="8" rx="3" fill="#f4f6fa"/>
- <ellipse cx="55" cy="325" rx="11" ry="13" fill="url(#${p}sk)"/>
- <path d="M178 178Q193 190 195 232L197 266L175 270L169 230Q167 206 162 196Z" fill="url(#${p}su)"/>
- <path d="M197 262Q194 284 176 282L150 272L154 250L178 254Z" fill="url(#${p}su)"/>
- <g transform="rotate(-9 146 252)">
-  <rect x="112" y="210" width="62" height="84" rx="8" fill="#0c0c10" stroke="#3a3a42" stroke-width="1.5"/>
-  <rect x="116" y="215" width="54" height="74" rx="5" fill="url(#${p}sc)"/>
-  <g fill="#fff">
-   <rect x="121" y="222" width="20" height="4" rx="2" opacity=".9"/>
-   <rect x="121" y="232" width="9" height="9" rx="2" opacity=".85"/><rect x="133" y="232" width="9" height="9" rx="2" opacity=".35"/><rect x="145" y="232" width="9" height="9" rx="2" opacity=".6"/><rect x="157" y="232" width="9" height="9" rx="2" opacity=".2"/>
-   <rect x="121" y="244" width="9" height="9" rx="2" opacity=".4"/><rect x="133" y="244" width="9" height="9" rx="2" opacity=".75"/><rect x="145" y="244" width="9" height="9" rx="2" opacity=".25"/><rect x="157" y="244" width="9" height="9" rx="2" opacity=".9"/>
-   <rect x="121" y="256" width="9" height="9" rx="2" opacity=".7"/><rect x="133" y="256" width="9" height="9" rx="2" opacity=".2"/><rect x="145" y="256" width="9" height="9" rx="2" opacity=".85"/><rect x="157" y="256" width="9" height="9" rx="2" opacity=".5"/>
-   <rect x="121" y="270" width="45" height="3" rx="1.5" opacity=".5"/><rect x="121" y="277" width="30" height="3" rx="1.5" opacity=".5"/>
-  </g>
+/* Aron figure. Flat fills only (no url() refs), so many copies can live on one page. Colors come from CSS vars set by data-of. */
+const SK="#c99472",SK2="#b17b58",HR="#17110d";
+function aronFig(vb,of,pose,sc,label){
+  const f=(v)=>`style="fill:var(${v})"`;
+  const armL=`<g class="arm armL"><path d="M52 182Q52 172 64 170Q76 172 77 184L76 262Q64 270 52 262Z" ${f("--sl")}/>
+   <g class="fore foreL"><path d="M53 254L75 254L73 318L55 318Z" ${f("--fa")}/><rect x="53" y="312" width="22" height="8" rx="3" ${f("--cf")}/><ellipse cx="64" cy="330" rx="10" ry="12" fill="${SK}"/>
+    <g class="hp hp-roll"><rect x="58" y="300" width="12" height="62" rx="6" fill="#3d7fd0" transform="rotate(90 64 331)"/><ellipse cx="33" cy="331" rx="3" ry="6" fill="#e8f0fb"/></g></g></g>`;
+  const armR=`<g class="arm armR"><path d="M163 184Q164 172 176 170Q188 172 188 182L188 262Q176 270 164 262Z" ${f("--sl")}/>
+   <g class="fore foreR"><g class="wv"><path d="M165 254L187 254L185 318L167 318Z" ${f("--fa")}/><rect x="165" y="312" width="22" height="8" rx="3" ${f("--cf")}/><ellipse cx="176" cy="330" rx="10" ry="12" fill="${SK}"/>
+    <g class="hp hp-clip" transform="rotate(-75 176 330)"><rect x="160" y="300" width="36" height="48" rx="4" fill="#e9eef5"/><rect x="170" y="296" width="16" height="7" rx="2" fill="#8a96a8"/><path d="M166 314h22M166 322h22M166 330h16" stroke="#1e8f8a" stroke-width="2.4"/></g></g></g></g>`;
+  const torso={
+   suit:`<g class="of of-suit"><path d="M97 148L120 172L143 148L146 222L94 222Z" fill="#3b3e44"/>
+     <path d="M115 166h10l3 9-4 4 4 36-8 7-8-7 4-36-4-4Z" fill="#22305a"/><path d="M118 186l3 3M122 198l-3 3M118 208l3 3" stroke="#6f86c9" stroke-width="1.6"/>
+     <path d="M60 178Q63 154 100 145L120 214L140 145Q177 154 180 178Q185 252 178 332L62 332Q55 252 60 178Z" fill="#6e4a31"/>
+     <path d="M62 268Q60 300 62 332L178 332Q181 300 179 268Z" fill="#000" opacity=".12"/>
+     <path d="M100 145L89 170L74 163L88 196L120 214Z" fill="#573a26"/><path d="M140 145L151 170L166 163L152 196L120 214Z" fill="#573a26"/>
+     <path d="M120 214Q131 270 135 332" stroke="#3e2819" stroke-width="1.6" fill="none"/>
+     <g fill="#2a1a10"><circle cx="105" cy="232" r="3"/><circle cx="135" cy="232" r="3"/><circle cx="107" cy="260" r="3"/><circle cx="133" cy="260" r="3"/><circle cx="109" cy="288" r="3"/><circle cx="131" cy="288" r="3"/></g>
+     <rect x="68" y="292" width="28" height="5" rx="2" fill="#4e3322"/><rect x="144" y="292" width="28" height="5" rx="2" fill="#4e3322"/><rect x="146" y="204" width="22" height="4" rx="2" fill="#4e3322"/><path d="M150 204l6-6 6 6Z" fill="#e8eef8"/></g>`,
+   con:`<g class="of of-con"><path d="M60 178Q63 154 100 145L120 162L140 145Q177 154 180 178Q185 252 178 332L62 332Q55 252 60 178Z" fill="#8fb6dc"/>
+     <path d="M100 145L120 162L108 172Z" fill="#7aa2c9"/><path d="M140 145L120 162L132 172Z" fill="#7aa2c9"/><path d="M120 162L120 332" stroke="#6f95bd" stroke-width="1.5"/>
+     <path d="M66 184Q70 160 100 150L112 202L112 330L66 330Z" fill="#d4f018"/><path d="M174 184Q170 160 140 150L128 202L128 330L174 330Z" fill="#d4f018"/>
+     <g fill="#e6e9ee" opacity=".9"><rect x="66" y="262" width="46" height="9"/><rect x="128" y="262" width="46" height="9"/><rect x="66" y="294" width="46" height="9"/><rect x="128" y="294" width="46" height="9"/><rect x="82" y="162" width="8" height="100"/><rect x="150" y="162" width="8" height="100"/></g></g>`,
+   dev:`<g class="of of-dev"><path d="M60 178Q63 154 100 145L120 156L140 145Q177 154 180 178Q185 252 178 332L62 332Q55 252 60 178Z" fill="#3a3f47"/>
+     <path d="M98 146L120 160L142 146L144 160L120 176L96 160Z" fill="#2c3037"/><path d="M120 162L120 214" stroke="#c9ccd2" stroke-width="2"/><circle cx="120" cy="214" r="2.6" fill="#c9ccd2"/>
+     <path d="M62 318L178 318L178 332L62 332Z" fill="#2c3037"/><circle cx="152" cy="200" r="7" fill="#64d2ff" opacity=".85"/><path d="M149 200l2 2 4-4" stroke="#0b1220" stroke-width="1.6" fill="none"/></g>`,
+   dc:`<g class="of of-dc"><path d="M60 178Q63 154 100 145L120 160L140 145Q177 154 180 178Q185 252 178 332L62 332Q55 252 60 178Z" fill="#1d3a63"/>
+     <path d="M100 145L120 162L106 174L96 152Z" fill="#16304f"/><path d="M140 145L120 162L134 174L144 152Z" fill="#16304f"/><path d="M120 162L120 200" stroke="#14294a" stroke-width="2"/><circle cx="120" cy="178" r="1.8" fill="#dfe6f0"/><circle cx="120" cy="192" r="1.8" fill="#dfe6f0"/>
+     <path d="M106 152L117 232M134 152L123 232" stroke="#e0333f" stroke-width="3"/><rect x="109" y="230" width="22" height="28" rx="3" fill="#f4f6fa"/><rect x="109" y="230" width="22" height="7" rx="2" fill="#0a84ff"/><circle cx="120" cy="246" r="4" fill="#c99472"/></g>`,
+   med:`<g class="of of-med"><path d="M97 148L120 170L143 148L146 236L94 236Z" fill="#dfe9f5"/><path d="M115 166h10l3 9-4 4 4 46-8 8-8-8 4-46-4-4Z" fill="#1e8f8a"/>
+     <path d="M58 178Q62 154 100 145L116 232L114 362L56 362Q50 252 58 178Z" fill="#f4f6f9"/><path d="M182 178Q178 154 140 145L124 232L126 362L184 362Q190 252 182 178Z" fill="#f4f6f9"/>
+     <path d="M100 145L92 172L104 184L97 198L116 232Z" fill="#e3e8ef"/><path d="M140 145L148 172L136 184L143 198L124 232Z" fill="#e3e8ef"/>
+     <rect x="146" y="206" width="22" height="26" rx="3" fill="#fff" stroke="#c9d2de"/><rect x="146" y="206" width="22" height="7" rx="2" fill="#1e8f8a"/><path d="M76 206v14M80 206v14" stroke="#0a84ff" stroke-width="2.2"/><rect x="70" y="214" width="20" height="4" fill="#dfe5ee"/></g>`
+  };
+  return `<svg viewBox="${vb||"0 0 360 560"}" class="afig" data-of="${of||"suit"}" data-pose="${pose||"rest"}" data-sc="${sc||of||"suit"}" role="img" aria-label="${esc(label||"Aron, the AI coach")}">
+<g class="pr pr-suit"><rect x="262" y="106" width="94" height="96" rx="12" fill="#14161c" stroke="#2c303a"/><path d="M274 124h40M274 140h56M290 156h44M300 172h46" stroke-width="7" stroke-linecap="round" stroke="#64d2ff"/><path d="M342 186l6 6-6 6-6-6Z" fill="#ffd60a"/><text x="274" y="196" fill="#8e8e93" font-size="9" font-family="sans-serif">Baseline</text></g>
+<g class="pr pr-con"><rect x="262" y="150" width="94" height="130" rx="12" fill="#0e2a4f" stroke="#2f5d94"/><path d="M280 262V196h40v66M280 218h40M280 240h40M300 196v66" stroke="#9cc8ff" stroke-width="1.6" fill="none"/><path d="M332 262V166M318 170h36M332 172l14 18" stroke="#ffd60a" stroke-width="2.4" fill="none"/><text x="272" y="275" fill="#9cc8ff" font-size="8" font-family="sans-serif">Critical path</text></g>
+<g class="pr pr-dev"><rect x="252" y="56" width="104" height="128" rx="12" fill="#14161c" stroke="#2c303a"/><path d="M286 66v108M320 66v108" stroke="#2c303a"/><text x="258" y="76" fill="#8e8e93" font-size="8" font-family="sans-serif">To do</text><text x="290" y="76" fill="#8e8e93" font-size="8" font-family="sans-serif">Doing</text><text x="324" y="76" fill="#8e8e93" font-size="8" font-family="sans-serif">Done</text>
+ <rect x="258" y="84" width="24" height="18" rx="3" fill="#ffd60a"/><rect x="258" y="108" width="24" height="18" rx="3" fill="#ff9f0a"/><rect x="258" y="132" width="24" height="18" rx="3" fill="#ffd60a"/><rect x="292" y="84" width="24" height="18" rx="3" fill="#64d2ff"/><rect x="292" y="108" width="24" height="18" rx="3" fill="#64d2ff"/><rect x="326" y="84" width="24" height="18" rx="3" fill="#30d158"/><rect x="326" y="108" width="24" height="18" rx="3" fill="#30d158"/><rect x="326" y="132" width="24" height="18" rx="3" fill="#30d158"/></g>
+<g class="pr pr-dc"><rect x="6" y="150" width="56" height="250" rx="8" fill="#14161c" stroke="#2c303a"/>${[0,1,2,3,4,5,6,7].map(i=>`<rect x="14" y="${162+i*29}" width="40" height="20" rx="3" fill="#1f232b"/><circle class="led" cx="22" cy="${172+i*29}" r="2.4" fill="${i%3?"#30d158":"#64d2ff"}" style="animation-delay:${i*.23}s"/><path d="M30 ${172+i*29}h18" stroke="#3a3f4a" stroke-width="2"/>`).join("")}
+ <rect x="268" y="120" width="88" height="70" rx="12" fill="#14161c" stroke="#2c303a"/><path d="M278 138h36M278 150h50" stroke="#64d2ff" stroke-width="6" stroke-linecap="round"/><rect x="278" y="160" width="14" height="14" rx="3" fill="#30d158"/><rect x="296" y="160" width="14" height="14" rx="3" fill="#ffd60a"/><rect x="314" y="160" width="14" height="14" rx="3" fill="#64d2ff"/><text x="334" y="171" fill="#8e8e93" font-size="8" font-family="sans-serif">Hybrid</text></g>
+<g class="pr pr-med"><rect x="6" y="130" width="62" height="96" rx="12" fill="#0d2b2a" stroke="#1e5d5a"/><path d="M30 146h14v10h10v14H44v10H30v-10H20v-14h10Z" fill="#30d158"/><path d="M18 196h12M34 196h22M18 208h18M40 208h16" stroke="#7fd9d4" stroke-width="3" stroke-linecap="round"/></g>
+<ellipse cx="180" cy="540" rx="84" ry="9" fill="#000" opacity=".45"/>
+<svg x="60" y="0" width="240" height="560" viewBox="0 0 240 560" overflow="visible">
+ <path d="M89 92Q85 114 93 128L99 125Q92 112 93 94Z" fill="${HR}"/><path d="M151 92Q155 114 147 128L141 125Q148 112 147 94Z" fill="${HR}"/>
+ <path d="M70 318L118 318L114 512L82 512Z" ${f("--pt")}/><path d="M122 318L170 318L158 512L126 512Z" ${f("--pt")}/><path d="M96 336L98 506M145 336L142 506" stroke="#000" stroke-opacity=".25" stroke-width="1.4"/>
+ <path d="M80 506h36v12q0 10-10 10H66q-11 0-9-8q4-12 23-14Z" ${f("--sh")}/><path d="M124 506h36q19 2 23 14q2 8-9 8H134q-10 0-10-10Z" ${f("--sh")}/>
+ <path d="M107 120L133 120L135 152L120 168L105 152Z" fill="${SK2}"/>
+ ${torso.suit}${torso.con}${torso.dev}${torso.dc}${torso.med}
+ ${armL}${armR}
+ <g class="hd">
+  <ellipse cx="88" cy="97" rx="6" ry="10" fill="${SK2}"/><ellipse cx="152" cy="97" rx="6" ry="10" fill="${SK2}"/>
+  <path d="M88 86Q88 50 120 48Q152 50 152 86Q152 120 136 134Q120 144 104 134Q88 120 88 86Z" fill="${SK}"/>
+  <path d="M90 98Q90 126 104 137Q120 147 136 137Q150 126 150 98L147 98Q146 116 136 124Q128 121 120 122Q112 121 104 124Q94 116 93 98Z" fill="${HR}" opacity=".85"/>
+  <path d="M108.5 118Q114 114.6 120 115.8Q126 114.6 131.5 118Q126 118.8 120 117.8Q114 118.8 108.5 118Z" fill="${HR}"/>
+  <path d="M113 124.5Q120 128.6 127 124.5Q120 126.4 113 124.5Z" fill="#8a4e3b"/>
+  <path d="M120 91Q117 101 115.5 106Q120 109.5 124.5 106" stroke="#94603f" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M100 91Q106 86 112 91Q106 94 100 91Z" fill="#fff"/><path d="M128 91Q134 86 140 91Q134 94 128 91Z" fill="#fff"/>
+  <circle cx="106" cy="90.6" r="2.7" fill="#2a1a10"/><circle cx="134" cy="90.6" r="2.7" fill="#2a1a10"/><circle cx="106.9" cy="89.7" r=".8" fill="#fff"/><circle cx="134.9" cy="89.7" r=".8" fill="#fff"/>
+  <path d="M98 83Q106 77.5 114 81L114 84Q106 81 98 85.5Z" fill="${HR}"/><path d="M142 83Q134 77.5 126 81L126 84Q134 81 142 85.5Z" fill="${HR}"/>
+  <path d="M88 86Q84 58 96 45Q107 31 125 31Q147 32 155 50Q159 63 152 86Q150 72 144 65Q140 55 128 53Q112 51 100 59Q92 67 92 86Z" fill="${HR}"/>
+  <path d="M98 54Q102 31 128 26Q149 24 155 41Q143 35 129 38Q112 42 98 54Z" fill="#241a14"/><path d="M104 44Q116 31 140 31" stroke="#4a382c" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M89 84Q88 72 92 66L94 84Z" fill="#4a3a31" opacity=".7"/><path d="M151 84Q152 72 148 66L146 84Z" fill="#4a3a31" opacity=".7"/>
+  <circle class="ab-ear" cx="155" cy="100" r="2.4" fill="#64d2ff"/>
  </g>
- <ellipse cx="168" cy="262" rx="10" ry="12" fill="url(#${p}sk)"/>
- <rect x="158" y="268" width="8" height="18" rx="4" fill="#d79a76" transform="rotate(-14 162 277)"/>
-</g>
-<g class="ab-p ab-head">
- <ellipse cx="86" cy="96" rx="7" ry="10.5" fill="#e3a682"/><ellipse cx="154" cy="96" rx="7" ry="10.5" fill="#e3a682"/>
- <path d="M86 88Q86 50 120 48Q154 50 154 88Q154 124 132 136Q120 142 108 136Q86 124 86 88Z" fill="url(#${p}sk)"/>
- <path d="M83 94Q76 46 116 37Q152 33 159 64Q161 80 156 94Q153 72 141 64Q122 73 98 62Q88 72 83 94Z" fill="#2a1c13"/>
- <path d="M104 46Q120 40 140 48" stroke="#4a3426" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
- <path d="M97 80q8-5 17-1M126 79q9-4 17 1" stroke="#2a1c13" stroke-width="3.4" fill="none" stroke-linecap="round"/>
- <ellipse cx="106" cy="90" rx="3.4" ry="3.9" fill="#1f160f"/><ellipse cx="134" cy="90" rx="3.4" ry="3.9" fill="#1f160f"/>
- <circle cx="107.2" cy="88.6" r="1.1" fill="#fff"/><circle cx="135.2" cy="88.6" r="1.1" fill="#fff"/>
- <path d="M120 93q-4 11-2 15q3 2 6 0" stroke="#c4835f" stroke-width="2" fill="none" stroke-linecap="round"/>
- <path d="M110 126q10 6 20 0" stroke="#9b5a44" stroke-width="2.4" fill="none" stroke-linecap="round"/>
- <circle class="ab-ear" cx="157" cy="99" r="2.6" fill="#64d2ff"/>
-</g>
-<g class="ab-p ab-stache"><path d="M120 112Q110 105 100 109Q91 113 87 123Q95 117 104 119Q112 121 120 116Q128 121 136 119Q145 117 153 123Q149 113 140 109Q130 105 120 112Z" fill="#2a1c13"/><path d="M104 112q8-2 14 1" stroke="#4a3426" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".8"/></g>
+ <g class="of of-con"><path d="M84 66Q86 27 120 25Q154 27 156 66Z" fill="#f7f7f5"/><path d="M76 66Q120 58 164 66Q164 73 120 71Q76 73 76 66Z" fill="#e6e6e2"/><path d="M120 26V64" stroke="#d4d4cf" stroke-width="3"/></g>
+ <g class="pr pr-dc"><path d="M94 244h52l6 24H88Z" fill="#c7cbd3"/><rect x="92" y="208" width="56" height="38" rx="4" fill="#d9dce2" transform="rotate(-8 120 246)"/><circle cx="120" cy="226" r="4" fill="#64d2ff"/></g>
+</svg>
 </svg>`;
 }
+let ARON_FACE="";
+function aronFace(){return `<span class="face-wrap">${aronFig("110 24 140 140","suit","rest","none","Aron")}</span>`;}
 
-const AB_STEPS=[
- ["legs shoes","Piece 1 · Foundation","Stands on the exam outline.","Every question Aron asks and every answer he gives is tagged to PMI's exam content outline, so he knows exactly which task you are practicing."],
- ["torso","Piece 2 · The suit","Dressed in the PMI mindset.","Servant leadership, ethics, value first. Aron thinks the way the exam wants a project manager to think, and he tells you why."],
- ["arms","Piece 3 · The hands","Builds your study plan.","Aron turns your heat map into a day-by-day plan, picks your next quiz and queues the questions you missed."],
- ["head","Piece 4 · The mind","Sees what you're missing.","He reads your readiness by domain and task, your pace and your review queue, so every answer fits where you are."],
- ["stache","Piece 5 · The mustache","Fact-checks with a straight face.","Tag @Aron in the chat room and he checks claims against the source, then shows what's right and what isn't."],
- ["aura","Piece 6 · Switched on","Always one key away.","Press / on any tab, or tap the Aron button. He's there at 0300 before PT, and he's paused only during a timed exam."]
+const AB_SCENES=[
+ {of:"suit",pose:"present",ind:"Government and defense",m:"Predictive",h:"Plans the baseline.",p:"On fixed-scope government programs, Aron coaches the predictive playbook: charter, WBS, schedule baseline and change control."},
+ {of:"con",pose:"point",ind:"Construction",m:"Predictive",h:"Reads the blueprint.",p:"Phases, permits, the critical path and safety. Aron drills the questions where the plan is the contract."},
+ {of:"dev",pose:"reach",ind:"Software",m:"Agile · Scrum",h:"Moves the board.",p:"Backlogs, sprints, WIP limits and servant leadership. When the exam says agile, Aron thinks in iterations."},
+ {of:"dc",pose:"laptop",ind:"Data centers",m:"Hybrid",h:"Runs the cutover.",p:"Fixed hardware deliveries plus agile software sprints. Aron shows you when to blend the two, and why."},
+ {of:"med",pose:"clip",ind:"Healthcare",m:"Hybrid",h:"Keeps patients first.",p:"Regulated, risk-heavy and full of stakeholders. Aron coaches the compliance, quality and communication questions."},
+ {of:"suit",pose:"wave",ind:"Your next job",m:"Every method",h:"Now it's your turn.",p:"Tell Aron the job you want, and he tailors every example, plan and practice question to that industry."}
 ];
 const HEAT=["#30d158","#30d158","#ffd60a","#ff9f0a","#30d158","#ff453a","#ffd60a","#30d158","#ffd60a","#30d158","#30d158","#ff9f0a","#30d158","#ffd60a","#ff453a","#30d158"];
-
 function sparks(n){let s="";for(let i=0;i<n;i++){const x=(i*37%100),y=(i*53%90)+4;s+=`<i class="spark" style="--x:${x}%;--y:${y}%;--s:${8+i*7%14}px;--d:${2.4+i%4*.7}s;--dl:${i*.43%3}s"></i>`;}return s;}
-
 function renderAIStatus(){const s=document.querySelector("#view-ai .ai-status");if(s){s.classList.toggle("off",!AI);s.lastChild.textContent=AI?"Aron is online on your Claude account":"Offline playbook mode. Open the app in Claude to switch on full AI.";}}
 
-let abBound=false,abRaf=0;
-function abTick(){
-  abRaf=0;const b=document.querySelector("#view-ai .ab-build");if(!b||b.classList.contains("static")||document.getElementById("view-ai").hidden)return;
-  const nv=document.querySelector(".gnav");if(nv)b.style.setProperty("--navh",nv.offsetHeight+"px");
-  const r=b.getBoundingClientRect(),st=b.querySelector(".ab-sticky"),span=r.height-st.offsetHeight;
-  const p=Math.max(0,Math.min(1,-r.top/Math.max(1,span)));const N=AB_STEPS.length,k=Math.min(N-1,Math.floor(p*N*1.02));
-  if(b.dataset.step==k&&b.dataset.pp==Math.round(p*20))return;b.dataset.step=k;b.dataset.pp=Math.round(p*20);
-  b.style.setProperty("--p",p.toFixed(3));
-  AB_STEPS.forEach((s,i)=>s[0].split(" ").forEach(c=>{const g=b.querySelector(".ab-"+c);if(g){g.classList.toggle("on",i<=k);g.classList.toggle("cur",i===k&&i<N-1);}}));
+let abBound=false,abRaf=0,abCur=-1,abT=0;
+function abScene(b,k){
+  const sc=AB_SCENES[k],fig=b.querySelector(".afig"),stage=b.querySelector(".ab-fig");abCur=k;
   b.querySelectorAll(".ab-step").forEach((e,i)=>e.classList.toggle("on",i===k));
   b.querySelectorAll(".ab-dots i").forEach((e,i)=>e.classList.toggle("on",i===k));
+  const apply=()=>{fig.dataset.of=sc.of;fig.dataset.pose=sc.pose;fig.dataset.sc=k===AB_SCENES.length-1?"wave":sc.of;fig.setAttribute("aria-label","Aron dressed for "+sc.ind);};
+  if(RM()){apply();return;}
+  stage.classList.remove("morph");void stage.offsetWidth;stage.classList.add("morph");clearTimeout(abT);abT=setTimeout(apply,260);
 }
-
+function abTick(){
+  abRaf=0;const b=document.querySelector("#view-ai .ab-build");if(!b||document.getElementById("view-ai").hidden)return;
+  if(b.classList.contains("static"))return;
+  const nv=document.querySelector(".gnav");if(nv)b.style.setProperty("--navh",nv.offsetHeight+"px");
+  const r=b.getBoundingClientRect(),st=b.querySelector(".ab-sticky"),span=r.height-st.offsetHeight;
+  const p=Math.max(0,Math.min(1,-r.top/Math.max(1,span))),N=AB_SCENES.length,k=Math.min(N-1,Math.floor(p*N*1.02));
+  b.style.setProperty("--p",p.toFixed(3));if(k!==abCur)abScene(b,k);
+}
 function renderAI(){
-  const el=document.getElementById("view-ai");
-  const T=TRACKS[TRACK].name;
+  const el=document.getElementById("view-ai");const T=TRACKS[TRACK].name,stat=RM();abCur=-1;
   el.innerHTML=`
-  <section class="ai-hero" aria-labelledby="ai-name">
-   <div class="ai-in">
+  <section class="ai-hero" aria-labelledby="ai-name"><div class="ai-in">
     <p class="ai-eye">Introducing your AI coach</p>
     <h2 class="ai-name ai-grad" id="ai-name">Aron.</h2>
-    <p class="ai-sub">The study partner who never sleeps, never judges and always has a mustache.</p>
-    <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask">Ask Aron</button><button class="ai-btn ghost" type="button" id="ai-down">See how he works ›</button></div>
+    <p class="ai-sub">Your PMP coach. Dressed for every industry, fluent in every method.</p>
+    <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask">Ask Aron</button><button class="ai-btn ghost" type="button" id="ai-down">Watch him work ›</button></div>
     <span class="ai-status"><i></i><span></span></span>
-    <div class="ai-stage">${sparks(9)}${aronBody("abh")}</div>
-   </div>
-  </section>
+    <div class="ai-stage">${sparks(9)}${aronFig("0 0 360 560","suit","wave","wave","Aron waving, in a brown double-breasted suit")}</div>
+  </div></section>
 
-  <section class="ab-build ${RM()?"static":""}" id="ai-build" aria-label="How Aron is built">
+  <section class="ab-build ${stat?"static":""}" id="ai-build" aria-label="Aron in different industries">
    <div class="ab-sticky ai-in">
-    <div class="ab-fig ${RM()?"":"ab-stage-js"}">${aronBody("abb")}</div>
-    <div>
-     <p class="ai-eye">Built piece by piece</p>
-     <div class="ab-steps">${AB_STEPS.map((s,i)=>`<div class="ab-step${i===0||RM()?" on":""}"><span class="k">${esc(s[1])}</span><h3>${esc(s[2])}</h3><p>${esc(s[3])}</p></div>`).join("")}
-      <div class="ab-dots" aria-hidden="true">${AB_STEPS.map((s,i)=>`<i class="${i===0?"on":""}"></i>`).join("")}</div></div>
-    </div>
+    <div class="ab-fig"><div class="scan" aria-hidden="true"></div>${aronFig("0 0 360 560","suit","present","suit")}</div>
+    <div class="ab-col"><p class="ai-eye">One coach. Every job site.</p>
+     <div class="ab-steps">${AB_SCENES.map((s,i)=>`<div class="ab-step${i===0||stat?" on":""}"><span class="k">${esc(s.ind)}<b>${esc(s.m)}</b></span><h3>${esc(s.h)}</h3><p>${esc(s.p)}</p></div>`).join("")}
+      <div class="ab-dots" aria-hidden="true">${AB_SCENES.map((s,i)=>`<i class="${i===0?"on":""}"></i>`).join("")}</div></div></div>
    </div>
+   ${stat?`<div class="ai-in ab-gallery">${AB_SCENES.slice(1,5).map(s=>`<figure>${aronFig("0 0 360 560",s.of,s.pose,s.of,"Aron dressed for "+s.ind)}<figcaption>${esc(s.ind)} · ${esc(s.m)}</figcaption></figure>`).join("")}</div>`:""}
   </section>
 
   <section class="ai-sec"><div class="ai-in ai-close">
-    <div class="ai-face">${aronBody("abf","60 30 120 120")}</div>
-    <div><p class="ai-eye">The mustache</p><h2 class="ai-h">Distinguished.<br><span class="ai-grad">Never guessing.</span></h2>
-    <p class="ai-p">Behind the mustache is Claude, one of the most capable AI models. Aron uses it to <b>explain the why behind every answer</b>, in plain words, with a military example when it helps.</p></div>
+    <div class="ai-pair"><figure class="ai-real"><img src="img/aron-real.webp" alt="Aron, the real person the coach is modeled on" loading="lazy"><figcaption>The real Aron</figcaption></figure>
+     <figure class="ai-face">${aronFig("115 22 130 130","suit","rest","none","Aron, illustrated")}<figcaption>Aron, the coach</figcaption></figure></div>
+    <div><p class="ai-eye">The face behind the coach</p><h2 class="ai-h">Modeled on<br><span class="ai-grad">the real Aron.</span></h2>
+    <p class="ai-p">Same beard, same modern mullet, same sharp double-breasted suit. Behind the face is Claude, one of the most capable AI models, so Aron can <b>explain the why behind every answer</b> in plain words.</p></div>
   </div></section>
 
   <section class="ai-sec" style="padding-top:0"><div class="ai-in">
@@ -3187,11 +3349,11 @@ function renderAI(){
      <div class="ai-tile w4"><h3>Explains every answer.</h3><p>Miss a question and Aron walks you through why the right choice wins, and why the others don't.</p>
       <div class="mini"><span class="q">Two engineers argue in stand-up. What do you do first?</span><span class="ln" style="width:80%"></span><span class="why">Why B: collaborate on the root cause. PMI ranks problem-solving above forcing or smoothing.</span></div></div>
      <div class="ai-tile"><h3>Fact-checks the chat room.</h3><div class="mini"><div class="bub me">SPI over 1 means behind schedule, right?</div><div class="bub ai">Not quite. SPI = EV ÷ PV. Above 1 is ahead.</div><span class="ai-chk">✓ Fact-checked</span></div></div>
-     <div class="ai-tile"><h3>Reads your heat map.</h3><div class="heatg">${HEAT.map(c=>`<i style="--hc:${c}"></i>`).join("")}</div><p>Green you've got. Red is where he sends you next.</p></div>
-     <div class="ai-tile"><h3>Debriefs every exam.</h3><div class="lvls"><span>AT</span><span>T</span><span>BT</span><span>NI</span></div><p>A practice score report by domain, and a plan to move each one up a level.</p></div>
-     <div class="ai-tile"><h3>Speaks military.</h3><div class="xl"><div><s>Platoon sergeant</s>→<b>Project manager</b></div><div><s>OPORD</s>→<b>Project charter</b></div><div><s>AAR</s>→<b>Lessons learned</b></div></div></div>
-     <div class="ai-tile w3"><h3>Builds your week.</h3><ul class="aiplan"><li>Mon<span>Risk responses · 20 min</span></li><li>Tue<span>Quiz 2, weak areas</span></li><li>Wed<span>Earned value drills</span></li><li>Thu<span>Case study: data center</span></li><li>Fri<span>Full exam simulation</span></li></ul></div>
-     <div class="ai-tile w3"><span class="big ai-grad">3 tracks.</span><h3>PMP, PMI-ACP and PSM I.</h3><p>Aron keeps them separate. He coaches each track on its own outline and never mixes the methods.</p></div>
+     <div class="ai-tile"><h3>Writes your PMP application.</h3><p>He turns your military projects into the 200 to 500 word descriptions PMI asks for.</p><button class="ai-btn sm" type="button" data-go="apply">Open the application tool</button></div>
+     <div class="ai-tile"><h3>Optimizes your LinkedIn.</h3><p>Headline, About and experience bullets, rewritten in civilian PM language.</p><button class="ai-btn sm" type="button" data-go="linkedin">Open LinkedIn tools</button></div>
+     <div class="ai-tile"><h3>Debriefs every exam.</h3><div class="lvls"><span>AT</span><span>T</span><span>BT</span><span>NI</span></div><p>A practice score report by domain, and a plan to move each one up.</p></div>
+     <div class="ai-tile w3"><h3>Reads your heat map.</h3><div class="heatg">${HEAT.map(c=>`<i style="--hc:${c}"></i>`).join("")}</div><p>Green you've got. Red is where he sends you next.</p></div>
+     <div class="ai-tile w3"><h3>Speaks military.</h3><div class="xl"><div><s>Platoon sergeant</s>→<b>Project manager</b></div><div><s>OPORD</s>→<b>Project management plan</b></div><div><s>AAR</s>→<b>Lessons learned</b></div></div></div>
      <div class="ai-tile w6"><span class="kbdx" aria-hidden="true">/</span><div><h3>Press slash. Anywhere.</h3><p>From the dashboard, a case study or the Vets2PM page, one key opens Aron with your progress already loaded. No signal? He answers from a built-in playbook.</p></div></div>
     </div>
   </div></section>
@@ -3216,11 +3378,11 @@ function renderAI(){
     <p class="ai-eye">Tech specs</p><h2 class="ai-h">Under the suit.</h2>
     <dl class="ai-specs">
      <div><dt>Brain</dt><dd><b>Claude</b>, running on your own Claude account when this app is opened in Claude.</dd></div>
-     <div><dt>Knows</dt><dd>PMP exam content outline (July 2026), PMI-ACP outline (2024), the 2020 Scrum Guide, and Vets2PM programs, funding and SkillBridge.</dd></div>
+     <div><dt>Knows</dt><dd>PMP exam content outline (July 2026), PMI-ACP outline (2024), the 2020 Scrum Guide, PMI's application rules, and Vets2PM programs, funding and SkillBridge.</dd></div>
      <div><dt>Sees</dt><dd>Your readiness by domain and task, your pace, your missed questions and your exam date. Nothing else.</dd></div>
-     <div><dt>Modes</dt><dd>Coach chat, chat-room fact-checks, exam debriefs, study plans and the military translator.</dd></div>
+     <div><dt>Modes</dt><dd>Coach chat, chat-room fact-checks, exam debriefs, study plans, PMP application writing, LinkedIn rewrites and the military translator.</dd></div>
+     <div><dt>Wardrobe</dt><dd>Double-breasted suit, hi-vis vest and hard hat, quarter-zip, data center polo and a white coat.</dd></div>
      <div><dt>Availability</dt><dd>Every tab, any hour. Press <b>/</b> or tap the Aron button. Paused during a timed exam simulation.</dd></div>
-     <div><dt>Offline</dt><dd>When AI isn't available, Aron answers from a built-in playbook of exam rules, formulas and tips.</dd></div>
      <div><dt>Honesty</dt><dd>Aron can make mistakes. Check key facts against PMI or Scrum.org before exam day.</dd></div>
     </dl>
   </div></section>
@@ -3230,7 +3392,7 @@ function renderAI(){
     <h2 class="ai-h">Say hello to <span class="ai-grad">Aron.</span></h2>
     <p class="ai-p" style="margin-inline:auto">Your next question is the best place to start.</p>
     <div class="ai-btns"><button class="ai-btn" type="button" id="ai-ask2">Ask Aron now</button><button class="ai-btn ghost" type="button" data-go="quizzes">Take a quiz first ›</button></div>
-    <p class="ai-fine">Aron is a fictional AI coach character built for PMP/ACP Guide. Practice questions are original and are not real exam questions. PMP and PMI-ACP are marks of the Project Management Institute; PSM is a mark of Scrum.org.</p>
+    <p class="ai-fine">Aron is an AI coach character for PMP/ACP Guide, modeled with permission on a real person. Practice questions are original and are not real exam questions. PMP and PMI-ACP are marks of the Project Management Institute; PSM is a mark of Scrum.org.</p>
   </div></section>`;
   paintAron();renderAIStatus();
   el.querySelector("#ai-ask").onclick=openDrawer;el.querySelector("#ai-ask2").onclick=openDrawer;
@@ -3238,8 +3400,334 @@ function renderAI(){
   const ph=el.querySelector("#ai-phone");
   if(!RM()&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){ph.classList.remove("play");void ph.offsetWidth;ph.classList.add("play");io.disconnect();}}),{rootMargin:"0px 0px -15% 0px"});io.observe(ph);}
   if(!abBound){abBound=true;const q=()=>{if(!abRaf)abRaf=requestAnimationFrame(abTick);};addEventListener("scroll",q,{passive:true});addEventListener("resize",q);}
-  if(!RM())requestAnimationFrame(abTick);
+  if(!stat)requestAnimationFrame(abTick);
 }
+
+/* ---------- Round 11: military jargon translator (shared) ---------- */
+const JARGON=[
+ ["NCOIC","team lead"],["OIC","project lead"],["squad leader","team lead"],["platoon sergeant","operations manager"],["platoon leader","project manager"],["first sergeant","senior operations manager"],["company commander","director"],["commanded","led"],["command","leadership"],
+ ["executive officer","deputy director"],["XO","deputy director"],["S-?3","operations"],["S-?4","logistics"],["S-?1","human resources"],["S-?6","IT and communications"],
+ ["squad","team of 9"],["platoon","team of 30+"],["battalion","organization of 500+"],["brigade","organization of 3,000+"],["company-level","department-level"],
+ ["soldiers","team members"],["sailors","team members"],["airmen","team members"],["marines","team members"],["troops","staff"],["personnel","staff"],["subordinates","direct reports"],
+ ["OPORD","project management plan"],["operations order","project management plan"],["FRAGO","change request"],["SITREP","status report"],["AAR","lessons learned review"],["after action review","lessons learned review"],
+ ["TDY","business travel"],["PCS","relocation"],["OCONUS","international"],["CONUS","domestic"],["deployment","international operation"],["deployed","completed an international assignment"],
+ ["MOS","specialty"],["METL","core capabilities"],["NCOER","performance evaluation"],["OER","performance evaluation"],["EPR","performance evaluation"],["OPR","performance evaluation"],["FITREP","performance evaluation"],
+ ["FTX","large-scale training exercise"],["field exercise","large-scale training exercise"],["motor pool","vehicle fleet operations"],["property book","asset inventory"],["hand receipt","asset accountability record"],
+ ["chain of command","leadership"],["mission-essential","business-critical"],["mission","objective"],["garrison","headquarters"],["range day","training event"],["PMCS","preventive maintenance"],["commander's intent","project vision"],["warfighter","end user"]
+];
+function translateMil(text){
+  let out=esc(text),hits=[];
+  JARGON.forEach(([m,c])=>{const re=new RegExp("\\b"+m+"\\b","gi");if(re.test(out)){hits.push([m.replace("-?","-"),c]);out=out.replace(re,`<mark title="was: ${esc(m.replace("-?","-"))}">${esc(c)}</mark>`);}});
+  return {html:out,plain:out.replace(/<mark[^>]*>|<\/mark>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#39;/g,"'"),hits};
+}
+function jargonHits(text){return JARGON.filter(([m])=>new RegExp("\\b"+m+"\\b","i").test(text||"")).map(([m,c])=>[m.replace("-?","-"),c]);}
+function copyBtn(b,text){try{navigator.clipboard.writeText(text).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1400);},()=>{b.textContent="Select and copy";});}catch(e){b.textContent="Select and copy";}}
+function lsGet(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")||d;}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+/* ---------- LinkedIn optimization ---------- */
+const LIKEY=KEY+"-linkedin";
+const LI_CHECKS=[
+ ["photo","Professional photo","Head and shoulders, plain background, you smiling. 400×400 px or larger.",10],
+ ["banner","Custom banner","1584×396 px. A job site, your skyline, or a simple brand line works.",5],
+ ["headline","Keyword headline","Up to 220 characters. Target role, certification, your edge.",15],
+ ["about","About section in civilian language","Up to 2,600 characters. Hook, proof with numbers, skills, a call to action.",15],
+ ["exp","Experience translated","Each military role written as projects with team size, budget and outcome.",15],
+ ["certs","Licenses and certifications","Add PMP, CAPM, PMI-ACP or PSM I with the credential ID. Studying? Say \"PMP candidate\" in your headline.",10],
+ ["skills","Top skills pinned","Project management, risk management, stakeholder management, Agile, Scrum.",8],
+ ["url","Custom profile URL","linkedin.com/in/firstname-lastname-pmp looks clean on a resume.",4],
+ ["otw","Open to work, recruiters only","Set target titles and locations so recruiters find you without a public banner.",6],
+ ["recs","Three recommendations","Ask a former commander, a peer and someone you led.",6],
+ ["featured","Featured section","Pin your certificate, a project write-up or a talk.",3],
+ ["activity","Weekly activity","Comment on PM posts and share one lesson a week.",3]
+];
+const LI_KEYWORDS={
+ "Government and defense":["Program management","Earned value management","Risk management","Stakeholder management","Acquisition","DoD 5000","Security clearance","Contract management"],
+ "Construction":["Construction management","Critical path method","Scheduling (Primavera P6)","Budget control","Safety compliance","Subcontractor management","RFIs","Change orders"],
+ "Software and IT":["Agile","Scrum","Kanban","Jira","Product backlog","Release planning","SDLC","Stakeholder communication"],
+ "Data centers":["Data center commissioning","MEP coordination","Cutover planning","Vendor management","Critical facilities","Uptime","Hybrid delivery","Risk mitigation"],
+ "Healthcare":["Healthcare operations","Regulatory compliance","Quality improvement","Change management","EHR implementation","Process improvement","Patient safety","Budget management"],
+ "Logistics and supply chain":["Supply chain management","Logistics planning","Inventory control","Procurement","Fleet operations","Process improvement","Lean Six Sigma","Vendor management"]
+};
+const ARON_LI={
+ name:"Aron",head:"Project Manager | PMP® · PMI-ACP® · PSM I | Vets2PM Graduate | Turning complex missions into on-time, on-budget delivery",
+ loc:"United States · Open to project manager roles",
+ about:"I build teams that deliver. My path into project management started the Vets2PM way: learning that planning a mission, standing up a new capability and leading people under pressure are project management, with a different vocabulary.\n\nWhat I bring:\n• Led cross-functional teams of 5 to 40 through predictive, agile and hybrid delivery\n• Planned and controlled budgets up to $5M with earned value reporting\n• Built risk registers, stakeholder maps and communication plans that leaders actually used\n• Coached teams through Scrum adoption, from first sprint to steady velocity\n\nCertified PMP®, PMI-ACP® and PSM I, trained at Vets2PM, a PMI Authorized Training Partner. I'm open to project manager roles in data centers, construction and government programs. Let's talk.",
+ exp:[["Project Manager","Vets2PM SkillBridge internship · Data center build-out","2026 – Present","Coordinated a 12-person team across MEP, IT and vendors for a 3 MW data hall cutover. Built the integrated schedule and weekly risk review. Delivered commissioning two weeks early."],
+      ["Operations Lead","U.S. Army · Organization of 500+","2018 – 2026","Planned and led 40+ training and logistics projects with budgets up to $5M. Managed $12M in equipment accountability with zero loss. Ran lessons learned reviews that cut repeat issues by 30%."]],
+ edu:[["Vets2PM Academy","PMP® Certification Course, 35 contact hours","2026"],["Vets2PM Academy","Agile and Scrum training (PMI-ACP® and PSM I)","2026"]],
+ certs:[["Project Management Professional (PMP)®","Project Management Institute","Issued 2026"],["PMI Agile Certified Practitioner (PMI-ACP)®","Project Management Institute","Issued 2026"],["Professional Scrum Master I (PSM I)","Scrum.org","Issued 2026"],["Certified Associate in Project Management (CAPM)®","Project Management Institute","Issued 2025"]],
+ skills:["Project management","Risk management","Stakeholder management","Agile and Scrum","Earned value management","Team leadership"]
+};
+function liState(){return lsGet(LIKEY,{checks:{},role:"Project Manager",branch:"U.S. Army",years:"8",spec:"logistics and training operations",cert:"PMP candidate",edge:"Turning complex missions into on-time, on-budget delivery",story:"",wins:"",ind:"Data centers",bullet:""});}
+function liHeadlines(s){
+  const c=s.cert&&s.cert!=="None yet"?s.cert:"";const v=(s.branch||"").replace(/^U\.S\. /,"")+" veteran";
+  const opts=[
+   [s.role,c,v,s.edge].filter(Boolean).join(" | "),
+   [s.role+(s.ind?" · "+s.ind:""),c,`${s.years||"?"} years leading ${s.spec||"teams"}`,"Vets2PM"].filter(Boolean).join(" | "),
+   `${c?c+" ":""}${s.role} helping ${s.ind||"teams"} deliver on time | ${v} | Risk · Stakeholders · Agile`
+  ];
+  return opts.map(o=>o.replace(/\s+\|\s+\|/g," |").trim());
+}
+function liAbout(s){
+  const wins=(s.wins||"").split(/\n+/).map(w=>w.trim()).filter(Boolean);
+  const kw=(LI_KEYWORDS[s.ind]||LI_KEYWORDS["Government and defense"]).slice(0,5).join(", ");
+  return `${s.story?s.story.trim()+"\n\n":""}I spent ${s.years||"several"} years in the ${s.branch||"military"} planning and leading ${s.spec||"complex operations"}. That work is project management: clear objectives, tight schedules, real budgets and people who depend on the plan.\n\nWhat I've delivered:\n${(wins.length?wins:["Led a team of [#] to deliver [project] [time] ahead of schedule","Managed [$ amount] in equipment and budget with [result]","Planned [#] events or operations with [measurable outcome]"]).map(w=>"• "+w).join("\n")}\n\nSkills: ${kw}.\n\n${s.cert&&s.cert!=="None yet"?s.cert+", trained at Vets2PM. ":""}I'm looking for ${s.role.toLowerCase()} roles in ${s.ind.toLowerCase()}. Let's connect.`;
+}
+function liProfileCard(){
+  const A=ARON_LI;
+  return `<article class="li-mock" aria-label="Example LinkedIn-style profile for Aron">
+   <div class="li-banner"><span>Mission ready. Project ready.</span><img src="${V2PM_LOGO}" alt="" class="li-bn-logo"></div>
+   <div class="li-top"><img class="li-photo" src="img/aron-real.webp" alt="Aron's profile photo">
+    <div class="li-id"><h3>${esc(A.name)} <small>Sample profile</small></h3><p class="li-head">${esc(A.head)}</p><p class="li-loc">${esc(A.loc)} · <a>500+ connections</a></p>
+     <div class="li-acts"><span class="li-b pri">Open to</span><span class="li-b">Add section</span><span class="li-b">More</span></div>
+     <div class="li-otw"><b>Open to work</b><span>Project Manager, Program Manager and Scrum Master roles</span></div></div>
+    <div class="li-org"><span><img src="${V2PM_LOGO}" alt="">Vets2PM Academy</span><span><i>🎖</i>U.S. Army</span></div></div>
+   <section class="li-sec"><h4>About</h4><p class="li-pre">${esc(A.about)}</p></section>
+   <section class="li-sec"><h4>Featured</h4><div class="li-feat"><div><b>PMP® certificate</b><span>Project Management Institute</span></div><div><b>Case study: 3 MW data hall cutover</b><span>Lessons learned, 6 min read</span></div></div></section>
+   <section class="li-sec"><h4>Experience</h4>${A.exp.map(e=>`<div class="li-row"><span class="li-logo">${esc(e[1][0])}</span><div><b>${esc(e[0])}</b><span>${esc(e[1])}</span><small>${esc(e[2])}</small><p>${esc(e[3])}</p></div></div>`).join("")}</section>
+   <section class="li-sec"><h4>Education</h4>${A.edu.map(e=>`<div class="li-row"><span class="li-logo v"><img src="${V2PM_LOGO}" alt=""></span><div><b>${esc(e[0])}</b><span>${esc(e[1])}</span><small>${esc(e[2])}</small></div></div>`).join("")}</section>
+   <section class="li-sec"><h4>Licenses and certifications</h4>${A.certs.map(c=>`<div class="li-row"><span class="li-logo c">${c[1].startsWith("Scrum")?"S":"P"}</span><div><b>${esc(c[0])}</b><span>${esc(c[1])}</span><small>${esc(c[2])} · Show credential</small></div></div>`).join("")}</section>
+   <section class="li-sec"><h4>Skills</h4><div class="li-skills">${A.skills.map(s=>`<span>${esc(s)}</span>`).join("")}</div></section>
+  </article>`;
+}
+function renderLinkedIn(){
+  const el=document.getElementById("view-linkedin");const s=liState();
+  const score=()=>LI_CHECKS.reduce((t,c)=>t+(s.checks[c[0]]?c[3]:0),0);
+  const inds=Object.keys(LI_KEYWORDS);
+  el.innerHTML=`
+  <section class="tool-hero li-hero"><div><span class="eyebrow">LinkedIn optimization</span><h2>Make recruiters stop scrolling.</h2>
+   <p class="lede">Your service record is full of project management. These tools put it in the words recruiters search for, and Aron can rewrite any section with you.</p>
+   <div class="actions"><a class="btn primary" href="#li-example">See Aron's example profile</a><button class="btn" type="button" data-askaron="Review my LinkedIn strategy. I'm a ${esc(s.branch)} veteran targeting ${esc(s.role)} roles in ${esc(s.ind)}. Give me the 5 highest-impact changes, with examples.">Ask Aron for a review</button></div></div>
+   <div class="li-ring" id="li-ring"></div></section>
+
+  <section class="grid2 li-grid">
+   <div class="card"><h2>Profile checklist</h2><p class="muted">Tick what you've done. Your score updates as you go.</p>
+    <ul class="li-checks">${LI_CHECKS.map(c=>`<li><label><input type="checkbox" id="lic-${c[0]}" data-lic="${c[0]}" ${s.checks[c[0]]?"checked":""}><span><b>${esc(c[1])}</b><small>${esc(c[2])}</small></span></label></li>`).join("")}</ul></div>
+   <div class="card"><h2>Headline builder</h2><p class="muted">The headline shows up in every search result and comment. Up to 220 characters.</p>
+    <div class="fgrid2">
+     <label>Target role<input id="li-role" value="${esc(s.role)}" list="li-roles"><datalist id="li-roles"><option>Project Manager</option><option>Program Manager</option><option>Project Coordinator</option><option>Scrum Master</option><option>Operations Manager</option><option>Construction Project Manager</option><option>Data Center Project Manager</option></datalist></label>
+     <label>Branch<select id="li-branch">${["U.S. Army","U.S. Navy","U.S. Air Force","U.S. Marine Corps","U.S. Coast Guard","U.S. Space Force","Military spouse"].map(b=>`<option ${b===s.branch?"selected":""}>${b}</option>`).join("")}</select></label>
+     <label>Years of service<input id="li-years" inputmode="numeric" value="${esc(s.years)}"></label>
+     <label>Certification<select id="li-cert">${["PMP candidate","PMP®","CAPM®","PMI-ACP®","PSM I","PMP® · PMI-ACP® · PSM I","None yet"].map(b=>`<option ${b===s.cert?"selected":""}>${b}</option>`).join("")}</select></label>
+     <label class="wide">What you led<input id="li-spec" value="${esc(s.spec)}" placeholder="e.g. logistics and training operations"></label>
+     <label class="wide">Your edge (one line)<input id="li-edge" value="${esc(s.edge)}"></label>
+     <label class="wide">Target industry<select id="li-ind">${inds.map(b=>`<option ${b===s.ind?"selected":""}>${b}</option>`).join("")}</select></label>
+    </div>
+    <div class="li-outs" id="li-heads"></div>
+    <button class="btn" type="button" id="li-head-ai">Ask Aron for 5 more</button></div>
+  </section>
+
+  <section class="grid2 li-grid">
+   <div class="card"><h2>About section</h2><p class="muted">Hook, proof with numbers, skills and a call to action. Up to 2,600 characters.</p>
+    <label>Your story in one line (optional)<input id="li-story" value="${esc(s.story)}" placeholder="e.g. I joined the Army at 18 to lead people. I still do."></label>
+    <label>Three wins with numbers, one per line<textarea id="li-wins" rows="4" placeholder="Led a team of 30 to move $7M of equipment overseas with zero loss">${esc(s.wins)}</textarea></label>
+    <pre class="li-draft" id="li-about"></pre><div class="actions"><button class="btn" type="button" id="li-about-copy">Copy</button><button class="btn primary" type="button" id="li-about-ai">Polish with Aron</button><span class="muted" id="li-about-n"></span></div></div>
+   <div class="card"><h2>Experience translator</h2><p class="muted">Paste a line from an evaluation or award. Aron swaps the jargon for words a hiring manager knows.</p>
+    <label>Military bullet<textarea id="li-bullet" rows="4" placeholder="As NCOIC, led 4 squads through a 30-day FTX and maintained a $12M property book with zero loss">${esc(s.bullet)}</textarea></label>
+    <div class="li-draft" id="li-tr"></div><div class="actions"><button class="btn" type="button" id="li-tr-copy">Copy</button><button class="btn primary" type="button" id="li-tr-ai">Rewrite with Aron</button></div>
+    <p class="muted" id="li-tr-tip"></p></div>
+  </section>
+
+  <section class="card"><h2>Keywords recruiters search for</h2><p class="muted">Use these in your headline, About, experience and skills. Click one to copy it.</p>
+   <div class="li-kw">${inds.map(i=>`<div><b>${esc(i)}</b><div class="chips">${LI_KEYWORDS[i].map(k=>`<button class="chip" type="button" data-kw="${esc(k)}">${esc(k)}</button>`).join("")}</div></div>`).join("")}</div></section>
+
+  <section class="sec" id="li-example"><div class="sec-head"><span class="eyebrow">Example profile</span><h2>What great looks like.</h2><p class="lede">Aron's profile, built the Vets2PM way: civilian language, real numbers and certifications front and center. This is a sample with illustrative details, not a live LinkedIn page.</p></div>
+   ${liProfileCard()}</section>
+
+  <section class="card li-help"><span class="aron-av" aria-hidden="true"></span><div><h2>How Aron helps with LinkedIn</h2><p class="muted">Each button opens Aron with the request ready to go.</p>
+   <div class="chips">${[["Rewrite my headline","Write 5 LinkedIn headlines (under 220 characters) for a "+s.branch+" veteran targeting "+s.role+" roles in "+s.ind+"."],["Translate my evaluation bullets","I'll paste military evaluation bullets. Rewrite each as a civilian LinkedIn experience bullet: action, scope (team size or budget), result."],["Write my About section","Write a LinkedIn About section (under 2,600 characters) for a veteran moving into project management. Ask me 3 questions first."],["Pick my top skills","Which 5 LinkedIn skills should a new PM in "+s.ind+" pin, and why?"],["Draft a recommendation request","Draft a short message asking my former commander for a LinkedIn recommendation focused on project leadership."],["Plan a week of posts","Give me 5 short LinkedIn post ideas about lessons from military service that apply to project management."]].map(c=>`<button class="chip" type="button" data-askaron="${esc(c[1])}">${esc(c[0])}</button>`).join("")}</div></div></section>`;
+  paintAron();
+  const ring=()=>{const v=score();document.getElementById("li-ring").innerHTML=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="60" cy="60" r="50" fill="none" stroke="${v>=80?"var(--ok)":v>=50?"var(--accent)":"var(--warn)"}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(v/100*314).toFixed(1)} 314" transform="rotate(-90 60 60)"/></svg><div><b class="num">${v}</b><span>Profile strength</span><small>${v>=80?"All-star":v>=50?"Getting there":"Just starting"}</small></div>`;};
+  const save=()=>lsSet(LIKEY,s);
+  const heads=()=>{document.getElementById("li-heads").innerHTML=liHeadlines(s).map((h,i)=>`<div class="li-out"><p>${esc(h)}</p><span class="muted ${h.length>220?"bad":""}">${h.length}/220</span><button class="btn sm" type="button" data-hc="${i}">Copy</button></div>`).join("");
+    el.querySelectorAll("[data-hc]").forEach(b=>b.onclick=()=>copyBtn(b,liHeadlines(s)[+b.dataset.hc]));};
+  const about=()=>{const t=liAbout(s);document.getElementById("li-about").textContent=t;document.getElementById("li-about-n").textContent=t.length+"/2,600 characters";};
+  const tr=()=>{const r=translateMil(s.bullet||"");document.getElementById("li-tr").innerHTML=s.bullet?r.html:`<span class="muted">Your translated bullet appears here.</span>`;
+    const tip=[];if(s.bullet&&!/\d/.test(s.bullet))tip.push("Add a number: team size, budget, percent or time saved.");if(r.hits.length)tip.push(`Swapped ${r.hits.length} military term${r.hits.length>1?"s":""}.`);document.getElementById("li-tr-tip").textContent=tip.join(" ");};
+  ring();heads();about();tr();
+  el.querySelectorAll("[data-lic]").forEach(c=>c.onchange=()=>{s.checks[c.dataset.lic]=c.checked;save();ring();});
+  [["li-role","role"],["li-branch","branch"],["li-years","years"],["li-cert","cert"],["li-spec","spec"],["li-edge","edge"],["li-ind","ind"]].forEach(([id,k])=>{const i=document.getElementById(id);i.oninput=i.onchange=()=>{s[k]=i.value;save();heads();about();};});
+  [["li-story","story"],["li-wins","wins"]].forEach(([id,k])=>{const i=document.getElementById(id);i.oninput=()=>{s[k]=i.value;save();about();};});
+  const bi=document.getElementById("li-bullet");bi.oninput=()=>{s.bullet=bi.value;save();tr();};
+  document.getElementById("li-about-copy").onclick=e=>copyBtn(e.currentTarget,liAbout(s));
+  document.getElementById("li-tr-copy").onclick=e=>copyBtn(e.currentTarget,translateMil(s.bullet||"").plain);
+  document.getElementById("li-head-ai").onclick=()=>send(`Write 5 more LinkedIn headlines, each under 220 characters, for me. Target role: ${s.role}. Branch: ${s.branch}, ${s.years} years. What I led: ${s.spec}. Certification: ${s.cert}. Target industry: ${s.ind}. Use keywords recruiters search for and no military jargon.`,"Write 5 more LinkedIn headlines for me");
+  document.getElementById("li-about-ai").onclick=()=>send(`Polish this LinkedIn About section for a veteran targeting ${s.role} roles in ${s.ind}. Keep it truthful (don't invent numbers; mark gaps like [#] for me to fill), first person, under 2,600 characters, no military jargon:\n\n${liAbout(s)}`,"Polish my LinkedIn About section");
+  document.getElementById("li-tr-ai").onclick=()=>{if(!s.bullet)return bi.focus();send(`Rewrite this military evaluation bullet as 2 civilian LinkedIn experience bullets for a ${s.role} role: start with a strong verb, include scope (team size or budget) and a result, no jargon, don't invent facts:\n\n${s.bullet}`,"Rewrite my military bullet for LinkedIn");};
+  el.querySelectorAll("[data-kw]").forEach(b=>b.onclick=()=>{const t=b.textContent;try{navigator.clipboard.writeText(t);}catch(e){}b.classList.add("on");setTimeout(()=>b.classList.remove("on"),900);});
+  const ex=el.querySelector('a[href="#li-example"]');ex.onclick=e=>{e.preventDefault();document.getElementById("li-example").scrollIntoView({behavior:RM()?"auto":"smooth"});};
+}
+
+/* ---------- Round 11: PMP application builder (modeled on the Vets2PM PMP Application Tool) ---------- */
+const AKEY=KEY+"-apply";
+const APP_EDU=[["hs","High school diploma or associate's degree",60],["bach","Four-year degree",36],["gac","Bachelor's or postgraduate degree from a GAC-accredited program",24]];
+const APP_AREA=["Customer Service","Finance","Human Resources","IT or IS","Marketing","Operations","PM Dept/PMI","Research/R&D","Sales","Training & Education","Other"];
+const APP_FOCUS=["Aerospace","Armed Forces","Automotive","Construction","Consulting","Energy","Financial Services","Food and Beverage","Government","Healthcare","Information Technology","Legal","Manufacturing","Mining","Pharmaceutical","Telecom","Training/Education","Other"];
+const APP_METHOD=["Predictive (traditional, waterfall)","Agile","Hybrid"];
+const APP_TEAM=["1 to 4","5 to 9","10 to 14","15 to 19","20 or more","Classified"];
+const APP_BUDGET=["Up to $1M","$1M to $5M","$5M to $10M","$10M to $25M","$25M or more","Classified"];
+const APP_RESP=[
+ ["Initiating",["developed the project charter and gained sponsor approval","identified and analyzed stakeholders","defined objectives and success criteria"]],
+ ["Planning",["built the work breakdown structure (WBS)","developed the schedule and cost baseline","created the risk management plan","planned communications and stakeholder engagement","defined quality standards and acceptance criteria","planned procurement of equipment and services"]],
+ ["Executing",["led and developed the project team","managed stakeholder expectations","coordinated vendors and contracts","facilitated recurring coordination meetings"]],
+ ["Monitoring and controlling",["tracked scope, schedule and cost against the baseline","managed changes through change control","monitored and responded to risks and issues","reported status to leadership"]],
+ ["Closing",["obtained formal acceptance of deliverables","captured lessons learned","released resources and archived records"]]
+];
+const APP_IDEAS=[
+ ["Ceremony or banquet","Have you led or organized a ceremony or banquet?","Unit Awards Banquet"],
+ ["Change management","Have you helped an organization adopt a change?","New Software Rollout"],
+ ["Decommissioned asset","Have you shut down, turned in or retired an asset?","Facility Closure and Equipment Turn-In"],
+ ["Deployment","Have you deployed people or equipment?","Overseas Deployment of Personnel and Equipment"],
+ ["Equipment upgrade","Have you upgraded or modified a system or equipment?","Equipment Modernization"],
+ ["Exercise","Have you planned a military or training exercise?","Multi-Unit Training Exercise"],
+ ["Facilitated meeting","Have you planned a conference, summit or key meeting?","Multinational Partner Conference"],
+ ["Fundraiser","Have you chaired a fundraiser?","Wounded Warrior Fundraiser"],
+ ["Inspection","Have you led or prepared for an inspection or audit?","Command Inspection Readiness"],
+ ["New program","Have you stood up a new office, program or capability?","New Program Office Stand-Up"],
+ ["New procedure","Have you written a new SOP or way of working?","Standard Operating Procedure Redesign"],
+ ["Publication","Have you authored or edited a manual or publication?","Training Manual Development"],
+ ["Procurement","Have you researched or led a purchase or contract?","Equipment Procurement"],
+ ["Reorganization","Have you helped restructure or right-size a team?","Organizational Restructure"],
+ ["Relocation","Have you moved a unit, office or warehouse?","Unit Relocation to New Facility"],
+ ["Safety program","Have you made a process or workplace safer?","Safety Training Program"],
+ ["Training program","Have you built a new training program or course?","New Hire Onboarding Program"],
+ ["Study","Have you run a study or survey to find a better way?","Readiness Process Study"]
+];
+function appState(){return lsGet(AKEY,{edu:"bach",hours:false,projects:[],open:null});}
+function ymNum(v){if(!v)return null;const [y,m]=v.split("-").map(Number);return y*12+(m-1);}
+function appMonths(st){
+  const now=new Date(),cur=now.getFullYear()*12+now.getMonth(),min=cur-96,set=new Set();
+  st.projects.forEach(p=>{let a=ymNum(p.start),b=ymNum(p.end)||cur;if(a===null)return;a=Math.max(a,min);b=Math.min(b,cur);for(let m=a;m<=b;m++)set.add(m);});
+  return set.size;
+}
+function projMonths(p){const a=ymNum(p.start),b=ymNum(p.end);return a!==null&&b!==null&&b>=a?b-a+1:0;}
+function appDesc(p){
+  const r=(p.resp||[]);const lst=r.length>1?r.slice(0,-1).join(", ")+" and "+r[r.length-1]:r[0]||"";
+  const parts=[];
+  if(p.obj)parts.push(`The objective of this project was to ${p.obj.replace(/\.$/,"")}.`);
+  if(p.role)parts.push(`My role was ${p.role.replace(/\.$/,"")}.`);
+  if(lst)parts.push(`In this role, I ${lst}.`);
+  if(p.extra)parts.push(p.extra.trim());
+  if(p.deliv)parts.push(`The key deliverable was ${p.deliv.replace(/\.$/,"")}.`);
+  if(p.outcome)parts.push(`The outcome of the project was ${p.outcome.replace(/\.$/,"")}.`);
+  return parts.join(" ");
+}
+const wc=t=>(t.trim().match(/\S+/g)||[]).length;
+function newProject(title,idea){return {id:"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),title:title||"",org:"",job:"Project Manager",start:"",end:"",area:"Operations",focus:"Armed Forces",method:APP_METHOD[0],team:"5 to 9",budget:"Up to $1M",obj:idea?`plan and deliver ${idea.toLowerCase()} for [who], so that [why it mattered]`:"",role:"the project manager, leading a team of [#]",resp:[],extra:"",deliv:"",outcome:"",cn:"",cp:"",ce:"",ca:""};}
+
+function renderApply(){
+  const el=document.getElementById("view-apply");const st=appState();
+  const save=()=>lsSet(AKEY,st);
+  const req=()=>APP_EDU.find(e=>e[0]===st.edu)[2];
+  el.innerHTML=`
+  <section class="tool-hero"><div><span class="eyebrow">PMP application</span><h2>Your service already counts. Let's write it down.</h2>
+   <p class="lede">Log each project the way PMI asks for it, watch your eligibility add up, and turn military work into the 200 to 500 word descriptions PMI reviews. Modeled on the Vets2PM PMP Application Tool.</p>
+   <div class="actions"><button class="btn primary" type="button" id="ap-add">Add a project</button><button class="btn" type="button" id="ap-dl">Download my application</button><button class="btn" type="button" data-askaron="I'm a veteran starting my PMP application. Interview me one question at a time to find 3 projects from my service that qualify, then help me write each description.">Let Aron interview me</button></div><p class="msg" id="ap-msg" role="status"></p></div>
+   <div class="ap-elig card" id="ap-elig"></div></section>
+
+  <section class="card" id="ap-capm" hidden></section>
+
+  <section class="sec"><div class="sec-head"><span class="eyebrow">Your projects</span><h2>One entry per project.</h2><p class="lede">PMI counts unique months: overlapping projects count once, and only the last 8 years count.</p></div>
+   <div id="ap-list" class="ap-list"></div></section>
+
+  <section class="card"><h2>Not sure what counts as a project?</h2><p class="muted">If it had a start, an end and a unique result, it's a project. Tap one that sounds like you to start an entry.</p>
+   <div class="ap-ideas">${APP_IDEAS.map((x,i)=>`<button type="button" class="ap-idea" data-idea="${i}"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></button>`).join("")}</div></section>
+
+  <section class="grid2">
+   <div class="card"><h2>How to submit on pmi.org</h2><ol class="ap-steps">
+    <li><b>Start the application.</b> Create a free account at pmi.org and open the PMP application. You have 90 days to finish once you start.</li>
+    <li><b>Add education.</b> Your highest degree, plus your 35 contact hours: course title, provider (for example Vets2PM Academy), dates and hours.</li>
+    <li><b>Add each project.</b> Copy the fields and description from this page into each experience entry.</li>
+    <li><b>Submit.</b> PMI usually reviews applications within about 5 business days.</li>
+    <li><b>Pay and schedule.</b> Members pay less. You then have one year to take the exam.</li>
+    <li><b>Be audit ready.</b> Some applications are picked at random. Keep a contact for each project and your course certificate.</li></ol>
+    <a class="btn" href="https://www.pmi.org/certifications/project-management-pmp" target="_blank" rel="noopener">PMP requirements on pmi.org</a></div>
+   <div class="card"><h2>Rules that trip people up</h2><ul class="ap-rules">
+    <li><b>Lead and direct.</b> Describe what you led, not what your unit did.</li>
+    <li><b>Use PMI words.</b> Charter, stakeholders, WBS, baseline, risk, change control, lessons learned.</li>
+    <li><b>Cover the life cycle.</b> Mention initiating, planning, executing, monitoring and closing work.</li>
+    <li><b>Lose the acronyms.</b> Reviewers aren't military. The translator below each description flags jargon.</li>
+    <li><b>Classified is fine.</b> Choose "Classified" for team size or budget when you can't share them.</li>
+    <li><b>Stay truthful.</b> Numbers should match what your contact would confirm in an audit.</li></ul></div>
+  </section>`;
+
+  const elig=()=>{
+    const m=appMonths(st),r=req(),ok=m>=r&&st.hours,pctv=Math.min(100,Math.round(m/r*100));
+    document.getElementById("ap-elig").innerHTML=`<span class="eyebrow">Eligibility</span>
+     <label>Education<select id="ap-edu">${APP_EDU.map(e=>`<option value="${e[0]}" ${e[0]===st.edu?"selected":""}>${esc(e[1])} · ${e[2]} months</option>`).join("")}</select></label>
+     <label class="ap-ck"><input type="checkbox" id="ap-hours" ${st.hours?"checked":""}> I have 35 contact hours of project management training (or a CAPM)</label>
+     <div class="ap-meter"><div><b class="num">${m}</b> of ${r} months</div><div class="track"><i style="width:${pctv}%;background:${ok?"var(--ok)":"var(--accent)"}"></i></div></div>
+     <p class="ap-stat ${ok?"ok":""}">${ok?"You meet PMI's PMP experience and training requirements. Time to submit.":m>=r?"Experience met. Add your 35 contact hours to be eligible.":`You need ${r-m} more month${r-m===1?"":"s"} of project experience for the PMP.`}</p>`;
+    document.getElementById("ap-edu").onchange=e=>{st.edu=e.target.value;save();elig();};
+    document.getElementById("ap-hours").onchange=e=>{st.hours=e.target.checked;save();elig();};
+    const capm=document.getElementById("ap-capm");const show=m<r;capm.hidden=!show;
+    if(show)capm.innerHTML=`<div class="ap-capm"><div><span class="eyebrow">Not enough experience yet?</span><h2>Start with the CAPM.</h2>
+      <p>The Certified Associate in Project Management (CAPM)® from PMI needs <b>no project experience</b>: a high school diploma or equivalent and <b>23 hours</b> of project management education. It proves you know the language while you build months toward the PMP, and an active CAPM also satisfies the PMP's 35-hour education requirement.</p>
+      <ul class="ap-facts"><li><b>150</b><span>questions</span></li><li><b>3 hrs</b><span>exam time</span></li><li><b>0</b><span>months of experience needed</span></li><li><b>3 yrs</b><span>valid, renew with 15 PDUs</span></li></ul>
+      <p class="muted">CAPM exam outline: project management fundamentals and core concepts 36%, predictive methods 17%, agile frameworks 20%, business analysis frameworks 27%.</p>
+      <div class="actions"><a class="btn primary" href="https://www.pmi.org/certifications/certified-associate-capm" target="_blank" rel="noopener">CAPM on pmi.org</a><button class="btn" type="button" data-askaron="I don't have enough project experience for the PMP yet. Should I take the CAPM first? Build me a 6-week CAPM study plan and explain how CAPM fits on my way to the PMP.">Ask Aron about CAPM</button></div></div>
+      <span class="ap-badge" aria-hidden="true">CAPM®</span></div>`;
+  };
+  const list=()=>{
+    const L=document.getElementById("ap-list");
+    if(!st.projects.length){L.innerHTML=`<div class="card ap-empty"><b>No projects yet.</b><p class="muted">Add your first project, or tap an idea below. Start with your most recent one: PMI only counts the last 8 years.</p></div>`;return;}
+    L.innerHTML=st.projects.map((p,i)=>{const d=appDesc(p),n=wc(d),mo=projMonths(p),open=st.open===p.id,jh=jargonHits(d+" "+p.title);
+     return `<article class="card ap-proj ${open?"open":""}" data-pid="${p.id}">
+      <button type="button" class="ap-head" data-toggle="${p.id}" aria-expanded="${open}"><span class="ap-n">${i+1}</span><span class="ap-t"><b>${esc(p.title||"Untitled project")}</b><small>${esc([p.org,p.start&&p.start.replace("-","/")+" – "+(p.end?p.end.replace("-","/"):"present"),mo?mo+" months":""].filter(Boolean).join(" · "))}</small></span>
+       <span class="ap-wc ${n>=200&&n<=500?"ok":n>500?"bad":""}">${n} words</span><span class="ap-chev" aria-hidden="true">›</span></button>
+      ${open?`<div class="ap-body">
+       <div class="fgrid2">
+        <label class="wide">Project title<input data-f="title" value="${esc(p.title)}" placeholder="e.g. Overseas Deployment of 220 Personnel and Equipment"></label>
+        <label>Organization<input data-f="org" value="${esc(p.org)}" placeholder="e.g. U.S. Army"></label>
+        <label>Your job title<input data-f="job" value="${esc(p.job)}"></label>
+        <label>Start<input type="month" data-f="start" value="${esc(p.start)}"></label>
+        <label>End<input type="month" data-f="end" value="${esc(p.end)}"></label>
+        <label>Functional reporting area<select data-f="area">${APP_AREA.map(x=>`<option ${x===p.area?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label>Organization primary focus<select data-f="focus">${APP_FOCUS.map(x=>`<option ${x===p.focus?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label>Approach or methodology<select data-f="method">${APP_METHOD.map(x=>`<option ${x===p.method?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label>Team size<select data-f="team">${APP_TEAM.map(x=>`<option ${x===p.team?"selected":""}>${x}</option>`).join("")}</select></label>
+        <label>Budget<select data-f="budget">${APP_BUDGET.map(x=>`<option ${x===p.budget?"selected":""}>${x}</option>`).join("")}</select></label>
+       </div>
+       <h3>Project description</h3>
+       <div class="ap-build">
+        <label>Objective · "The objective of this project was to…"<textarea rows="2" data-f="obj">${esc(p.obj)}</textarea></label>
+        <label>Your role · "My role was…"<input data-f="role" value="${esc(p.role)}"></label>
+        <fieldset class="ap-resp"><legend>Your responsibilities · tick what you personally led</legend>${APP_RESP.map(g=>`<div><b>${esc(g[0])}</b>${g[1].map(x=>`<label class="ap-ck"><input type="checkbox" data-r="${esc(x)}" ${(p.resp||[]).includes(x)?"checked":""}> ${esc(x)}</label>`).join("")}</div>`).join("")}</fieldset>
+        <label>Anything else you did (optional)<textarea rows="2" data-f="extra" placeholder="e.g. Ran weekly sync meetings with 4 partner agencies and the sponsor.">${esc(p.extra)}</textarea></label>
+        <label>Key deliverable · "The key deliverable was…"<input data-f="deliv" value="${esc(p.deliv)}"></label>
+        <label>Outcome · "The outcome of the project was…"<textarea rows="2" data-f="outcome" placeholder="Give a number: on time, under budget, % improvement, people served.">${esc(p.outcome)}</textarea></label>
+       </div>
+       <div class="ap-out"><div class="ap-out-h"><b>Your description</b><span class="ap-wc ${n>=200&&n<=500?"ok":n>500?"bad":""}">${n} / 200–500 words</span></div>
+        <div class="ap-desc">${d?translateMil(d).html.replace(/<mark[^>]*>([^<]*)<\/mark>/g,"$1"):'<span class="muted">Fill in the parts above and your description builds here.</span>'}</div>
+        ${jh.length?`<p class="ap-jh"><b>Military jargon spotted:</b> ${jh.map(h=>`${esc(h[0])} → ${esc(h[1])}`).join(", ")}. <button class="btn sm" type="button" data-tr="${p.id}">Translate it</button></p>`:""}
+        <div class="actions"><button class="btn" type="button" data-copy="${p.id}">Copy</button><button class="btn primary" type="button" data-ai="${p.id}">Write it with Aron</button><button class="btn" type="button" data-del="${p.id}">Remove project</button></div></div>
+       <details class="ap-audit"><summary>Contact for audit (only needed if PMI audits you)</summary><div class="fgrid2">
+        <label>Name<input data-f="cn" value="${esc(p.cn)}"></label><label>Phone<input data-f="cp" value="${esc(p.cp)}"></label><label>Email<input data-f="ce" value="${esc(p.ce)}"></label><label>Organization address<input data-f="ca" value="${esc(p.ca)}"></label></div></details>
+      </div>`:""}</article>`;}).join("");
+    L.querySelectorAll("[data-toggle]").forEach(b=>b.onclick=()=>{st.open=st.open===b.dataset.toggle?null:b.dataset.toggle;save();list();});
+    const P=id=>st.projects.find(p=>p.id===id);
+    L.querySelectorAll(".ap-proj.open").forEach(card=>{const p=P(card.dataset.pid);
+      const refresh=()=>{const d=appDesc(p),n=wc(d);card.querySelector(".ap-desc").innerHTML=d?esc(d):'<span class="muted">Fill in the parts above and your description builds here.</span>';card.querySelectorAll(".ap-wc").forEach(w=>{w.className="ap-wc "+(n>=200&&n<=500?"ok":n>500?"bad":"");w.textContent=w.closest(".ap-out")?n+" / 200–500 words":n+" words";});};
+      card.querySelectorAll("[data-f]").forEach(i=>{i.oninput=()=>{p[i.dataset.f]=i.value;save();refresh();if(["start","end"].includes(i.dataset.f))elig();};i.onchange=()=>{if(["title","org","start","end"].includes(i.dataset.f))list();};});
+      card.querySelectorAll("[data-r]").forEach(c=>c.onchange=()=>{const r=c.dataset.r;p.resp=(p.resp||[]).filter(x=>x!==r);if(c.checked){const order=APP_RESP.flatMap(g=>g[1]);p.resp.push(r);p.resp.sort((a,b)=>order.indexOf(a)-order.indexOf(b));}save();refresh();});
+    });
+    L.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copyBtn(b,appDesc(P(b.dataset.copy))));
+    L.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>{const p=P(b.dataset.tr);["title","obj","role","extra","deliv","outcome"].forEach(k=>{if(p[k])p[k]=translateMil(p[k]).plain;});save();list();});
+    L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(b.textContent!=="Confirm remove"){b.textContent="Confirm remove";return;}st.projects=st.projects.filter(p=>p.id!==b.dataset.del);save();list();elig();});
+    L.querySelectorAll("[data-ai]").forEach(b=>b.onclick=()=>{const p=P(b.dataset.ai);
+      send(`Help me write the project description for my PMP application. Translate any military jargon into civilian project management language. Keep it truthful: don't invent numbers; mark gaps like [#] for me to fill. Use first person, past tense, 200 to 500 words, in this order: objective, my role, my responsibilities across initiating, planning, executing, monitoring and controlling, and closing, the key deliverable, and the outcome. Then list any PMI application fields I should double-check.\n\nProject title: ${p.title}\nOrganization: ${p.org}\nJob title: ${p.job}\nDates: ${p.start||"?"} to ${p.end||"?"}\nFunctional area: ${p.area}\nPrimary focus: ${p.focus}\nMethodology: ${p.method}\nTeam size: ${p.team}\nBudget: ${p.budget}\n\nMy draft:\n${appDesc(p)||"(empty: ask me questions first)"}`,"Help me write my PMP project description: "+(p.title||"untitled"));});
+  };
+  const add=(title,idea)=>{const p=newProject(title,idea);st.projects.push(p);st.open=p.id;save();list();elig();setTimeout(()=>{const c=document.querySelector(`[data-pid="${p.id}"]`);if(c){c.scrollIntoView({behavior:RM()?"auto":"smooth",block:"start"});const t=c.querySelector('[data-f="title"]');if(t)t.focus({preventScroll:true});}},60);};
+  elig();list();paintAron();
+  document.getElementById("ap-add").onclick=()=>add("");
+  el.querySelectorAll("[data-idea]").forEach(b=>b.onclick=()=>{const x=APP_IDEAS[+b.dataset.idea];add(x[2],x[2]);});
+  document.getElementById("ap-dl").onclick=()=>{const m=appMonths(st);
+    const txt=`PMP APPLICATION WORKSHEET\nMade with PMP/ACP Guide (Vets2PM)\n\nEducation: ${APP_EDU.find(e=>e[0]===st.edu)[1]}\n35 contact hours: ${st.hours?"yes":"not yet"}\nUnique months in the last 8 years: ${m} of ${req()} required\n\n`+st.projects.map((p,i)=>`PROJECT ${i+1}: ${p.title}\nOrganization: ${p.org}\nJob title: ${p.job}\nDates: ${p.start} to ${p.end} (${projMonths(p)} months)\nFunctional reporting area: ${p.area}\nOrganization primary focus: ${p.focus}\nApproach or methodology: ${p.method}\nTeam size: ${p.team}\nBudget: ${p.budget}\n\nDescription (${wc(appDesc(p))} words):\n${appDesc(p)}\n\nAudit contact: ${[p.cn,p.cp,p.ce,p.ca].filter(Boolean).join(", ")||"(add before submitting)"}\n`).join("\n----------------------------------------\n\n");
+    offerFile("pmp-application-worksheet.txt",txt,"text/plain",document.getElementById("ap-msg"));};
+}
+
+ARON_SVG=aronFace();
 
 async function renderClass(){
   const el=document.getElementById("view-class");
