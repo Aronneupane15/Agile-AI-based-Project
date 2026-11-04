@@ -746,13 +746,62 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .v2pm-badge .v2pm-chip{padding:4px 10px;border-radius:999px;background:#f5f5f7;color:#0b0b0f;font-size:13px}
 .v2pm-foot{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:22px 24px;margin-bottom:18px;border-radius:22px;background:linear-gradient(120deg,#0b0b0f,#1c2340);color:#f5f5f7;max-width:none}
 .v2pm-foot .v2pm-mark{font-size:28px}.v2pm-foot p{margin:2px 0 0;color:#c7c7cc;font-size:14px}.v2pm-foot b{font-size:17px;color:#fff}
+.v2pm-foot{grid-template-columns:auto minmax(0,1fr)}.v2pm-foot>.actions{grid-column:1/-1;justify-content:flex-end}
 .v2pm-foot .btn{background:#fff;color:#0b0b0f;border-color:#fff;white-space:nowrap}
 @media (max-width:640px){.v2pm-foot{grid-template-columns:1fr;text-align:left}}
 footer{max-width:none!important}footer>.ftxt{max-width:85ch}
+/* ---------- Vets2PM premium brand ---------- */
+.v2pm-badge{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:12px;justify-self:center;margin:0 auto 6px;padding:6px 16px 6px 6px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 10px 30px -14px rgba(41,151,255,.5);color:#f5f5f7;font:500 13px var(--f-body);transition:background .3s,transform .4s cubic-bezier(.2,.8,.2,1);animation:v2In .9s cubic-bezier(.2,.8,.2,1) both}
+.v2pm-badge:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
+.v2pm-badge:focus-visible{outline:2px solid #2997ff;outline-offset:3px}
+.v2pm-chip{position:relative;overflow:hidden;display:inline-grid;place-items:center;padding:6px 12px;border-radius:999px;background:linear-gradient(180deg,#ffffff,#eef1f7);box-shadow:inset 0 1px 0 #fff,0 2px 8px rgba(0,0,0,.25)}
+.v2pm-chip img{height:18px;width:auto;display:block}
+.sheen::after{content:"";position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%);transform:translateX(-120%);animation:sheen 6s cubic-bezier(.4,0,.2,1) 1.2s infinite;pointer-events:none;mix-blend-mode:soft-light}
+@keyframes sheen{0%{transform:translateX(-120%)}22%,100%{transform:translateX(120%)}}
+@keyframes v2In{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.v2pm-tiny{height:12px;width:auto;vertical-align:-1px;padding:2px 6px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+.v2pm-foot .v2pm-logo{display:inline-grid;place-items:center;padding:14px 18px;border-radius:18px;background:linear-gradient(180deg,#fff,#eef1f7);box-shadow:0 10px 30px -12px rgba(0,0,0,.6);position:relative;overflow:hidden}
+.v2pm-foot .v2pm-logo img{height:34px;width:auto;display:block}
+.rep-logo{height:22px;width:auto;display:block;margin-bottom:6px}
+/* Vets2PM tab */
+#view-vets2pm{display:grid;gap:64px}
+.v2-hero{text-align:center;display:grid;gap:18px;justify-items:center;padding:20px 0 0}
+.v2-logo-stage{perspective:900px}
+.v2-logo-card{position:relative;overflow:hidden;display:inline-grid;place-items:center;padding:clamp(18px,3vw,30px) clamp(24px,4vw,44px);border-radius:28px;background:linear-gradient(180deg,#fff,#f1f3f8);box-shadow:0 1px 0 #fff inset,0 30px 70px -30px rgba(10,30,80,.45),0 0 0 1px rgba(0,0,0,.04);animation:v2Float 7s ease-in-out infinite,v2In 1s cubic-bezier(.2,.8,.2,1) both;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.v2-logo-card:hover{transform:rotateX(6deg) rotateY(-8deg) scale(1.02)}
+.v2-logo-card img{width:min(520px,70vw);height:auto;display:block}
+@keyframes v2Float{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.v2-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media (max-width:560px){.v2-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.v2-stat{display:grid;gap:2px;text-align:center;padding:22px 12px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow)}
+.v2-stat b{white-space:nowrap;font:800 clamp(26px,2.6vw,38px)/1 var(--f-display);letter-spacing:-.04em;background:linear-gradient(90deg,#d71920,#2f3fa8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.v2-stat span{font-weight:600}.v2-stat small{color:var(--muted);font-size:13px}
+.v2-mv{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.v2-values,.v2-fund{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.v2-values h3,.v2-fund h3,.v2-prog h3,.v2-steps h3{margin:0;font:700 20px/1.2 var(--f-display);letter-spacing:-.02em}
+.v2-fund p,.v2-prog p,.v2-steps p{margin:0;color:var(--muted)}
+.v2-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;counter-reset:none}
+.v2-n{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:800 16px var(--f-display);color:#fff;background:linear-gradient(135deg,#d71920,#2f3fa8)}
+.v2-progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.v2-prog{align-content:start}.v2-prog .actions{margin-top:auto}
+.v2-dark{background:linear-gradient(135deg,#0b0b14,#141a3a 60%,#2a0f1a);color:#f5f5f7;border-radius:32px;padding:clamp(28px,5vw,56px)}
+.v2-dark .sec-head p,.v2-dark p{color:#c7c7cc}.v2-dark .eyebrow{color:#ff6b6b}
+.v2-careers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.v2-cc{padding:18px;border-radius:20px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.v2-cc h3{margin:0 0 4px;font:700 18px var(--f-display);color:#fff}.v2-cc p{margin:0;font-size:15px}
+.v2-trust{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.v2-tb{padding:10px 16px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font-size:14px}
+.v2-team{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.v2-person{grid-template-columns:48px 1fr;align-items:center}
+.v2-person>div{display:grid}.v2-person span:not(.v2-av){color:var(--muted);font-size:14px}.v2-person small{color:var(--muted);font-size:12px}
+.v2-av{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:700 16px var(--f-body);color:#fff;background:linear-gradient(135deg,#d71920,#2f3fa8)}
+.v2-faq details{border-bottom:1px solid var(--line);padding:12px 0}.v2-faq summary{cursor:pointer;font-weight:600}.v2-faq p{margin:8px 0 0;color:var(--muted)}
+.teaser .v2-link{color:#64d2ff}
+@media (prefers-reduced-motion:reduce){.sheen::after,.v2-logo-card,.v2pm-badge{animation:none!important}}
+
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
-  <div class="brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2997ff"/><stop offset="1" stop-color="#7a5cff"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#lg1)"/><path d="M8 21l5-5 4 3 7-8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.2" fill="#fff"/></svg><div><h1>PMP/ACP Guide</h1><div class="tag"><span class="v2pm-by">by <b>Vets2PM</b></span> · <span id="track-name">PMP</span> track · <span id="sync">prototype</span></div></div></div>
+  <div class="brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2997ff"/><stop offset="1" stop-color="#7a5cff"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#lg1)"/><path d="M8 21l5-5 4 3 7-8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="11" r="2.2" fill="#fff"/></svg><div><h1>PMP/ACP Guide</h1><div class="tag"><span class="v2pm-by">by <img class="v2pm-tiny" src="img/vets2pm-logo.webp" alt="Vets2PM"></span> · <span id="track-name">PMP</span> track · <span id="sync">prototype</span></div></div></div>
   <nav aria-label="Views">
         <button id="nav-map" data-view="map" aria-current="true">Dashboard</button>
         <button id="nav-quizzes" data-view="quizzes">Quizzes</button>
@@ -761,6 +810,7 @@ footer{max-width:none!important}footer>.ftxt{max-width:85ch}
         <button id="nav-hub" data-view="hub">Study</button>
         <button id="nav-careers" data-view="careers">Careers</button>
         <button id="nav-community" data-view="community">Community</button>
+        <button id="nav-vets2pm" data-view="vets2pm">Vets2PM</button>
         <button id="nav-bank" data-view="bank">Question bank</button>
         <button id="nav-help" data-view="help">Help</button>
         <button id="nav-class" data-view="class" hidden>Class</button>
@@ -789,8 +839,9 @@ footer{max-width:none!important}footer>.ftxt{max-width:85ch}
     <div id="view-quizzes" hidden></div>
     <div id="view-careers" hidden></div>
     <div id="view-community" hidden></div>
+    <div id="view-vets2pm" hidden></div>
     <footer>
-      <div class="v2pm-foot"><span class="v2pm-logo"><span class="v2pm-mark">VETS<i>2</i>PM</span></span><div><b>Transform your military experience into a project management career.</b><p>PMP/ACP Guide is a Vets2PM learning platform for service members, veterans and military families. Vets2PM offers fast, affordable, live PMP certification training.</p></div><a class="btn" href="https://vets2pm.com/" target="_blank" rel="noopener">Visit Vets2PM</a></div>
+      <div class="v2pm-foot"><span class="v2pm-logo sheen"><img src="img/vets2pm-logo.webp" alt="Vets2PM"></span><div><b>Transform your military experience into a project management career.</b><p>PMP/ACP Guide is a Vets2PM learning platform for service members, veterans and military families. Vets2PM offers fast, affordable, live PMP certification training.</p></div><div class="actions"><button class="btn" type="button" data-go="vets2pm">About Vets2PM</button><a class="btn" href="https://vets2pm.com/" target="_blank" rel="noopener">Visit vets2pm.com</a></div></div>
       <div class="ftxt">PMP/ACP Guide, beta. Three separate tracks: PMP and PMI-ACP follow PMI's published exam content outlines (PMP July 2026: People 33%, Process 41%, Business Environment 26%; PMI-ACP 2024: Mindset 28%, Leadership 25%, Product 19%, Delivery 28%). PSM I follows the 2020 Scrum Guide and Scrum.org's focus areas; Scrum.org publishes no weights, so the app uses its own. Task names are paraphrased. All practice questions are original, not real exam questions. PMP, PMI-ACP and PMI are marks of the Project Management Institute; PSM and Scrum.org are marks of Scrum.org. This app is not affiliated with either. Aron, the AI coach, uses Claude on the viewer's own Claude account when the page is opened in Claude.
       </div><div id="credits"></div>
     </footer>
@@ -1670,8 +1721,8 @@ function renderBank(keepMsg){
 }
 
 function show(v){
-  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
-  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();
+  ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
+  if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();
   renderRails();window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
@@ -1716,7 +1767,8 @@ How to answer:
 - If asked to quiz the student, ask ONE scenario question with options A-D and wait for their answer before revealing it.
 - If unsure about an exact PMI rule or number, say so instead of guessing. Never claim to know real exam questions.
 - You help with anything the student asks: exam concepts, study plans, careers, certifications, translating military experience into project terms, resumes and interviews. Be honest and practical, and say when something should be confirmed with the certifier.
-- If asked about the app: it has a Community tab (question of the day, class scoreboard, chat room where students tag @Aron), exam check-in with a practice score report (AT/T/BT/NI), a Careers tab (military-to-project translator, how each industry uses predictive, agile or hybrid, career paths with optional certifications), an account profile, a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
+- About Vets2PM (the school behind this app; facts from vets2pm.com, Nov 2026): helps service members, veterans and spouses move into project management; licensed school since 2015; PMI Premier Authorized Training Partner, DoD SkillBridge provider, DoD COOL approved. Programs: PMP and CAPM (40 live hours, meets the 35-hour requirement), PMI-ACP with Scrum emphasis, PSM, the 8-week Master Project Leadership Workshop (Fort Bliss, Fort Campbell), group training, PDUs. Funding: Army CA, AF COOL, CG COOL, GI Bill (reimbursed after the PMP exam), MyCAA, VR&E, unit funds via SF-182. Career help: SkillBridge, job board, PurpleX, lifetime placement support. For prices, dates or anything not listed, point students to vets2pm.com.
+- If asked about the app: it has a Vets2PM tab, a Community tab (question of the day, class scoreboard, chat room where students tag @Aron), exam check-in with a practice score report (AT/T/BT/NI), a Careers tab (military-to-project translator, how each industry uses predictive, agile or hybrid, career paths with optional certifications), an account profile, a Dashboard (heat map, readiness), Practice modes (weak-area, review mistakes, hard mode, exam simulation, mixed), Case studies with exhibits, a Study hub (formulas, EVM calculator, diagram guides), a Question bank, and a Help center where students submit requests or report questions.
 Student data:
 `;
 function openDrawer(){
@@ -1821,8 +1873,8 @@ function initAI(){
 /* ---------- Shared bank, accounts and class view (db + user) ---------- */
 let DB=null,USER=null,UID=null,IS_ADMIN=false,sharedQs=null,classDocs=null,cloudRO=false,pendingDel=null,editId=null,saveT=null,saving=false,saveAgain=false;
 function cloudAdmin(){return !!(DB&&IS_ADMIN);}
-function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community"].find(v=>!document.getElementById("view-"+v).hidden);}
-function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else renderBand();}
+function currentView(){return ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm"].find(v=>!document.getElementById("view-"+v).hidden);}
+function rerender(){setTimeout(renderRails,0);const v=currentView();if(v==="map")renderMap();else if(v==="bank"){renderBand();renderBank(true);}else if(v==="class"){renderBand();renderClass();}else if(v==="cases")renderCases();else if(v==="quizzes")renderQuizzes();else if(v==="careers")renderCareers();else if(v==="community")renderCommunity();else if(v==="vets2pm")renderVets2PM();else renderBand();}
 function setSync(){
   const el=document.getElementById("sync");
   el.innerHTML=(DB&&UID&&!cloudRO?"progress saved to your account":"progress saved in this browser")+(IS_ADMIN&&DB?'<span class="role">Admin</span>':"");
@@ -2386,6 +2438,8 @@ function buildKB(){
   FORMULAS.forEach(f=>KB.push({h:f[0],b:f[1]+". "+f[2]}));
   TIMEBOX.forEach(r=>KB.push({h:`${r[0]} time-box`,b:r[1]+". "+r[2]}));
   FAQ.forEach(q=>KB.push({h:q[0],b:q[1]}));
+  KB.push({h:"About Vets2PM",b:V2PM.mission+" Licensed school since 2015. PMI Premier Authorized Training Partner and DoD SkillBridge provider. See the Vets2PM tab."});
+  V2PM.programs.forEach(p=>KB.push({h:"Vets2PM: "+p.n,b:p.d}));V2PM.funding.forEach(f=>KB.push({h:"Vets2PM funding: "+f[0],b:f[1]}));V2PM.faq.forEach(f=>KB.push({h:"Vets2PM: "+f[0],b:f[1]}));V2PM.careers.forEach(c=>KB.push({h:"Vets2PM: "+c[0],b:c[1]}));
 }
 function toks(s){return String(s).toLowerCase().replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>2&&!STOP.has(w));}
 function offlineAnswer(text){
@@ -2434,9 +2488,9 @@ document.addEventListener("keydown",e=>{
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();show(g.dataset.go);}const a=e.target.closest("#acct");if(a)openProfile(a);});
 
 /* ---------- Round 4: student search + side rails ---------- */
-const SR_TYPES={topic:["Study topics","📘"],video:["Videos","▶"],formula:["Formulas and rules","∑"],diagram:["Diagrams","◧"],resource:["Library and official resources","📄"],career:["Careers","💼"],mil:["Military translator","★"],industry:["Industries","🏗"],cert:["Certifications","🎓"],case:["Case studies","🗂"],question:["Practice questions","?"],faq:["Help and FAQ","i"],tool:["Tools and features","⚙"]};
+const SR_TYPES={v2pm:["Vets2PM","★"],topic:["Study topics","📘"],video:["Videos","▶"],formula:["Formulas and rules","∑"],diagram:["Diagrams","◧"],resource:["Library and official resources","📄"],career:["Careers","💼"],mil:["Military translator","★"],industry:["Industries","🏗"],cert:["Certifications","🎓"],case:["Case studies","🗂"],question:["Practice questions","?"],faq:["Help and FAQ","i"],tool:["Tools and features","⚙"]};
 const SR_FILTERS=[["all","All"],["study","Study"],["video","Videos"],["career","Careers"],["question","Questions"],["resource","Resources"]];
-const SR_GROUP={topic:"study",formula:"study",diagram:"study",case:"study",video:"video",career:"career",mil:"career",industry:"career",cert:"career",question:"question",resource:"resource",faq:"resource",tool:"all"};
+const SR_GROUP={v2pm:"resource",topic:"study",formula:"study",diagram:"study",case:"study",video:"video",career:"career",mil:"career",industry:"career",cert:"career",question:"question",resource:"resource",faq:"resource",tool:"all"};
 let srFilter="all",srSel=0,SR=[];
 function flash(el){if(!el)return;el.scrollIntoView({behavior:RM()?"auto":"smooth",block:"center"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");}
 function goTo(view,sel,track){if(track&&track!==TRACK)setTrack(track,true);show(view);if(sel)setTimeout(()=>flash(document.querySelector(sel)),60);}
@@ -2461,6 +2515,11 @@ function srIndex(){
   FAQ.forEach(f=>add("faq",f[0],f[1],"help",o=>infoSheet("Help center",f[0],`<p class="lede">${esc(f[1])}</p>`,`<button class="btn" data-go="help">Open Help center</button>`,o)));
   [["Exam simulation","Timed, weighted by domain, like the real exam",()=>startQuiz("exam")],["Weak-area practice","Questions from the areas you miss most",()=>state.attempts.length?startQuiz("weak"):startQuiz("mixed")],["Review mistakes","Re-answer questions you got wrong",()=>reviewQueue().length?startQuiz("review"):show("map")],["Sprint quizzes","Quiz 1 to 4 and the difficulty check",()=>show("quizzes")],["Question bank","Every question in this track",()=>show("bank")],["Heat map and readiness","Your dashboard",()=>show("map")],["Create account or edit profile","Name, branch, exam date, career goal",o=>openProfile(o)],["Submit a help request","Ask an instructor or report a problem",()=>show("help")],["Careers","Military translator, industries and career paths",()=>show("careers")],["Scoreboard","Top scores on each exam and quiz",()=>show("community")],["Chat room","Discuss with classmates and Aron",()=>show("community")],["Question of the day","A daily challenge with a streak",()=>show("community")]]
     .forEach(([n,s,a])=>add("tool",n,s,"feature tool",a));
+  add("v2pm","About Vets2PM","Mission, programs, funding, SkillBridge, team and FAQ","vets2pm academy veterans school",()=>show("vets2pm"));
+  V2PM.programs.forEach(p=>add("v2pm",p.n,"Vets2PM program · "+p.t,p.d,null,{href:V2PM_URL+p.u}));
+  V2PM.funding.forEach(f=>add("v2pm",f[0],"Vets2PM funding · "+f[1],"funding pay benefits",()=>goTo("vets2pm",".v2-fund")));
+  V2PM.careers.forEach(c=>add("v2pm",c[0],"Vets2PM careers · "+c[1],"job career placement",()=>goTo("vets2pm",".v2-careers")));
+  V2PM.faq.forEach(f=>add("v2pm",f[0],"Vets2PM FAQ · "+f[1],"faq",()=>goTo("vets2pm",".v2-faq")));
   return I;
 }
 function srToks(s){return String(s).toLowerCase().replace(/[^a-z0-9+#.\- ]/g," ").split(/\s+/).filter(Boolean);}
@@ -2602,13 +2661,13 @@ function buildReport(){
 function reportBody(r){
   const p=r.c/r.n,L=levelOf(p),mins=Math.floor(r.secs/60),ss=r.secs%60;
   return `<div class="rep"><div class="rep-banner">PRACTICE REPORT · Not an official PMI or Scrum.org result</div>
-  <div class="rep-head"><div><div class="rep-brand">PMP/ACP Guide</div><div class="rep-sub">Practice Examination Score Report · a Vets2PM learning platform</div></div><div class="rep-id"><span>Report ID</span><b>${esc(r.id)}</b></div></div>
+  <div class="rep-head"><div><img class="rep-logo" src="${V2PM_DATA||V2PM_LOGO}" alt="Vets2PM"><div class="rep-brand">PMP/ACP Guide</div><div class="rep-sub">Practice Examination Score Report · a Vets2PM learning platform</div></div><div class="rep-id"><span>Report ID</span><b>${esc(r.id)}</b></div></div>
   <div class="rep-grid"><div><span>Candidate</span><b>${esc(r.name)}</b></div><div><span>Exam</span><b>${esc(r.full)} (${esc(r.track)}) practice</b></div><div><span>Session</span><b>${esc(r.title)}</b></div><div><span>Date</span><b>${esc(r.date)}</b></div><div><span>Questions</span><b>${r.c} of ${r.n} correct (${Math.round(p*100)}%)</b></div><div><span>Time used</span><b>${mins} min ${ss} s</b></div></div>
   <div class="rep-overall lv-${L[0]}"><span>Overall performance</span><b>${L[1]}</b><em>${L[0]}</em></div>
   <table class="rep-t"><thead><tr><th>Domain</th><th>Score</th>${LEVELS.map(l=>`<th title="${l[1]}">${l[0]}</th>`).join("")}</tr></thead><tbody>${r.domains.map(d=>{const dl=levelOf(d.c/d.n);return `<tr><td>${esc(d.name)}${d.weight?` <small>${Math.round(d.weight*100)}% of exam</small>`:""}</td><td>${d.c}/${d.n}</td>${LEVELS.map(l=>`<td class="${l[0]===dl[0]?"on lv-"+l[0]:""}">${l[0]===dl[0]?"●":""}</td>`).join("")}</tr>`;}).join("")}</tbody></table>
   <div class="rep-key"><b>Rating levels.</b> ${LEVELS.map(l=>`<span><b>${l[0]}</b> ${l[1]}${l[2]?` (${Math.round(l[2]*100)}%+)`:" (under 50%)"}</span>`).join(" · ")}. These bands are set by PMP/ACP Guide for practice and only estimate readiness. Real exam results are decided by the exam provider.</div></div>`;
 }
-const REPORT_CSS=`body{font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;color:#1d1d1f;margin:24px;background:#fff}.rep{max-width:760px;margin:0 auto;display:grid;gap:16px}.rep-banner{background:#fff4d6;color:#7a4b00;border:1px solid #f1c66b;border-radius:8px;padding:6px 10px;font:700 12px/1.3 inherit;letter-spacing:.06em;text-align:center}.rep-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #1d1d1f;padding-bottom:10px;gap:12px}.rep-brand{font:800 26px/1 inherit;letter-spacing:-.02em}.rep-sub{color:#6e6e73}.rep-id{text-align:right;display:grid}.rep-id span,.rep-grid span,.rep-overall span{font-size:12px;color:#6e6e73;text-transform:uppercase;letter-spacing:.06em}.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 20px}.rep-grid div{display:grid}.rep-overall{display:grid;grid-template-columns:1fr auto;align-items:center;border-radius:12px;padding:14px 18px;background:#f5f5f7}.rep-overall span{grid-column:1/3}.rep-overall b{font:800 28px/1.1 inherit}.rep-overall em{font:800 28px/1 inherit;font-style:normal}.lv-AT{color:#0a7d32}.lv-T{color:#0b63c5}.lv-BT{color:#b25000}.lv-NI{color:#c4161c}.rep-t{width:100%;border-collapse:collapse}.rep-t th,.rep-t td{border-bottom:1px solid #d2d2d7;padding:8px;text-align:center}.rep-t th:first-child,.rep-t td:first-child{text-align:left}.rep-t small{color:#6e6e73;display:block}.rep-t td.on{font-size:18px;background:#f5f5f7}.rep-key{font-size:13px;color:#424245}`;
+const REPORT_CSS=`body{font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;color:#1d1d1f;margin:24px;background:#fff}.rep{max-width:760px;margin:0 auto;display:grid;gap:16px}.rep-banner{background:#fff4d6;color:#7a4b00;border:1px solid #f1c66b;border-radius:8px;padding:6px 10px;font:700 12px/1.3 inherit;letter-spacing:.06em;text-align:center}.rep-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #1d1d1f;padding-bottom:10px;gap:12px}.rep-logo{height:22px;width:auto;display:block;margin-bottom:6px}.rep-brand{font:800 26px/1 inherit;letter-spacing:-.02em}.rep-sub{color:#6e6e73}.rep-id{text-align:right;display:grid}.rep-id span,.rep-grid span,.rep-overall span{font-size:12px;color:#6e6e73;text-transform:uppercase;letter-spacing:.06em}.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 20px}.rep-grid div{display:grid}.rep-overall{display:grid;grid-template-columns:1fr auto;align-items:center;border-radius:12px;padding:14px 18px;background:#f5f5f7}.rep-overall span{grid-column:1/3}.rep-overall b{font:800 28px/1.1 inherit}.rep-overall em{font:800 28px/1 inherit;font-style:normal}.lv-AT{color:#0a7d32}.lv-T{color:#0b63c5}.lv-BT{color:#b25000}.lv-NI{color:#c4161c}.rep-t{width:100%;border-collapse:collapse}.rep-t th,.rep-t td{border-bottom:1px solid #d2d2d7;padding:8px;text-align:center}.rep-t th:first-child,.rep-t td:first-child{text-align:left}.rep-t small{color:#6e6e73;display:block}.rep-t td.on{font-size:18px;background:#f5f5f7}.rep-key{font-size:13px;color:#424245}`;
 function reportDoc(r){return `<!doctype html><html><head><meta charset="utf-8"><title>Practice score report ${esc(r.id)}</title><style>${REPORT_CSS}</style></head><body>${reportBody(r)}</body></html>`;}
 function reportText(r){const p=r.c/r.n;return `PMP/ACP Guide - Practice Examination Score Report\nPRACTICE REPORT. Not an official PMI or Scrum.org result.\n\nReport ID: ${r.id}\nCandidate: ${r.name}\nExam: ${r.full} (${r.track}) practice\nSession: ${r.title}\nDate: ${r.date}\nScore: ${r.c} of ${r.n} correct (${Math.round(p*100)}%)\nOverall performance: ${levelOf(p)[1]} (${levelOf(p)[0]})\n\nBy domain:\n${r.domains.map(d=>`- ${d.name}: ${d.c}/${d.n}, ${levelOf(d.c/d.n)[1]} (${levelOf(d.c/d.n)[0]})`).join("\n")}\n\nRating levels: AT Above Target (80%+), T Target (65-79%), BT Below Target (50-64%), NI Needs Improvement (under 50%). Practice estimate only.`;}
 async function offerFile(filename,text,type,msg){
@@ -2747,12 +2806,71 @@ function initScrollFX(){
   window.addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(run);}},{passive:true});run();
 }
 
-/* Vets2PM branding: uses img/vets2pm-logo.png when present, else the wordmark */
-const V2PM_LOGO="img/vets2pm-logo.png";let v2pmImg=null;
-function v2pmMark(){return v2pmImg?`<img src="${V2PM_LOGO}" alt="Vets2PM">`:`<span class="v2pm-mark" aria-label="Vets2PM">VETS<i>2</i>PM</span>`;}
-function v2pmBadge(){return `<a class="v2pm-badge" href="https://vets2pm.com/" target="_blank" rel="noopener"><span class="v2pm-chip">${v2pmMark()}</span>A Vets2PM learning platform</a>`;}
-const V2PM_HAS_LOGO=false; /* set true after adding img/vets2pm-logo.png */
-if(V2PM_HAS_LOGO)(function(){const im=new Image();im.onload=()=>{v2pmImg=true;document.querySelectorAll(".v2pm-logo").forEach(e=>e.innerHTML=v2pmMark());try{renderBand();}catch(e){}};im.src=V2PM_LOGO;})();
+/* ---------- Vets2PM brand + tab (facts from vets2pm.com, November 2026) ---------- */
+const V2PM_LOGO="img/vets2pm-logo.webp";
+function v2pmMark(cls){return `<img class="${cls||""}" src="${V2PM_LOGO}" alt="Vets2PM" decoding="async">`;}
+function v2pmBadge(){return `<button class="v2pm-badge" type="button" data-go="vets2pm"><span class="v2pm-chip sheen">${v2pmMark()}</span>A Vets2PM learning platform</button>`;}
+const V2PM_URL="https://vets2pm.com/";
+const V2PM={
+ stats:[[18000,"+","candidates supported","in PurpleX"],[1300,"+","veterans placed","in new careers"],[1000,"+","partner companies","hiring graduates"],[100,"M+","in starting salaries","launched for graduates","$"],[5.0,"","Google rating","from 155 reviews","",1],[2015,"","licensed school since","licensed and audited",""]],
+ mission:"Recruit military members, veterans and spouses into cohorts, fund them through sources like SkillBridge, MyCAA, workforce grants and the GI Bill, teach them to translate and certify their experience, and help them land project management careers.",
+ vision:"Become the accredited vocational path for project management across Department of Defense installations, funded so students pay little or nothing.",
+ values:[["Integrity","Communication that is truthful, transparent and clear."],["Commitment","Keeping promises to students, teammates and the culture."],["Excellence","Owning work that is on time, accurate and accountable."]],
+ steps:[["Recruit","Service members, veterans and military spouses join a cohort."],["Fund","Use military and veteran benefits so training costs little or nothing."],["Train and certify","Live instruction for PMP, CAPM, PMI-ACP and PSM, built around military experience."],["Employ","Career services, SkillBridge internships, the job board and lifetime placement support."]],
+ programs:[
+  {n:"PMP and CAPM",t:"Certification prep",d:"Live, instructor-led classes online or in person at select locations. 40 actual hours that meet PMI's 35-hour education requirement. Most students study 1 to 2 hours a day for 3 to 6 weeks.",u:"pmp/",track:"pmp"},
+  {n:"PMI-ACP with Scrum emphasis",t:"Agile certification",d:"Agile and hybrid delivery with a Scrum focus, preparing for the PMI-ACP and Scrum Master credentials.",u:"acp/",track:"acp"},
+  {n:"PSM I",t:"Scrum Master",d:"Scrum Master preparation based on the Scrum Guide, offered alongside the agile program.",u:"acp/",track:"psm"},
+  {n:"Master Project Leadership Workshop",t:"8 weeks · full time",d:"A 60-day training and mentoring program that launches project management careers, with cohorts at Fort Bliss and Fort Campbell.",u:"mplw/"},
+  {n:"Group training",t:"For organizations",d:"On-site, collaborative project management training for teams, quoted to each organization's needs.",u:"organizations/"},
+  {n:"PDU catalog",t:"Keep your certification",d:"Courses that earn professional development units to maintain PMI certifications.",u:"pdu-courses/"}],
+ funding:[["Army Credentialing Assistance","Request an invoice to include with your credentialing goal."],["AF COOL","Follow the AF COOL handbook steps Vets2PM lays out."],["CG COOL and DoD COOL","Vets2PM is DoD COOL approved."],["GI Bill","Post-9/11 and Montgomery. Reimbursed after you take the PMP exam."],["MyCAA (SpouseWorks)","For eligible military spouses."],["VR&E","Veteran Readiness and Employment."],["Unit funds","An SF-182 routed through your commander and paid by Government Purchase Card."]],
+ careers:[["DoD SkillBridge","Vets2PM is a SkillBridge provider that matches interns with host employers in their last months of service."],["Job board","Project management openings from partner employers."],["PurpleX","A candidate database employers use to find trained veterans."],["Lifetime placement support","Free job placement help and lifetime access to course content."],["Mentorship","Mentoring through the Veteran Project Manager Mentor Alliance."],["Resume and interview help","Career services that help translate military experience for civilian hiring."]],
+ trust:["PMI Premier Authorized Training Partner","DoD SkillBridge Provider","DoD COOL Approved","GSA Contract Holder","Licensed by the Florida Commission for Independent Education","Kentucky Commission on Proprietary Education","Texas Workforce Commission"],
+ team:[["Eric \"Doc\" Wright","Founder","PhD, PMP, ACP, PSM"],["Jeremy Burdick","Chief Operating Officer","A&P, PMP"],["Kelly Wright","Director of Staff","CSM, CM"],["Cathy Miclat","Director of Career Services",""],["Aaron McEvers","Program Manager and Instructor, Fort Bliss MPLW","PMP, PMI-ACP, PSM I · Retired U.S. Army SFC"],["Frederick Claro","Program Manager and Instructor, Fort Bliss and Fort Campbell MPLW","PMP, PMI-ACP, PSM I"],["Garrik Dennis","Instructor","PhD, PMP, ACP, PSM · U.S. Army veteran"],["Max Rodgers","Instructor","PMP, PMI-ACP, PSM · Retired U.S. Navy CEC officer"]],
+ faq:[["How do classes work?","Live virtual classrooms with cameras, microphones and chat, or in-person classes at select locations. Both are highly interactive."],["How much time does it take?","The live course is 40 hours, which covers PMI's 35-hour requirement. Most students then study 1 to 2 hours a day for 3 to 6 weeks."],["Can I use the GI Bill?","Yes. With the GI Bill you're reimbursed after you take the PMP exam. Check the GI Bill page on vets2pm.com first."],["Does Vets2PM schedule my exam?","No. PMI must accept your application first, then you schedule the exam with Pearson VUE."],["Can my unit pay?","Yes. Use the SF-182 template and route it through your commander and resource advisor to the Government Purchase Cardholder."],["What happens after I'm certified?","Career services, SkillBridge internships, the job board and lifetime placement support help you land a project role."]],
+ links:[["Courses","courses/"],["Funding","funding/"],["SkillBridge","skillbridge/"],["Job board","job-board/"],["About","about/"],["FAQ","faq/"],["Contact","contact/"]]
+};
+function fmtStat(s){const [v,suf,lbl,,pre,dec]=s;if(String(lbl).startsWith("licensed"))return String(Math.round(v));return (pre??"")+(dec?Number(v).toFixed(1):Math.round(v).toLocaleString("en-US"))+suf;}
+function countUp(el){if(el.dataset.done)return;el.dataset.done="1";const s=V2PM.stats[+el.dataset.stat],end=s[0],dur=RM()?0:1400,t0=performance.now(),isYear=s[2].startsWith("licensed");
+  if(!dur||isYear){el.textContent=fmtStat(s);return;}
+  const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=fmtStat([end*e,...s.slice(1)]);if(k<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+let statIO=null;
+function wireStats(root){const els=root.querySelectorAll("[data-stat]");if(!("IntersectionObserver" in window)||RM()){els.forEach(countUp);return;}
+  if(!statIO)statIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);statIO.unobserve(e.target);}}),{threshold:.4});els.forEach(e=>statIO.observe(e));}
+function renderVets2PM(){
+  const el=document.getElementById("view-vets2pm");renderBand();const u=p=>esc(V2PM_URL+p);
+  el.innerHTML=`<section class="v2-hero"><div class="v2-logo-stage"><span class="v2-logo-card sheen">${v2pmMark()}</span></div>
+     <h2 class="mega">From service<br><span class="grad-t">to project leader.</span></h2>
+     <p class="lede">Vets2PM helps service members, veterans and military spouses turn military experience into project management careers, with live certification training, funding help and job placement.</p>
+     <div class="actions" style="justify-content:center"><a class="btn primary" href="${u("courses/")}" target="_blank" rel="noopener">Explore courses</a><a class="btn" href="${u("funding/")}" target="_blank" rel="noopener">See funding options</a><button class="btn ghost" data-askaron="Tell me about Vets2PM and which program fits me best based on my profile.">Ask Aron</button></div></section>
+   <section class="v2-stats">${V2PM.stats.map((s,i)=>`<div class="v2-stat reveal"><b class="num" data-stat="${i}">${fmtStat(s)}</b><span>${esc(s[2])}</span><small>${esc(s[3])}</small></div>`).join("")}</section>
+   <p class="label" style="text-align:center;margin:-36px 0 0">Figures as reported by Vets2PM.</p>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">Why Vets2PM</span><h2>Mission, vision and values.</h2></div>
+     <div class="v2-mv"><div class="card"><span class="eyebrow">Mission</span><p class="lede" style="color:var(--ink)">${esc(V2PM.mission)}</p></div><div class="card"><span class="eyebrow">Vision</span><p class="lede" style="color:var(--ink)">${esc(V2PM.vision)}</p></div></div>
+     <div class="v2-values">${V2PM.values.map(v=>`<div class="card"><h3>${esc(v[0])}</h3><p style="margin:0;color:var(--muted)">${esc(v[1])}</p></div>`).join("")}</div></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">How it works</span><h2>Four steps from uniform to career.</h2></div>
+     <ol class="v2-steps">${V2PM.steps.map((s,i)=>`<li class="card"><span class="v2-n">${i+1}</span><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p></li>`).join("")}</ol></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">Programs</span><h2>Train for the role you want.</h2><p>Every certification track in PMP/ACP Guide matches a Vets2PM program.</p></div>
+     <div class="v2-progs">${V2PM.programs.map(p=>`<article class="card v2-prog"><span class="eyebrow">${esc(p.t)}</span><h3>${esc(p.n)}</h3><p>${esc(p.d)}</p><div class="actions">${p.track?`<button class="btn primary sm" data-gotrack="${p.track}">Practice here</button>`:""}<a class="btn sm" href="${u(p.u)}" target="_blank" rel="noopener">Details on vets2pm.com</a></div></article>`).join("")}</div></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">Paying for it</span><h2>Use the benefits you earned.</h2></div>
+     <div class="v2-fund">${V2PM.funding.map(f=>`<div class="card"><h3>${esc(f[0])}</h3><p>${esc(f[1])}</p></div>`).join("")}</div></section>
+   <section class="sec v2-dark"><div class="sec-head"><span class="eyebrow">After certification</span><h2>Support until you're hired.</h2></div>
+     <div class="v2-careers">${V2PM.careers.map(c=>`<div class="v2-cc"><h3>${esc(c[0])}</h3><p>${esc(c[1])}</p></div>`).join("")}</div>
+     <div class="actions" style="justify-content:center"><a class="btn primary" href="${u("skillbridge/")}" target="_blank" rel="noopener">SkillBridge</a><a class="btn" href="${u("job-board/")}" target="_blank" rel="noopener">Job board</a></div></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">Credentials</span><h2>Licensed, approved and audited.</h2></div>
+     <div class="v2-trust">${V2PM.trust.map(t=>`<span class="v2-tb">✓ ${esc(t)}</span>`).join("")}</div></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">People</span><h2>Led by people who made the move.</h2></div>
+     <div class="v2-team">${V2PM.team.map(t=>`<div class="card v2-person"><span class="v2-av">${esc(t[0].replace(/"[^"]*"\s*/,"").split(" ").map(w=>w[0]).join("").slice(0,2))}</span><div><b>${esc(t[0])}</b><span>${esc(t[1])}</span>${t[2]?`<small>${esc(t[2])}</small>`:""}</div></div>`).join("")}</div>
+     <p class="label" style="text-align:center;margin:0"><a href="${u("about/")}" target="_blank" rel="noopener">Meet the full team on vets2pm.com</a></p></section>
+   <section class="sec"><div class="sec-head"><span class="eyebrow">Questions</span><h2>Good to know.</h2></div>
+     <div class="card faq v2-faq">${V2PM.faq.map(f=>`<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></section>
+   <section class="card teaser"><div><span class="eyebrow">Ready to start?</span><h2>Talk to Vets2PM.</h2><p>${V2PM.links.map(l=>`<a href="${u(l[1])}" target="_blank" rel="noopener" class="v2-link">${esc(l[0])}</a>`).join(" · ")}</p></div><a class="btn primary" href="${u("contact/")}" target="_blank" rel="noopener">Contact Vets2PM</a></section>
+   <p class="ainote" style="margin:0;text-align:center">Information from vets2pm.com, November 2026. Programs, funding and figures can change, so confirm details with Vets2PM before you enroll.</p>`;
+  wireStats(el);
+}
+
+let V2PM_DATA=null;try{if(/^https?:/.test(location.protocol))fetch(V2PM_LOGO).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const fr=new FileReader();fr.onload=()=>{V2PM_DATA=fr.result;};fr.readAsDataURL(b);}).catch(()=>{});}catch(e){}
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
