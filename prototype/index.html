@@ -1124,6 +1124,52 @@ body[data-view="linkedin"] .top,body[data-view="apply"] .top{display:none}
 #resume-pill em{font-style:normal;font-weight:700;color:var(--accent);white-space:nowrap}
 #resume-pill:focus-visible{outline:3px solid var(--accent)}
 @media (prefers-reduced-motion:reduce){#resume-pill i{animation:none}}
+/* ---------- Round 12: trends, next action, weekly progress, bottom nav ---------- */
+.trendp{display:grid;gap:8px;align-content:start;max-width:300px;width:100%}
+.tp-now{display:flex;align-items:center;gap:12px}
+.tp-now .big{font:700 58px/1 var(--f-display);letter-spacing:-.04em}
+.tp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 0;border-block:1px solid var(--band-line)}
+.tp-row>div{display:grid;gap:4px}.tp-row b{font-size:22px}
+.dlt{display:inline-flex;align-items:center;gap:5px;font:700 17px var(--f-data);justify-self:start}
+.dlt i{font-style:normal;font-size:12px}
+.dlt.up{color:#86d8ae}.dlt.down{color:#f39a8c}.dlt.n{color:var(--band-muted);font:500 13px var(--f-body)}
+.dlt-s{font-weight:700;white-space:nowrap}.dlt-s.up{color:#86d8ae}.dlt-s.down{color:#f39a8c}.dlt-s.n{color:var(--band-muted)}
+.tp-spark{width:100%;height:auto;display:block;margin-top:4px}
+.tp-cap{font-size:12px;color:var(--band-muted)}
+.nextact{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface) 60%)}
+.nextact h2{margin:4px 0 4px;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.025em;text-wrap:balance}
+.nextact p{margin:0;color:var(--muted);max-width:62ch}
+.na-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink)}
+.nextact .actions{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.wprog{display:grid;gap:16px}
+.wp-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.wp-kpis>div{display:grid;gap:2px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--ink) 4%,transparent)}
+.wp-kpis b{font-size:28px;line-height:1.1}.wp-kpis small{color:var(--muted);font-size:13px}
+.wp-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.wp-charts figure{margin:0;display:grid;gap:6px;min-width:0}
+.wp-charts figcaption{font-weight:600;font-size:14px}
+.wp-charts svg{width:100%;height:auto;display:block;overflow:visible}
+.wp-charts text{font:11px var(--f-body);fill:var(--muted)}
+.wbar:hover path{fill-opacity:1}
+.wp-tbl summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.wp-tbl table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}.wp-tbl th,.wp-tbl td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+#bnav{display:none}
+.more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.more-it{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:2px;padding:12px;border-radius:14px;border:1px solid var(--line)}
+.more-it span{font-size:12px;color:var(--muted)}.more-it:focus-visible{outline:2px solid var(--accent)}
+@media (max-width:820px){.trendp{max-width:none}.nextact{grid-template-columns:minmax(0,1fr)}.na-ic{display:none}.wp-charts{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .gnav nav{display:none}
+  #bnav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid color-mix(in srgb,var(--ink) 10%,transparent);padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+  #bnav button{all:unset;cursor:pointer;display:grid;justify-items:center;gap:2px;padding:4px 0;border-radius:10px;color:var(--muted);font:600 11px var(--f-body)}
+  #bnav button[aria-current="page"]{color:var(--accent)}
+  #bnav button:focus-visible{outline:2px solid var(--accent)}
+  body{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+  .fab{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  #resume-pill{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  .wp-kpis{grid-template-columns:minmax(0,1fr)}
+  .wp-charts text{font-size:17px}
+}
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -1461,8 +1507,8 @@ function gaugeSVG(v){
 function renderBand(){
   const st=stats(),[rc,rl]=rating(st.overall),rq=reviewQueue().length;
   const n=state.attempts.length,avg=n?state.attempts.reduce((s,a)=>s+(a.secs||0),0)/n:null;
-  const T=TRACKS[TRACK];let h=`<div class="hero-t">${v2pmBadge()}${helloLine()}<span class="eyebrow">${esc(T.full)} · ${esc(T.body)}</span><h2>Your <span style="white-space:nowrap">${esc(T.name)}</span> readiness.</h2><p>${esc(T.exam)} · ${esc(T.outline)}</p></div><div class="cmd"><div class="gauge">${gaugeSVG(st.overall)}<div class="read"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div></div><div class="bars">`;
-  DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm"><i class="ddot" style="background:var(--c-${D.id})"></i>${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
+  const T=TRACKS[TRACK];let h=`<div class="hero-t">${v2pmBadge()}${helloLine()}<span class="eyebrow">${esc(T.full)} · ${esc(T.body)}</span><h2>Your <span style="white-space:nowrap">${esc(T.name)}</span> readiness.</h2><p>${esc(T.exam)} · ${esc(T.outline)}</p></div><div class="cmd">${trendPanel(st,rc,rl)}<div class="bars">`;
+  DOMAINS.forEach(D=>{const x=st.d[D.id];h+=`<div class="bar"><div class="nm"><i class="ddot" style="background:var(--c-${D.id})"></i>${D.name}<small>${Math.round(D.weight*100)}% of exam · ${x.c}/${x.n} correct${dDelta(x.m,BAND_PREV?BAND_PREV.d[D.id].m:null)}</small></div><div class="track"><i style="width:${x.m===null?0:x.m*100}%;background:${x.m===null?"transparent":heat(x.m)}"></i><b style="left:${TARGET*100}%" title="Target"></b></div><div class="v num">${pct(x.m)}</div></div>`;});
   h+=`<div class="kpis">
     <div class="kpi"><span class="label">Answered</span><span class="v">${n}</span><span class="s">${state.bank.length} in bank</span></div>
     <div class="kpi"><span class="label">Coverage</span><span class="v">${st.tested}/${Object.keys(TASKS).length}</span><span class="s">task areas tried</span></div>
@@ -1498,6 +1544,7 @@ function renderMap(){
   const st=stats(),el=document.getElementById("view-map"),weak=weakTasks(st,3),gaps=untested(st),rq=reviewQueue();
   let h="";
   if(state.demo&&TRACK==="pmp")h+=`<div class="banner"><span>Showing example results from a made-up student so you can see how the map works. Your first answer replaces them.</span><button class="linkbtn" id="clear-demo">Clear example results</button></div>`;
+  h+=nextActionHTML(st)+weeklyHTML();
   // plan
   let steps="";
   if(!state.attempts.length)steps=`<li>Take a mixed practice set to draw your first map.</li><li>Then switch to weak-area practice; the map updates after every answer.</li>`;
@@ -1538,7 +1585,7 @@ function renderMap(){
   h+=`<section class="prog"><div class="card chart"><h2>Score by session</h2>${trendSVG()}</div>
     <div class="card"><h2>Recent sessions</h2>${ss.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Mode</th><th>Score</th><th>Pace</th></tr></thead><tbody>${ss.map(s=>`<tr><td class="num">${fmtD(s.ts)}</td><td>${esc(s.mode)}</td><td class="num">${s.c}/${s.n}</td><td class="num ${s.n&&s.secs/s.n>EXAM_PACE?"r1":""}">${s.n?Math.round(s.secs/s.n)+"s":"–"}</td></tr>`).join("")}</tbody></table></div>`:`<p style="margin:0;color:var(--muted)">No sessions yet.</p>`}</div></section>`;
   h+=renderFields()+`<section class="fields-sec"><div class="sec-head"><span class="eyebrow">Three tracks</span><h2>Choose your exam.</h2><p>PMP, PMI-ACP and PSM I are separate programs here, each with its own questions, heat map and progress.</p></div>${renderTrackCards()}</section>`;
-  el.innerHTML=h;
+  el.innerHTML=h;wireNextAction();
   const cd=document.getElementById("clear-demo");if(cd)cd.onclick=()=>{clearDemo();save();renderMap();};
   const on=(id,fn)=>{const b=document.getElementById(id);b.onclick=()=>{if(b.getAttribute("aria-disabled")!=="true")fn();};};
   on("go-weak",()=>startQuiz("weak"));wireSession();on("go-review",()=>startQuiz("review"));on("go-exam",()=>startQuiz("exam"));on("go-mixed",()=>startQuiz("mixed"));if(document.getElementById("go-hard"))on("go-hard",()=>startQuiz("hard"));document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>startQuiz("level",+b.dataset.level));if(document.getElementById("go-cases"))on("go-cases",()=>show("cases"));
@@ -1552,7 +1599,7 @@ function weightedPick(pool,size,wf){
 }
 function pick(mode,task){
   const st=stats(),seen={},missedSet=new Set(reviewQueue().map(q=>q.id));state.attempts.forEach(a=>seen[a.qid]=1);
-  if(mode==="task")return weightedPick(state.bank.filter(q=>q.task===task),5,q=>missedSet.has(q.id)?2:1);
+  if(mode==="task")return weightedPick(state.bank.filter(q=>q.task===task),TASK_N,q=>missedSet.has(q.id)?2:1);
   if(mode==="review")return weightedPick(reviewQueue(),10,()=>1);
   if(mode==="mixed")return weightedPick(state.bank,10,()=>1);
   if(mode==="hard")return weightedPick(state.bank.filter(q=>(q.diff||1)>=3),10,q=>q.diff===4?2:1);
@@ -2060,7 +2107,7 @@ function show(v){
   ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai","linkedin","apply"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
   if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();if(v==="ai")renderAI();if(v==="linkedin")renderLinkedIn();if(v==="apply")renderApply();
   const nb=document.getElementById("nav-"+v);if(nb&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"nearest"});}catch(e){}
-  renderRails();paintResume();window.scrollTo(0,0);
+  renderRails();paintResume();if(v!=="map")bnProgress=false;paintBottomNav(bnProgress?"progress":null);window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
 
@@ -3750,6 +3797,103 @@ function paintResume(){
 }
 addEventListener("pagehide",saveQuiz);document.addEventListener("visibilitychange",()=>{if(document.hidden)saveQuiz();});
 
+/* ---------- Round 12: trends, next action, weekly progress, mobile bottom nav ---------- */
+const WEEK=7*864e5;let BAND_PREV=null,TASK_N=5;
+const lc1=s=>s?s[0].toLowerCase()+s.slice(1):s;
+function weekStart(t){const d=new Date(t);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime();}
+function weeklyData(n){
+  const ws=weekStart(Date.now()),A=state.attempts,out=[];
+  for(let i=n-1;i>=0;i--){const s=ws-i*WEEK,e=s+WEEK,inW=A.filter(a=>a.ts>=s&&a.ts<e),upto=A.filter(a=>a.ts<e);
+    out.push({s,e,n:inW.length,c:inW.filter(a=>a.ok).length,ready:upto.length?stats(upto).overall:null});}
+  return out;
+}
+const wkLabel=t=>new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric"});
+function deltaChip(d){if(d===null||d===undefined||isNaN(d))return `<span class="dlt n">No answers yet 7 days ago</span>`;const v=Math.round(d*100);
+  return `<span class="dlt ${v>0?"up":v<0?"down":"n"}"><i aria-hidden="true">${v>0?"▲":v<0?"▼":"●"}</i>${v>0?"+":v<0?"−":""}${Math.abs(v)} pts</span>`;}
+function dDelta(now,prev){if(now===null||prev===null||prev===undefined)return "";const v=Math.round((now-prev)*100);if(!v)return `<br><span class="dlt-s n">no change in 7 days</span>`;
+  return `<br><span class="dlt-s ${v>0?"up":"down"}">${v>0?"▲ +":"▼ −"}${Math.abs(v)} pts in 7 days</span>`;}
+function sparkSVG(wk){
+  const W=280,H=70,L=4,R=8,T=8,B=8,x=i=>L+(W-L-R)*i/(wk.length-1),y=v=>T+(H-T-B)*(1-v);
+  const pts=wk.map((w,i)=>w.ready===null?null:[x(i),y(w.ready)]);let d="",pen=false;pts.forEach(p=>{if(!p){pen=false;return;}d+=(pen?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)+" ";pen=true;});
+  const last=pts.filter(Boolean).pop();
+  return `<svg class="tp-spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="Readiness at the end of each of the last ${wk.length} weeks">
+   <line x1="${L}" x2="${W-R}" y1="${y(TARGET)}" y2="${y(TARGET)}" stroke="var(--brass)" stroke-dasharray="3 4" stroke-width="1.5"/>
+   ${d?`<path d="${d}" fill="none" stroke="var(--band-ink)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`:""}
+   ${pts.map((p,i)=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="${p===last?4.5:2.5}" fill="${p===last?"var(--band-ink)":"var(--band)"}" stroke="var(--band-ink)" stroke-width="1.5"><title>Week of ${wkLabel(wk[i].s)}: ${pct(wk[i].ready)}</title></circle>`:"").join("")}</svg>`;
+}
+function trendPanel(st,rc,rl){
+  const prevA=state.attempts.filter(a=>a.ts<Date.now()-WEEK),ps=prevA.length?stats(prevA):null;BAND_PREV=ps;
+  const prev=ps?ps.overall:null,d=prev===null||st.overall===null?null:st.overall-prev;
+  return `<div class="trendp"><span class="label">Readiness now</span>
+   <div class="tp-now"><span class="big num">${pct(st.overall)}</span><span class="pill ${rc}">${rl}</span></div>
+   <div class="tp-row"><div><span class="label">7 days ago</span><b class="num">${pct(prev)}</b></div><div><span class="label">7-day change</span>${deltaChip(d)}</div></div>
+   ${sparkSVG(weeklyData(8))}<span class="tp-cap">Last 8 weeks · dashed line is the ${TARGET*100}% target</span></div>`;
+}
+function nextAction(st){
+  const nm=id=>TASKS[id].name,cnt=id=>Math.min(15,state.bank.filter(q=>q.task===id).length);
+  if(!state.attempts.length)return {k:"Start here",h:"Take your first 10-question practice set",s:"It draws your heat map, so the app can tell you exactly what to study next.",b:"Start 10 questions",go:()=>startQuiz("mixed")};
+  const w=weakTasks(st,1)[0];
+  if(w){const n=cnt(w.id);return {k:"Your next action",h:`Complete ${n} questions on ${lc1(nm(w.id))}`,s:`This is your weakest area: ${pct(w.m)} mastery from ${w.n} answers in ${domOf(w.id).name}. The target is ${TARGET*100}%.`,b:`Start ${n} questions`,go:()=>{TASK_N=n;startQuiz("task",w.id);TASK_N=5;},b2:`Review ${lc1(nm(w.id))} with Aron`,go2:()=>send(`Teach me ${nm(w.id)} in 5 minutes for the ${TRACKS[TRACK].name} exam, with one military example, then give me 2 practice questions.`,`Review ${nm(w.id)}`)};}
+  const rq=reviewQueue();
+  if(rq.length){const n=Math.min(10,rq.length);return {k:"Your next action",h:`Re-answer ${n} missed question${n>1?"s":""}`,s:"Fix mistakes while they're fresh. Missed questions are the fastest points you can win back.",b:`Start ${n} questions`,go:()=>startQuiz("review")};}
+  const g=untested(st)[0];
+  if(g){const n=cnt(g);return {k:"Your next action",h:`Try ${n} questions on ${lc1(nm(g))}`,s:"You haven't answered anything in this area yet, so it's a blank spot on your heat map.",b:`Start ${n} questions`,go:()=>{TASK_N=n;startQuiz("task",g);TASK_N=5;}};}
+  return {k:"Your next action",h:"Run a full exam simulation",s:"Every area you've tested is at target. Check that it holds up under time pressure.",b:"Start the exam",go:()=>startQuiz("exam")};
+}
+function nextActionHTML(st){const a=nextAction(st);NEXT_ACT=a;
+  return `<section class="card nextact" aria-label="Next action"><span class="na-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+   <div><span class="eyebrow">${esc(a.k)}</span><h2>${esc(a.h)}</h2><p>${esc(a.s)}</p></div>
+   <div class="actions"><button class="btn primary" type="button" id="na-go">${esc(a.b)}</button>${a.b2?`<button class="btn" type="button" id="na-go2">${esc(a.b2)}</button>`:""}</div></section>`;}
+let NEXT_ACT=null;
+function wireNextAction(){const a=NEXT_ACT;if(!a)return;const b=document.getElementById("na-go");if(b)b.onclick=a.go;const c=document.getElementById("na-go2");if(c)c.onclick=a.go2;}
+function weeklyHTML(){
+  const wk=weeklyData(8),maxN=Math.max(5,...wk.map(w=>w.n)),cur=wk[wk.length-1],prev=wk[wk.length-2];
+  const W=520,H=180,L=34,R=10,T=14,B=26,bw=(W-L-R)/wk.length,y1=v=>T+(H-T-B)*(1-v/maxN),y2=v=>T+(H-T-B)*(1-v);
+  const step=maxN<=10?2:maxN<=40?10:maxN<=100?20:50,top=Math.ceil(maxN/step)*step;const y1t=v=>T+(H-T-B)*(1-v/top);
+  let a=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Questions answered per week">`;
+  for(let v=0;v<=top;v+=step)a+=`<line x1="${L}" x2="${W-R}" y1="${y1t(v)}" y2="${y1t(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y1t(v)+4}" text-anchor="end">${v}</text>`;
+  wk.forEach((w,i)=>{const x=L+i*bw+bw*.2,wd=bw*.6,yy=y1t(w.n),h=Math.max(0,H-B-yy),acc=w.n?Math.round(w.c/w.n*100):null;
+    a+=`<g class="wbar"><rect x="${L+i*bw}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent"/>${h?`<path d="M${x} ${H-B}V${yy+4}q0-4 4-4h${wd-8}q4 0 4 4V${H-B}Z" fill="var(--accent)" ${i===wk.length-1?"":'fill-opacity=".55"'}/>`:""}<title>Week of ${wkLabel(w.s)}: ${w.n} answered${acc!==null?", "+acc+"% correct":""}</title></g>`;
+    a+=`<text x="${L+i*bw+bw/2}" y="${H-8}" text-anchor="middle">${i===wk.length-1?"This wk":wkLabel(w.s)}</text>`;});
+  a+="</svg>";
+  let r=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Readiness at the end of each week">`;
+  [0,.25,.5,.75,1].forEach(v=>r+=`<line x1="${L}" x2="${W-R}" y1="${y2(v)}" y2="${y2(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y2(v)+4}" text-anchor="end">${v*100}</text>`);
+  r+=`<line x1="${L}" x2="${W-R}" y1="${y2(TARGET)}" y2="${y2(TARGET)}" stroke="var(--brass)" stroke-dasharray="4 4" stroke-width="1.5"/><text x="${L+6}" y="${y2(TARGET)-5}" text-anchor="start" style="fill:var(--brass)">target ${TARGET*100}</text>`;
+  const px=i=>L+i*bw+bw/2,pts=wk.map((w,i)=>w.ready===null?null:[px(i),y2(w.ready)]);let d="",pen=false;pts.forEach(p=>{if(!p){pen=false;return;}d+=(pen?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)+" ";pen=true;});
+  if(d)r+=`<path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+  pts.forEach((p,i)=>{if(p)r+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i===wk.length-1?5:4}" fill="${i===wk.length-1?"var(--accent)":"var(--surface)"}" stroke="var(--accent)" stroke-width="2"><title>Week of ${wkLabel(wk[i].s)}: ${pct(wk[i].ready)}</title></circle>`;
+    r+=`<text x="${px(i)}" y="${H-8}" text-anchor="middle">${i===wk.length-1?"This wk":wkLabel(wk[i].s)}</text>`;});
+  r+="</svg>";
+  const lastR=pts.filter(Boolean).length?wk.filter(w=>w.ready!==null).pop().ready:null;
+  return `<section class="card wprog" id="progress" aria-label="Weekly progress"><div class="mapbar"><h2>Weekly progress</h2><span class="label">Last 8 weeks</span></div>
+   <div class="wp-kpis"><div><span class="label">This week</span><b class="num">${cur.n}</b><small>questions answered</small></div><div><span class="label">Accuracy this week</span><b class="num">${cur.n?Math.round(cur.c/cur.n*100)+"%":"–"}</b><small>${prev.n?"last week "+Math.round(prev.c/prev.n*100)+"%":"no answers last week"}</small></div><div><span class="label">Readiness</span><b class="num">${pct(lastR)}</b><small>at the end of this week so far</small></div></div>
+   <div class="wp-charts"><figure><figcaption>Questions answered</figcaption>${a}</figure><figure><figcaption>Readiness at week end</figcaption>${r}</figure></div>
+   <details class="wp-tbl"><summary>Show as a table</summary><div class="tablewrap"><table><thead><tr><th>Week of</th><th>Answered</th><th>Correct</th><th>Readiness</th></tr></thead><tbody>${wk.map(w=>`<tr><td>${wkLabel(w.s)}</td><td class="num">${w.n}</td><td class="num">${w.n?Math.round(w.c/w.n*100)+"%":"–"}</td><td class="num">${pct(w.ready)}</td></tr>`).join("")}</tbody></table></div></details></section>`;
+}
+/* mobile bottom nav */
+const BN=[["map","Dashboard",'<path d="M4 13h6V4H4zM14 20h6v-9h-6zM4 20h6v-4H4zM14 4v4h6V4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'],
+ ["quiz","Practice",'<path d="M9 11l3 3 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+ ["hub","Study",'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'],
+ ["progress","Progress",'<path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'],
+ ["more","More",'<circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/>']];
+let bnProgress=false;
+function initBottomNav(){
+  if(document.getElementById("bnav"))return;
+  const n=document.createElement("nav");n.id="bnav";n.setAttribute("aria-label","Main");
+  n.innerHTML=BN.map(b=>`<button type="button" data-bn="${b[0]}"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">${b[2]}</svg><span>${b[1]}</span></button>`).join("");
+  document.body.appendChild(n);
+  n.querySelectorAll("[data-bn]").forEach(b=>b.onclick=()=>{const v=b.dataset.bn;
+    if(v==="more")return openMore(b);
+    if(v==="progress"){bnProgress=true;show("map");setTimeout(()=>{const p=document.getElementById("progress");if(p)p.scrollIntoView({behavior:RM()?"auto":"smooth",block:"start"});},60);paintBottomNav("progress");return;}
+    bnProgress=false;show(v);});
+}
+function paintBottomNav(force){const v=force||currentView(),main=["map","quiz","hub"];
+  document.querySelectorAll("#bnav [data-bn]").forEach(b=>{const k=b.dataset.bn,on=force?k===force:(k===v&&!(k==="map"&&bnProgress))||(k==="more"&&!main.includes(v));b.setAttribute("aria-current",on?"page":"false");});}
+function openMore(origin){
+  const items=[["quizzes","Quizzes","Quiz 1 to 4 and the difficulty check"],["cases","Case studies","Scenarios with exhibits"],["bank","Question bank","Every question in this track"],["careers","Careers","Military translator and career paths"],["linkedin","LinkedIn","Headline, About and a sample profile"],["apply","PMP application","Eligibility and project descriptions"],["community","Community","Scoreboard, chat and question of the day"],["ai","Aron AI","Meet your AI coach"],["vets2pm","Vets2PM","Programs, funding and team"],["help","Help","FAQ and support requests"]];
+  openSheet(`<span class="eyebrow">More</span><h2 class="sheet-h">Everything else</h2><div class="more-grid">${items.map(i=>`<button type="button" class="more-it" data-go="${i[0]}"><b>${esc(i[1])}</b><span>${esc(i[2])}</span></button>`).join("")}</div>`,origin,"More");
+}
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
@@ -3810,6 +3954,6 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");i
 loadProfile();paintAcct();initScrollFX();initReveal();
 initCloud();
 initAI();
-load();restoreQuiz();paintAron();renderCredits();show("map");
+load();restoreQuiz();initBottomNav();paintAron();renderCredits();show("map");
 })();
 </script>
