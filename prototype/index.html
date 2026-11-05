@@ -1118,6 +1118,12 @@ body[data-view="linkedin"] .top,body[data-view="apply"] .top{display:none}
 @media (max-width:760px){.tool-hero,.ap-capm{grid-template-columns:minmax(0,1fr)}.fgrid2{grid-template-columns:minmax(0,1fr)}.ap-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.ap-badge{display:none}.li-top{grid-template-columns:minmax(0,1fr)}.li-out{grid-template-columns:minmax(0,1fr) auto}.li-out p{grid-column:1/-1}.ap-head{grid-template-columns:32px minmax(0,1fr) 18px}.ap-head .ap-wc{display:none}}
 @media (prefers-reduced-motion:reduce){.afig *{transition:none!important;animation:none!important}}
 .gnav .brand{flex:none}.gnav .brand small,.gnav .brand .sub{white-space:nowrap}
+#resume-pill{all:unset;box-sizing:border-box;cursor:pointer;position:fixed;z-index:45;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;gap:12px;align-items:center;padding:10px 16px 10px 12px;border-radius:999px;background:var(--surface);color:var(--ink);box-shadow:0 10px 30px -8px rgba(0,0,0,.35),0 0 0 1px var(--line);max-width:calc(100vw - 32px - 150px)}
+#resume-pill i{width:10px;height:10px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 4px color-mix(in srgb,var(--warn) 25%,transparent);flex:none;animation:led 1.4s steps(2) infinite}
+#resume-pill span{display:grid;min-width:0}#resume-pill b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#resume-pill small{font-size:12px;color:var(--muted);white-space:nowrap}
+#resume-pill em{font-style:normal;font-weight:700;color:var(--accent);white-space:nowrap}
+#resume-pill:focus-visible{outline:3px solid var(--accent)}
+@media (prefers-reduced-motion:reduce){#resume-pill i{animation:none}}
 </style>
 
 <div class="gnav gut"><div class="inner gnav-in">
@@ -1285,7 +1291,7 @@ function setTrack(t,quiet){
   document.querySelectorAll("[data-track]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.track===t));
   const tn=document.getElementById("track-name");if(tn)tn.textContent=T.name;
   try{localStorage.setItem(KEY+"-track",t);}catch(e){}
-  if(quiz&&!quiz.done){stopTimer();quiz=null;}
+  if(quiz&&!quiz.done){stopTimer();quiz=null;saveQuiz();}
   if(!quiet){const v=currentView();if(v==="hub")renderHub();else if(v==="quiz"){renderBand();renderQuiz();}else if(v==="help")renderBand();else rerender();}
 }
 
@@ -1568,9 +1574,11 @@ function startQuizNow(mode,task){
   if(quiz.exam)timerId=setInterval(tick,1000);
   show("quiz");
 }
+let tickN=0;
 function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
 function tick(){
   if(!quiz||quiz.done)return stopTimer();
+  if(++tickN%10===0)saveQuiz();
   const left=quiz.limit-(Date.now()-quiz.start)/1000,el=document.getElementById("timer");
   if(el){el.textContent=fmtT(left);el.classList.toggle("low",left<60);}
   if(left<=0)finish();
@@ -1748,6 +1756,7 @@ function renderCasePanel(c,open){
 }
 
 function renderQuiz(){
+  saveQuiz();
   const el=document.getElementById("view-quiz");renderBand();
   if(!quiz){el.innerHTML=`<div class="card" style="max-width:720px"><h2>Pick a practice mode</h2><p style="margin:0">Choose a mode on the dashboard, or start one here.</p><div class="actions"><button class="btn primary" id="q-quizzes">Sprint quizzes</button><button class="btn" id="q-mixed">Mixed practice</button><button class="btn" id="q-hard">Advanced practice</button><button class="btn" id="q-exam">Exam simulation</button><button class="btn" id="q-cases">Case studies</button><button class="btn" id="q-weak" ${state.attempts.length?"":"disabled"}>Weak-area practice</button></div></div>`;
     document.getElementById("q-mixed").onclick=()=>startQuiz("mixed");document.getElementById("q-exam").onclick=()=>startQuiz("exam");document.getElementById("q-weak").onclick=()=>startQuiz("weak");document.getElementById("q-hard").onclick=()=>startQuiz("hard");document.getElementById("q-cases").onclick=()=>show("cases");document.getElementById("q-quizzes").onclick=()=>show("quizzes");return;}
@@ -1771,7 +1780,7 @@ function renderQuiz(){
   else foot=`${askBar}<p class="keys" style="margin:0">Press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer.</p>${report}`;
   const nav=quiz.exam?`<aside class="side card"><div class="qmeta"><span class="label">Time left</span><span class="timer num" id="timer">${quiz.done?"done":fmtT(quiz.limit-(Date.now()-quiz.start)/1000)}</span></div>
      <span class="label">${answered}/${quiz.qs.length} answered · ${quiz.flag.filter(Boolean).length} flagged</span>
-     <div class="navgrid">${quiz.qs.map((qq,k)=>{let c=k===i?"cur ":"";if(quiz.done)c+=quiz.picked[k]===qq.ans?"right":"wrong";else{if(quiz.picked[k]!==null)c+="done ";if(quiz.flag[k])c+="flag";}return `<button class="${c}" data-go="${k}" aria-label="Question ${k+1}">${k+1}</button>`;}).join("")}</div>
+     <div class="navgrid">${quiz.qs.map((qq,k)=>{let c=k===i?"cur ":"";if(quiz.done)c+=quiz.picked[k]===qq.ans?"right":"wrong";else{if(quiz.picked[k]!==null)c+="done ";if(quiz.flag[k])c+="flag";}return `<button class="${c}" data-qgo="${k}" aria-label="Question ${k+1}">${k+1}</button>`;}).join("")}</div>
      ${quiz.done?"":`<button class="btn primary" id="q-submit">${quiz.mode==="quiz"?"Submit quiz":"Submit exam"}</button><p class="keys" style="margin:0"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>←</kbd><kbd>→</kbd> move · <kbd>F</kbd> flag</p><p id="confirm" class="keys" hidden style="margin:0"></p>`}</aside>`:"";
   const c=q.case?CASE_BY[q.case]:null;
   const diff=q.diff?`<span class="diff d${q.diff}">${DIFF_NAME[q.diff]}</span>`:"";
@@ -1781,7 +1790,7 @@ function renderQuiz(){
    <div class="qhead"><span class="dchip" style="--dc:var(--c-${D.id})">${D.name}</span><span class="label" style="letter-spacing:.04em">${esc(t.name)}</span>${diff}</div>
    <p class="qtext">${esc(q.q)}</p>${q.fig?renderFig(q.fig):""}<div class="opts">${o}</div>${foot}</div>${nav}</div>`;
   el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
-  el.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go));
+  el.querySelectorAll("[data-qgo]").forEach(b=>b.onclick=()=>go(+b.dataset.qgo));
   el.querySelectorAll("[data-ask]").forEach(b=>b.onclick=()=>inlineAsk(b.dataset.ask));
   const cp=el.querySelector(".casepanel");if(cp)cp.ontoggle=()=>{quiz.caseOpen=cp.open;};
   const $=id=>document.getElementById(id);
@@ -2051,7 +2060,7 @@ function show(v){
   ["map","quizzes","quiz","cases","hub","bank","help","class","careers","community","vets2pm","ai","linkedin","apply"].forEach(x=>{document.getElementById("view-"+x).hidden=x!==v;document.getElementById("nav-"+x).setAttribute("aria-current",x===v);});
   if(v==="map")renderMap();if(v==="quiz")renderQuiz();if(v==="bank"){renderBand();renderBank();}if(v==="class"){renderBand();renderClass();}if(v==="cases")renderCases();if(v==="hub")renderHub();if(v==="help")renderHelp();if(v==="quizzes")renderQuizzes();if(v==="careers")renderCareers();if(v==="community")renderCommunity();if(v==="vets2pm")renderVets2PM();if(v==="ai")renderAI();if(v==="linkedin")renderLinkedIn();if(v==="apply")renderApply();
   const nb=document.getElementById("nav-"+v);if(nb&&nb.scrollIntoView)try{nb.scrollIntoView({block:"nearest",inline:"nearest"});}catch(e){}
-  renderRails();window.scrollTo(0,0);
+  renderRails();paintResume();window.scrollTo(0,0);
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.view));
 
@@ -2813,7 +2822,7 @@ document.addEventListener("keydown",e=>{
   if(t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||document.querySelector(".sheet-wrap")||examLocked())return;
   e.preventDefault();openDrawer();
 });
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();show(g.dataset.go);}const a=e.target.closest("#acct");if(a)openProfile(a);});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&document.getElementById("view-"+g.dataset.go)){const sw=document.querySelector(".sheet-wrap");if(sw)sw.querySelector(".sheet-x").click();show(g.dataset.go);}const a=e.target.closest("#acct");if(a)openProfile(a);});
 
 /* ---------- Round 4: student search + side rails ---------- */
 const SR_TYPES={v2pm:["Vets2PM","★"],topic:["Study topics","📘"],video:["Videos","▶"],formula:["Formulas and rules","∑"],diagram:["Diagrams","◧"],resource:["Library and official resources","📄"],career:["Careers","💼"],mil:["Military translator","★"],industry:["Industries","🏗"],cert:["Certifications","🎓"],case:["Case studies","🗂"],question:["Practice questions","?"],faq:["Help and FAQ","i"],tool:["Tools and features","⚙"]};
@@ -3728,6 +3737,19 @@ function renderApply(){
 
 ARON_SVG=aronFace();
 
+/* ---------- Save an exam in progress (survives leaving the tab, a reload or closing the page) ---------- */
+const QKEY=KEY+"-inprogress";
+function saveQuiz(){try{if(quiz&&quiz.exam&&!quiz.done){const o=Object.assign({},quiz,{elapsed:(Date.now()-quiz.start)/1000,track:TRACK,savedAt:Date.now()});delete o.review;localStorage.setItem(QKEY,JSON.stringify(o));}else localStorage.removeItem(QKEY);}catch(e){}paintResume();}
+function restoreQuiz(){try{const o=JSON.parse(localStorage.getItem(QKEY)||"null");if(!o||o.done||!Array.isArray(o.qs)||!o.qs.length)return;
+  if(o.track&&o.track!==TRACK&&typeof setTrack==="function")try{setTrack(o.track,true);}catch(e){}
+  o.start=Date.now()-(o.elapsed||0)*1000;o.shownAt=Date.now();quiz=o;stopTimer();timerId=setInterval(tick,1000);}catch(e){}}
+function paintResume(){
+  let b=document.getElementById("resume-pill");const on=quiz&&quiz.exam&&!quiz.done&&currentView()!=="quiz";
+  if(!b){if(!on)return;b=document.createElement("button");b.id="resume-pill";b.type="button";b.onclick=()=>show("quiz");document.body.appendChild(b);}
+  b.hidden=!on;if(on){const a=quiz.picked.filter(x=>x!==null).length,f=quiz.flag.filter(Boolean).length;b.innerHTML=`<i aria-hidden="true"></i><span><b>${esc(quiz.title)} in progress</b><small>${a}/${quiz.qs.length} answered${f?" · "+f+" flagged":""} · saved</small></span><em>Resume ›</em>`;}
+}
+addEventListener("pagehide",saveQuiz);document.addEventListener("visibilitychange",()=>{if(document.hidden)saveQuiz();});
+
 async function renderClass(){
   const el=document.getElementById("view-class");
   if(!cloudAdmin()){el.innerHTML=`<section class="card"><h2>Class</h2><p style="margin:0">Only admins can see the class view.</p></section>`;return;}
@@ -3788,6 +3810,6 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-track]");i
 loadProfile();paintAcct();initScrollFX();initReveal();
 initCloud();
 initAI();
-load();paintAron();renderCredits();show("map");
+load();restoreQuiz();paintAron();renderCredits();show("map");
 })();
 </script>
